@@ -11,6 +11,7 @@ public class Patient {
 	private String EmailOfHMO; 
 	private  ArrayList<Referral> Referrals; 
 	private InformationFromHMo inform ; 
+	private MedicalRecord medicalrecord ; 
 	
 	
 }

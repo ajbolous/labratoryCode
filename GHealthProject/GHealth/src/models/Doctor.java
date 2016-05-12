@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Doctor extends Person{
 	private String speciality;
 	private ArrayList<Shift> shifts;
+	private ArrayList<Treatment> treatment ; 
 
 	public String getSpeciality() {
 		return speciality;
