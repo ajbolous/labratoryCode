@@ -1,6 +1,7 @@
 package Server;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import com.mysql.jdbc.Driver;
 
@@ -61,6 +62,9 @@ public class Server extends AbstractServer {
 		Config cfg = Config.fromArgs(args);
 		
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
+		DbHandler db = cfg.getHandler();
+		db.createDataBase();
+
 		Server server = new Server(cfg.getPort());
 		server.listen();
 	}

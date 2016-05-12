@@ -7,9 +7,7 @@ public class Treatment {
 	private int Inum ; 
 	private Date BeginDate;
     private Date EndDate; 
-    private ArrayList<Visit> treatment ; 
-    private String  TreatmentReport;  //private TreatmentReport treatmentreport
-    
-	
-
+    private Doctor doctor;
+    private ArrayList<Visit> visits ; 
+    private String TreatmentReport;  //private TreatmentReport treatmentreport
 }

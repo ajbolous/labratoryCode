@@ -2,20 +2,16 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import Server.Config;
 import Utils.Logger;
+import models.*;
 
 public class DbHandler {
 
 	private Connection connection;
 	private Logger logger;
-    private PhysiciansHandler physicians;
     private DoctorsHandler doctors;
 	public DbHandler(String url, String username, String password) {
 		this.logger = Config.getConfig().getLogger();
@@ -30,15 +26,30 @@ public class DbHandler {
 			logger.exception(ex);
 		}
 
-		physicians = new PhysiciansHandler(connection);
 		doctors = new DoctorsHandler(connection);
 	}
 
-	public PhysiciansHandler getPhysicians() {
-		return physicians;
-
+	public boolean createDataBase(){
+		try {
+			Person.createTable(connection);
+		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
+		}
+		try {
+			Doctor.createTable(connection);
+		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
+		}
+		try {
+			Patient.createTable(connection);
+		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
+		}
+		return true;
 	}
-
+	public Connection getConnection(){
+		return connection;
+	}
 	public DoctorsHandler getDoctors() {
 		return doctors;
 	}

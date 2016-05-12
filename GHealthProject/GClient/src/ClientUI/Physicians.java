@@ -14,7 +14,7 @@ import Client.Client;
 import Client.Config;
 import Client.Resources;
 import Utils.Request;
-import models.Physician;
+import models.Doctor;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -50,22 +50,22 @@ public class Physicians {
 	private JTextField textField_1;
 	private JLabel lblSpecialization;
 	private JButton btnSelect;
-	private Physician selectedPhysician;
+	private Doctor selectedPhysician;
 	public Physicians() {
 		initialize();
 		frame.setVisible(true);
 		loadData("");
 	}
-	private ArrayList<Physician> physicians;
+	private ArrayList<Doctor> doctors;
 	@SuppressWarnings("unchecked")
 	private void loadData(String filter) {
-		physicians = (ArrayList<Physician>) Application.client.Request(new Request("physicians/all"));
+		doctors = (ArrayList<Doctor>) Application.client.Request(new Request("doctors/all"));
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
 
-		for (Physician p : physicians) {
-			model.addRow(new Object[] {p.getName(), p.getSpecialization()});
+		for (Doctor p : doctors) {
+			model.addRow(new Object[] {p.getFirstName(), p.getSpeciality()});
 			
 		}
 		table.setModel(model);
@@ -136,9 +136,9 @@ public class Physicians {
 		JButton btnNewButton = new JButton("Change");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				selectedPhysician.setSpecialization(textField_1.getText());
-				Request r = new Request("physicians/update");
-				r.addParam("physician", selectedPhysician);
+				selectedPhysician.setSpeciality(textField_1.getText());
+				Request r = new Request("doctors/update");
+				r.addParam("doctor", selectedPhysician);
 				Application.client.Request(r);
 				loadData("");
 			}
@@ -164,9 +164,9 @@ public class Physicians {
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				Physician p = physicians.get(row);
-				textField.setText(p.getName());
-				textField_1.setText(p.getSpecialization());
+				Doctor p = doctors.get(row);
+				textField.setText(p.getFirstName());
+				textField_1.setText(p.getSpeciality());
 				selectedPhysician = p;
 			}
 		});

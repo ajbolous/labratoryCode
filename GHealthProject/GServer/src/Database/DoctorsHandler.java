@@ -1,12 +1,14 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import models.Doctor;
+import models.Person;
 import Server.Config;
 
 public class DoctorsHandler extends AbstractHandler {
@@ -15,9 +17,10 @@ public class DoctorsHandler extends AbstractHandler {
 		super(con);
 	}
 
-	public void addDoctor(Doctor d){
-	
+	public void addDoctor(Doctor d) throws SQLException{
+		d.save(getConnection());
 	}
+	
 	public ArrayList<Doctor> getDoctors(){
 		try {
 			ArrayList<Doctor> doctors = new ArrayList<Doctor>();

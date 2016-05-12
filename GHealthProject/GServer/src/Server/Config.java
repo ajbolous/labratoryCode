@@ -4,7 +4,7 @@ import Database.DbHandler;
 import Utils.Logger;
 
 public class Config {
-	private boolean isDebug = true;
+	private boolean isDebug = false;
 	private String dbUrl = "localhost/test";
 	private String dbUser = "root";
 	private String dbPassword = "Braude";
