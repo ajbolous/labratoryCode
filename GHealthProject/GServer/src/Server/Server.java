@@ -6,8 +6,11 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Driver;
 
 import Database.DbHandler;
+import Orm.Orm;
 import Utils.Logger;
 import Utils.Request;
+import models.Person;
+import models.Visit;
 import ocsf.server.*;
 
 public class Server extends AbstractServer {
@@ -57,15 +60,16 @@ public class Server extends AbstractServer {
 		}
 	}
 
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-
+	public static void main(String[] args) throws IOException, SQLException {
 		Config cfg = Config.fromArgs(args);
-		
+
+
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
 		DbHandler db = cfg.getHandler();
-		db.createDataBase();
+		db.Test();
+		//db.createDataBase();
 
-		Server server = new Server(cfg.getPort());
-		server.listen();
+		//Server server = new Server(cfg.getPort());
+		//server.listen();
 	}
 }

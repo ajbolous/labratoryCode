@@ -11,20 +11,27 @@ import models.Doctor;
 import models.Entity;
 import models.Patient;
 import models.Person;
+import models.Visit;
 import Server.Config;
 
-public class PersonsHandler extends AbstractHandler implements Persistable<Person> {
+public class VisitsHandler extends AbstractHandler implements Persistable<Visit> {
 
-	public PersonsHandler(Connection con) {
+	public VisitsHandler(Connection con) {
 		super(con);
 	}
 
 	public boolean createTable() {
 		try {
+			String sql = "CREATE TABLE visits("
+					+ "vid INTEGER AUTO_INCREMENT, "
+					+ "rid INTEGER, "
+					+ "comments VARCHAR(255),"
+					+ "date DATE,"
+					+ "PRIMARY KEY(vid,rid),"
+					+ "FOREIGN KEY(rid) REFERENCES records(rid));";
+			
 			Statement stmt = getConnection().createStatement();
-			String sql = Orm.Orm.createSql(Person.class);
 			stmt.execute(sql);
-	
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
@@ -33,20 +40,14 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 		}
 	}
 
-	public ArrayList<Person> getAll() {
+	public ArrayList<Visit> getAll() {
 		return null;
 	}
 
-	public boolean update(Person p) {
+	public boolean update(Visit v) {
 		try {
-			String sql = "UPDATE persons SET firstName=?, lastName=?, birthdate=?, email=?, phone=? where sid=?";
+			String sql = "UPDATE visits SET weight=?, height=?, gender=? where sid=?";
 			PreparedStatement s = getConnection().prepareStatement(sql);
-			s.setString(1, p.getFirstName());
-			s.setString(2, p.getLastName());
-			s.setDate(3, p.getBirthDate());
-			s.setString(4, p.getEmail());
-			s.setString(5, p.getPhone());
-			s.setString(6, p.getSid());
 			return s.execute();
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
@@ -54,10 +55,10 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 		}
 	}
 
-	public boolean delete(Person p) {
+	public boolean delete(Visit v) {
 		try {
-			PreparedStatement s = getConnection().prepareStatement("DELETE from persons where sid=?");
-			s.setString(1, p.getSid());
+			String sql = "DELETE FROM <tbl_name> where id=?";
+			PreparedStatement s = getConnection().prepareStatement(sql);
 			return s.execute();
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
@@ -65,15 +66,10 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 		}
 	}
 
-	public boolean save(Person p) {
+	public boolean save(Visit v) {
 		try {
-			PreparedStatement s = getConnection().prepareStatement("INSERT into persons VALUES(?,?,?,?,?,?)");
-			s.setString(1, p.getSid());
-			s.setString(2, p.getFirstName());
-			s.setString(3, p.getLastName());
-			s.setDate(4, p.getBirthDate());
-			s.setString(5, p.getEmail());
-			s.setString(6, p.getPhone());
+			String sql = "INSERT INTO <tbl_name> VALUES(<values>);";
+			PreparedStatement s = getConnection().prepareStatement(sql);
 			return s.execute();
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);

@@ -2,8 +2,14 @@ package models;
 
 import java.util.ArrayList;
 
-public class Doctor extends Person{
+import Orm.*;
+
+@extensionTable(table="users", field="sid")
+public class Doctor extends User{
+
+	@dataField
 	private String speciality;
+
 	private ArrayList<Shift> shifts;
 
 	public String getSpeciality() {

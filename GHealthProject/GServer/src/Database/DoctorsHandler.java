@@ -22,7 +22,8 @@ public class DoctorsHandler extends AbstractHandler implements Persistable<Docto
 		try {
 
 			Statement stmt = getConnection().createStatement();
-			stmt.execute("CREATE TABLE doctors(sid VARCHAR(50),speciality varchar(50), PRIMARY KEY(sid),FOREIGN KEY(sid) REFERENCES persons(sid));");
+			stmt.execute(
+					"CREATE TABLE doctors(sid VARCHAR(50),speciality varchar(50), PRIMARY KEY(sid),FOREIGN KEY(sid) REFERENCES persons(sid));");
 			stmt.close();
 			return true;
 		} catch (SQLException e) {

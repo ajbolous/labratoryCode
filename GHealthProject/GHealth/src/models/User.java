@@ -1,7 +1,17 @@
 package models;
 
+import Orm.*;
+
+@extensionTable(table="persons", field="sid")
 public class User extends Person {
-	private String UserName; 
-	private String Pass ; 
+	@dataField
+	private String pass ;
+
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	} 
 	
 }

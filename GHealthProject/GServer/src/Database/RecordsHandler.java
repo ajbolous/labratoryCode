@@ -25,8 +25,8 @@ public class RecordsHandler extends AbstractHandler implements Persistable<Medic
 			String sql = "CREATE TABLE records("
 					+ "rid INTEGER AUTO_INCREMENT, "
 					+ "pid VARCHAR(50),"
-					+ "creationDate DATE"
-					+ ", PRIMARY KEY(rid),"
+					+ "creationDate DATE,"
+					+ "PRIMARY KEY(rid),"
 					+ "FOREIGN KEY(pid) REFERENCES patients(sid));";
 			
 			Statement stmt = getConnection().createStatement();

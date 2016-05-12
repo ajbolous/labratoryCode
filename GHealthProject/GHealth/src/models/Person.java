@@ -1,17 +1,26 @@
 package models;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-public abstract class Person extends Entity{
+import Orm.*;
+
+public class Person extends Entity{
+	
+	public static final String tableName = "persons";
+	
+	@dataField
+	@pkField
 	private String sid;
+	
+	@dataField
 	private String lastName;
+	@dataField
 	private String firstName;
+	@dataField
 	private Date birthDate;
+	@dataField
 	private String email;
+	@dataField
 	private String phone;
 
 	public String getSid() {
