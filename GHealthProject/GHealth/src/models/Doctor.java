@@ -2,11 +2,10 @@ package models;
 
 import java.util.ArrayList;
 
-public class Doctor extends Person{
+public class Doctor extends User{
 	private String speciality;
 	private ArrayList<Shift> shifts;
-	private ArrayList<Treatment> treatment ; 
-
+	
 	public String getSpeciality() {
 		return speciality;
 	}

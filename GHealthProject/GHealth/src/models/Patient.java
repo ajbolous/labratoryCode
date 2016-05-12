@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-public class Patient {
+public class Patient extends Person{
 	private String nameOfHMO; 
 	private int HMOcode ; 
 	private float weight; 
