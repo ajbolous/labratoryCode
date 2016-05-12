@@ -8,7 +8,6 @@ public class Treatment {
 	private Date BeginDate;
 	private Doctor doctor ; 
     private Date EndDate; 
-    private Doctor doctor;
     private ArrayList<Visit> visits ; 
     private String TreatmentReport;  //private TreatmentReport treatmentreport
 }
