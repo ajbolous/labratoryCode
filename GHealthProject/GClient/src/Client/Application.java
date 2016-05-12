@@ -34,6 +34,12 @@ public class Application {
 		r.addParam("doctor", d);
 		client.Request(r);
 		
+		r = new Request("doctors/update");
+		d.setEmail("ajbolous@gmail.com");
+		d.setFirstName("Boulos");
+		r.addParam("doctor", d);
+		client.Request(r);
+		 System.exit(0);
 		//Settings settings = new Settings();
 	}
 }

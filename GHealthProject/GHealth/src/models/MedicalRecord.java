@@ -1,10 +1,11 @@
 package models;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class MedicalRecord {
-	private int MrecordNum ; 
-	private Patient patient; 
-	private ArrayList<Treatment> treatment ; 
-
+	private int id ; 
+	private Patient patient;
+	private Date creationDate;
+	private ArrayList<Treatment> treatments;
 }

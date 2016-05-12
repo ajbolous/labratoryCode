@@ -22,9 +22,8 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 	public boolean createTable() {
 		try {
 			Statement stmt = getConnection().createStatement();
-			stmt.execute(
-					"CREATE TABLE persons(" + "sid VARCHAR(50)," + "firstName VARCHAR(50)," + "lastName VARCHAR(50),"
-							+ "birthdate DATE," + "email VARCHAR(50)," + "phone VARCHAR(50)," + "PRIMARY KEY(sid))");
+			stmt.execute("CREATE TABLE persons(sid VARCHAR(50),firstName VARCHAR(50), lastName VARCHAR(50),"
+					+ " birthdate DATE,email VARCHAR(50), phone VARCHAR(50), PRIMARY KEY(sid))");
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
@@ -39,8 +38,8 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 
 	public boolean update(Person p) {
 		try {
-			PreparedStatement s = getConnection().prepareStatement("UPDATE persons" + " SET" + " firstName=?"
-					+ " lastName=?" + " birthdate=?" + " email=?" + " phone=?" + " where sid=?");
+			String sql = "UPDATE persons SET firstName=?, lastName=?, birthdate=?, email=?, phone=? where sid=?";
+			PreparedStatement s = getConnection().prepareStatement(sql);
 			s.setString(1, p.getFirstName());
 			s.setString(2, p.getLastName());
 			s.setDate(3, p.getBirthDate());
@@ -56,7 +55,7 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 
 	public boolean delete(Person p) {
 		try {
-			PreparedStatement s = getConnection().prepareStatement("DELETE from persons" + " where sid=?");
+			PreparedStatement s = getConnection().prepareStatement("DELETE from persons where sid=?");
 			s.setString(1, p.getSid());
 			return s.execute();
 		} catch (SQLException e) {
@@ -67,7 +66,7 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 
 	public boolean save(Person p) {
 		try {
-			PreparedStatement s = getConnection().prepareStatement("INSERT into persons" + " VALUES(?,?,?,?,?,?)");
+			PreparedStatement s = getConnection().prepareStatement("INSERT into persons VALUES(?,?,?,?,?,?)");
 			s.setString(1, p.getSid());
 			s.setString(2, p.getFirstName());
 			s.setString(3, p.getLastName());

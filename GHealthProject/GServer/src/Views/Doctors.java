@@ -28,8 +28,10 @@ public class Doctors extends View{
 	}
 	@Override
 	public Object update(Request request) {
-		// TODO Auto-generated method stub
-		return null;
+		DbHandler db = Config.getConfig().getHandler();
+		Doctor d = (Doctor)request.getParam("doctor");
+		db.getDoctorsHandler().update(d);
+		return "success";
 	}
 	
 }
