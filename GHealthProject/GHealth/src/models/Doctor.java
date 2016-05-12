@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Doctor extends Person{
+public class Doctor extends User{
 	private String speciality;
 	private ArrayList<Shift> shifts;
-
+	
 	public String getSpeciality() {
 		return speciality;
 	}

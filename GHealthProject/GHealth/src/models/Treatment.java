@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Treatment {
 	private int Inum ; 
 	private Date BeginDate;
+	private Doctor doctor ; 
     private Date EndDate; 
     private Doctor doctor;
     private ArrayList<Visit> visits ; 
