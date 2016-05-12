@@ -10,6 +10,7 @@ public class Patient {
 	private String gender; 
 	private String EmailOfHMO; 
 	private  ArrayList<Referral> Referrals; 
+	private InformationFromHMo inform ; 
 	
 	
 }

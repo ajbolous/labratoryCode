@@ -9,6 +9,7 @@ public class Referral {
 	private String Description; 
 	private String Specially ; 
 	private Patient patient ; 
+	private Conformation conform ; //aproval of 
 	
 	
 	
