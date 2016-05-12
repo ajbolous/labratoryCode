@@ -2,7 +2,7 @@ package Controllers;
 
 import java.util.ArrayList;
 
-import ClientUI.Application;
+import Client.Application;
 import Utils.Request;
 import models.Doctor;
 

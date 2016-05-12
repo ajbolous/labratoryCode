@@ -2,7 +2,7 @@ package Database;
 
 import java.sql.Connection;
 
-public class AbstractHandler {
+public abstract class AbstractHandler{
 	private Connection connection;
 
 	public AbstractHandler(Connection con) {

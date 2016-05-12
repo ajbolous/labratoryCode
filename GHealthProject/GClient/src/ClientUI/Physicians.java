@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JTextField;
 
+import Client.Application;
 import Client.Client;
 import Client.Config;
 import Client.Resources;

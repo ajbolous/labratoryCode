@@ -2,8 +2,6 @@ package Views;
 
 import models.Doctor;
 
-import java.sql.SQLException;
-
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
@@ -11,24 +9,22 @@ import Utils.Request;
 public class Doctors extends View{
 	public Object all(Request request){
 		DbHandler db = Config.getConfig().getHandler();
-		return db.getDoctors().getDoctors();
+		return db.getDoctorsHandler().getAll();
 	}
 	
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		Doctor d = (Doctor)request.getParam("doctor");
-		try {
-			d.save(db.getConnection());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		db.getDoctorsHandler().save(d);
 		return "success";
 	}
 	
 	@Override
 	public Object remove(Request request) {
-		// TODO Auto-generated method stub
-		return null;
+		DbHandler db = Config.getConfig().getHandler();
+		Doctor d = (Doctor)request.getParam("doctor");
+		db.getDoctorsHandler().delete(d);
+		return "success";
 	}
 	@Override
 	public Object update(Request request) {

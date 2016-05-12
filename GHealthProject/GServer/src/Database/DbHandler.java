@@ -12,7 +12,10 @@ public class DbHandler {
 
 	private Connection connection;
 	private Logger logger;
-    private DoctorsHandler doctors;
+	private DoctorsHandler doctorsHandler;
+	private PatientsHandler patientsHandler;
+	private PersonsHandler personsHandler;
+
 	public DbHandler(String url, String username, String password) {
 		this.logger = Config.getConfig().getLogger();
 		try {
@@ -26,33 +29,32 @@ public class DbHandler {
 			logger.exception(ex);
 		}
 
-		doctors = new DoctorsHandler(connection);
+		doctorsHandler = new DoctorsHandler(connection);
+		personsHandler = new PersonsHandler(connection);
+		patientsHandler = new PatientsHandler(connection);
 	}
 
-	public boolean createDataBase(){
-		try {
-			Person.createTable(connection);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
-		try {
-			Doctor.createTable(connection);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
-		try {
-			Patient.createTable(connection);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
+	public boolean createDataBase() {
+		personsHandler.createTable();
+		doctorsHandler.createTable();
+		patientsHandler.createTable();
 		return true;
 	}
-	public Connection getConnection(){
+
+	public Connection getConnection() {
 		return connection;
 	}
-	public DoctorsHandler getDoctors() {
-		return doctors;
+
+	public DoctorsHandler getDoctorsHandler() {
+		return doctorsHandler;
 	}
 
+	public PersonsHandler getPersonsHandler() {
+		return personsHandler;
+	}
+
+	public PatientsHandler getPatientsHandler() {
+		return patientsHandler;
+	}
 
 }

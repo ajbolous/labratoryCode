@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Client.Application;
 import Client.Client;
 import Client.Config;
 import Client.Resources;
