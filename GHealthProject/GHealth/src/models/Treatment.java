@@ -10,4 +10,5 @@ public class Treatment {
     private ArrayList<Visit> visits ;
     private ArrayList<ExaminationReferral> ExaminationRef; // I don't sure 
     private String TreatmentReport;  //private TreatmentReport treatmentreport
+    private Invoice payment ; // payment for treatment 
 }

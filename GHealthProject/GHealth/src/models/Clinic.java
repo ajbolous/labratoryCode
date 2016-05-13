@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Clinic {
 	private int cid ; 
-	private String name;
-	private String address; 
-	private String email ; 
-	private String phone;
-	private ArrayList<ClinicEmployees> employees ; 
+	private String Name;
+	private String Address; 
+	private String Email ; 
+	private String Phone;
+	private ArrayList<ClinicEmployees> Employees ;
+	private Manager manager ; //manager Of clinic 
+	private ArrayList <Labratory> labs; 
 
 }
