@@ -13,3 +13,4 @@ public class Clinic {
 	private ArrayList <Labratory> labs; 
 
 }
+ 
