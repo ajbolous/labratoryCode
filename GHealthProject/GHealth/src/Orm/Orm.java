@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import models.Entity;
 
@@ -16,18 +17,16 @@ import models.Doctor;
 
 public class Orm {
 
-	public String listAnnotated(Class c) {
-		String s = "";
-		Field[] fields = c.getDeclaredFields();
-		for (Field field : fields) {
-			if (field.isAnnotationPresent(dataField.class)) {
-				s += field.getName() + " , ";
-			}
-		}
-		return s;
+	
+	private Connection connection;
+	public Orm(Connection connection){
+		this.connection = connection;
 	}
+	public HashMap<Class,String> queries = new HashMap<Class,String>();
+	public HashMap<Class,String> insertions = new HashMap<Class,String>();
+	public HashMap<Class,String> updates = new HashMap<Class,String>();
 
-	public static String dataType(Class ftype) {
+	public String dataType(Class ftype) {
 		String fieldType = ftype.getName();
 		switch (fieldType) {
 		case "java.lang.String":
@@ -42,7 +41,7 @@ public class Orm {
 		return null;
 	}
 
-	public static String createSql(Class c) {
+	public String createSql(Class c) {
 		String name = c.getName().replace("models.", "").toLowerCase() + "s";
 		String columns = "";
 		String primaries = "";
@@ -77,92 +76,11 @@ public class Orm {
 		return s;
 	}
 
-	public static class Column {
-		public Class fieldType;
-		public String name;
-		public String target;
-		public boolean isPk;
-		public boolean isFk;
-	}
-
-	public static ArrayList<Column> getColumns(Class c) {
-		ArrayList<Column> columns = new ArrayList<Column>();
-		Field[] fields = c.getDeclaredFields();
-		for (Field field : fields) {
-			if (!field.isAnnotationPresent(dataField.class))
-				continue;
-			Column col = new Column();
-			col.name = field.getName();
-			col.fieldType = field.getType();
-			col.isPk = field.isAnnotationPresent(pkField.class);
-			col.isFk = field.isAnnotationPresent(fkField.class);
-
-			if (col.isFk)
-				col.target = field.getAnnotationsByType(fkField.class)[0].target();
-			columns.add(col);
-		}
-		return columns;
-	}
-
-	public static void put(Object obj, Class c, Connection con) throws SQLException, IllegalArgumentException,
-			IllegalAccessException, NoSuchMethodException, SecurityException, InvocationTargetException {
-
-		if (c.getName() == Entity.class.getName())
-			return;
-
-		put(obj, c.getSuperclass(), con);
-
-		String sql = Orm.insertSql(c);
-		PreparedStatement stmt = con.prepareStatement(sql);
-		stmt = fromObject(stmt, obj, c);
-		stmt.execute();
-
-	}
-
-	public static PreparedStatement fromObject(PreparedStatement stmt, Object obj, Class c) {
-		int i = 1;
-		if (c.isAnnotationPresent(extensionTable.class)) {
-			extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
-			String name = f[0].field();
-			String mName = "get" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
-			Method m;
-			try {
-				m = c.getMethod(mName);
-				stmt.setObject(i, m.invoke(obj));
-				i++;
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		Field[] fields = c.getDeclaredFields();
-		for (Field field : fields)
-			if (field.isAnnotationPresent(dataField.class)) {
-				String name = field.getName();
-				String mName = "get" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
-				Method m;
-				try {
-					m = c.getMethod(mName);
-					stmt.setObject(i, m.invoke(obj));
-					i++;
-
-				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-		return stmt;
-	}
-
-	public static String insertSql(Class c) {
+	public String insertSql(Class c) {
 		String name = c.getName().replace("models.", "").toLowerCase() + "s";
-		ArrayList<Column> columns = getColumns(c);
 		String fields = "";
 		String vals = "";
-		Field[] cfields = c.getDeclaredFields();
-		for (Field field : cfields)
+		for (Field field : c.getDeclaredFields())
 			if (field.isAnnotationPresent(dataField.class)) {
 				fields += field.getName() + ",";
 				vals = vals + "?,";
@@ -172,7 +90,6 @@ public class Orm {
 			extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
 			fields = f[0].field() + "," + fields;
 			vals = vals + "?,";
-
 		}
 		String s = String.format("INSERT INTO %s(%s) VALUES(%s);", name, fields.substring(0, fields.length() - 1),
 				vals.substring(0, vals.length() - 1));
@@ -180,53 +97,108 @@ public class Orm {
 		return s;
 	}
 
-	public static String querySql(Class c) {
-		String name = c.getName().replace("models.", "").toLowerCase() + "s";
+	public String querySql(Class c){
 		String fields = "";
+		String joins = "WHERE ";
+		String tables = "";
+		Class origin = c;
+		while (c.getName() != Entity.class.getName()) {
+			String tblName = c.getName().replace("models.", "").toLowerCase() + "s";
 
-		ArrayList<Column> columns = getColumns(c);
-		for (Column col : columns)
-			fields = fields + col.name + ",";
+			for (Field field : c.getDeclaredFields())
+				if (field.isAnnotationPresent(dataField.class))
+					fields += tblName + "." + field.getName() + " as " + field.getName() + ",";
 
-		String s = String.format("SELECT %s FROM %s;", fields.substring(0, fields.length() - 1), name);
-
-		return s;
+			if (c.isAnnotationPresent(extensionTable.class)) {
+				extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
+				joins = joins + tblName + "." + f[0].field() + "=" + f[0].table() + "." + f[0].field() + " AND ";
+			}
+			tables += tblName + ",";
+			c = c.getSuperclass();
+		}
+		joins = joins.substring(0, joins.length() - 5);
+		tables = tables.substring(0, tables.length() - 1);
+		String sql = String.format("SELECT %s FROM %s %s", fields.substring(0, fields.length() - 1), tables, joins);
+		return sql;
+	}
+	
+	public void saveObject(Entity obj) throws Exception{
+		itterObject(obj,obj.getClass());
 	}
 
-	public static Object get(Class c, Connection con)
-			throws SQLException, InstantiationException, IllegalAccessException {
-		Object obj = c.newInstance();
+	public void itterObject(Object obj, Class c) throws Exception{
 
-		Statement stmt = con.createStatement();
+		if (c.getName() == Entity.class.getName())
+			return;
 
+		itterObject(obj, c.getSuperclass());
+
+		String sql = insertSql(c);
+		PreparedStatement stmt;
+		stmt = connection.prepareStatement(sql);
+		stmt = fromObject(stmt, obj, c);
+		stmt.execute();
+	}
+	
+	public ArrayList<Entity> getObject(Class c, String where) throws Exception{
+		Statement stmt = connection.createStatement();
+		String sql = "";
+		if(queries.containsKey(c))
+			sql = queries.get(c);
+		else {
+			sql = querySql(c);
+			queries.put(c, sql);
+		}
+		sql += (where != "" ? " AND " + where : "");
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList<Entity> arr = new ArrayList<Entity>();
+		while(rs.next())
+			arr.add(fromResult(rs, c));
+		return arr;
+	}
+	
+	public Method getGetter(Class c, String attr) throws Exception{
+		String mName = "get" + attr.substring(0, 1).toUpperCase() + attr.substring(1, attr.length());
+		return c.getMethod(mName);
+	}
+	
+	public Method getSetter(Class c, String attr, Class attrType) throws Exception{
+		String mName = "set" + attr.substring(0, 1).toUpperCase() + attr.substring(1, attr.length());
+		return c.getMethod(mName, attrType);
+	}
+
+	public PreparedStatement fromObject(PreparedStatement stmt, Object obj, Class c) throws Exception{
+		int i = 1;
+		if (c.isAnnotationPresent(extensionTable.class)) {
+			extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
+			Method getter = getGetter(c,f[0].field());
+			stmt.setObject(i, getter.invoke(obj));
+			i++;
+		}
+
+		Field[] fields = c.getDeclaredFields();
+		for (Field field : fields)
+			if (field.isAnnotationPresent(dataField.class)) {
+				Method getter = getGetter(c,field.getName());
+				stmt.setObject(i, getter.invoke(obj));
+				i++;
+			}
+		return stmt;
+	}
+
+
+	public Entity fromResult(ResultSet rs, Class c) throws Exception{
+		Entity obj = (Entity) c.newInstance();
 		while (c.getName() != Entity.class.getName()) {
-			String sql = Orm.querySql(c);
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			obj = fromResult(rs, obj, c);
+			for (Field field : c.getDeclaredFields())
+				if (field.isAnnotationPresent(dataField.class)) {
+					Method setter = getSetter(c, field.getName(),field.getType());
+					Object val = rs.getObject(field.getName());
+					setter.invoke(obj, val);
+				}
 			c = c.getSuperclass();
 		}
 		return obj;
-
-	}
-
-	public static Object fromResult(ResultSet rs, Object obj, Class c) {
-		try {
-			Field[] fields = c.getDeclaredFields();
-			for (Field field : fields)
-				if (field.isAnnotationPresent(dataField.class)) {
-					String name = field.getName();
-					String mName = "set" + name.substring(0, 1).toUpperCase() + name.substring(1, name.length());
-					Method m = c.getMethod(mName, field.getType());
-					Object val = rs.getObject(name);
-					m.invoke(obj, val);
-				}
-
-			return obj;
-
-		} catch (Exception e) {
-			return null;
-		}
 
 	}
 }

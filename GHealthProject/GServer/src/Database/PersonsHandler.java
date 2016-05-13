@@ -19,19 +19,6 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 		super(con);
 	}
 
-	public boolean createTable() {
-		try {
-			Statement stmt = getConnection().createStatement();
-			String sql = Orm.Orm.createSql(Person.class);
-			stmt.execute(sql);
-	
-			stmt.close();
-			return true;
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-			return false;
-		}
-	}
 
 	public ArrayList<Person> getAll() {
 		return null;
@@ -79,6 +66,13 @@ public class PersonsHandler extends AbstractHandler implements Persistable<Perso
 			Config.getConfig().getLogger().exception(e);
 			return false;
 		}
+	}
+
+
+	@Override
+	public boolean createTable() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

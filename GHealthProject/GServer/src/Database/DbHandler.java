@@ -20,7 +20,8 @@ public class DbHandler {
 	private DoctorsHandler doctorsHandler;
 	private PatientsHandler patientsHandler;
 	private PersonsHandler personsHandler;
-
+	private Orm orm;
+	
 	public DbHandler(String url, String username, String password) {
 		this.logger = Config.getConfig().getLogger();
 		try {
@@ -33,53 +34,55 @@ public class DbHandler {
 		} catch (Exception ex) {
 			logger.exception(ex);
 		}
-
+		orm = new Orm(connection);
 		doctorsHandler = new DoctorsHandler(connection);
 		personsHandler = new PersonsHandler(connection);
 		patientsHandler = new PatientsHandler(connection);
 	}
 
-	public boolean Test() throws SQLException{
-		Statement stmt = getConnection().createStatement();
-		//createDataBase();
-		
-		Doctor u = new Doctor();
-		u.setSid("162559149");
-		u.setFirstName("bolous");
-		u.setPass("123123");
-		u.setSpeciality("Surgon");
-		try {
-			Orm.put(u, Doctor.class, getConnection());
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchMethodException | SecurityException | InvocationTargetException e1) {
-			e1.printStackTrace();
-		}
+	public boolean Test() {
 		
 		try {
-			Doctor b = (Doctor) Orm.get(Doctor.class, getConnection());
-			return true;
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			for(int i = 1;i<10;i++){
+			Doctor s = new Doctor();
+			s.setFirstName("Bolous");
+			s.setLastName("abu");
+			s.setEmail("ajbol@gma.com");
+			s.setPass("123123");
+			s.setSid("2" + i);
+			s.setSpeciality("doctor");
+			orm.saveObject(s);
+			}
+			
+			for(Entity t : orm.getObject(Doctor.class, "")){
+				Doctor d = (Doctor)t;
+				Config.getConfig().getLogger().info(d.getFirstName());
+
+			}
+		} catch (Exception e) {
+			Config.getConfig().getLogger().exception(e);
 		}
+		
 		return false;
 	}
 	public boolean createDataBase() throws SQLException {
 		Statement stmt = getConnection().createStatement();
 
 		
-		String sql = Orm.createSql(Person.class);
+		String sql = orm.createSql(Person.class);
 		try {
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
 		}
 		try {
-			sql = Orm.createSql(User.class);
+			sql = orm.createSql(User.class);
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
 		}
 		try {
-			sql = Orm.createSql(Doctor.class);
+			sql = orm.createSql(Doctor.class);
 			stmt.execute(sql);
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
