@@ -47,4 +47,5 @@ public class Treatment extends Entity{
     private ArrayList<Visit> visits ;
     @dataField
     private String status;  //private TreatmentReport treatmentreport
+    private Invoice payment ; // payment for treatment 
 }
