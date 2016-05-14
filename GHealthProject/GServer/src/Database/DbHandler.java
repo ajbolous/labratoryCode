@@ -2,11 +2,14 @@ package Database;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import Orm.Orm;
 import Server.Config;
@@ -41,18 +44,21 @@ public class DbHandler {
 	}
 
 	public boolean Test() {
-		
-			try {
-				for(Entity t : orm.getObjects(Doctor.class, "doctors.sid=23431 and firstName like '%Bo%'")){
-					Doctor d = (Doctor)t;
-					Config.getConfig().getLogger().info(d.getFirstName() + d.getSid());
-
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		
-		
+				Visit v = new Visit();
+				v.setComments("hello test");
+				Date  d = new Date(31, 10, 1988);
+				v.setVisitDate(d);
+				v.setTid(10);
+				v.setVid(2);
+				try {
+					v.save(orm);
+					v.setComments("just changing");
+					v.update(orm);
+					v.delete(orm);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
 		return false;
 	}
 	public boolean createDataBase() throws SQLException {

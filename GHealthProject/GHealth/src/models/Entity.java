@@ -25,7 +25,7 @@ public abstract class Entity implements Serializable, Queryable{
 		orm.updateObject(this);
 	}
 	public void createTable(Orm orm) throws Exception{
-		orm.createTable(this);
+		orm.createTable(this.getClass());
 	}
 
 }

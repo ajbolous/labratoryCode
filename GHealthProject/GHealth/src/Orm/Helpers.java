@@ -17,6 +17,10 @@ public class Helpers {
 		String mName = "set" + attr.substring(0, 1).toUpperCase() + attr.substring(1, attr.length());
 		return c.getMethod(mName, attrType);
 	}
+	
+	public static String getTableName(Class<?> c){
+		return c.getName().replace("models.", "").toLowerCase() + "s";
+	}
 		
 	
 	public  static PreparedStatement fromObject(PreparedStatement stmt, Object obj, Class<?> c) throws Exception{
