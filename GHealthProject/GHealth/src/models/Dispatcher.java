@@ -1,5 +1,5 @@
 package models;
 
-public class Dispatcher extends User {
+public class Dispatcher {
 	
 }

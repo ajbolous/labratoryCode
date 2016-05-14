@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import Orm.*;
@@ -28,5 +29,4 @@ public class Doctor extends User{
 	public void setShifts(ArrayList<Shift> shifts) {
 		this.shifts = shifts;
 	}
-
 }

@@ -1,7 +1,9 @@
 package models;
 
+import java.sql.Connection;
 import java.sql.Date;
 
+import Orm.Orm;
 import Orm.dataField;
 import Orm.fkField;
 import Orm.pkField;
@@ -44,5 +46,5 @@ public class Visit extends Entity{
 	@dataField
 	private Date visitDate;
 	@dataField
-	private String comments; 
+	private String comments;
 }

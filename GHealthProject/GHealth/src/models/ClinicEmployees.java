@@ -1,6 +1,6 @@
 package models;
 
-public class ClinicEmployees extends User{
+public class ClinicEmployees{
 	private Clinic clinc ; 
 	
 

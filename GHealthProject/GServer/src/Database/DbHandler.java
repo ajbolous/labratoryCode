@@ -42,52 +42,21 @@ public class DbHandler {
 
 	public boolean Test() {
 		
-		try {
-			for(int i = 1;i<10;i++){
-			Doctor s = new Doctor();
-			s.setFirstName("Bolous");
-			s.setLastName("abu");
-			s.setEmail("ajbol@gma.com");
-			s.setPass("123123");
-			s.setSid("2" + i);
-			s.setSpeciality("doctor");
-			orm.saveObject(s);
-			}
-			
-			for(Entity t : orm.getObject(Doctor.class, "")){
-				Doctor d = (Doctor)t;
-				Config.getConfig().getLogger().info(d.getFirstName());
+			try {
+				for(Entity t : orm.getObjects(Doctor.class, "doctors.sid=23431 and firstName like '%Bo%'")){
+					Doctor d = (Doctor)t;
+					Config.getConfig().getLogger().info(d.getFirstName() + d.getSid());
 
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			Config.getConfig().getLogger().exception(e);
-		}
+		
 		
 		return false;
 	}
 	public boolean createDataBase() throws SQLException {
-		Statement stmt = getConnection().createStatement();
-
-		
-		String sql = orm.createSql(Person.class);
-		try {
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
-		try {
-			sql = orm.createSql(User.class);
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
-		try {
-			sql = orm.createSql(Doctor.class);
-			stmt.execute(sql);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
-		return true;
+		return false;
 	}
 
 	public Connection getConnection() {

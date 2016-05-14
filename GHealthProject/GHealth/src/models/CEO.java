@@ -1,5 +1,5 @@
 package models;
 
-public class CEO extends User {
+public class CEO {
 	
 }

@@ -4,10 +4,8 @@ import java.sql.Date;
 
 import Orm.*;
 
-public class Person extends Entity{
-	
-	public static final String tableName = "persons";
-	
+public abstract class Person extends Entity{
+		
 	@dataField
 	@pkField
 	private String sid;
@@ -59,4 +57,6 @@ public class Person extends Entity{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	
 }

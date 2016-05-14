@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import Orm.*;

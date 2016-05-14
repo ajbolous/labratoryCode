@@ -1,5 +1,6 @@
 package models;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -13,6 +14,11 @@ public class Treatment extends Entity{
 	private Date start;
 	@dataField
     private Date end;
+	
+    private ArrayList<Visit> visits ;
+    @dataField
+    private String status;  //private TreatmentReport treatmentreport
+    
     public int getTid() {
 		return tid;
 	}
@@ -43,9 +49,4 @@ public class Treatment extends Entity{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@relation(on="vid")
-    private ArrayList<Visit> visits ;
-    @dataField
-    private String status;  //private TreatmentReport treatmentreport
-    private Invoice payment ; // payment for treatment 
 }
