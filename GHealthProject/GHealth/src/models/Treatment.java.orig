@@ -3,6 +3,7 @@ package models;
 import java.sql.Date;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import Orm.*;
 
 public class Treatment extends Entity{
@@ -47,5 +48,14 @@ public class Treatment extends Entity{
     private ArrayList<Visit> visits ;
     @dataField
     private String status;  //private TreatmentReport treatmentreport
+=======
+public class Treatment {
+	private int Inum; 
+	private Date BeginDate;
+    private Date EndDate; 
+    private ArrayList<Visit> visits ;
+    private ArrayList<ExaminationReferral> ExaminationRef; // I don't sure 
+    private String TreatmentReport;  //private TreatmentReport treatmentreport
     private Invoice payment ; // payment for treatment 
+>>>>>>> 74a8421c2205c53a79fd23fffb388fc19912cce3
 }

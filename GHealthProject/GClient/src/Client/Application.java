@@ -40,6 +40,6 @@ public class Application {
 		r.addParam("doctor", d);
 		client.Request(r);
 		 System.exit(0);
-		//Settings settings = new Settings();
+	//	Settings settings = new Settings();
 	}
 }
