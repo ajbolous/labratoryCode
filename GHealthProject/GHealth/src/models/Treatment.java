@@ -3,10 +3,48 @@ package models;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class Treatment {
-	private int Inum ; 
-	private Date BeginDate;
-    private Date EndDate; 
-    private ArrayList<Visit> visits ; 
-    private String TreatmentReport;  //private TreatmentReport treatmentreport
+import Orm.*;
+
+public class Treatment extends Entity{
+	@dataField
+	@pkField
+	private int tid;
+	@dataField
+	private Date start;
+	@dataField
+    private Date end;
+    public int getTid() {
+		return tid;
+	}
+	public void setTid(int tid) {
+		this.tid = tid;
+	}
+	public Date getStart() {
+		return start;
+	}
+	public void setStart(Date start) {
+		this.start = start;
+	}
+	public Date getEnd() {
+		return end;
+	}
+	public void setEnd(Date end) {
+		this.end = end;
+	}
+	public ArrayList<Visit> getVisits() {
+		return visits;
+	}
+	public void setVisits(ArrayList<Visit> visits) {
+		this.visits = visits;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	@relation(on="vid")
+    private ArrayList<Visit> visits ;
+    @dataField
+    private String status;  //private TreatmentReport treatmentreport
 }

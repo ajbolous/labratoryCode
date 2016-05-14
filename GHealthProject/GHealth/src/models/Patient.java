@@ -12,6 +12,7 @@ public class Patient extends Person{
 	private float height ;
 	@dataField
 	private String gender;
+	
 	private ArrayList<Referral> referrals; 
 	private InformationFromHMo information ; 
 	private MedicalRecord medicalRecord ;
