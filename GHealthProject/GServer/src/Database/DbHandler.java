@@ -21,14 +21,16 @@ public class DbHandler {
 	private PatientsHandler patientsHandler;
 	private PersonsHandler personsHandler;
 	private Orm orm;
-	
+
 	public DbHandler(String url, String username, String password) {
 		this.logger = Config.getConfig().getLogger();
 		try {
 			logger.debug("Starting Database driver..");
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			logger.debug("Connecting to Database " + url + " as user: " + username);
-			connection = DriverManager.getConnection("jdbc:mysql://" + url, username, password);
+			logger.debug("Connecting to Database " + url + " as user: "
+					+ username);
+			connection = DriverManager.getConnection("jdbc:mysql://" + url,
+					username, password);
 			logger.debug("Connected to database.");
 
 		} catch (Exception ex) {
@@ -41,35 +43,47 @@ public class DbHandler {
 	}
 
 	public boolean Test() {
-		
-		try {
-			for(int i = 1;i<10;i++){
-			Doctor s = new Doctor();
-			s.setFirstName("Bolous");
-			s.setLastName("abu");
-			s.setEmail("ajbol@gma.com");
-			s.setPass("123123");
-			s.setSid("2" + i);
-			s.setSpeciality("doctor");
-			orm.saveObject(s);
-			}
-			
-			for(Entity t : orm.getObject(Doctor.class, "")){
-				Doctor d = (Doctor)t;
-				Config.getConfig().getLogger().info(d.getFirstName());
 
+		try {
+			//createDataBase();
+//
+//			for (int i = 1; i < 10; i++) {
+//				Doctor s = new Doctor();
+//				s.setFirstName("Bolous");
+//				s.setLastName("abu");
+//				s.setEmail("ajbol@gma.com");
+//				s.setPass("123123");
+//				s.setSid("2" + i);
+//				s.setSpeciality("doctor");
+//				orm.saveObject(s);
+//			}
+			
+			Doctor d = new Doctor();
+			d.setEmail("ms.ahdab@gmail.com");
+			d.setFirstName("Ahdab");
+			d.setLastName("AbuJaber");
+			d.setPass("123123");
+			d.setSid("203236212");
+			orm.saveObject(d);
+			
+		
+			for (Entity t : orm.getObject(Doctor.class, "firstName='Ahdab'")) {
+				d = (Doctor) t;
+				Config.getConfig().getLogger()
+						.info(d.getFirstName() + " " + d.getSid());
 			}
 		} catch (Exception e) {
 			Config.getConfig().getLogger().exception(e);
 		}
-		
+
 		return false;
 	}
+
 	public boolean createDataBase() throws SQLException {
 		Statement stmt = getConnection().createStatement();
 
-		
 		String sql = orm.createSql(Person.class);
+
 		try {
 			stmt.execute(sql);
 		} catch (SQLException e) {
@@ -87,6 +101,13 @@ public class DbHandler {
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
 		}
+		try {
+			sql = orm.createSql(Clinic.class);
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
+		}
+
 		return true;
 	}
 
