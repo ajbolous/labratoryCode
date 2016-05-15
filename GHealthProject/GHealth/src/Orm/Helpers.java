@@ -47,17 +47,7 @@ public class Helpers {
 				stmt.setObject(i, getter.invoke(obj));
 				i++;
 			}
-			if (field.isAnnotationPresent(objectField.class)) {
-				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-				Method getter = getGetter(c, field.getName());
-				Entity t = (Entity)getter.invoke(obj);
-				t.save();
-
-				getter = getGetter(field.getType(), f[0].field());
-				
-				stmt.setObject(i, getter.invoke(t));
-				i++;
-			}	
+	
 		}
 		return stmt;
 	}
@@ -73,14 +63,6 @@ public class Helpers {
 					setter.invoke(obj, val);
 				}
 
-				if (field.isAnnotationPresent(objectField.class)) {
-					objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-					Method setter = getSetter(c, field.getName(), field.getType());
-					Object val = rs.getObject(f[0].field());
-					
-					Entity t = Orm.getObject(field.getType(), f[0].field() + "=" + val.toString());
-					setter.invoke(obj, t);
-				}
 			}
 
 			c = c.getSuperclass();

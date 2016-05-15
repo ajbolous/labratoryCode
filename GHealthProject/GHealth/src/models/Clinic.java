@@ -17,7 +17,7 @@ public class Clinic extends Entity{
 	private String email ;
 	@dataField
 	private String phone;
-	@objectField(field="lab_id")
+
 	private Labratory labratory;
 	private ArrayList<ClinicEmployee> employees ; 
 	

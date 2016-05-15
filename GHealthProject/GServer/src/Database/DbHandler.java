@@ -78,27 +78,24 @@ public class DbHandler {
 		}
 
 		try {
-			Clinic c = new Clinic();
-			c.setCid(5);
-			c.setAddress("addsdheasd");
 
-			Labratory lab = new Labratory();
-			lab.setLab_id(10);
-
-			Labratorian l = new Labratorian();
-			l.setSid("2023");
-			l.setFirstName("bolous");
-
-			lab.setLabratorian(l);
-			c.setLabratory(lab);
 
 			Manager m = new Manager();
 			m.setSid("120");
 			m.setFirstName("bolous abu jaber");
-			m.setClinic(c);
 			m.save();
+			
+			
+			Patient p = new Patient();
+			
+			p.setFirstName("hello");
+			p.save();
 
 			Manager z = (Manager) Orm.getObject(Manager.class, "persons.sid='120'");
+			
+			z.setFirstName("mohammed");
+			z.save();
+			
 			int x = 1;
 
 		} catch (Exception e) {

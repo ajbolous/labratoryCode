@@ -17,7 +17,6 @@ public class Patient extends Person{
 	private ArrayList<Referral> referrals; 
 	private InformationFromHMo information;
 	
-	@objectField(field="mid")
 	private MedicalRecord medicalRecord;
 	
 	

@@ -31,12 +31,6 @@ public class SQLBuilder {
 			if (field.isAnnotationPresent(dataField.class))
 				columns += String.format("%s=?,", field.getName());
 			
-
-			if (field.isAnnotationPresent(objectField.class)) {
-				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-				columns += String.format("%s=?,", f[0].field());
-			}
-			
 		}
 
 		if (c.isAnnotationPresent(extensionTable.class)) {
@@ -84,16 +78,6 @@ public class SQLBuilder {
 			if (field.isAnnotationPresent(pkField.class))
 				primaries += field.getName() + ",";
 
-			if (field.isAnnotationPresent(objectField.class)) {
-				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-				Class<?> fieldClass = field.getType();
-				String table = Helpers.getTableName(field.getType());
-				Field objField = fieldClass.getDeclaredField(f[0].field());
-
-				columns += f[0].field() + " " + dataType(objField.getType()) + ",";
-				foreigns += String.format("FOREIGN KEY(%s) REFERENCES %s(%s),", f[0].field(), table, f[0].field());
-			}
-
 			if (field.isAnnotationPresent(fkField.class)) {
 				fkField[] f = field.getAnnotationsByType(fkField.class);
 				foreigns += String.format("FOREIGN KEY(%s) REFERENCES %s,", field.getName(), f[0].target());
@@ -126,12 +110,6 @@ public class SQLBuilder {
 				fields += field.getName() + ",";
 				vals += "?,";
 			}
-
-			if (field.isAnnotationPresent(objectField.class)) {
-				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-				fields += f[0].field() + ",";
-				vals += "?,";
-			}
 		}
 
 		if (c.isAnnotationPresent(extensionTable.class)) {
@@ -155,14 +133,6 @@ public class SQLBuilder {
 			for (Field field : c.getDeclaredFields()) {
 				if (field.isAnnotationPresent(dataField.class))
 					fields += String.format("%s.%s as %s,", tblName, field.getName(), field.getName());
-
-				if (field.isAnnotationPresent(objectField.class)) {
-					objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-					Class<?> fieldClass = field.getType();
-					String table = Helpers.getTableName(field.getType());
-					fields += String.format("%s.%s as %s,", tblName, f[0].field(), f[0].field());
-				}
-
 			}
 			if (c.isAnnotationPresent(extensionTable.class)) {
 				extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);

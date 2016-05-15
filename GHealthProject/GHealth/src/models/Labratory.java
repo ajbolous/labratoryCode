@@ -2,12 +2,9 @@ package models;
 
 import java.util.ArrayList;
 
-import Orm.objectField;
-
 public class Labratory extends Entity {
 	private ArrayList <Labratorian> Labrtorians ; 
 	private ArrayList <Examination> Examinations;
-	@objectField(field="sid")
 	private Labratorian labratorian;
 	private int lab_id;
 	

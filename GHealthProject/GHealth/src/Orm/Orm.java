@@ -75,15 +75,6 @@ public class Orm {
 					stmt.setObject(i++, getter.invoke(obj));
 				}
 
-				if (field.isAnnotationPresent(objectField.class)) {
-					objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
-					Method getter = Helpers.getGetter(c, field.getName());
-					Entity t = (Entity) getter.invoke(obj);
-					t.update();
-					getter = Helpers.getGetter(field.getType(), f[0].field());
-					stmt.setObject(i++, getter.invoke(t));
-				}
-
 			}
 			if (c.isAnnotationPresent(extensionTable.class)) {
 				extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
