@@ -7,10 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import models.Doctor;
-import models.Entity;
-import models.Person;
 import Server.Config;
+import models.*;
 
 public class DoctorsHandler extends AbstractHandler implements Persistable<Doctor> {
 

@@ -26,17 +26,25 @@ public class SQLBuilder {
 		String tblName = Helpers.getTableName(c);
 		String columns = "";
 		for (Field field : c.getDeclaredFields()) {
-				if (field.isAnnotationPresent(pkField.class))
-					primes += String.format("%s=? AND ", field.getName());
-				if (field.isAnnotationPresent(dataField.class))
-					columns += String.format("%s=?,", field.getName());
+			if (field.isAnnotationPresent(pkField.class))
+				primes += String.format("%s=? AND ", field.getName());
+			if (field.isAnnotationPresent(dataField.class))
+				columns += String.format("%s=?,", field.getName());
+			
+
+			if (field.isAnnotationPresent(objectField.class)) {
+				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
+				columns += String.format("%s=?,", f[0].field());
+			}
+			
 		}
-		
+
 		if (c.isAnnotationPresent(extensionTable.class)) {
 			extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
 			primes += String.format("%s=? AND ", f[0].field());
+			columns += String.format("%s=?,", f[0].field());
 		}
-		
+
 		if (primes != "")
 			primes = primes.substring(0, primes.length() - 5);
 		columns = columns.substring(0, columns.length() - 1);
@@ -63,7 +71,7 @@ public class SQLBuilder {
 		return String.format("DELETE FROM %s WHERE %s", tblName, where);
 	}
 
-	public static String createSql(Class<?> c) {
+	public static String createSql(Class<?> c) throws Exception {
 		String tblName = Helpers.getTableName(c);
 		String columns = "";
 		String primaries = "";
@@ -76,6 +84,16 @@ public class SQLBuilder {
 			if (field.isAnnotationPresent(pkField.class))
 				primaries += field.getName() + ",";
 
+			if (field.isAnnotationPresent(objectField.class)) {
+				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
+				Class<?> fieldClass = field.getType();
+				String table = Helpers.getTableName(field.getType());
+				Field objField = fieldClass.getDeclaredField(f[0].field());
+
+				columns += f[0].field() + " " + dataType(objField.getType()) + ",";
+				foreigns += String.format("FOREIGN KEY(%s) REFERENCES %s(%s),", f[0].field(), table, f[0].field());
+			}
+
 			if (field.isAnnotationPresent(fkField.class)) {
 				fkField[] f = field.getAnnotationsByType(fkField.class);
 				foreigns += String.format("FOREIGN KEY(%s) REFERENCES %s,", field.getName(), f[0].target());
@@ -85,13 +103,13 @@ public class SQLBuilder {
 		if (c.isAnnotationPresent(extensionTable.class)) {
 			extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
 			columns = f[0].field() + " " + dataType(String.class) + "," + columns;
-			foreigns = String.format("FOREIGN KEY(%s) REFERENCES %s(),", f[0].field(), f[0].table(), f[0].field())
+			foreigns = String.format("FOREIGN KEY(%s) REFERENCES %s(%s),", f[0].field(), f[0].table(), f[0].field())
 					+ foreigns;
 			primaries = f[0].field() + "," + primaries;
 
 		}
 
-		primaries = "PRIMARY KEY(" + primaries.substring(0, primaries.length() - 1) + ")";
+		primaries = "PRIMARY KEY(" + primaries.substring(0, primaries.length() - 1) + "),";
 		columns = columns + primaries + foreigns;
 		columns = columns.substring(0, columns.length() - 1);
 		String s = String.format("CREATE TABLE %s(%s);", tblName, columns);
@@ -103,11 +121,18 @@ public class SQLBuilder {
 		String tblName = Helpers.getTableName(c);
 		String fields = "";
 		String vals = "";
-		for (Field field : c.getDeclaredFields())
+		for (Field field : c.getDeclaredFields()) {
 			if (field.isAnnotationPresent(dataField.class)) {
 				fields += field.getName() + ",";
 				vals += "?,";
 			}
+
+			if (field.isAnnotationPresent(objectField.class)) {
+				objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
+				fields += f[0].field() + ",";
+				vals += "?,";
+			}
+		}
 
 		if (c.isAnnotationPresent(extensionTable.class)) {
 			extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
@@ -127,10 +152,18 @@ public class SQLBuilder {
 		while (c.getName() != Entity.class.getName()) {
 			String tblName = Helpers.getTableName(c);
 
-			for (Field field : c.getDeclaredFields())
+			for (Field field : c.getDeclaredFields()) {
 				if (field.isAnnotationPresent(dataField.class))
 					fields += String.format("%s.%s as %s,", tblName, field.getName(), field.getName());
 
+				if (field.isAnnotationPresent(objectField.class)) {
+					objectField[] f = (objectField[]) field.getAnnotationsByType(objectField.class);
+					Class<?> fieldClass = field.getType();
+					String table = Helpers.getTableName(field.getType());
+					fields += String.format("%s.%s as %s,", tblName, f[0].field(), f[0].field());
+				}
+
+			}
 			if (c.isAnnotationPresent(extensionTable.class)) {
 				extensionTable[] f = (extensionTable[]) c.getAnnotationsByType(extensionTable.class);
 				joins += String.format("%s.%s=%s.%s AND ", tblName, f[0].field(), f[0].table(), f[0].field());

@@ -15,8 +15,18 @@ public class Patient extends Person{
 	private String gender;
 	
 	private ArrayList<Referral> referrals; 
-	private InformationFromHMo information ; 
-	private MedicalRecord medicalRecord ;
+	private InformationFromHMo information;
+	
+	@objectField(field="mid")
+	private MedicalRecord medicalRecord;
+	
+	
+	public MedicalRecord getMedicalRecord() {
+		return medicalRecord;
+	}
+	public void setMedicalRecord(MedicalRecord medicalRecord) {
+		this.medicalRecord = medicalRecord;
+	}
 	public float getWeight() {
 		return weight;
 	}
@@ -35,5 +45,5 @@ public class Patient extends Person{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
+
 }

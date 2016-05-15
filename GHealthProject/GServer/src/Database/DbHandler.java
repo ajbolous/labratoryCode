@@ -1,16 +1,9 @@
 package Database;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 import Orm.Orm;
 import Server.Config;
 import Utils.Logger;
@@ -23,8 +16,7 @@ public class DbHandler {
 	private DoctorsHandler doctorsHandler;
 	private PatientsHandler patientsHandler;
 	private PersonsHandler personsHandler;
-	private Orm orm;
-	
+
 	public DbHandler(String url, String username, String password) {
 		this.logger = Config.getConfig().getLogger();
 		try {
@@ -37,30 +29,86 @@ public class DbHandler {
 		} catch (Exception ex) {
 			logger.exception(ex);
 		}
-		orm = new Orm(connection);
+		Orm.setOrm(connection);
 		doctorsHandler = new DoctorsHandler(connection);
 		personsHandler = new PersonsHandler(connection);
 		patientsHandler = new PatientsHandler(connection);
 	}
 
 	public boolean Test() {
-				Visit v = new Visit();
-				v.setComments("hello test");
-				Date  d = new Date(31, 10, 1988);
-				v.setVisitDate(d);
-				v.setTid(10);
-				v.setVid(2);
-				try {
-					v.save(orm);
-					v.setComments("just changing");
-					v.update(orm);
-					v.delete(orm);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}		
+
+		for (int i = 0; i < 5; i++) {
+			try {
+				Orm.createTable(MedicalRecord.class);
+			} catch (Exception e) {
+			}
+			try {
+				Orm.createTable(Person.class);
+			} catch (Exception e) {
+			}
+			try {
+				Orm.createTable(User.class);
+			} catch (Exception e) {
+			}
+			try {
+				Orm.createTable(ClinicEmployee.class);
+			} catch (Exception e1) {
+			}
+			try {
+				Orm.createTable(Manager.class);
+			} catch (Exception e) {
+			}
+
+			try {
+				Orm.createTable(Labratorian.class);
+			} catch (Exception e) {
+			}
+
+			try {
+				Orm.createTable(Labratory.class);
+			} catch (Exception e1) {
+			}
+			try {
+				Orm.createTable(Clinic.class);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		try {
+			Clinic c = new Clinic();
+			c.setCid(5);
+			c.setAddress("addsdheasd");
+
+			Labratory lab = new Labratory();
+			lab.setLab_id(10);
+
+			Labratorian l = new Labratorian();
+			l.setSid("2023");
+			l.setFirstName("bolous");
+
+			lab.setLabratorian(l);
+			c.setLabratory(lab);
+
+			Manager m = new Manager();
+			m.setSid("120");
+			m.setFirstName("bolous abu jaber");
+			m.setClinic(c);
+			m.save();
+
+			Manager z = (Manager) Orm.getObject(Manager.class, "persons.sid='120'");
+			int x = 1;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return false;
 	}
+
 	public boolean createDataBase() throws SQLException {
 		return false;
 	}
