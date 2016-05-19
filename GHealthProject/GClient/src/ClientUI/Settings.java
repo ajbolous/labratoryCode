@@ -87,7 +87,7 @@ public class Settings {
 		lblWelcomeToGhealth.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblWelcomeToGhealth.setHorizontalAlignment(SwingConstants.LEFT);
 		lblWelcomeToGhealth.setIcon(res.getIcon("logo.png"));
-		lblWelcomeToGhealth.setBounds(0, 0, 278, 61);
+		lblWelcomeToGhealth.setBounds(0, 0, 284, 61);
 		frame.getContentPane().add(lblWelcomeToGhealth);
 		
 		btnCancel = new JButton("Cancel");
