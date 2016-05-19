@@ -137,6 +137,8 @@ public class NewApp  {
 			
 			};
 		doctors_table = new JTable(doc_data,doc_columnNames);
+		doctors_table.setCellSelectionEnabled(true);
+		doctors_table.setColumnSelectionAllowed(true);
 		
 		doctors_table.setFillsViewportHeight(true);
 		doctors_table.setSurrendersFocusOnKeystroke(true);
