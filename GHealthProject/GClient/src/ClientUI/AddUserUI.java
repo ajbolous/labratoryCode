@@ -54,7 +54,7 @@ public class AddUserUI {
 	private void initialize() {
 		Resources res = new Resources();
 		template = new JFrame();
-		template.setTitle("Add user- GHealth");
+		template.setTitle("Add New User- GHealth");
 		template.setResizable(false);
 		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		template.setIconImage(icon);
@@ -64,8 +64,8 @@ public class AddUserUI {
 		template.getContentPane().setBackground(Color.WHITE);
 		template.getContentPane().setLayout(null);
 		
-		JLabel logo = new JLabel("GHealth - Add User");
-		logo.setBounds(0, 0, 495, 80);
+		JLabel logo = new JLabel("GHealth - Add New User");
+		logo.setBounds(0, 0, 425, 80);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -129,16 +129,16 @@ public class AddUserUI {
 		passwordField.setBounds(90, 147, 252, 26);
 		template.getContentPane().add(passwordField);
 		
-		JButton btnNewButton = new JButton("Add user");
+		JButton btnNewButton = new JButton("Save");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(112, 379, 89, 23);
+		btnNewButton.setBounds(162, 338, 89, 23);
 		template.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Cancel");
-		btnNewButton_1.setBounds(211, 379, 89, 23);
+		btnNewButton_1.setBounds(253, 338, 89, 23);
 		template.getContentPane().add(btnNewButton_1);
 		
 		textField_1 = new JTextField();
@@ -150,7 +150,7 @@ public class AddUserUI {
 		label_6.setBounds(352, 237, 73, 35);
 		template.getContentPane().add(label_6);
 		template.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		template.setBounds(100, 100, 501, 496);
+		template.setBounds(100, 100, 431, 408);
 		template.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
