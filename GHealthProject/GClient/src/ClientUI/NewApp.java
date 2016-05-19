@@ -131,12 +131,13 @@ public class NewApp  {
 			
 			    {"Ahdab", "umm alfahm","NON"},
 			 
-			    {"Ahmad", "nasre","NON"}
+			    {"Ahmad", "nasre","NON"},
 			
-			     , {"Faysal", "majd elkroom","NON"}
+			     {"Faysal", "majd elkroom","NON"}
 			
 			};
-		doctors_table = new JTable(doc_data,doc_columnNames);
+		doctors_table = new JTable();
+		doctors_table.setModel(new MyTableModel(doc_columnNames,doc_data));
 		
 		doctors_table.setFillsViewportHeight(true);
 		doctors_table.setSurrendersFocusOnKeystroke(true);
@@ -172,7 +173,8 @@ public class NewApp  {
 			     , {"22/2/2022", "Monday",
 			     "20:00"}
 			};
-		time_table = new JTable(data,columnNames);
+		time_table = new JTable();
+		time_table.setModel(new MyTableModel(columnNames,data));
 		time_table.setFillsViewportHeight(true);
 		time_table.setSurrendersFocusOnKeystroke(true);
 		time_table.setShowVerticalLines(false);

@@ -28,7 +28,7 @@ public class DbHandler {
 		try {
 			logger.debug("Starting Database driver..");
 			logger.debug("Connecting to Database " + url + " as user: " + username);
-			ConnectionSource connectionSource =new JdbcConnectionSource("jdbc:mysql://localhost:3306/test","root","123123");
+			ConnectionSource connectionSource =new JdbcConnectionSource("jdbc:mysql://localhost:3306/ghealth","root","1111");
 	
 			logger.debug("Connected to database.");
 
@@ -41,18 +41,6 @@ public class DbHandler {
 		TableUtils.createTableIfNotExists(connectionSource, Visit.class);
 		TableUtils.createTableIfNotExists(connectionSource, Treatment.class);
 
-		Treatment t = new Treatment();
-		treatments.assignEmptyForeignCollection(t, "visits");
-		Visit v = new Visit();
-		t.setDao(treatments);
-		v.setDao(visits);
-		v.setComments("going ok");
-		v.setTreatment(t);
-		t.setStatus("good");
-		t.create();
-		t.getVisits().add(v);
-		
-			int i = 0;
 		} catch (Exception ex) {
 			logger.exception(ex);
 		}
