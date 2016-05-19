@@ -5,28 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Orm.Orm;
-import Orm.Queryable;
+import com.j256.ormlite.misc.BaseDaoEnabled;
 
-public abstract class Entity implements Serializable, Queryable {
-
-	@Override
-	public void save() throws Exception {
-		Orm.saveObject(this);
-	}
-
-	@Override
-	public void delete() throws Exception {
-		Orm.deleteObject(this);
-	}
-
-	@Override
-	public void update() throws Exception {
-		Orm.updateObject(this);
-	}
-
-	public void createTable() throws Exception {
-		Orm.createTable(this.getClass());
-	}
-
+public abstract class Entity extends BaseDaoEnabled implements Serializable {
 }

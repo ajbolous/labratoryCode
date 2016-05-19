@@ -1,8 +1,6 @@
 package models;
 
-import Orm.extensionTable;
 
-@extensionTable(table="users", field="sid")
 public class ClinicEmployee extends User{
 	private Clinic clinic ;
 

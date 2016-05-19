@@ -3,15 +3,12 @@ package models;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import Orm.*;
-
-@extensionTable(table="persons", field="sid")
 public class Patient extends Person{
-	@dataField
+	
 	private float weight;
-	@dataField
+	
 	private float height ;
-	@dataField
+	
 	private String gender;
 	
 	private ArrayList<Referral> referrals; 

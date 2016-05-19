@@ -1,12 +1,10 @@
 package models;
 
-import Orm.*;
+import com.j256.ormlite.field.DatabaseField;
 
-@extensionTable(table="persons", field="sid")
 public abstract class User extends Person {
-	@dataField
+	@DatabaseField()
 	private String pass ;
-
 	public String getPass() {
 		return pass;
 	}

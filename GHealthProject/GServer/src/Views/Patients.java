@@ -8,7 +8,7 @@ import Utils.Request;
 public class Patients extends View{
 	public Object all(Request request){
 		DbHandler db = Config.getConfig().getHandler();
-		return db.getDoctorsHandler().getAll();
+		return null;
 	}
 	
 	public Object add(Request request){

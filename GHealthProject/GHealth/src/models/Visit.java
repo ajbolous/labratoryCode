@@ -1,36 +1,35 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 
-import Orm.Orm;
-import Orm.dataField;
-import Orm.fkField;
-import Orm.pkField;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "visits")
 public class Visit extends Entity{
 	
-	@dataField
-	@pkField
-	private int vid;
+	@DatabaseField(generatedId = true)
+	private int vid;	
+	@DatabaseField()
+	private Date visitDate;
+	@DatabaseField()
+	private String comments;
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
+	private Treatment treatment;
 	
-	@dataField
-	@pkField
-	@fkField(target = "treatments(tid)")
-	private int tid;
-	
+	public Treatment getTreatment() {
+		return treatment;
+	}
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
+	}
 	public int getVid() {
 		return vid;
 	}
 	public void setVid(int vid) {
 		this.vid = vid;
 	}
-	public int getTid() {
-		return tid;
-	}
-	public void setTid(int tid) {
-		this.tid = tid;
-	}
+
 	public Date getVisitDate() {
 		return visitDate;
 	}
@@ -43,8 +42,5 @@ public class Visit extends Entity{
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	@dataField
-	private Date visitDate;
-	@dataField
-	private String comments;
+
 }

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Driver;
 
 import Database.DbHandler;
-import Orm.Orm;
 import Utils.Logger;
 import Utils.Request;
 import models.Person;
@@ -66,7 +65,7 @@ public class Server extends AbstractServer {
 
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
 		DbHandler db = cfg.getHandler();
-		db.Test();
+
 		//db.createDataBase();
 
 		//Server server = new Server(cfg.getPort());

@@ -1,14 +1,14 @@
 package models;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
-import Orm.*;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-@extensionTable(table="users", field="sid")
+@DatabaseTable(tableName="doctors")
 public class Doctor extends User{
 
-	@dataField
+	@DatabaseField()
 	private String speciality;
 
 	private ArrayList<Shift> shifts;

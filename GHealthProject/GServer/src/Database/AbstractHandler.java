@@ -2,18 +2,20 @@ package Database;
 
 import java.sql.Connection;
 
-public abstract class AbstractHandler{
-	private Connection connection;
+import com.j256.ormlite.support.ConnectionSource;
 
-	public AbstractHandler(Connection con) {
+public abstract class AbstractHandler{
+	private ConnectionSource connection;
+
+	public AbstractHandler(ConnectionSource con) {
 		setConnection(con);
 	}
 
-	public Connection getConnection() {
+	public ConnectionSource getConnection() {
 		return connection;
 	}
 
-	public void setConnection(Connection connection) {
+	public void setConnection(ConnectionSource connection) {
 		this.connection = connection;
 	}
 }

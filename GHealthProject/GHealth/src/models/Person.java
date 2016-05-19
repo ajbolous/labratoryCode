@@ -2,23 +2,24 @@ package models;
 
 import java.sql.Date;
 
-import Orm.*;
+import com.j256.ormlite.field.DatabaseField;
 
 public abstract class Person extends Entity{
-		
-	@dataField
-	@pkField
+	@DatabaseField(id = true)
 	private String sid;
-	
-	@dataField
+	@DatabaseField()
 	private String lastName;
-	@dataField
+	@DatabaseField()
+
 	private String firstName;
-	@dataField
+	@DatabaseField()
+
 	private Date birthDate;
-	@dataField
+	@DatabaseField()
+
 	private String email;
-	@dataField
+	@DatabaseField()
+
 	private String phone;
 
 	public String getSid() {

@@ -3,13 +3,10 @@ package models;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import Orm.*;
-
 public class MedicalRecord extends Entity{
-	@pkField
-	@dataField
+
 	private int mid;
-	@dataField
+	
 	private Date creationDate;
 	private ArrayList<Treatment> treatments;
 	public int getMid() {

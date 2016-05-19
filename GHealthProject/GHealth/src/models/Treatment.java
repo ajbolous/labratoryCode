@@ -1,22 +1,29 @@
 package models;
-
-import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 
-import Orm.*;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "treatments")
 public class Treatment extends Entity{
-	@dataField
-	@pkField
+
+	@DatabaseField(generatedId = true)
 	private int tid;
-	@dataField
-	private Date start;
-	@dataField
-    private Date end;
 	
-    private ArrayList<Visit> visits ;
-    @dataField
+	@DatabaseField()
+	private Date start;
+	@DatabaseField()
+
+    private Date end;
+    
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Visit> visits;
+	@DatabaseField()
+
     private String status;  //private TreatmentReport treatmentreport
     
     public int getTid() {
@@ -37,10 +44,10 @@ public class Treatment extends Entity{
 	public void setEnd(Date end) {
 		this.end = end;
 	}
-	public ArrayList<Visit> getVisits() {
+	public Collection<Visit> getVisits() {
 		return visits;
 	}
-	public void setVisits(ArrayList<Visit> visits) {
+	public void setVisits(ForeignCollection<Visit> visits) {
 		this.visits = visits;
 	}
 	public String getStatus() {
