@@ -120,19 +120,19 @@ public class NewApp  {
 		doctors_scrll_table.setBounds(30, 171, 420, 175);
 		newApp.getContentPane().add(doctors_scrll_table);
 		
-		String[] doc_columnNames = {"Doctor","Clinic"};
+		String[] doc_columnNames = {"Doctor","Clinic","Last Visit"};
 		Object[][] doc_data = {
-			    {"Muhamad", "Haifa"},
+			    {"Muhamad", "Haifa","22/1/2016"},
 			   
-			    {"Maysam", "Tel-aviv"},
+			    {"Maysam", "Tel-aviv","22/1/2016"},
 			  
-			    {"Boulus", "Karmiel"},
+			    {"Boulus", "Karmiel","22/1/2016"},
 			
-			    {"Ahdab", "umm alfahm"},
+			    {"Ahdab", "umm alfahm","NON"},
 			 
-			    {"Ahmad", "nasre"}
+			    {"Ahmad", "nasre","NON"}
 			
-			     , {"Faysal", "majd elkroom"}
+			     , {"Faysal", "majd elkroom","NON"}
 			
 			};
 		doctors_table = new JTable(doc_data,doc_columnNames);
@@ -140,7 +140,6 @@ public class NewApp  {
 		doctors_table.setSurrendersFocusOnKeystroke(true);
 		doctors_table.setShowVerticalLines(false);
 		doctors_table.setRowHeight(30);
-		
 		doctors_table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		doctors_scrll_table.setViewportView(doctors_table);
 		doctors_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
