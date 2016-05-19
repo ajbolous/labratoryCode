@@ -186,7 +186,7 @@ public class ClientUI {
 		
 		frame.getContentPane().add(btnTests);
 		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setBounds(0, 0, 366, 58);
+		lblNewLabel.setBounds(0, 0, 366, 89);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setIcon(res.getIcon("logo.png"));
 
