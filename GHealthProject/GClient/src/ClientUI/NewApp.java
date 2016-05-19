@@ -45,6 +45,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class NewApp  {
 
@@ -136,6 +137,7 @@ public class NewApp  {
 			
 			};
 		doctors_table = new JTable(doc_data,doc_columnNames);
+		
 		doctors_table.setFillsViewportHeight(true);
 		doctors_table.setSurrendersFocusOnKeystroke(true);
 		doctors_table.setShowVerticalLines(false);
@@ -144,7 +146,7 @@ public class NewApp  {
 		doctors_scrll_table.setViewportView(doctors_table);
 		doctors_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		doctors_table.setBackground(SystemColor.menu);
-		
+		//doctors_table.setCellSelectionEnabled(false);
 		
 		JScrollPane time_scrll_table = new JScrollPane();
 		time_scrll_table.setBounds(30, 381, 420, 175);
