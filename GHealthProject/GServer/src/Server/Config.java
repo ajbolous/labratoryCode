@@ -6,9 +6,9 @@ import Utils.Logger;
 public class Config {
 	private boolean isDebug = true;
 	private int port = 5000;
-	private String dbUrl = "jdbc:mysql://localhost:3306/test";
-	private String dbUser = "root";
-	private String dbPassword = "123123";
+	private String dbUrl = "jdbc:mysql://mnasra.com:3306/mnasra_ghealth";
+	private String dbUser = "mnasra_root";
+	private String dbPassword = "Ghealth123456!@#";
 	private Logger logger = new Logger(isDebug);
 
 	private DbHandler handler;
