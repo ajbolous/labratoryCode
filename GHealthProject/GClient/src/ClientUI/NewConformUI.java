@@ -28,6 +28,12 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JPanel;
 
 public class NewConformUI {
 
@@ -35,7 +41,6 @@ public class NewConformUI {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
 
 	
 	public NewConformUI() {
@@ -67,50 +72,53 @@ public class NewConformUI {
 		NewConformUI.getContentPane().add(logo);
 		
 		JLabel lblPatientId = new JLabel("Patient ID");
-		lblPatientId.setBounds(37, 119, 66, 14);
+		lblPatientId.setBounds(20, 100, 66, 14);
 		NewConformUI.getContentPane().add(lblPatientId);
 		
 		JLabel lblRefferalNum = new JLabel("Refferal Num");
-		lblRefferalNum.setBounds(37, 153, 66, 14);
+		lblRefferalNum.setBounds(20, 133, 66, 14);
 		NewConformUI.getContentPane().add(lblRefferalNum);
 		
 		JLabel lblApprovalNum = new JLabel("Approval Num:");
-		lblApprovalNum.setBounds(32, 184, 71, 14);
+		lblApprovalNum.setBounds(20, 163, 71, 14);
 		NewConformUI.getContentPane().add(lblApprovalNum);
 		
 		JLabel lblOther = new JLabel("Other: ");
-		lblOther.setBounds(59, 223, 71, 14);
+		lblOther.setBounds(20, 188, 71, 14);
 		NewConformUI.getContentPane().add(lblOther);
 		
 		textField = new JTextField();
-		textField.setBounds(107, 116, 200, 20);
+		textField.setBounds(100, 100, 200, 20);
 		NewConformUI.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(107, 150, 200, 20);
+		textField_1.setBounds(100, 130, 200, 20);
 		NewConformUI.getContentPane().add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(107, 181, 200, 20);
+		textField_2.setBounds(100, 160, 200, 20);
 		NewConformUI.getContentPane().add(textField_2);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(107, 221, 200, 80);
-		NewConformUI.getContentPane().add(textField_3);
-		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(107, 345, 89, 23);
+		btnSave.setBounds(110, 281, 89, 23);
 		NewConformUI.getContentPane().add(btnSave);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(206, 345, 89, 23);
+		btnCancel.setBounds(211, 281, 89, 23);
 		NewConformUI.getContentPane().add(btnCancel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(101, 190, 200, 80);
+		NewConformUI.getContentPane().add(scrollPane);
+		
+		JTextPane textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
+		textPane.setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		NewConformUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConformUI.setBounds(100, 100, 501, 496);
+		NewConformUI.setBounds(100, 100, 476, 342);
 		NewConformUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
