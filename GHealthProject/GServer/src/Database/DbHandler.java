@@ -13,95 +13,71 @@ import models.*;
 public class DbHandler {
 
 	private ConnectionSource connection;
-	private Logger logger;
-
 	
-	private Dao<Doctor, String> doctors;
-	private Dao<Treatment, Integer> treatments;
-	private Dao<Visit, Integer> visits;
-	private Dao<Patient, String> patients;
-	private Dao<MedicalRecord, Integer> records;
+	public Dao<Doctor, String> doctors;
+	public Dao<Patient, String> patients;
+	
+	public Dao<MedicalRecord, Integer> records;
+	public Dao<Treatment, Integer> treatments;
+	public Dao<Visit, Integer> visits;
+	public Dao<Examination, Integer> examinations;
+	public Dao<Appointment, Integer> appointments;
+
+	public Dao<Labratory, Integer> labratories;
+	public Dao<Labratorian, String> labratorians;
+	
+	public Dao<Referral, String> refferals;
+	public Dao<Shift, String> shifts;
+	public Dao<Confirmation, String> confirmations;
+
 
 	public DbHandler(String url, String username, String password) {
-		this.logger = Config.getConfig().getLogger();
-		try {
-			logger.debug("Connecting to Database " + url + " as user: " + username);
-			connection=new JdbcConnectionSource("jdbc:mysql://localhost:3306/test","root","123123");
-			
-			setDoctors(DaoManager.createDao(connection, Doctor.class));
-			setTreatments(DaoManager.createDao(connection, Treatment.class));
-			visits =DaoManager.createDao(connection, Visit.class);
-			records = DaoManager.createDao(connection, MedicalRecord.class);
-			patients = DaoManager.createDao(connection, Patient.class);
-			
+		try{
+			connection=new JdbcConnectionSource(url,username,password);
 			createAllTables();
-
-		} catch (Exception ex) {
-			logger.exception(ex);
+			initializeDao();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
-	public void createAllTables() throws Exception{
-		TableUtils.createTableIfNotExists(connection, Doctor.class);
-		TableUtils.createTableIfNotExists(connection, Visit.class);
-		TableUtils.createTableIfNotExists(connection, Treatment.class);
-		TableUtils.createTableIfNotExists(connection, Patient.class);
-		TableUtils.createTableIfNotExists(connection, MedicalRecord.class);		
+	public void initializeDao() throws Exception{
+		patients = DaoManager.createDao(connection, Patient.class);
+		doctors  = DaoManager.createDao(connection, Doctor.class);
+		
+		records = DaoManager.createDao(connection, MedicalRecord.class);
+		treatments = DaoManager.createDao(connection, Treatment.class);
+		visits =DaoManager.createDao(connection, Visit.class);
+		examinations =DaoManager.createDao(connection, Examination.class);
+		appointments =DaoManager.createDao(connection, Appointment.class);
+
+		
+		labratories = DaoManager.createDao(connection, Labratory.class);
+		labratorians = DaoManager.createDao(connection, Labratorian.class);
+		confirmations = DaoManager.createDao(connection, Confirmation.class);
+		shifts = DaoManager.createDao(connection, Shift.class);
+		refferals = DaoManager.createDao(connection, Referral.class);
+
+				
 	}
 	
-	public ConnectionSource getConnection() {
-		return connection;
-	}
+	public void createAllTables() throws Exception{
+		TableUtils.createTableIfNotExists(connection, Patient.class);
+		TableUtils.createTableIfNotExists(connection, Doctor.class);
+		
+		TableUtils.createTableIfNotExists(connection, Visit.class);
+		TableUtils.createTableIfNotExists(connection, Treatment.class);
+		TableUtils.createTableIfNotExists(connection, MedicalRecord.class);	
+		TableUtils.createTableIfNotExists(connection, Examination.class);	
 
-	public void setConnection(ConnectionSource connection) {
-		this.connection = connection;
-	}
+		TableUtils.createTableIfNotExists(connection, Labratory.class);
+		TableUtils.createTableIfNotExists(connection, Labratorian.class);
+		
+		TableUtils.createTableIfNotExists(connection, Appointment.class);	
+		TableUtils.createTableIfNotExists(connection, Confirmation.class);	
+		TableUtils.createTableIfNotExists(connection, Shift.class);	
+		TableUtils.createTableIfNotExists(connection, Referral.class);	
 
-	public Logger getLogger() {
-		return logger;
-	}
-
-	public void setLogger(Logger logger) {
-		this.logger = logger;
-	}
-
-	public Dao<Visit, Integer> getVisits() {
-		return visits;
-	}
-
-	public void setVisits(Dao<Visit, Integer> visits) {
-		this.visits = visits;
-	}
-
-	public Dao<Patient, String> getPatients() {
-		return patients;
-	}
-
-	public void setPatients(Dao<Patient, String> patients) {
-		this.patients = patients;
-	}
-
-	public Dao<MedicalRecord, Integer> getRecords() {
-		return records;
-	}
-
-	public void setRecords(Dao<MedicalRecord, Integer> records) {
-		this.records = records;
-	}
-
-	public Dao<Doctor, String> getDoctors() {
-		return doctors;
-	}
-
-	public void setDoctors(Dao<Doctor, String> doctors) {
-		this.doctors = doctors;
-	}
-
-	public Dao<Treatment, Integer> getTreatments() {
-		return treatments;
-	}
-
-	public void setTreatments(Dao<Treatment, Integer> treatments) {
-		this.treatments = treatments;
+		
 	}
 }

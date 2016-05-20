@@ -3,7 +3,9 @@ package models;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "patients")
@@ -18,10 +20,17 @@ public class Patient extends Person{
 	@DatabaseField()
 	private String gender;
 	
-	//@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "mid")
-	//private ArrayList<Referral> referrals; 
-//	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "mid")
-	//private InformationFromHMo information;
+	public ForeignCollection<Referral> getReferrals() {
+		return referrals;
+	}
+	public void setReferrals(ForeignCollection<Referral> referrals) {
+		this.referrals = referrals;
+	}
+
+
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Referral> referrals; 
+	
 	
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "medical_id")
 	private MedicalRecord medicalRecord;

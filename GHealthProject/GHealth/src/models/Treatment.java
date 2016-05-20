@@ -16,49 +16,65 @@ public class Treatment extends Entity{
 	
 	@DatabaseField()
 	private Date start;
-	@DatabaseField()
+	
+	public int getTid() {
+		return tid;
+	}
 
+	public void setTid(int tid) {
+		this.tid = tid;
+	}
+
+	public Date getStart() {
+		return start;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
+	}
+
+	public MedicalRecord getMedicalRecord() {
+		return medicalRecord;
+	}
+
+	public void setMedicalRecord(MedicalRecord medicalRecord) {
+		this.medicalRecord = medicalRecord;
+	}
+
+	public ForeignCollection<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(ForeignCollection<Visit> visits) {
+		this.visits = visits;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@DatabaseField()
     private Date end;
     
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "medical_id")
+	private MedicalRecord medicalRecord;
+	
 	@ForeignCollectionField(eager=true)
     private ForeignCollection<Visit> visits;
 	
 	@DatabaseField()
-    private String status;  //private TreatmentReport treatmentreport
+    private String status;
     
-	
-	public void addVisit(Visit v){
-		v.setTreatment(this);
-		visits.add(v);
-	}
-    public int getTid() {
-		return tid;
-	}
-	public void setTid(int tid) {
-		this.tid = tid;
-	}
-	public Date getStart() {
-		return start;
-	}
-	public void setStart(Date start) {
-		this.start = start;
-	}
-	public Date getEnd() {
-		return end;
-	}
-	public void setEnd(Date end) {
-		this.end = end;
-	}
-	public Collection<Visit> getVisits() {
-		return visits;
-	}
-	public void setVisits(ForeignCollection<Visit> visits) {
-		this.visits = visits;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 }

@@ -10,23 +10,17 @@ public class Visit extends Entity{
 	
 	@DatabaseField(generatedId = true)
 	private int vid;	
+	
 	@DatabaseField()
 	private Date visitDate;
+	
 	@DatabaseField()
 	private String comments;
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
-	private Treatment treatment;
-	
-	public Treatment getTreatment() {
-		return treatment;
-	}
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
-	}
 	public int getVid() {
 		return vid;
 	}
+
 	public void setVid(int vid) {
 		this.vid = vid;
 	}
@@ -34,14 +28,28 @@ public class Visit extends Entity{
 	public Date getVisitDate() {
 		return visitDate;
 	}
+
 	public void setVisitDate(Date visitDate) {
 		this.visitDate = visitDate;
 	}
+
 	public String getComments() {
 		return comments;
 	}
+
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
 
+	public Treatment getTreatment() {
+		return treatment;
+	}
+
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
+	}
+
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
+	private Treatment treatment;
+	
 }

@@ -5,14 +5,14 @@ import Utils.Logger;
 
 public class Config {
 	private boolean isDebug = true;
-	private String dbUrl = "localhost/test";
+	private int port = 5000;
+	private String dbUrl = "jdbc:mysql://localhost:3306/test";
 	private String dbUser = "root";
-	private String dbPassword = "12345";
+	private String dbPassword = "123123";
 	private Logger logger = new Logger(isDebug);
 
 	private DbHandler handler;
 
-	private int port = 5000;
 
 	private static Config instance = new Config();
 
@@ -35,9 +35,9 @@ public class Config {
 			cfg.setPort(port);
 		if (args.length > 1)
 			cfg.setDbUrl(args[1]);
-		if (args.length > 1)
+		if (args.length > 2)
 			cfg.setDbUser(args[2]);
-		if (args.length > 1)
+		if (args.length > 3)
 			cfg.setDbPassword(args[3]);
 
 		cfg.printConfig();

@@ -1,9 +1,10 @@
 package models;
 
-import java.sql.Date;
-import java.util.ArrayList;
+import java.util.Date;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "medical_records")
@@ -12,21 +13,14 @@ public class MedicalRecord extends Entity{
 	@DatabaseField(generatedId = true)
 	private int mid;
 	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
+	private Patient patient;
+	
 	@DatabaseField()
 	private Date creationDate;
-	//private ArrayList<Treatment> treatments;
 	
-	public int getMid() {
-		return mid;
-	}
-	public void setMid(int mid) {
-		this.mid = mid;
-	}
-	public Date getCreationDate() {
-		return creationDate;
-	}
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Treatment> treatments;
+	
 
 }

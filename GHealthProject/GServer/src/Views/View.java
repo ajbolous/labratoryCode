@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import Utils.Request;
 
-public abstract class View implements Viewable{
+public abstract class View{
 	public Object resolve(Request request) {
 		try {
 			Method method = this.getClass().getMethod(request.getOp(), request.getClass());

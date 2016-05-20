@@ -18,12 +18,9 @@ public class Doctors extends View{
 	public Object bySpeciality(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		String s = (String)request.getParam("speciality");
-		HashMap<String,Object> m = new HashMap<String,Object>();
-		m.put("speciality", s);
 		try {
-			return db.getDoctors().queryForFieldValues(m);
+			return db.doctors.queryForFieldValues(request.getParams());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -35,7 +32,7 @@ public class Doctors extends View{
 		Doctor d = (Doctor)request.getParam("doctor");
 		
 		try {
-			db.getDoctors().create(d);
+			db.doctors.create(d);
 		} catch (SQLException e) {
 			return "Failed";
 		}
@@ -43,13 +40,12 @@ public class Doctors extends View{
 		return "success";
 	}
 	
-	@Override
 	public Object remove(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		Doctor d = (Doctor)request.getParam("doctor");
 		return "success";
 	}
-	@Override
+	
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		Doctor d = (Doctor)request.getParam("doctor");

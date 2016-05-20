@@ -1,7 +1,10 @@
 package models;
 
+import com.j256.ormlite.field.DatabaseField;
 
-public class ClinicEmployee extends User{
+public abstract class ClinicEmployee extends User{
+	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "clinic_id")
 	private Clinic clinic ;
 
 	public Clinic getClinic() {
