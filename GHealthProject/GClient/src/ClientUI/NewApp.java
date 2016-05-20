@@ -193,4 +193,8 @@ public class NewApp  {
 		
 
 	}
+	
+	public JFrame getFrame(){
+		return newApp;
+	}
 }

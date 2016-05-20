@@ -102,6 +102,10 @@ public class ClientUI {
 		button.setIcon(res.getIcon("settings.png"));
 		frame.getContentPane().add(button);
 		button.setToolTipText("Doctors managment form");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 
 		
 		btnNewButton.setBounds(34, 152, 169, 65);
@@ -131,6 +135,10 @@ public class ClientUI {
 		frame.getContentPane().add(btnResults);
 		
 		frame.getContentPane().add(btnNewButton);
+		btnLabs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnLabs.setToolTipText("Laboratiries Managment form");
 		btnLabs.setBounds(213, 152, 118, 65);
 		btnLabs.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -141,6 +149,10 @@ public class ClientUI {
 		btnLabs.setBorder(null);
 
 		frame.getContentPane().add(btnLabs);
+		btnUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnUsers.setToolTipText("Users managment form");
 	
 		btnUsers.setBounds(390, 150, 118, 68);
