@@ -11,6 +11,7 @@ public class Patients extends View{
 		return null;
 	}
 	
+	
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		return "success";

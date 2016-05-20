@@ -22,10 +22,15 @@ public class Treatment extends Entity{
     
 	@ForeignCollectionField(eager=true)
     private ForeignCollection<Visit> visits;
+	
 	@DatabaseField()
-
     private String status;  //private TreatmentReport treatmentreport
     
+	
+	public void addVisit(Visit v){
+		v.setTreatment(this);
+		visits.add(v);
+	}
     public int getTid() {
 		return tid;
 	}

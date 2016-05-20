@@ -3,12 +3,19 @@ package models;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "medical_records")
 public class MedicalRecord extends Entity{
 
+	@DatabaseField(generatedId = true)
 	private int mid;
 	
+	@DatabaseField()
 	private Date creationDate;
-	private ArrayList<Treatment> treatments;
+	//private ArrayList<Treatment> treatments;
+	
 	public int getMid() {
 		return mid;
 	}
@@ -21,10 +28,5 @@ public class MedicalRecord extends Entity{
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	public ArrayList<Treatment> getTreatments() {
-		return treatments;
-	}
-	public void setTreatments(ArrayList<Treatment> treatments) {
-		this.treatments = treatments;
-	}
+
 }

@@ -14,6 +14,7 @@ public class Visit extends Entity{
 	private Date visitDate;
 	@DatabaseField()
 	private String comments;
+	
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
 	private Treatment treatment;
 	

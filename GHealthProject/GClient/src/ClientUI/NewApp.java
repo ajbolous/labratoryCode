@@ -13,7 +13,10 @@ import javax.swing.JLabel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import Client.Application;
 import Client.Resources;
+import Utils.Request;
+import models.Doctor;
 
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -35,6 +38,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import javax.swing.border.EmptyBorder;
@@ -46,6 +50,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.DefaultComboBoxModel;
 
 public class NewApp  {
 
@@ -56,6 +61,7 @@ public class NewApp  {
 	
 	public  NewApp () {
 		initialize();
+		newApp.show();
 	}
 
 	/**
@@ -78,7 +84,7 @@ public class NewApp  {
 		newApp.getContentPane().setLayout(null);
 		
 		JLabel logo = new JLabel("GHealth - New Appointment");
-		logo.setBounds(0, 0, 495, 80);
+		logo.setBounds(0, 0, 465, 64);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -86,8 +92,17 @@ public class NewApp  {
 		newApp.getContentPane().add(logo);
 		
 		JComboBox speciality = new JComboBox();
+		speciality.setModel(new DefaultComboBoxModel(new String[] {"Bone", "Family"}));
+		speciality.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Request r = new Request("doctors/bySpeciality");
+				r.addParam("speciality", speciality.getSelectedItem());
+				ArrayList<Doctor> doctors = (ArrayList<Doctor>) Application.client.Request(r);
+				int x = 10;
+			}
+		});
 		speciality.setEditable(true);
-		speciality.setBounds(120, 106, 200, 25);
+		speciality.setBounds(120, 106, 247, 25);
 		newApp.getContentPane().add(speciality);
 		
 		JLabel lblSpeciality = new JLabel("Speciality:");
@@ -129,7 +144,7 @@ public class NewApp  {
 			  
 			    {"Boulus", "Karmiel","22/1/2016"},
 			
-			    {"Ahdab", "umm alfahm","NON"},
+			    {"Ahdab", "Paris","NON"},
 			 
 			    {"Ahmad", "nasre","NON"},
 			

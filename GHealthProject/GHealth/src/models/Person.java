@@ -7,19 +7,20 @@ import com.j256.ormlite.field.DatabaseField;
 public abstract class Person extends Entity{
 	@DatabaseField(id = true)
 	private String sid;
+	
 	@DatabaseField()
 	private String lastName;
+	
 	@DatabaseField()
-
 	private String firstName;
+	
 	@DatabaseField()
-
 	private Date birthDate;
+	
 	@DatabaseField()
-
 	private String email;
+	
 	@DatabaseField()
-
 	private String phone;
 
 	public String getSid() {

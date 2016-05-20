@@ -85,7 +85,7 @@ public class SignInUI {
 		btnLogIn.setBounds(185, 243, 89, 23);
 		template.getContentPane().add(btnLogIn);
 		template.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		template.setBounds(100, 100, 501, 496);
+		template.setBounds(100, 100, 396, 315);
 		template.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

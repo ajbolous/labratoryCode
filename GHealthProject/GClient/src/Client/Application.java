@@ -1,6 +1,7 @@
 package Client;
 
 import ClientUI.ClientUI;
+import ClientUI.NewApp;
 import Utils.Request;
 import models.Doctor;
 
@@ -17,7 +18,9 @@ public class Application {
 		client = new Client(cfg.getHost(), cfg.getPort());
 		client.open();
 		if(client.isConnected()){
-			ClientUI ui = new ClientUI();
+			NewApp settings = new NewApp();
+
+			//ClientUI ui = new ClientUI();
 		}
 		else
 			System.exit(0);
@@ -26,21 +29,5 @@ public class Application {
 	public static void main(String[] args) {
 		connect();
 		
-		Doctor d = new Doctor();
-		d.setSid("2007691491");
-		d.setFirstName("Bolous");
-		d.setLastName("AbuJaber");
-		d.setSpeciality("Surgeon");
-		Request r = new Request("doctors/add");
-		r.addParam("doctor", d);
-		client.Request(r);
-		
-		r = new Request("doctors/update");
-		d.setEmail("ajbolous@gmail.com");
-		d.setFirstName("Boulos");
-		r.addParam("doctor", d);
-		client.Request(r);
-		// System.exit(0);
-	//	Settings settings = new Settings();
 	}
 }

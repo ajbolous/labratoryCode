@@ -7,6 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="doctors")
 public class Doctor extends User{
+	private static final long serialVersionUID = 1L;
 
 	@DatabaseField()
 	private String speciality;
