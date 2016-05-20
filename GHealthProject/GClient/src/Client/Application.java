@@ -1,5 +1,6 @@
 package Client;
 
+import ClientUI.ClientUI;
 import Utils.Request;
 import models.Doctor;
 
@@ -16,7 +17,7 @@ public class Application {
 		client = new Client(cfg.getHost(), cfg.getPort());
 		client.open();
 		if(client.isConnected()){
-			//ClientUI ui = new ClientUI();
+			ClientUI ui = new ClientUI();
 		}
 		else
 			System.exit(0);
@@ -39,7 +40,7 @@ public class Application {
 		d.setFirstName("Boulos");
 		r.addParam("doctor", d);
 		client.Request(r);
-		 System.exit(0);
+		// System.exit(0);
 	//	Settings settings = new Settings();
 	}
 }

@@ -7,7 +7,7 @@ public class Config {
 	private boolean isDebug = true;
 	private String dbUrl = "localhost/test";
 	private String dbUser = "root";
-	private String dbPassword = "1111";
+	private String dbPassword = "12345";
 	private Logger logger = new Logger(isDebug);
 
 	private DbHandler handler;

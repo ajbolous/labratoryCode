@@ -68,7 +68,7 @@ public class Server extends AbstractServer {
 
 		//db.createDataBase();
 
-		//Server server = new Server(cfg.getPort());
-		//server.listen();
+		Server server = new Server(cfg.getPort());
+		server.listen();
 	}
 }
