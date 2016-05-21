@@ -1,8 +1,9 @@
 package Database;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Calendar;
 
 import Server.Config;
 import models.*;
@@ -31,15 +32,17 @@ public class DataFiller {
 		}
 	}
 	
-	public void fillAppointments() throws SQLException{
-		Doctor d = db.doctors.queryForId("200000002");
-		Patient p = db.patients.queryForId("300000003");
+	public void fillAppointments() throws SQLException, ParseException{
 		
-		long millis = System.currentTimeMillis();
-		Date date = new Date(millis);
-		Appointment a = new Appointment(d,p,date);
-		
+		for(int i =0;i<8;i++){
+		Doctor d = db.doctors.queryForId("20000000" + i);
+		Patient p = db.patients.queryForId("30000000" + i);
+	
+		Appointment a = new Appointment(d,p,Utils.DateTime.getDate(2016, 10, 5+i,11,10));
+
 		db.appointments.createIfNotExists(a);
+		}
+	
 	}
 	
 	
