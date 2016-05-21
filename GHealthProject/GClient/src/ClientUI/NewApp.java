@@ -24,6 +24,7 @@ import javax.swing.JList;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
@@ -61,7 +62,6 @@ public class NewApp  {
 	
 	public  NewApp () {
 		initialize();
-		newApp.show();
 	}
 
 	/**
@@ -119,6 +119,12 @@ public class NewApp  {
 		newApp.getContentPane().add(btnSave);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int choise=JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this appointment setting", "Cancel", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(choise==JOptionPane.YES_OPTION) newApp.setVisible(false);
+			}
+		});
 		btnCancel.setBounds(361, 567, 89, 23);
 		newApp.getContentPane().add(btnCancel);
 		
@@ -203,8 +209,9 @@ public class NewApp  {
 		
 		newApp.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		newApp.setBounds(100, 100, 481, 632);
-		newApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		newApp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		newApp.setLocationRelativeTo(null);
+
 		
 
 	}

@@ -1,8 +1,5 @@
 package models;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -27,6 +24,8 @@ public class Patient extends Person{
 		this.referrals = referrals;
 	}
 
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Appointment> appointments; 
 
 	@ForeignCollectionField(eager=true)
     private ForeignCollection<Referral> referrals; 

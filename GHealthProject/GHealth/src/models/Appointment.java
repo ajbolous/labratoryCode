@@ -11,6 +11,13 @@ public class Appointment extends Entity{
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id")
 	private Doctor doctor ; 
 	
+
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
+	private Patient patient; 
+	
+	@DatabaseField()
+	private Date time ; 
+	
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -35,9 +42,4 @@ public class Appointment extends Entity{
 		this.time = time;
 	}
 
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
-	private Patient patient; 
-	
-	@DatabaseField()
-	private Date time ; 
 }

@@ -25,7 +25,7 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Dis_Identification implements FrameInterface {
+public class Identification implements FrameInterface {
 
 	private JFrame disID;
 	private JTextField IdTxt;
@@ -37,7 +37,7 @@ public class Dis_Identification implements FrameInterface {
 
 	private PatientsController idctrl = new PatientsController();
 
-	public Dis_Identification() {
+	public Identification() {
 		initialize();
 	}
 
@@ -69,10 +69,17 @@ public class Dis_Identification implements FrameInterface {
 		disID.getContentPane().add(IdTxt);
 		IdTxt.setColumns(10);
 
-		JButton login_btn = new JButton("");
-		login_btn.setBackground(Color.CYAN);
+		JButton login_btn = new JButton("Enter");
+		login_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				identificationHandler();
+			}
+		});
+		login_btn.setBorder(null);
+		login_btn.setBackground(Color.WHITE);
 		login_btn.setIcon(loginImg);
-		login_btn.setBounds(243, 127, 35, 35);
+		login_btn.setBounds(245, 127, 64, 35);
 		disID.getContentPane().add(login_btn);
 
 		JLabel logo = new JLabel("Appointments");
@@ -86,7 +93,7 @@ public class Dis_Identification implements FrameInterface {
 		error_lbl = new JLabel("");
 		error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		error_lbl.setForeground(Color.RED);
-		error_lbl.setBounds(80, 102, 200, 25);
+		error_lbl.setBounds(80, 102, 269, 25);
 		disID.getContentPane().add(error_lbl);
 
 		btnNewButton = new JButton("Exit");
@@ -112,18 +119,23 @@ public class Dis_Identification implements FrameInterface {
 		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		disID.setBounds(100, 100, 365, 291);
 		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		disID.setLocationRelativeTo(null);
+
+		
+		
 	}
 
 	private void identificationHandler() {
 		String id = IdTxt.getText();
-		Patient patient = new Patient();
+		Patient patient;
 
 		error_lbl.setText("");
 		if (UITests.notEmptyID(id) == false)
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctID(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
-		else if (idctrl.exists(id))
+		else if ((patient = idctrl.getById(id)) == null)
 			error_lbl.setText("*Patient does not exist in the system");
 		else {
 			disID.setVisible(false);

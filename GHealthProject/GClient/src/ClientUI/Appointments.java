@@ -77,7 +77,7 @@ public class Appointments {
 		lblNewLabel.setBounds(10, 11, 46, 21);
 		panel.add(lblNewLabel);
 		
-		JLabel cName = new JLabel("Muhamad Igbaria");
+		JLabel cName = new JLabel(patient.getFirstName() +" "+ patient.getLastName());
 		cName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cName.setBounds(61, 11, 140, 21);
 		panel.add(cName);
@@ -87,7 +87,7 @@ public class Appointments {
 		lblPhone.setBounds(211, 11, 67, 21);
 		panel.add(lblPhone);
 		
-		JLabel label_1 = new JLabel("052-6833409");
+		JLabel label_1 = new JLabel(patient.getPhone());
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		label_1.setBounds(264, 11, 85, 21);
 		panel.add(label_1);
@@ -97,13 +97,14 @@ public class Appointments {
 		lblEmail.setBounds(387, 11, 46, 21);
 		panel.add(lblEmail);
 		
-		JLabel lblMuhamadigacgmailcom = new JLabel("muhamadig.ac@gmail.com");
+		JLabel lblMuhamadigacgmailcom = new JLabel(patient.getEmail());
 		lblMuhamadigacgmailcom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblMuhamadigacgmailcom.setBounds(445, 8, 194, 27);
 		panel.add(lblMuhamadigacgmailcom);
 		
 		JButton btnCancelSelectedAppointment = new JButton("Cancel Selected Appointment");
-		btnCancelSelectedAppointment.setBounds(177, 140, 173, 30);
+		btnCancelSelectedAppointment.setVisible(false);
+		btnCancelSelectedAppointment.setBounds(194, 140, 230, 30);
 		app.getContentPane().add(btnCancelSelectedAppointment);
 		
 //		Table--------------------------
@@ -144,12 +145,23 @@ public class Appointments {
 		lblActiveFutureAppointments.setBounds(10, 190, 219, 25);
 		app.getContentPane().add(lblActiveFutureAppointments);
 		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(524, 439, 89, 23);
+		JButton btnBack = new JButton("Exit Account");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				app.setVisible(false);
+				new Identification().getFrame().setVisible(true);
+			}
+		});
+		btnBack.setBounds(501, 439, 112, 23);
 		app.getContentPane().add(btnBack);
 		
 		JButton btnAddNewAppointment = new JButton("Add New Appointment");
-		btnAddNewAppointment.setBounds(10, 140, 157, 30);
+		btnAddNewAppointment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new NewApp().getFrame().setVisible(true);
+			}
+		});
+		btnAddNewAppointment.setBounds(10, 140, 174, 30);
 		app.getContentPane().add(btnAddNewAppointment);
 		
 		
@@ -159,6 +171,7 @@ public class Appointments {
 		app.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		app.setBounds(100, 100, 629, 508);
 		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		app.setLocationRelativeTo(null);
 	}
 	
 	public JFrame getFrame(){
