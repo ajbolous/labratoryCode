@@ -131,9 +131,9 @@ public class Identification implements FrameInterface {
 		Patient patient;
 
 		error_lbl.setText("");
-		if (UITests.notEmptyID(id) == false)
+		if (UITests.notEmpty(id) == false)
 			error_lbl.setText("*Please enter patient ID");
-		else if (UITests.correctID(id) == false)
+		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
 		else if ((patient = idctrl.getById(id)) == null)
 			error_lbl.setText("*Patient does not exist in the system");

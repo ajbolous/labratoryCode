@@ -1,6 +1,8 @@
 package Client;
 
+import ClientUI.AddPatientUI;
 import ClientUI.ClientUI;
+import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
 import ClientUI.NewApp;
 import Utils.Request;
@@ -28,9 +30,10 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-		connect();
-		
-		Identification iden= new Identification();
+		//connect();
+		//AddPatientUI p = new AddPatientUI();
+		DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
+		//Identification iden= new Identification();
 	//	iden.getFrame().setVisible(true);
 		
 	}
