@@ -46,27 +46,34 @@ import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.DropMode;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JSpinner;
 
-public class AddUserUI {
+public class AddPatientUI {
 
-	private JFrame template;
+	private JFrame addPatient;
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JComboBox day_cbox;
+	private JComboBox day_cbox = new JComboBox();
 	
 	
 	private  int year;
 	private  int month;
-	private int numDays;
+	private int day;
+	private String id ;
+	private String firstName ;
+	private String lastName ;
+	private String email;
+	private String phone ; 
+	
 
 
 	
-	public AddUserUI() {
+	public AddPatientUI() {
 		initialize();
-		template.setVisible(true);
+		addPatient.setVisible(true);
 	}
 
 	/**
@@ -74,16 +81,16 @@ public class AddUserUI {
 	 */
 	private void initialize() {
 		Resources res = new Resources();
-		template = new JFrame();
-		template.setTitle("Add New Patient- GHealth");
-		template.setResizable(false);
+		addPatient = new JFrame();
+		addPatient.setTitle("Add New Patient- GHealth");
+		addPatient.setResizable(false);
 		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
-		template.setIconImage(icon);
-		template.setForeground(Color.BLACK);
-		template.setFont(new Font("Dialog", Font.PLAIN, 16));
-		template.setBackground(Color.WHITE);
-		template.getContentPane().setBackground(Color.WHITE);
-		template.getContentPane().setLayout(null);
+		addPatient.setIconImage(icon);
+		addPatient.setForeground(Color.BLACK);
+		addPatient.setFont(new Font("Dialog", Font.PLAIN, 16));
+		addPatient.setBackground(Color.WHITE);
+		addPatient.getContentPane().setBackground(Color.WHITE);
+		addPatient.getContentPane().setLayout(null);
 		
 		JLabel logo = new JLabel("GHealth - Add New Patient");
 		logo.setBounds(0, 0, 458, 80);
@@ -91,85 +98,85 @@ public class AddUserUI {
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 15));
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
-		template.getContentPane().add(logo);
+		addPatient.getContentPane().add(logo);
 		
 		JLabel lblNewLabel = new JLabel("ID:");
 		lblNewLabel.setBounds(29, 106, 114, 35);
-		template.getContentPane().add(lblNewLabel);
+		addPatient.getContentPane().add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel("First Name:");
 		label_1.setBounds(29, 136, 114, 35);
-		template.getContentPane().add(label_1);
+		addPatient.getContentPane().add(label_1);
 		
 		JLabel label_2 = new JLabel("Last Name:");
 		label_2.setBounds(29, 166, 114, 35);
-		template.getContentPane().add(label_2);
+		addPatient.getContentPane().add(label_2);
 		
-		JLabel label_3 = new JLabel("Birth Date:");
+		JLabel label_3 = new JLabel("BirthDate:");
 		label_3.setBounds(29, 196, 59, 35);
-		template.getContentPane().add(label_3);
+		addPatient.getContentPane().add(label_3);
 		
 		JLabel label_4 = new JLabel("Email:");
 		label_4.setBounds(29, 226, 114, 35);
-		template.getContentPane().add(label_4);
+		addPatient.getContentPane().add(label_4);
 		
 		JLabel label_5 = new JLabel("Phone:");
 		label_5.setBounds(29, 256, 114, 35);
-		template.getContentPane().add(label_5);
+		addPatient.getContentPane().add(label_5);
 		
 		textField = new JTextField();
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		
-				
-			}
-		});
-		
 		textField.setBounds(90, 110, 252, 26);
-		template.getContentPane().add(textField);
+		addPatient.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(90, 140, 252, 26);
-		template.getContentPane().add(textField_2);
+		addPatient.getContentPane().add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
 		textField_3.setBounds(90, 170, 252, 26);
-		template.getContentPane().add(textField_3);
+		addPatient.getContentPane().add(textField_3);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
 		textField_5.setBounds(90, 230, 252, 26);
-		template.getContentPane().add(textField_5);
+		addPatient.getContentPane().add(textField_5);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
 		textField_6.setBounds(90, 260, 252, 26);
-		template.getContentPane().add(textField_6);
+		addPatient.getContentPane().add(textField_6);
 		
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setForeground(Color.BLUE);
+		btnNewButton.setBounds(139, 297, 89, 23);
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.printf(""+numDays);
+			public void actionPerformed(ActionEvent e)  {
+				id=textField.getText();
+				firstName=textField_2.getText();
+				lastName=textField_3.getText();
+				email = textField_5.getText();
+				phone = textField_6.getText();
+				
+				
 			}
 		});
-		btnNewButton.setBounds(139, 297, 89, 23);
-		template.getContentPane().add(btnNewButton);
-		
+		addPatient.getContentPane().add(btnNewButton);
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.setBounds(253, 297, 89, 23);
-		template.getContentPane().add(btnNewButton_1);
+		addPatient.getContentPane().add(btnNewButton_1);
 		
 	
 		
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		JComboBox year_cbox1 = new JComboBox();
-		year_cbox1.addItemListener(new java.awt.event.ItemListener() {
-			public void itemStateChanged(java.awt.event.ItemEvent e) {
-				year = Integer.parseInt((String)year_cbox1.getSelectedItem());
+		year_cbox1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)  {
+				String y =  (String)year_cbox1.getSelectedItem();
+				if (y.equals("Year"))return ;
+				year = Integer.parseInt(y);
 				
 				
 				
@@ -189,17 +196,17 @@ public class AddUserUI {
 			  year_cbox1.setModel(new DefaultComboBoxModel(y_temp)); 
 
 		year_cbox1.setBounds(89, 203, 72, 20);
-		template.getContentPane().add(year_cbox1);
+		addPatient.getContentPane().add(year_cbox1);
 		
 		
 		
-		JComboBox mounth_cbox = new JComboBox();
-		mounth_cbox.addItemListener(new java.awt.event.ItemListener() {
-			public void itemStateChanged(java.awt.event.ItemEvent e) {
-				String m = (String)mounth_cbox.getSelectedItem();
-			System.out.printf(m);
+		JComboBox month_cbox = new JComboBox();
+		month_cbox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)  {
+				String m = (String)month_cbox.getSelectedItem();
+				int numDays = 0 ;
+				if(m.equals("Month")) return;
 				 month =  Integer.parseInt(m);
-				//System.out.printf(""+year);
 				switch (month) {
 	            case 1: case 3: case 5:
 	            case 7: case 8: case 10:
@@ -223,29 +230,36 @@ public class AddUserUI {
 	                break;
 	               
 	        }
-				day_cbox.insertItemAt("D", 1);
+				for (int i=1 ; i <numDays+1 ; i++)
+				day_cbox.insertItemAt(""+i, i);
 				
 			}
 		});
 		
 		
-		mounth_cbox.setBackground(Color.WHITE);
-		mounth_cbox.setModel(new DefaultComboBoxModel(new String[] {"Mounth", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
-		mounth_cbox.setBounds(171, 203, 80, 20);
-		template.getContentPane().add(mounth_cbox);
+		month_cbox.setBackground(Color.WHITE);
+		month_cbox.setModel(new DefaultComboBoxModel(new String[] {"Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+
+		month_cbox.setBounds(171, 203, 80, 20);
+		addPatient.getContentPane().add(month_cbox);
 		
 		
-		JComboBox day_cbox = new JComboBox();
+		day_cbox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)  {
+				String d =  (String)day_cbox.getSelectedItem();
+				if (d.equals("Days"))return ;
+				day= Integer.parseInt(d);
+
+			}
+		});
 		day_cbox.setBackground(Color.WHITE);
 		day_cbox.setModel(new DefaultComboBoxModel(new String[]{"Days"}));
-		
 		day_cbox.setBounds(262, 203, 80, 20);
-		template.getContentPane().add(day_cbox);
-		template.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		template.setBounds(100, 100, 428, 370);
-		template.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addPatient.getContentPane().add(day_cbox);
+		
+		addPatient.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
+		addPatient.setBounds(100, 100, 428, 370);
+		addPatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-
-
 }

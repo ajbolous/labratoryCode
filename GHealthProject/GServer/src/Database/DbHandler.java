@@ -29,6 +29,7 @@ public class DbHandler {
 	public Dao<Referral, String> refferals;
 	public Dao<Shift, String> shifts;
 	public Dao<Confirmation, String> confirmations;
+	public Dao<Clinic, Integer> clinics;
 
 
 	public DbHandler(String url, String username, String password) {
@@ -61,6 +62,7 @@ public class DbHandler {
 		confirmations = DaoManager.createDao(connection, Confirmation.class);
 		shifts = DaoManager.createDao(connection, Shift.class);
 		refferals = DaoManager.createDao(connection, Referral.class);
+		clinics=DaoManager.createDao(connection, Clinic.class);
 	}
 	
 	public void createAllTables() throws Exception{
@@ -78,7 +80,9 @@ public class DbHandler {
 		TableUtils.createTableIfNotExists(connection, Appointment.class);	
 		TableUtils.createTableIfNotExists(connection, Confirmation.class);	
 		TableUtils.createTableIfNotExists(connection, Shift.class);	
-		TableUtils.createTableIfNotExists(connection, Referral.class);	
+		TableUtils.createTableIfNotExists(connection, Referral.class);
+		TableUtils.createTableIfNotExists(connection, Clinic.class);	
+
 
 		
 	}

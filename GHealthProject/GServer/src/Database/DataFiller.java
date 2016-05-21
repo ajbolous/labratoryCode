@@ -3,7 +3,7 @@ package Database;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Date;
 
 import Server.Config;
 import models.*;
@@ -33,20 +33,16 @@ public class DataFiller {
 	}
 	
 	public void fillAppointments() throws SQLException, ParseException{
-		Doctor d = db.doctors.queryForId("200000002");
-		Patient p = db.patients.queryForId("300000003");
 		
-		String dateStr = "1998-10-31-10:12:12";
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss"); // your template here
-		Date date = new Date(formatter.parse(dateStr).getTime());
-		Appointment a = new Appointment(d,p,date);
-		
+		for(int i =0;i<8;i++){
+		Doctor d = db.doctors.queryForId("20000000" + i);
+		Patient p = db.patients.queryForId("30000000" + i);
+	
+		Appointment a = new Appointment(d,p,Utils.DateTime.getDate(2016, 10, 5+i,11,10));
+
 		db.appointments.createIfNotExists(a);
-		
-		Appointment t = db.appointments.queryForAll().get(0);
-		d = t.getDoctor();
-		int x= 0;
-		
+		}
+	
 	}
 	
 	

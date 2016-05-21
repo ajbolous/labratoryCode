@@ -18,7 +18,6 @@ import java.awt.Image;
 import javax.swing.JButton;
 
 import Client.Resources;
-import models.Visit;
 
 import javax.swing.BoxLayout;
 
@@ -30,6 +29,8 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
+
+import models.Visit;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
@@ -61,28 +62,20 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeExpansionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
-import java.util.Calendar;
-import javax.swing.JTextField;
-import javax.swing.JInternalFrame;
-import java.awt.GridBagLayout;
-import javax.swing.border.LineBorder;
 
 public class DoctorMedicalRecordUI {
 
 	private JFrame DoctorMedicalRecord;
-
+	Panel panel_1 = new Panel();
 	
 	public DoctorMedicalRecordUI() {
 		initialize();
 		DoctorMedicalRecord.setSize(950, 653);
 		DoctorMedicalRecord.setVisible(true);
 	}
-	JPanel panel_1 = new JPanel();
 
 	/**
 	 * Initialize the contents of the frame.
@@ -176,6 +169,15 @@ public class DoctorMedicalRecordUI {
 		label_3.setBounds(218, 14, 84, 14);
 		panel.add(label_3);
 		
+		
+		
+		
+		
+		
+		panel_1.setBounds(283, 142, 539, 414);
+		DoctorMedicalRecord.getContentPane().add(panel_1);
+		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 143, 283, 413);
 		DoctorMedicalRecord.getContentPane().add(scrollPane);
@@ -184,71 +186,56 @@ public class DoctorMedicalRecordUI {
 		
 		
 		JTree tree = new JTree();
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-				Object obj = node.getUserObject();
-				if(obj.getClass() == Visit.class)
-					{
-						VisitUI vui = new VisitUI((Visit)obj);
-						vui.show();
-						vui.setBounds(0, 0, 200, 200);
-						vui.setVisible(true);
-						panel_1.add(vui);
-				
-					}
-			}
-		});
 		scrollPane.setViewportView(tree);
 		tree.setShowsRootHandles(true);
 		tree.setModel(new DefaultTreeModel(
 			new DefaultMutableTreeNode("Treatments") {
 				{
-//					DefaultMutableTreeNode node_1;
-//					
-//					DefaultMutableTreeNode node_2;
-//					DefaultMutableTreeNode node_3;
-//					node_1 = new DefaultMutableTreeNode("Treatment");
-//					node_2 = new DefaultMutableTreeNode("Visits");
-//					node_2.add(new DefaultMutableTreeNode("visit1"));
-//					node_2.add(new DefaultMutableTreeNode("visit2"));
-//					node_2.add(new DefaultMutableTreeNode("visit3"));
-//				
-//					node_3 =  new DefaultMutableTreeNode("Tests");
-//					node_3.add(new DefaultMutableTreeNode("test123"));
-//					
-//					node_1.add(node_2);
-//					node_1.add(node_3);	
-//					add(node_1);
-//					
-//					node_1 = new DefaultMutableTreeNode("Treatment2");
-//					node_2 = new DefaultMutableTreeNode("Visits");
-//					node_2.add(new DefaultMutableTreeNode("visit12"));
-//					node_2.add(new DefaultMutableTreeNode("visit22"));
-//					node_2.add(new DefaultMutableTreeNode("visit32"));
-//					node_3 =  new DefaultMutableTreeNode("Tests");
-//					node_3.add(new DefaultMutableTreeNode("test12345"));
-//					node_3.add(new DefaultMutableTreeNode("test45"));
-//					node_1.add(node_2);
-//					node_1.add(node_3);	
-//					add(node_1);
-//					
-//					node_1 = new DefaultMutableTreeNode("Treatment3");
-//					node_2 = new DefaultMutableTreeNode("Visits");
-//					node_2.add(new DefaultMutableTreeNode("visit12"));
-//					node_2.add(new DefaultMutableTreeNode("visit22"));
-//					node_2.add(new DefaultMutableTreeNode("visit32"));
-//					node_3 =  new DefaultMutableTreeNode("Tests");
-//					node_3.add(new DefaultMutableTreeNode("test12345"));
-//					node_3.add(new DefaultMutableTreeNode("test45"));
+					
 					Visit visit = new Visit();
-					visit.setComments("stam");
-					DefaultMutableTreeNode v = new DefaultMutableTreeNode(visit);
-					add(v);
-//					node_3.add();
-//					node_1.add(node_2);
-//					node_1.add(node_3);	
-//					add(node_1);
+					visit.setVid(1);
+					visit.setComments("good");
+					
+					DefaultMutableTreeNode node_1;
+					
+					DefaultMutableTreeNode node_2;
+					DefaultMutableTreeNode node_3;
+					node_1 = new DefaultMutableTreeNode("Treatment");
+					node_2 = new DefaultMutableTreeNode("Visits");
+					node_2.add(new DefaultMutableTreeNode(visit));
+					node_2.add(new DefaultMutableTreeNode("visit2"));
+					node_2.add(new DefaultMutableTreeNode("visit3"));
+				
+					node_3 =  new DefaultMutableTreeNode("Tests");
+					node_3.add(new DefaultMutableTreeNode("test123"));
+					
+					node_1.add(node_2);
+					node_1.add(node_3);	
+					add(node_1);
+					
+					node_1 = new DefaultMutableTreeNode("Treatment2");
+					node_2 = new DefaultMutableTreeNode("Visits");
+					node_2.add(new DefaultMutableTreeNode("visit12"));
+					node_2.add(new DefaultMutableTreeNode("visit22"));
+					node_2.add(new DefaultMutableTreeNode("visit32"));
+					node_3 =  new DefaultMutableTreeNode("Tests");
+					node_3.add(new DefaultMutableTreeNode("test12345"));
+					node_3.add(new DefaultMutableTreeNode("test45"));
+					node_1.add(node_2);
+					node_1.add(node_3);	
+					add(node_1);
+					
+					node_1 = new DefaultMutableTreeNode("Treatment3");
+					node_2 = new DefaultMutableTreeNode("Visits");
+					node_2.add(new DefaultMutableTreeNode("visit12"));
+					node_2.add(new DefaultMutableTreeNode("visit22"));
+					node_2.add(new DefaultMutableTreeNode("visit32"));
+					node_3 =  new DefaultMutableTreeNode("Tests");
+					node_3.add(new DefaultMutableTreeNode("test12345"));
+					node_3.add(new DefaultMutableTreeNode("test45"));
+					node_1.add(node_2);
+					node_1.add(node_3);	
+					add(node_1);
 					
 				}
 			}
@@ -263,15 +250,18 @@ public class DoctorMedicalRecordUI {
 		});
 		btnCancel.setBounds(823, 590, 89, 23);
 		DoctorMedicalRecord.getContentPane().add(btnCancel);
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerDateModel(new Date(1463814000000L), null, null, Calendar.DAY_OF_YEAR));
-		spinner.setBounds(70, 578, 213, 20);
-		DoctorMedicalRecord.getContentPane().add(spinner);
-		
-		panel_1.setBounds(288, 147, 605, 406);
-		DoctorMedicalRecord.getContentPane().add(panel_1);
-		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
+		tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+		    @Override
+		    public void valueChanged(TreeSelectionEvent e) {
+		    	DefaultMutableTreeNode node =(DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		    	Object obj = node.getUserObject();
+		    	if(obj.getClass()==Visit.class)
+		    	{
+		    		//VisitUI vi= new VisitUI();
+		    		//panel_1.set
+		    	}
+		    }
+		});
 		
 		
 	}
