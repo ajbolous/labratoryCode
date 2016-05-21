@@ -9,9 +9,9 @@ public class Config {
 //	private String dbUrl = "jdbc:mysql://mnasra.com:3306/mnasra_ghealth";
 //	private String dbUser = "mnasra_root";
 //	private String dbPassword = "Ghealth123456!@#";
-	private String dbUrl = "jdbc:mysql://localhost/ghealth";
+	private String dbUrl = "jdbc:mysql://localhost/test";
 	private String dbUser = "root";
-	private String dbPassword = "1111";
+	private String dbPassword = "123123";
 	private Logger logger = new Logger(isDebug);
 
 	private DbHandler handler;

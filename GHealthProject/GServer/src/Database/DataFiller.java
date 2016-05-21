@@ -1,8 +1,9 @@
 package Database;
 
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 import Server.Config;
 import models.*;
@@ -31,15 +32,21 @@ public class DataFiller {
 		}
 	}
 	
-	public void fillAppointments() throws SQLException{
+	public void fillAppointments() throws SQLException, ParseException{
 		Doctor d = db.doctors.queryForId("200000002");
 		Patient p = db.patients.queryForId("300000003");
 		
-		long millis = System.currentTimeMillis();
-		Date date = new Date(millis);
+		String dateStr = "1998-10-31-10:12:12";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss"); // your template here
+		Date date = new Date(formatter.parse(dateStr).getTime());
 		Appointment a = new Appointment(d,p,date);
 		
 		db.appointments.createIfNotExists(a);
+		
+		Appointment t = db.appointments.queryForAll().get(0);
+		d = t.getDoctor();
+		int x= 0;
+		
 	}
 	
 	
