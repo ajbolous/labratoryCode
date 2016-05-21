@@ -1,7 +1,7 @@
 package Client;
 
 import ClientUI.ClientUI;
-import ClientUI.Dis_Identification;
+import ClientUI.Identification;
 import ClientUI.NewApp;
 import Utils.Request;
 import models.Doctor;
@@ -19,7 +19,7 @@ public class Application {
 		client = new Client(cfg.getHost(), cfg.getPort());
 		client.open();
 		if(client.isConnected()){
-			NewApp settings = new NewApp();
+			//NewApp settings = new NewApp();
 
 			//ClientUI ui = new ClientUI();
 		}
@@ -28,9 +28,9 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-		//connect();
+		connect();
 		
-		Dis_Identification iden= new Dis_Identification();
+		Identification iden= new Identification();
 		iden.getFrame().setVisible(true);
 		
 	}
