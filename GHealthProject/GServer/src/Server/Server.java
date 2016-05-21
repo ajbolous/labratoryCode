@@ -66,7 +66,7 @@ public class Server extends AbstractServer {
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
 		DbHandler db = cfg.getHandler();
 
-	//	Server server = new Server(cfg.getPort());
-	//	server.listen();
+		Server server = new Server(cfg.getPort());
+		server.listen();
 	}
 }
