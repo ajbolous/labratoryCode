@@ -1,6 +1,7 @@
 package Client;
 
 import ClientUI.ClientUI;
+import ClientUI.Dis_Identification;
 import ClientUI.NewApp;
 import Utils.Request;
 import models.Doctor;
@@ -27,7 +28,10 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-		connect();
+		//connect();
+		
+		Dis_Identification iden= new Dis_Identification();
+		iden.getFrame().setVisible(true);
 		
 	}
 }
