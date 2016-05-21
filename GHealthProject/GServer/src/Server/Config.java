@@ -6,9 +6,9 @@ import Utils.Logger;
 public class Config {
 	private boolean isDebug = true;
 	private int port = 5000;
-	private String dbUrl = "jdbc:mysql://mnasra.com:3306/mnasra_ghealth";
-	private String dbUser = "mnasra_root";
-	private String dbPassword = "Ghealth123456!@#";
+	private String dbUrl = "jdbc:mysql://waqet.info:3306/waqet_ghealth10";
+	private String dbUser = "waqet_root";
+	private String dbPassword = "}hTLUDEN681P";
 	private Logger logger = new Logger(isDebug);
 
 	private DbHandler handler;
