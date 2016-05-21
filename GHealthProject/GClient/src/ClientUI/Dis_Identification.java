@@ -16,7 +16,7 @@ import models.Patient;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Resources;
-import Controllers.PatientIdentificationCTRL;
+import Controllers.PatientsController;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -25,10 +25,8 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-
 public class Dis_Identification implements FrameInterface {
-	
+
 	private JFrame disID;
 	private JTextField IdTxt;
 	private JLabel error_lbl;
@@ -37,9 +35,8 @@ public class Dis_Identification implements FrameInterface {
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
 
-	
-	private PatientIdentificationCTRL idctrl= new PatientIdentificationCTRL();
-	
+	private PatientsController idctrl = new PatientsController();
+
 	public Dis_Identification() {
 		initialize();
 	}
@@ -52,15 +49,15 @@ public class Dis_Identification implements FrameInterface {
 		disID = new JFrame();
 		disID.setTitle("Appointments- GHealth");
 		disID.setResizable(false);
-		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
-		ImageIcon loginImg=res.getIcon("loginRow.png");
+		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
+		ImageIcon loginImg = res.getIcon("loginRow.png");
 		disID.setIconImage(icon);
 		disID.setForeground(Color.BLACK);
 		disID.setFont(new Font("Dialog", Font.PLAIN, 16));
 		disID.setBackground(Color.WHITE);
 		disID.getContentPane().setBackground(Color.WHITE);
 		disID.getContentPane().setLayout(null);
-		
+
 		IdTxt = new JTextField();
 		IdTxt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,13 +68,13 @@ public class Dis_Identification implements FrameInterface {
 		IdTxt.setBounds(80, 127, 165, 35);
 		disID.getContentPane().add(IdTxt);
 		IdTxt.setColumns(10);
-		
+
 		JButton login_btn = new JButton("");
 		login_btn.setBackground(Color.CYAN);
 		login_btn.setIcon(loginImg);
 		login_btn.setBounds(243, 127, 35, 35);
 		disID.getContentPane().add(login_btn);
-		
+
 		JLabel logo = new JLabel("Appointments");
 		logo.setBounds(0, 0, 495, 80);
 		logo.setForeground(SystemColor.textHighlight);
@@ -85,52 +82,54 @@ public class Dis_Identification implements FrameInterface {
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
 		disID.getContentPane().add(logo);
-		
+
 		error_lbl = new JLabel("");
 		error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		error_lbl.setForeground(Color.RED);
 		error_lbl.setBounds(80, 102, 200, 25);
 		disID.getContentPane().add(error_lbl);
-		
+
 		btnNewButton = new JButton("Exit");
 		btnNewButton.setBounds(260, 230, 89, 23);
 		disID.getContentPane().add(btnNewButton);
-		
+
 		btnNewButton_1 = new JButton("Back");
 		btnNewButton_1.setBounds(172, 230, 89, 23);
 		disID.getContentPane().add(btnNewButton_1);
-		
+
 		txtpnEnterPatientId = new JTextPane();
 		txtpnEnterPatientId.setEditable(false);
 		txtpnEnterPatientId.setText("Enter Patient ID to Open Patient's Appointments");
 		txtpnEnterPatientId.setBounds(80, 168, 200, 35);
 		disID.getContentPane().add(txtpnEnterPatientId);
-		
+
 		lblNewLabel_1 = new JLabel("");
-		ImageIcon info= res.getIcon("info.png");
+		ImageIcon info = res.getIcon("info.png");
 		lblNewLabel_1.setIcon(info);
 		lblNewLabel_1.setBounds(26, 113, 44, 70);
 		disID.getContentPane().add(lblNewLabel_1);
-		
-	
-		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
+
+		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		disID.setBounds(100, 100, 365, 291);
 		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	private void identificationHandler(){
-		String id= IdTxt.getText();
-		Patient patient= new Patient();
-		
+	private void identificationHandler() {
+		String id = IdTxt.getText();
+		Patient patient = new Patient();
+
 		error_lbl.setText("");
-		if (UITests.notEmptyID(id)==false) error_lbl.setText("*Please enter patient ID");
-		else if (UITests.correctID(id)==false) error_lbl.setText("*Please enter 9 digits ID");
-		else if ((patient=idctrl.isExist(id))==null) error_lbl.setText("*Patient not exist in the system");
-		else{
+		if (UITests.notEmptyID(id) == false)
+			error_lbl.setText("*Please enter patient ID");
+		else if (UITests.correctID(id) == false)
+			error_lbl.setText("*Please enter 9 digits ID");
+		else if (idctrl.exists(id))
+			error_lbl.setText("*Patient does not exist in the system");
+		else {
 			disID.setVisible(false);
 			new Appointments(patient).getFrame().setVisible(true);
 		}
-		
+
 	}
 
 	@Override

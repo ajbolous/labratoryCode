@@ -57,8 +57,6 @@ public class DbHandler {
 		confirmations = DaoManager.createDao(connection, Confirmation.class);
 		shifts = DaoManager.createDao(connection, Shift.class);
 		refferals = DaoManager.createDao(connection, Referral.class);
-
-				
 	}
 	
 	public void createAllTables() throws Exception{

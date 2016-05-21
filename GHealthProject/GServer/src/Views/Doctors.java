@@ -18,8 +18,12 @@ public class Doctors extends View{
 	public Object bySpeciality(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		String s = (String)request.getParam("speciality");
+
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("speciality", "doctor");
 		try {
-			return db.doctors.queryForFieldValues(request.getParams());
+			return db.doctors.queryForFieldValues(map);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
