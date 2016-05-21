@@ -21,7 +21,7 @@ public class Application {
 		if(client.isConnected()){
 			//NewApp settings = new NewApp();
 
-			//ClientUI ui = new ClientUI();
+			ClientUI ui = new ClientUI();
 		}
 		else
 			System.exit(0);
@@ -31,7 +31,7 @@ public class Application {
 		connect();
 		
 		Identification iden= new Identification();
-		iden.getFrame().setVisible(true);
+	//	iden.getFrame().setVisible(true);
 		
 	}
 }
