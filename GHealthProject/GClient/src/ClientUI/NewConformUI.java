@@ -63,8 +63,8 @@ public class NewConformUI {
 		NewConformUI.getContentPane().setBackground(Color.WHITE);
 		NewConformUI.getContentPane().setLayout(null);
 		
-		JLabel logo = new JLabel("GHealth - New Conformation");
-		logo.setBounds(0, 0, 495, 80);
+		JLabel logo = new JLabel("New Conformation");
+		logo.setBounds(0, 0, 377, 80);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -118,7 +118,7 @@ public class NewConformUI {
 		scrollPane.setViewportView(textPane);
 		textPane.setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		NewConformUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConformUI.setBounds(100, 100, 476, 342);
+		NewConformUI.setBounds(100, 100, 383, 345);
 		NewConformUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
