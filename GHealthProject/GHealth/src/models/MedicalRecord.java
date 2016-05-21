@@ -21,6 +21,38 @@ public class MedicalRecord extends Entity{
 	
 	@ForeignCollectionField(eager=true)
     private ForeignCollection<Treatment> treatments;
+
+	public int getMid() {
+		return mid;
+	}
+
+	public void setMid(int mid) {
+		this.mid = mid;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public ForeignCollection<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(ForeignCollection<Treatment> treatments) {
+		this.treatments = treatments;
+	}
 	
 
 }
