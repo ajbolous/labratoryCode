@@ -10,12 +10,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import models.Appointment;
+import models.Patient;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Resources;
+import Controllers.PatientIdentificationCTRL;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -23,11 +31,14 @@ public class Dis_Identification implements FrameInterface {
 	
 	private JFrame disID;
 	private JTextField IdTxt;
-	private JLabel lblNewLabel;
+	private JLabel error_lbl;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JTextPane txtpnEnterPatientId;
+	private JLabel lblNewLabel_1;
 
+	
+	private PatientIdentificationCTRL idctrl= new PatientIdentificationCTRL();
 	
 	public Dis_Identification() {
 		initialize();
@@ -51,6 +62,11 @@ public class Dis_Identification implements FrameInterface {
 		disID.getContentPane().setLayout(null);
 		
 		IdTxt = new JTextField();
+		IdTxt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				identificationHandler();
+			}
+		});
 		IdTxt.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		IdTxt.setBounds(80, 127, 165, 35);
 		disID.getContentPane().add(IdTxt);
@@ -70,11 +86,11 @@ public class Dis_Identification implements FrameInterface {
 		logo.setIcon(res.getIcon("logo.png"));
 		disID.getContentPane().add(logo);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel.setForeground(Color.RED);
-		lblNewLabel.setBounds(80, 102, 200, 25);
-		disID.getContentPane().add(lblNewLabel);
+		error_lbl = new JLabel("");
+		error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		error_lbl.setForeground(Color.RED);
+		error_lbl.setBounds(80, 102, 200, 25);
+		disID.getContentPane().add(error_lbl);
 		
 		btnNewButton = new JButton("Exit");
 		btnNewButton.setBounds(260, 230, 89, 23);
@@ -90,12 +106,32 @@ public class Dis_Identification implements FrameInterface {
 		txtpnEnterPatientId.setBounds(80, 168, 200, 35);
 		disID.getContentPane().add(txtpnEnterPatientId);
 		
+		lblNewLabel_1 = new JLabel("");
+		ImageIcon info= res.getIcon("info.png");
+		lblNewLabel_1.setIcon(info);
+		lblNewLabel_1.setBounds(26, 113, 44, 70);
+		disID.getContentPane().add(lblNewLabel_1);
+		
 	
 		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		disID.setBounds(100, 100, 365, 291);
 		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	private void identificationHandler(){
+		String id= IdTxt.getText();
+		Patient patient= new Patient();
+		
+		error_lbl.setText("");
+		if (UITests.notEmptyID(id)==false) error_lbl.setText("*Please enter patient ID");
+		else if (UITests.correctID(id)==false) error_lbl.setText("*Please enter 9 digits ID");
+		else if ((patient=idctrl.isExist(id))==null) error_lbl.setText("*Patient not exist in the system");
+		else{
+			disID.setVisible(false);
+			new Appointments(patient).getFrame().setVisible(true);
+		}
+		
+	}
 
 	@Override
 	public JFrame getFrame() {

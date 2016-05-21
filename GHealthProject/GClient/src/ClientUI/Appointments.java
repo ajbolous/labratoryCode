@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 
+import models.Patient;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Resources;
@@ -19,9 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.SwingConstants;
+
 import java.awt.Insets;
 import java.awt.Point;
 
@@ -31,8 +36,10 @@ public class Appointments {
 	private JFrame app;
 	private JTable apps_table;
 
+	private Patient patient;
 	
-	public Appointments() {
+	public Appointments(Patient patient) {
+		this.patient=patient;
 		initialize();
 	}
 
