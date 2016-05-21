@@ -36,6 +36,10 @@ public class DbHandler {
 			connection=new JdbcConnectionSource(url,username,password);
 			createAllTables();
 			initializeDao();
+			DataFiller df = new DataFiller(this);
+			df.fillDoctors();
+			df.fillPatients();
+			df.fillAppointments();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

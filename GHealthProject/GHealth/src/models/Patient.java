@@ -17,12 +17,6 @@ public class Patient extends Person{
 	@DatabaseField()
 	private String gender;
 	
-	public ForeignCollection<Referral> getReferrals() {
-		return referrals;
-	}
-	public void setReferrals(ForeignCollection<Referral> referrals) {
-		this.referrals = referrals;
-	}
 
 	@ForeignCollectionField(eager=true)
     private ForeignCollection<Appointment> appointments; 
@@ -35,6 +29,21 @@ public class Patient extends Person{
 	private MedicalRecord medicalRecord;
 	
 	
+	
+	public ForeignCollection<Referral> getReferrals() {
+		return referrals;
+	}
+	public void setReferrals(ForeignCollection<Referral> referrals) {
+		this.referrals = referrals;
+	}
+
+	public ForeignCollection<Appointment> getAppointments() {
+		return appointments;
+	}
+	public void setAppointments(ForeignCollection<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
 	public MedicalRecord getMedicalRecord() {
 		return medicalRecord;
 	}
