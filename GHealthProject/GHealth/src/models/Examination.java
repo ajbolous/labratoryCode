@@ -10,6 +10,24 @@ public class Examination extends Entity{
 	@DatabaseField()
 	private int eid ; 
 	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
+	private Patient patient;
+	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
+	private Labratory labratory;
+	
+	@DatabaseField()
+	private String comments;
+	
+	@DatabaseField()
+	private Date examinationDate;
+	
+	@DatabaseField()
+    private String results;
+	
+	@DatabaseField()
+    private String file;
+	
 	public int getEid() {
 		return eid;
 	}
@@ -66,21 +84,5 @@ public class Examination extends Entity{
 		this.file = file;
 	}
 
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
-	private Patient patient;
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
-	private Labratory labratory;
-	
-	@DatabaseField()
-	private String comments;
-	
-	@DatabaseField()
-	private Date examinationDate;
-	
-	@DatabaseField()
-    private String results;
-	
-	@DatabaseField()
-    private String file;
 }

@@ -17,6 +17,9 @@ public class Visit extends Entity{
 	@DatabaseField()
 	private String comments;
 	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
+	private Treatment treatment;
+	
 	public int getVid() {
 		return vid;
 	}
@@ -49,7 +52,6 @@ public class Visit extends Entity{
 		this.treatment = treatment;
 	}
 
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
-	private Treatment treatment;
+	
 	
 }

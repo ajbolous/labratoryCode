@@ -11,9 +11,17 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "treatments")
 public class Treatment extends Entity{
 
-
+	@DatabaseField(generatedId = true)
+	private int tid;
+	
+	@DatabaseField()
+	private Date start;
+	
 	@DatabaseField()
     private Date end;
+	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id")
+	private Doctor doctor;
     
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "medical_id")
 	private MedicalRecord medicalRecord;
@@ -23,12 +31,6 @@ public class Treatment extends Entity{
 	
 	@DatabaseField()
     private String status;
-	
-	@DatabaseField(generatedId = true)
-	private int tid;
-	
-	@DatabaseField()
-	private Date start;
 	
 	public int getTid() {
 		return tid;
@@ -78,5 +80,6 @@ public class Treatment extends Entity{
 		this.status = status;
 	}
 
+	
     
 }
