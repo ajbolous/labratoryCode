@@ -30,6 +30,8 @@ import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 
+import models.Visit;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
@@ -60,13 +62,14 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeExpansionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DoctorMedicalRecordUI {
 
 	private JFrame DoctorMedicalRecord;
-
+	Panel panel_1 = new Panel();
 	
 	public DoctorMedicalRecordUI() {
 		initialize();
@@ -170,9 +173,10 @@ public class DoctorMedicalRecordUI {
 		
 		
 		
-		Panel panel_1 = new Panel();
+		
 		panel_1.setBounds(283, 142, 539, 414);
 		DoctorMedicalRecord.getContentPane().add(panel_1);
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 143, 283, 413);
@@ -187,13 +191,18 @@ public class DoctorMedicalRecordUI {
 		tree.setModel(new DefaultTreeModel(
 			new DefaultMutableTreeNode("Treatments") {
 				{
+					
+					Visit visit = new Visit();
+					visit.setVid(1);
+					visit.setComments("good");
+					
 					DefaultMutableTreeNode node_1;
 					
 					DefaultMutableTreeNode node_2;
 					DefaultMutableTreeNode node_3;
 					node_1 = new DefaultMutableTreeNode("Treatment");
 					node_2 = new DefaultMutableTreeNode("Visits");
-					node_2.add(new DefaultMutableTreeNode("visit1"));
+					node_2.add(new DefaultMutableTreeNode(visit));
 					node_2.add(new DefaultMutableTreeNode("visit2"));
 					node_2.add(new DefaultMutableTreeNode("visit3"));
 				
@@ -244,10 +253,13 @@ public class DoctorMedicalRecordUI {
 		tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 		    @Override
 		    public void valueChanged(TreeSelectionEvent e) {
-		    	JOptionPane.showMessageDialog(DoctorMedicalRecord,
-				        "please Enter patient ID to open Medical Record" + "'.",
-				        "Backup problem",
-				        JOptionPane.ERROR_MESSAGE);
+		    	DefaultMutableTreeNode node =(DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+		    	Object obj = node.getUserObject();
+		    	if(obj.getClass()==Visit.class)
+		    	{
+		    		//VisitUI vi= new VisitUI();
+		    		//panel_1.set
+		    	}
 		    }
 		});
 		
