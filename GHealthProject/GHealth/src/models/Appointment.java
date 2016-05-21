@@ -8,6 +8,17 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "appoitments")
 public class Appointment extends Entity{
 	
+	public Appointment(){
+	}
+	public Appointment(Doctor d, Patient p, Date t){
+		this.doctor = d;
+		this.patient = p;
+		this.time = t;
+	}
+	
+	@DatabaseField(generatedId = true)
+	private int appointment_id;
+	
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id")
 	private Doctor doctor ; 
 	
