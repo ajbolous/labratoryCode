@@ -64,8 +64,8 @@ public class Appointments {
 			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 			dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
 					a.getDoctor().getFirstName(), a.getDoctor().getClinic().getName(),
-					DateTime.getDateString(a.getTime()),
-					DateTime.getTimeString(a.getTime()), a});
+					DateTime.getDateString(a.getAppointmentTime()),
+					DateTime.getTimeString(a.getAppointmentTime()), a});
 
 		}
 		
