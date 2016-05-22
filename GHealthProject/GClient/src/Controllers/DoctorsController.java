@@ -19,7 +19,7 @@ public class DoctorsController {
 		d.setPass(pass);
 		d.setFirstName(firstName);
 		r.addParam("doctor",d);
-		Application.client.Request(r);
+		Application.client.sendRequest(r);
 	}
 	public void addDoctor(String name, String phone){
 		Request r = new Request("doctors/add");

@@ -13,7 +13,7 @@ public class Appointments extends View{
 	public  Object delete(Request request){
 		
 		try {
-			Config.getConfig().getHandler().appointments.delete((Appointment) request.getParam("appointment"));			
+			Config.getConfig().getHandler().appointments.delete( (Appointment) request.getParam("appointment"));	
 			return true;
 
 		} catch (SQLException e) {

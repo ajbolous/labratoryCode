@@ -52,5 +52,8 @@ public class Appointment extends Entity{
 	public void setTime(Date time) {
 		this.time = time;
 	}
+	public int getId(){
+		return appointment_id;
+	}
 
 }

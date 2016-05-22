@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Server.Config;
+import Utils.DateTime;
 import models.*;
 
 public class DataFiller {
@@ -38,7 +39,7 @@ public class DataFiller {
 		Doctor d = db.doctors.queryForId("20000000" + i);
 		Patient p = db.patients.queryForId("30000000" + i);
 	
-		Appointment a = new Appointment(d,p,Utils.DateTime.getDate(2016, 10, 5+i,11,10));
+		Appointment a = new Appointment(d,p,(java.sql.Date) DateTime.getDate(2016, 10, 5+i,11,10));
 
 		db.appointments.createIfNotExists(a);
 		}
