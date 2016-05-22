@@ -1,6 +1,7 @@
 package ClientUI;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.SystemColor;
 
@@ -25,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import models.Doctor;
 import Utils.Request;
 
@@ -36,6 +39,14 @@ public class WeeklyReport {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
+	
+	
+	
+	
+	private void getReport()
+	{
+		
+	}
 	private void initialize() 
 	{
 		Resources res = new Resources();
@@ -92,7 +103,7 @@ public class WeeklyReport {
 				
 			}
 		});
-		String[] report_rawNames = {"Day", "Number Of Patients","Serves Time","Waiting Period"};
+		String[] report_rawNames = {"Day", "Number Of Patients","Service Time","Waiting Period"};
 		Object[][] report_data = {
 			    {"Sunday :", "20"},
 			    {"Monday :", "35"},
@@ -116,7 +127,9 @@ public class WeeklyReport {
 		weekly_table.setBackground(SystemColor.menu);
 		weekly_table.setVisible(false);
 		//doctors_table.setCellSelectionEnabled(false);
+		weeklyReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		
+		weeklyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public JFrame getFrame(){
 		return weeklyReport;

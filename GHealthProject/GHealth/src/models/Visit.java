@@ -57,10 +57,5 @@ public class Visit extends Entity{
 		return "Visit"+vid;
 		
 	}
-
-	public String toString1(){
-		return "Visit id:" + this.vid;
-	}
-	
 	
 }

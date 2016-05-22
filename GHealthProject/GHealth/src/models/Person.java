@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 
@@ -22,7 +22,16 @@ public abstract class Person extends Entity{
 	
 	@DatabaseField()
 	private String phone;
-
+	
+	@DatabaseField()
+	private String address;
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getSid() {
 		return sid;
 	}

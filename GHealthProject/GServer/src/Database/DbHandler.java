@@ -41,7 +41,8 @@ public class DbHandler {
 			DataFiller df = new DataFiller(this);
 			df.fillDoctors();
 			df.fillPatients();
-			//df.fillAppointments();
+			df.fillAppointments();
+			df.fillClinics();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
