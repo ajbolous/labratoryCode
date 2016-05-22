@@ -12,8 +12,7 @@ public class Statistic {
 	private Date date;
 	@DatabaseField()
 	private int numOfPatients;
-	@DatabaseField()
-	private int serviceTime;
+
 	@DatabaseField()
 	private int waitingPeriod;
 	
@@ -35,12 +34,7 @@ public class Statistic {
 	public void setNumOfPatient(int numOfPatients) {
 		this.numOfPatients = numOfPatients;
 	}
-	public int getServiceTime() {
-		return serviceTime;
-	}
-	public void setServiceTime(int serviceTime) {
-		this.serviceTime = serviceTime;
-	} 
+	
 	public int getWaitingPeriod() {
 		return waitingPeriod;
 	}
