@@ -12,6 +12,15 @@ public class DoctorsController {
 		return (ArrayList<Doctor>) Application.client.sendRequest(r);
 	}
 	
+	public void addDoctor(String sid,String firstName, String pass ){
+		Request r = new Request("doctors/add");
+		Doctor d = new Doctor();
+		d.setSid(sid);
+		d.setPass(pass);
+		d.setFirstName(firstName);
+		r.addParam("doctor",d);
+		Application.client.Request(r);
+	}
 	public void addDoctor(String name, String phone){
 		Request r = new Request("doctors/add");
 		Doctor d = new Doctor();
