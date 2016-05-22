@@ -6,7 +6,7 @@ import Views.*;
 public class Router {
 	Doctors doctors = new Doctors();
 	Patients patients = new Patients();
-	
+	Appointments appointments = new  Appointments();
 	public Router() {
 	}
 
@@ -16,6 +16,8 @@ public class Router {
 			return doctors.resolve(request);
 		case "patients":
 			return patients.resolve(request);
+		case "appointments":
+			return appointments.resolve(request);
 		}
 		return null;
 	}
