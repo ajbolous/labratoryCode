@@ -13,11 +13,11 @@ public class Appointment extends Entity{
 	public Appointment(Doctor d, Patient p, Date t){
 		this.doctor = d;
 		this.patient = p;
-		this.time = t;
+		this.appointmentTime = t;
 	}
 	
 	@DatabaseField(generatedId = true)
-	private int appointment_id;
+	private int id;
 	
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id")
 	private Doctor doctor ; 
@@ -27,8 +27,32 @@ public class Appointment extends Entity{
 	private Patient patient; 
 	
 	@DatabaseField()
-	private Date time ; 
+	private Date creationTime ; 
 	
+	@DatabaseField()
+	private Date appointmentTime ; 
+
+	@DatabaseField()
+	private boolean isCanceled;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Date getCreationTime() {
+		return creationTime;
+	}
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	public Date getAppointmentTime() {
+		return appointmentTime;
+	}
+	public void setAppointmentTime(Date appointmentTime) {
+		this.appointmentTime = appointmentTime;
+	}
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -45,12 +69,11 @@ public class Appointment extends Entity{
 		this.patient = patient;
 	}
 
-	public Date getTime() {
-		return time;
+	public boolean isCanceled() {
+		return isCanceled;
 	}
-
-	public void setTime(Date time) {
-		this.time = time;
+	public void setCanceled(boolean isCanceled) {
+		this.isCanceled = isCanceled;
 	}
 
 }
