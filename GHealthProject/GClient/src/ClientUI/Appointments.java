@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.awt.Frame;
 
 public class Appointments {
 
@@ -130,7 +131,7 @@ public class Appointments {
 			public void actionPerformed(ActionEvent arg0) {
 				int row = apps_table.getSelectedRow();
 				Date current= new Date();
-				Date appointment_date= apps_list.get(row).getTime();
+				Date appointment_date= apps_list.get(row).getAppointmentTime();
 				Date curr_date = null;
 				Date app_date=null;
 				try {
@@ -182,16 +183,13 @@ public class Appointments {
 		apps_table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		apps_scrollPane.setViewportView(apps_table);
 		apps_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		apps_table.setBackground(SystemColor.menu);
+		apps_table.setBackground(Color.WHITE);
 
 		apps_table.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
 						cancel_btn.setEnabled(true);
-
-						// System.out.println(table.getValueAt(table.getSelectedRow(),
-						// 0).toString());
-					}
+						}
 				});
 		JButton btnBack = new JButton("Exit Account");
 		btnBack.addActionListener(new ActionListener() {
@@ -231,8 +229,8 @@ public class Appointments {
 			dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
 					a.getDoctor().getFirstName(),
 					a.getDoctor().getClinic().getName(),
-					DateTime.getDateString(a.getTime()),
-					DateTime.getTimeString(a.getTime())});
+					DateTime.getDateString(a.getAppointmentTime()),
+					DateTime.getTimeString(a.getAppointmentTime())});
 			
 			apps_list.add(a);
 		}

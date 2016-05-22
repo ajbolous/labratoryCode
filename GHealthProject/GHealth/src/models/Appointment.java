@@ -75,8 +75,5 @@ public class Appointment extends Entity{
 	public void setCanceled(boolean isCanceled) {
 		this.isCanceled = isCanceled;
 	}
-	public int getId(){
-		return appointment_id;
-	}
-
+	
 }
