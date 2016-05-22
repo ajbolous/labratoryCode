@@ -17,9 +17,11 @@ import models.Patient;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Utils.DateTime;
+import Utils.Request;
 
 import com.j256.ormlite.dao.ForeignCollection;
 
+import Client.Application;
 import Client.Resources;
 
 import javax.swing.JPanel;
@@ -56,18 +58,19 @@ public class Appointments {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-
 	private void getAppointments() {
-		ForeignCollection<Appointment> apps = patient.getAppointments();
-		Object[][] objs = new Object[apps.size()][5];
-		for (Appointment a : apps) {
+		
+		for (Appointment a : patient.getAppointments()) {
 			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 			dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
 					a.getDoctor().getFirstName(), a.getDoctor().getClinic().getName(),
 					DateTime.getDateString(a.getTime()),
-					DateTime.getTimeString(a.getTime()) });
+					DateTime.getTimeString(a.getTime()), a});
 
 		}
+		
+		
+		
 	}
 
 	private void initialize() {
@@ -130,6 +133,15 @@ public class Appointments {
 
 		JButton cancel_btn = new JButton(
 				"Cancel Selected Appointment");
+		cancel_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int row = apps_table.getSelectedRow();
+				Appointment a = (Appointment) apps_table.getModel().getValueAt(row,5);
+				Request r = new  Request("appointments/delete");
+				r.addParam("appointment",a);
+				String s = (String) Application.client.sendRequest(r);
+			}
+		});
 		cancel_btn.setVisible(false);
 		cancel_btn.setBounds(194, 140, 230, 30);
 		app.getContentPane().add(cancel_btn);
@@ -138,7 +150,7 @@ public class Appointments {
 		apps_scrollPane.setBounds(10, 220, 603, 208);
 		app.getContentPane().add(apps_scrollPane);
 
-		String[] doc_columnNames = { "Speciality", "Doctor", "Clinic", "Date","Hour" };
+		String[] doc_columnNames = { "Speciality", "Doctor", "Clinic", "Date","Hour","app" };
 		Object[][] doc_data = {};
 		apps_table = new JTable();
 		apps_table.setModel(new MyTableModel(doc_columnNames, doc_data));

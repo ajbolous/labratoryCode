@@ -97,7 +97,7 @@ public class NewApp  {
 			public void actionPerformed(ActionEvent e) {
 				Request r = new Request("doctors/bySpeciality");
 				r.addParam("speciality", speciality.getSelectedItem());
-				ArrayList<Doctor> doctors = (ArrayList<Doctor>) Application.client.Request(r);
+				ArrayList<Doctor> doctors = (ArrayList<Doctor>) Application.client.sendRequest(r);
 				int x = 10;
 			}
 		});

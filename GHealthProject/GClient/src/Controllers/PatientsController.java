@@ -16,7 +16,7 @@ public class PatientsController {
 		
 		Request r = new Request("patients/getById");
 		r.addParam("sid", id);
-		return (Patient)Application.client.Request(r);
+		return (Patient)Application.client.sendRequest(r);
 
 	}
 }

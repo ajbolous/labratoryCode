@@ -9,7 +9,7 @@ import models.Doctor;
 public class DoctorsController {
 	public ArrayList<Doctor> getAllDoctors(){
 		Request r = new Request("doctors/all");
-		return (ArrayList<Doctor>) Application.client.Request(r);
+		return (ArrayList<Doctor>) Application.client.sendRequest(r);
 	}
 	
 	public void addDoctor(String name, String phone){
@@ -18,6 +18,6 @@ public class DoctorsController {
 		d.setFirstName(name);
 	
 		r.addParam("doctor",d);
-		Application.client.Request(r);
+		Application.client.sendRequest(r);
 	}
 }

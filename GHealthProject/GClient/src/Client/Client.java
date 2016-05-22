@@ -15,7 +15,7 @@ public class Client extends AbstractClient {
 	public void handleMessageFromServer(Object msg) {
 	}
 
-	public Object Request(Request request) {
+	public Object sendRequest(Request request) {
 		try {
 			return this.sendToServer(request);
 		} catch (ClassNotFoundException | IOException e) {

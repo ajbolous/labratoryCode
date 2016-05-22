@@ -30,11 +30,11 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-		//connect();
+		connect();
 		//AddPatientUI p = new AddPatientUI();
-		DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
-		//Identification iden= new Identification();
-	//	iden.getFrame().setVisible(true);
+		//DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
+		Identification iden= new Identification();
+		iden.getFrame().setVisible(true);
 		
 	}
 }
