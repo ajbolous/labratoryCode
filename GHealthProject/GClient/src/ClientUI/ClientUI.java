@@ -1,78 +1,77 @@
 package ClientUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JDesktopPane;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JTextPane;
-
 import java.awt.Color;
 
-import javax.swing.UIManager;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import Client.Application;
-import Client.Client;
 import Client.Config;
 import Client.Resources;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 
 import java.awt.Font;
 import java.awt.Window.Type;
+import java.awt.Panel;
 
 public class ClientUI {
 
 	private JFrame frame;
-	private final JButton btnNewButton = new JButton("Physicians");
-	private final JButton btnLabs = new JButton("Labs");
+	private final JButton btnNewButton = new JButton("Medical Records");
+	private final JButton btnLabs = new JButton("Appointments");
 	private final JButton btnUsers = new JButton("Users");
-	private final JButton btnTests = new JButton("Reports");
+	private final JButton btnTests = new JButton("Weekly reports");
 	private final JLabel lblNewLabel = new JLabel("GHealth System");
 	private final JLabel lblNewLabel_1 = new JLabel("");
-	private final JLabel lblNewLabel_2 = new JLabel("Views and Reports");
-	private final JLabel lblManage = new JLabel("Managment");
 	private final JButton btnMonthly = new JButton("Monthly reports");
-	private final JButton button_2 = new JButton("Reports");
 	private final JLabel lblNewLabel_3 = new JLabel("Connected to server : ");
-	private final JLabel lblTestsAndResults = new JLabel("Tests and results");
-	private final JButton btnTests_1 = new JButton("Tests");
+	private final JButton btnTests_1 = new JButton("Examinations");
 	private final JButton btnResults = new JButton("Results");
+	private final JLabel lblMedical = new JLabel("Medical and patients");
+	private final JLabel lblLabratoriesAndTests = new JLabel("Labratories and examinations");
+	private final JLabel lblManagmentAndReports = new JLabel("Managment and reports");
 
 	public ClientUI() {
 		initialize();
-		frame.setSize(781, 547);
+		frame.setSize(609, 495);
 		frame.setVisible(true);
-		lblNewLabel_1.setBounds(503, 2, 221, 44);
-		lblNewLabel_1.setText("Logged in as ProtoAdmin");
+		lblNewLabel_1.setBounds(0, 0, 172, 44);
+		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName());
 		
 		if(Application.client.isConnected())
 			lblNewLabel_3.setText("Connected to server: " + Config.getConfig().getHost() + ":" + Config.getConfig().getPort());
 		else
 			lblNewLabel_3.setText("Offline");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
 
 		
-		lblNewLabel_3.setBounds(4, 505, 308, 14);
+		lblNewLabel_3.setBounds(10, 60, 308, 14);
 		
 		frame.getContentPane().add(lblNewLabel_3);
-		lblTestsAndResults.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTestsAndResults.setBounds(10, 359, 193, 22);
 		
-		frame.getContentPane().add(lblTestsAndResults);
+		Panel panel = new Panel();
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(20, 80, 570, 4);
+		frame.getContentPane().add(panel);
+		lblMedical.setForeground(new Color(0, 191, 255));
+		lblMedical.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblMedical.setBounds(20, 202, 203, 35);
+		
+		frame.getContentPane().add(lblMedical);
+		lblLabratoriesAndTests.setForeground(new Color(0, 191, 255));
+		lblLabratoriesAndTests.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblLabratoriesAndTests.setBounds(20, 325, 274, 35);
+		
+		frame.getContentPane().add(lblLabratoriesAndTests);
+		lblManagmentAndReports.setForeground(new Color(0, 191, 255));
+		lblManagmentAndReports.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblManagmentAndReports.setBounds(17, 90, 276, 22);
+		
+		frame.getContentPane().add(lblManagmentAndReports);
 
 
 	}
@@ -80,8 +79,9 @@ public class ClientUI {
 	private void initialize(){
 		Resources res = new Resources();
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setType(Type.UTILITY);
 		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.getContentPane().setLayout(null);
@@ -97,7 +97,7 @@ public class ClientUI {
 		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		button.setBorder(null);
 		button.setBackground(Color.WHITE);
-		button.setBounds(726, 11, 39, 35);
+		button.setBounds(553, 0, 41, 35);
 		button.setBorder(null);
 		button.setIcon(res.getIcon("settings.png"));
 		frame.getContentPane().add(button);
@@ -108,7 +108,7 @@ public class ClientUI {
 		});
 
 		
-		btnNewButton.setBounds(34, 152, 169, 65);
+		btnNewButton.setBounds(57, 249, 191, 65);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -121,7 +121,7 @@ public class ClientUI {
 		btnTests_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTests_1.setBorder(null);
 		btnTests_1.setBackground(Color.WHITE);
-		btnTests_1.setBounds(34, 394, 151, 68);
+		btnTests_1.setBounds(57, 376, 191, 68);
 		btnTests_1.setIcon(res.getIcon("lab.png"));
 		frame.getContentPane().add(btnTests_1);
 		
@@ -130,7 +130,7 @@ public class ClientUI {
 		btnResults.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnResults.setBorder(null);
 		btnResults.setBackground(Color.WHITE);
-		btnResults.setBounds(195, 394, 183, 68);
+		btnResults.setBounds(259, 380, 181, 60);
 		btnResults.setIcon(res.getIcon("treatment.png"));
 		frame.getContentPane().add(btnResults);
 		
@@ -140,7 +140,7 @@ public class ClientUI {
 			}
 		});
 		btnLabs.setToolTipText("Laboratiries Managment form");
-		btnLabs.setBounds(213, 152, 118, 65);
+		btnLabs.setBounds(269, 254, 171, 60);
 		btnLabs.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLabs.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLabs.setForeground(Color.BLACK);
@@ -155,7 +155,7 @@ public class ClientUI {
 		});
 		btnUsers.setToolTipText("Users managment form");
 	
-		btnUsers.setBounds(390, 150, 118, 68);
+		btnUsers.setBounds(452, 123, 128, 68);
 		btnUsers.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnUsers.setBackground(Color.WHITE);
 		btnUsers.setHorizontalAlignment(SwingConstants.LEFT);
@@ -166,7 +166,7 @@ public class ClientUI {
 
 		
 		frame.getContentPane().add(btnUsers);
-		btnTests.setBounds(34, 264, 129, 68);
+		btnTests.setBounds(54, 123, 194, 65);
 		btnTests.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTests.setBackground(Color.WHITE);
 		btnTests.setHorizontalAlignment(SwingConstants.LEFT);
@@ -179,26 +179,17 @@ public class ClientUI {
 		btnMonthly.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnMonthly.setBorder(null);
 		btnMonthly.setBackground(Color.WHITE);
-		btnMonthly.setBounds(195, 264, 183, 65);
+		btnMonthly.setBounds(259, 123, 181, 68);
 		btnMonthly.setIcon(res.getIcon("tests.png"));
 
 		frame.getContentPane().add(btnMonthly);
-		button_2.setHorizontalAlignment(SwingConstants.LEFT);
-		button_2.setForeground(Color.BLACK);
-		button_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_2.setBorder(null);
-		button_2.setBackground(Color.WHITE);
-		button_2.setBounds(390, 262, 183, 68);
-		button_2.setIcon(res.getIcon("tests.png"));
-
-		frame.getContentPane().add(button_2);
 		
 		
 		
 		
 		frame.getContentPane().add(btnTests);
 		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setBounds(0, 0, 366, 89);
+		lblNewLabel.setBounds(165, 0, 308, 60);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setIcon(res.getIcon("logo.png"));
 
@@ -206,17 +197,5 @@ public class ClientUI {
 		lblNewLabel_1.setIcon(res.getIcon("user.png"));
 		
 		frame.getContentPane().add(lblNewLabel_1);
-		
-		
-		
-		
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_2.setBounds(10, 228, 193, 22);
-
-		frame.getContentPane().add(lblNewLabel_2);
-		lblManage.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblManage.setBounds(10, 100, 111, 22);
-		
-		frame.getContentPane().add(lblManage);
 	}
 }
