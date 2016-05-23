@@ -10,12 +10,15 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 
 import models.Appointment;
+import models.Doctor;
+import models.Labratorian;
 import models.Patient;
+import models.User;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
 
-public class Appointments extends View{
+public class Users extends View{
 
 	public  Object delete(Request request){
 		
@@ -38,16 +41,33 @@ public class Appointments extends View{
 	 * 		(select appointmentTime from appoitments where doctor_id="doctor id" and patient_id=" patient id")
 	 * @throws SQLException 
 	 */
-	public Object timeByDoctorAndPatient(Request request) throws SQLException{
+	public Object getById(Request request) throws SQLException{
 		DbHandler db = Config.getConfig().getHandler();		
 		
-		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
-			
-		List<Appointment> result =  q.orderBy("appointmentTime",false).limit(1).where()
-		.eq("doctor_id", request.getParam("doctor_id"))
-		.and().eq("patient_id", request.getParam("patient_id"))
-		.and().le("appointmentTime",request.getParam("app_time")).query();
+		Doctor d = db.doctors.queryForId((String) request.getParam("sid"));
+		if (d != null)
+			return d;
+		Labratorian l = db.labratorians.queryForId((String) request.getParam("sid"));
+		if (l != null)
+			return l;
 		
-		return result;
+		return null;
+	}
+	
+	public Object setOnline(Request request){
+		DbHandler db = Config.getConfig().getHandler();		
+
+		User u = (User) request.getParam("user");
+		u.setOnline(true);
+		try {
+			if(u.getClass() == Doctor.class)
+				db.doctors.update((Doctor) u);
+			if(u.getClass() == Labratorian.class)
+				db.labratorians.update((Labratorian) u);
+			return u;
+		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
+			return null;
+		}
 	}
 }

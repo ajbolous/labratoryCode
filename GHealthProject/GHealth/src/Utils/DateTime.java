@@ -28,7 +28,10 @@ public class DateTime {
 	public static String getDateString(Date d){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(d);
-		
 	}
+<<<<<<< HEAD
 	
 }
+=======
+}
+>>>>>>> 2f428870a04d59736b344114cea9761637250a04

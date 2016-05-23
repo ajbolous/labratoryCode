@@ -16,6 +16,7 @@ import models.Patient;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Resources;
+import Controllers.AppointmentsController;
 import Controllers.PatientsController;
 
 import javax.swing.JTextField;
@@ -24,6 +25,7 @@ import javax.swing.JTextPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 public class Identification implements FrameInterface {
 
@@ -97,6 +99,12 @@ public class Identification implements FrameInterface {
 		disID.getContentPane().add(error_lbl);
 
 		btnNewButton = new JButton("Exit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				new AppointmentsController().test(200000000, 300000000, new Date());
+			}
+		});
 		btnNewButton.setBounds(260, 230, 89, 23);
 		disID.getContentPane().add(btnNewButton);
 

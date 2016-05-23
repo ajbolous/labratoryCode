@@ -39,6 +39,7 @@ public class DbHandler {
 			createAllTables();
 			initializeDao();
 			DataFiller df = new DataFiller(this);
+			df.fillClinics();
 			df.fillDoctors();
 			df.fillPatients();
 			df.fillAppointments();
