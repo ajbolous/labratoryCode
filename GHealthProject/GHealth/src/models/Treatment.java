@@ -79,6 +79,21 @@ public class Treatment extends Entity{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public void setDoctor (Doctor doctor)
+	{
+		this.doctor=doctor;
+	}
+	
+	public Doctor getDoctor()
+	{
+		return doctor;
+	}
+	
+	public String toString()
+	{
+		return "Treatment"+this.tid;
+	}
 
 	
     

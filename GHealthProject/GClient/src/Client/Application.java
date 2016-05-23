@@ -1,18 +1,27 @@
 package Client;
 
+import java.sql.Date;
+import java.text.ParseException;
+
 import ClientUI.AddPatientUI;
 import ClientUI.ClientUI;
 import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
 import ClientUI.NewApp;
-import ClientUI.WeeklyReport;
+import ClientUI.PatientUI;
+import Utils.DateTime;
 import Utils.Request;
 import models.Doctor;
+import models.Patient;
+import ClientUI.ClientUI;
+import ClientUI.SignInUI;
+import Utils.Logger;
+import models.User;
 
 public class Application {
 
 	public static Client client = null;
-
+	public static User user = null;
 	public static void connect() {
 		Config cfg = Config.getConfig();
 		if (client != null) {
@@ -21,23 +30,16 @@ public class Application {
 		}
 		client = new Client(cfg.getHost(), cfg.getPort());
 		client.open();
-		if(client.isConnected()){
-			//NewApp settings = new NewApp();
-
-		//	ClientUI ui = new ClientUI();
-		}
-		else
-			System.exit(0);
 	}
 
 	public static void main(String[] args) {
+		Logger log = Config.getConfig().getLogger();
+		SignInUI sin;
+		ClientUI ui;
 		connect();
-		
-//		WeeklyReport rp = new WeeklyReport();
-//		rp.getFrame().setVisible(true);
-		//DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
-		Identification iden= new Identification();
-		iden.getFrame().setVisible(true);
-		
+		if(client.isConnected()){
+			log.debug("Connceted");
+			new SignInUI();
+		}
 	}
 }

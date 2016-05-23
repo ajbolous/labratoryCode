@@ -53,8 +53,8 @@ public abstract class Person extends Entity{
 	public Date getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(Date date) {
+		this.birthDate =  date;
 	}
 	public String getEmail() {
 		return email;

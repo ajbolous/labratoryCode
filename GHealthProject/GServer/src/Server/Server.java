@@ -3,7 +3,7 @@ package Server;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.Date;
 
 import com.mysql.jdbc.Driver;
@@ -71,7 +71,6 @@ public class Server extends AbstractServer {
 
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
 		DbHandler db = cfg.getHandler();
-
 		Server server = new Server(cfg.getPort());
 		server.listen();		
 		

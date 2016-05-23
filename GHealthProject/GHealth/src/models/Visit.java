@@ -20,7 +20,6 @@ public class Visit extends Entity{
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
 	private Treatment treatment;
 	
-
 	public int getVid() {
 		return vid;
 	}
