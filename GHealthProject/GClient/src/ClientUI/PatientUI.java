@@ -41,6 +41,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 
 public class PatientUI {
 
@@ -110,7 +111,12 @@ public class PatientUI {
 					}*/
 				else{
 					pat.setVisible(false);
-					idcontroller.openMedicalRecord(Id);
+					try {
+						idcontroller.openMedicalRecord(Id);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 				}

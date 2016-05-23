@@ -1,12 +1,18 @@
 package Client;
 
+import java.sql.Date;
+import java.text.ParseException;
+
 import ClientUI.AddPatientUI;
 import ClientUI.ClientUI;
 import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
 import ClientUI.NewApp;
+import ClientUI.PatientUI;
+import Utils.DateTime;
 import Utils.Request;
 import models.Doctor;
+import models.Patient;
 
 public class Application {
 
@@ -29,12 +35,16 @@ public class Application {
 			System.exit(0);
 	}
 
-	public static void main(String[] args) {
-		connect();
+	public static void main(String[] args) throws ParseException {
+		//connect();
+		//AddPatientUI u =new AddPatientUI();
 		
-		//DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
-		Identification iden= new Identification();
-		iden.getFrame().setVisible(true);
+		
+		
+		
+		//DoctorMedicalRecordUI v = new DoctorMedicalRecordUI(p);
+		//Identification iden= new Identification();
+		//iden.getFrame().setVisible(true);
 		
 	}
 }

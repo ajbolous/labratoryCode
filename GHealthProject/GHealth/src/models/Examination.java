@@ -6,28 +6,31 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "examinations")
-public class Examination extends Entity{
+public class Examination extends Entity {
 	@DatabaseField()
-	private int eid ; 
-	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
-	private Patient patient;
-	
+	private int eid;
+
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
+	private Treatment treatment;
+
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
 	private Labratory labratory;
-	
+
+	@DatabaseField()
+	private String eType;
+
 	@DatabaseField()
 	private String comments;
-	
+
 	@DatabaseField()
 	private Date examinationDate;
-	
+
 	@DatabaseField()
-    private String results;
-	
+	private String results;
+
 	@DatabaseField()
-    private String file;
-	
+	private String file;
+
 	public int getEid() {
 		return eid;
 	}
@@ -36,12 +39,12 @@ public class Examination extends Entity{
 		this.eid = eid;
 	}
 
-	public Patient getPatient() {
-		return patient;
+	public Treatment getTreatment() {
+		return treatment;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
 	}
 
 	public Labratory getLabratory() {
@@ -83,6 +86,19 @@ public class Examination extends Entity{
 	public void setFile(String file) {
 		this.file = file;
 	}
-
+	public void setEType(String t)
+	{
+		eType = t;
+	}
 	
+	public String getEType()
+	{
+		return eType;
+	}
+	
+	public String toString()
+	{
+		return "Examination "+this.eid;
+	}
+
 }

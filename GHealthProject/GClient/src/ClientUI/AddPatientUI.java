@@ -57,6 +57,8 @@ public class AddPatientUI {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JComboBox day_cbox = new JComboBox();
+	private JComboBox month_cbox = new JComboBox();
+	int numDays = 0;
 	
 	
 	private  int year;
@@ -68,7 +70,7 @@ public class AddPatientUI {
 	private String email;
 	private String phone ; 
 	
-
+	
 
 	
 	public AddPatientUI() {
@@ -169,15 +171,21 @@ public class AddPatientUI {
 		addPatient.getContentPane().add(btnNewButton_1);
 		
 	
-		
+		month_cbox.setModel(new DefaultComboBoxModel(new String[] {"Month"}));
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 		JComboBox year_cbox1 = new JComboBox();
 		year_cbox1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
 				String y =  (String)year_cbox1.getSelectedItem();
-				if (y.equals("Year"))return ;
-				year = Integer.parseInt(y);
+				if (y.equals("Year"))
+				{
+					month_cbox.setModel(new DefaultComboBoxModel(new String[] {"Month"})) ;
+					day_cbox.setModel(new DefaultComboBoxModel(new String[] {"Days"}));
+				return;
 				
+				}
+				year = Integer.parseInt(y);
+				month_cbox.setModel(new DefaultComboBoxModel(new String[] {"Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 				
 				
 			}
@@ -200,12 +208,14 @@ public class AddPatientUI {
 		
 		
 		
-		JComboBox month_cbox = new JComboBox();
+		
 		month_cbox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
-				String m = (String)month_cbox.getSelectedItem();
-				int numDays = 0 ;
-				if(m.equals("Month")) return;
+				
+				
+				 String m = (String)month_cbox.getSelectedItem();
+				 numDays = 0 ;
+				if(m.equals("Month")) {day_cbox.setModel(new DefaultComboBoxModel(new String [] {"Days"})); return;}
 				 month =  Integer.parseInt(m);
 				switch (month) {
 	            case 1: case 3: case 5:
@@ -226,19 +236,23 @@ public class AddPatientUI {
 	                else
 	                    numDays = 28;
 	                break;
-	            default:
-	                break;
+	            
 	               
 	        }
-				for (int i=1 ; i <numDays+1 ; i++)
-				day_cbox.insertItemAt(""+i, i);
+			
 				
+			String Days[]=new String [numDays+1];
+			Days[0]="Days";
+			for (int i=1;i<=numDays;i++)
+				Days[i]=""+i;
+			day_cbox.setModel(new DefaultComboBoxModel(Days));
 			}
+			
 		});
 		
 		
 		month_cbox.setBackground(Color.WHITE);
-		month_cbox.setModel(new DefaultComboBoxModel(new String[] {"Month", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		
 
 		month_cbox.setBounds(171, 203, 80, 20);
 		addPatient.getContentPane().add(month_cbox);

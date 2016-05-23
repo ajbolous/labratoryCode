@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 
@@ -44,8 +44,8 @@ public abstract class Person extends Entity{
 	public Date getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(Date date) {
+		this.birthDate =  date;
 	}
 	public String getEmail() {
 		return email;
