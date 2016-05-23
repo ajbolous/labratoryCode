@@ -44,7 +44,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 import javax.swing.border.EmptyBorder;
@@ -233,10 +235,14 @@ public class NewApp  {
 		}
 		
 		ArrayList<Doctor> doctors = app_ctrl.getDoctorsBySpeciality(spec);
+		Date curr= new Date();
 		for (Doctor d : doctors) {
-			dm.addRow(new Object[] { d.getFirstName()+d.getLastName(),d.getClinic().getName(),d.getSpeciality()});
+				dm.addRow(new Object[] { d.getFirstName()+d.getLastName(),d.getClinic().getName(),
+				app_ctrl.getLastVisit(d.getSid(), patient.getSid(),curr)});
+				}
+			
 		}
-	}
+	
 
 	public JFrame getFrame(){
 		return newApp;

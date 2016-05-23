@@ -3,13 +3,17 @@ package Server;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 
 import com.mysql.jdbc.Driver;
 
 import Database.DbHandler;
+import Utils.DateTime;
 import Utils.Logger;
 import Utils.Request;
 import Views.Appointments;
+import models.Appointment;
 import models.Person;
 import models.Visit;
 import ocsf.server.*;
@@ -69,9 +73,15 @@ public class Server extends AbstractServer {
 		DbHandler db = cfg.getHandler();
 
 		Server server = new Server(cfg.getPort());
-		server.listen();
+		server.listen();		
 		
+//		Request r = new Request("appointments/lastVisit");
+//		r.addParam("doctor_id",200000000);
+//		r.addParam("patient_id", 300000000);
+//		r.addParam("app_time", new Date() );
+//		ArrayList<Appointment> app= (ArrayList<Appointment>) new Appointments().lastVisit(r);
+//		System.out.println(app.get(0));
 		
-		
+
 	}
 }

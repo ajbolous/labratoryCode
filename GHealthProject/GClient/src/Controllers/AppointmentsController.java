@@ -47,32 +47,15 @@ public class AppointmentsController {
 	}
 
 	
-//	public Date getLastVisit(Doctor doctor, Patient patient){
-//		Request r = new Request("appointments/timeByDoctorAndPatient");
-//		r.addParam("doctor_id",doctor.getSid());
-//		r.addParam("patient_id", patient.getSid());
-//		ArrayList<Date> times = (ArrayList<Date>) Application.client.sendRequest(r);
-//		ArrayList<Date> dates= new ArrayList<Date>();
-//		Date curr=new Date();
-//		for(Date time: times){
-//			try {
-//				dates.add(DateTime.getDate(time.getYear(), time.getMonth(), time.getDay()));
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		
-//	}
-	public void test(int doctor,int patient,Date date){
-		Request r = new Request("appointments/timeByDoctorAndPatient");
-		r.addParam("doctor_id",doctor);
-		r.addParam("patient_id", patient);
+	public String getLastVisit(String doctor_id,String patient_id,Date date){
+		Request r = new Request("appointments/lastVisit");
+		r.addParam("doctor_id",doctor_id);
+		r.addParam("patient_id", patient_id);
 		r.addParam("app_time", date);
 		ArrayList<Appointment> app = (ArrayList<Appointment>) Application.client.sendRequest(r);
-		for(Appointment a: app){
-			System.out.println(a.getAppointmentTime());
-		}
+		if (app.size()==0) return " ";
+		return DateTime.getDateString(app.get(0).getAppointmentTime());
+
 	}
 }
 

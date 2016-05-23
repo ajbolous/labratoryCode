@@ -31,13 +31,13 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-		//connect();
+		connect();
 		
-		WeeklyReport rp = new WeeklyReport();
-		rp.getFrame().setVisible(true);
+//		WeeklyReport rp = new WeeklyReport();
+//		rp.getFrame().setVisible(true);
 		//DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
-		//Identification iden= new Identification();
-		//iden.getFrame().setVisible(true);
+		Identification iden= new Identification();
+		iden.getFrame().setVisible(true);
 		
 	}
 }
