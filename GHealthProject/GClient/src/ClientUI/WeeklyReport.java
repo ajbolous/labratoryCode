@@ -14,9 +14,12 @@ import Client.Resources;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.color.CMMException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
@@ -25,26 +28,37 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import models.Appointment;
 import models.Doctor;
+import models.Statistic;
 import Utils.Request;
 
 public class WeeklyReport {
 	private JFrame weeklyReport;
 	private JTable weekly_table;
 	private JTable table;
-	
+	private Statistic s;
+	private Appointment a;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	
 	
-	
-	
-	private void getReport()
+	/*private void getStatistics()
 	{
+		//s.setWaitingPeriod();
+		//s.setNumOfPatient(numOfPatients);
+		
+		
+		
+	}*/
+	
+	public WeeklyReport(){
+		initialize();
 		
 	}
 	private void initialize() 
@@ -70,14 +84,14 @@ public class WeeklyReport {
 		logo.setIcon(res.getIcon("logo.png"));
 		weeklyReport.getContentPane().add(logo);
 		
-		JComboBox dates = new JComboBox();
+		JComboBox<Date> dates = new JComboBox<Date>();
 		dates.setForeground(new Color(0, 0, 0));
 		dates.setBackground(new Color(192, 192, 192));
 		dates.setBounds(137, 93, 244, 33);
-		dates.setModel(new DefaultComboBoxModel(new String[] {"1/5/2016", "7/5/2016"}));// have to add array of dates
+		//dates.setModel(new DefaultComboBoxModel<Date>(new String[] {"1/5/2016", "7/5/2016"}));// have to add array of dates
 
 		weeklyReport.getContentPane().add(dates);
-		
+		weeklyReport.setBounds(100,100,500,500);
 		JButton btnView = new JButton("View");
 		
 		
@@ -114,6 +128,23 @@ public class WeeklyReport {
 			    {"Saturday :", "70"}
 			   
 			};
+		
+		Date date;
+		try {
+			date = Utils.DateTime.getDate(2016, 1, 3);
+		} catch (ParseException e1) {
+			date = null;
+		}
+
+		for(int i=0;i<54;i++)
+		{
+			Date temp = new Date();
+			temp.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
+			date = temp;
+			dates.addItem(temp);
+			//date=Utils.DateTime
+			//s.setDate(date);
+		}
 		weekly_table = new JTable();
 		weekly_table.setModel(new MyTableModel(report_rawNames,report_data));
 		

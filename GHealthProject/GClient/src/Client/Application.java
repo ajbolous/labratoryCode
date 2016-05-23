@@ -5,6 +5,7 @@ import ClientUI.ClientUI;
 import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
 import ClientUI.NewApp;
+import ClientUI.WeeklyReport;
 import Utils.Request;
 import models.Doctor;
 
@@ -30,11 +31,13 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-		connect();
+		//connect();
 		
+		WeeklyReport rp = new WeeklyReport();
+		rp.getFrame().setVisible(true);
 		//DoctorMedicalRecordUI v = new DoctorMedicalRecordUI();
-		Identification iden= new Identification();
-		iden.getFrame().setVisible(true);
+		//Identification iden= new Identification();
+		//iden.getFrame().setVisible(true);
 		
 	}
 }
