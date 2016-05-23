@@ -8,8 +8,6 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "visits")
 public class Visit extends Entity{
 	
-	
-
 	@DatabaseField(generatedId = true)
 	private int vid;	
 	
@@ -53,19 +51,10 @@ public class Visit extends Entity{
 	public void setTreatment(Treatment treatment) {
 		this.treatment = treatment;
 	}
-<<<<<<< HEAD
-
-	
-	public String toString(){
-		return "Visit id:" + this.vid;
-	}
-	
-=======
 	
 	public String toString(){
 		return "Visit"+vid;
 		
 	}
->>>>>>> 2f428870a04d59736b344114cea9761637250a04
 	
 }

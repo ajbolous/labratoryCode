@@ -99,11 +99,8 @@ public class DataFiller {
 		Doctor d = db.doctors.queryForId("20000000" + i);
 		Patient p = db.patients.queryForId("30000000" + i);
 	
-<<<<<<< HEAD
 		//Appointment a = new Appointment(d,p,Utils.DateTime.getDate(2016, 10, 5+i,11,10));
-=======
 		Appointment a = new Appointment(d,p, DateTime.getDate(2016, 10, 5+i,11,10));
->>>>>>> 2f428870a04d59736b344114cea9761637250a04
 
 		//db.appointments.createIfNotExists(a);
 		}

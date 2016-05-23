@@ -282,21 +282,21 @@ public class DoctorMedicalRecordUI {
 		    	if(obj.getClass()== Visit.class)
 		    	{
 		    		
-		    		VisitPanel vi = new VisitPanel((Visit) obj);
+		    	//	VisitPanel vi = new VisitPanel((Visit) obj);
 		    		
-		    		scrollPane_1.setViewportView(vi);
+		    	//	scrollPane_1.setViewportView(vi);
 		    		
 		    	}
 		    	if (obj.getClass()==Treatment.class)
 		    	{
-		    		TreatmentPanel t = new TreatmentPanel((Treatment)obj);
-		    		scrollPane_1.setViewportView(t);
+		    	//	TreatmentPanel t = new TreatmentPanel((Treatment)obj);
+		    	//	scrollPane_1.setViewportView(t);
 		    	}
 		    	
 		    	if(obj.getClass()== Examination.class)
 		    	{
-		    		ExaminationPanel	ep = new ExaminationPanel((Examination) obj);
-		    		scrollPane_1.setViewportView(ep);
+		    	//	ExaminationPanel	ep = new ExaminationPanel((Examination) obj);
+		    	//	scrollPane_1.setViewportView(ep);
 		    		
 		    	}
 		    	
@@ -326,11 +326,11 @@ public class DoctorMedicalRecordUI {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				NewVisitPanel vi = new NewVisitPanel(v);
+			//	NewVisitPanel vi = new NewVisitPanel(v);
 				JScrollPane scrollPane_1 = new JScrollPane();
 				scrollPane_1.setBounds(279, 249, 646, 420);
 				DoctorMedicalRecord.getContentPane().add(scrollPane_1);
-				scrollPane_1.setViewportView(vi);
+				//scrollPane_1.setViewportView(vi);
 			}
 		});
 		
