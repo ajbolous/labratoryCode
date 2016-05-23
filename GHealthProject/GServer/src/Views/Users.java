@@ -60,7 +60,10 @@ public class Users extends View{
 		User u = (User) request.getParam("user");
 		u.setOnline(true);
 		try {
-			u.update();
+			if(u.getClass() == Doctor.class)
+				db.doctors.update((Doctor) u);
+			if(u.getClass() == Labratorian.class)
+				db.labratorians.update((Labratorian) u);
 			return u;
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);

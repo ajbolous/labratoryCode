@@ -113,6 +113,11 @@ public class SignInUI {
 				}
 				boolean status = IdentifecationController.authinticateUser(u, passwordField.getText());
 				if(status){
+					u = IdentifecationController.setOnline(u);
+					if(u==null){
+						labelDetails.setText("*Couldnt connect user");
+						return;
+					}
 					Application.user = u;
 					ClientUI cui = new ClientUI();
 					SignInUI.hide();

@@ -23,4 +23,10 @@ public class IdentifecationController {
 		return u.getPass().equals(password);
 	}
 
+	public static User setOnline(User u){
+		Request r = new Request("users/setOnline");
+		r.addParam("user", u);
+		return (User)Application.client.sendRequest(r);
+	}
+	
 }
