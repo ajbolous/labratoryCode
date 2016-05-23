@@ -15,13 +15,18 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Application;
 import Client.Resources;
+import Controllers.AppointmentsController;
+import Utils.DateTime;
 import Utils.Request;
+import models.Appointment;
 import models.Doctor;
+import models.Patient;
 
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JList;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import javax.swing.JOptionPane;
@@ -58,9 +63,13 @@ public class NewApp  {
 	private JFrame newApp;
 	private JTable doctors_table;
 	private JTable time_table;
-
-	
-	public  NewApp () {
+	private JScrollPane doctors_scrll_table;
+	private JLabel lblDoctors;
+	private AppointmentsController app_ctrl = new AppointmentsController();
+	private String spec;
+	private Patient patient;
+	public  NewApp (Patient patient) {
+		this.patient=patient;
 		initialize();
 	}
 
@@ -71,8 +80,6 @@ public class NewApp  {
 		Resources res = new Resources();
 		newApp = new JFrame();
 		newApp.setResizable(false);
-		//JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		//newApp.setContentPane(pane);
 		newApp.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 16));
 		newApp.setTitle("New Appointment- GHealth");
 		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
@@ -92,16 +99,28 @@ public class NewApp  {
 		newApp.getContentPane().add(logo);
 		
 		JComboBox speciality = new JComboBox();
-		speciality.setModel(new DefaultComboBoxModel(new String[] {"Bone", "Family"}));
+		speciality.setName("");
+		speciality.setModel(new DefaultComboBoxModel(app_ctrl.getSpecialties()));
 		speciality.addActionListener(new ActionListener() {
+			
+			
 			public void actionPerformed(ActionEvent e) {
-				Request r = new Request("doctors/bySpeciality");
-				r.addParam("speciality", speciality.getSelectedItem());
-				ArrayList<Doctor> doctors = (ArrayList<Doctor>) Application.client.sendRequest(r);
-				int x = 10;
+//				doctors_scrll_table.setVisible(true);
+//				lblDoctors.setVisible(true);
+		        JComboBox cb = (JComboBox)e.getSource();
+		        spec = (String)cb.getSelectedItem();
+		        if (!spec.equals("")){
+		        	getDoctorsBySpec(spec);
+		        	doctors_scrll_table.setVisible(true);
+					lblDoctors.setVisible(true);
+		        }
+		        else{
+		        	doctors_scrll_table.setVisible(false);
+					lblDoctors.setVisible(false);
+		        }
+				
 			}
 		});
-		speciality.setEditable(true);
 		speciality.setBounds(120, 106, 247, 25);
 		newApp.getContentPane().add(speciality);
 		
@@ -128,7 +147,8 @@ public class NewApp  {
 		btnCancel.setBounds(361, 567, 89, 23);
 		newApp.getContentPane().add(btnCancel);
 		
-		JLabel lblDoctors = new JLabel("Doctors:");
+		 lblDoctors = new JLabel("Doctors:");
+		lblDoctors.setVisible(false);
 		lblDoctors.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDoctors.setBounds(30, 142, 99, 32);
 		newApp.getContentPane().add(lblDoctors);
@@ -138,28 +158,16 @@ public class NewApp  {
 		lblTime.setBounds(30, 357, 62, 25);
 		newApp.getContentPane().add(lblTime);
 		
-		JScrollPane doctors_scrll_table = new JScrollPane();
+		 doctors_scrll_table = new JScrollPane();
+		 doctors_scrll_table.setVisible(false);
 		doctors_scrll_table.setBounds(30, 171, 420, 175);
 		newApp.getContentPane().add(doctors_scrll_table);
 		
 		String[] doc_columnNames = {"Doctor","Clinic","Last Visit"};
-		Object[][] doc_data = {
-			    {"Muhamad", "Haifa","22/1/2016"},
-			   
-			    {"Maysam", "Tel-aviv","22/1/2016"},
-			  
-			    {"Boulus", "Karmiel","22/1/2016"},
-			
-			    {"Ahdab", "Paris","NON"},
-			 
-			    {"Ahmad", "nasre","NON"},
-			
-			     {"Faysal", "majd elkroom","NON"}
-			
-			};
+		Object[][] doc_data = {};
 		doctors_table = new JTable();
 		doctors_table.setModel(new MyTableModel(doc_columnNames,doc_data));
-		
+//		getDoctorsBySpec(spec);
 		doctors_table.setFillsViewportHeight(true);
 		doctors_table.setSurrendersFocusOnKeystroke(true);
 		doctors_table.setShowVerticalLines(false);
@@ -209,13 +217,27 @@ public class NewApp  {
 		
 		newApp.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		newApp.setBounds(100, 100, 481, 632);
-		newApp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		newApp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newApp.setLocationRelativeTo(null);
 
 		
 
 	}
 	
+	private void getDoctorsBySpec(String spec) {
+		DefaultTableModel dm = (DefaultTableModel) doctors_table.getModel();
+		if (dm.getRowCount() > 0) {
+		    for (int row = dm.getRowCount() - 1; row > -1; row--) {
+		        dm.removeRow(row);
+		    }
+		}
+		
+		ArrayList<Doctor> doctors = app_ctrl.getDoctorsBySpeciality(spec);
+		for (Doctor d : doctors) {
+			dm.addRow(new Object[] { d.getFirstName()+d.getLastName(),d.getClinic().getName(),d.getSpeciality()});
+		}
+	}
+
 	public JFrame getFrame(){
 		return newApp;
 	}

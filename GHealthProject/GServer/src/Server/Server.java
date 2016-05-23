@@ -2,12 +2,14 @@ package Server;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import com.mysql.jdbc.Driver;
 
 import Database.DbHandler;
 import Utils.Logger;
 import Utils.Request;
+import Views.Appointments;
 import models.Person;
 import models.Visit;
 import ocsf.server.*;
@@ -59,7 +61,7 @@ public class Server extends AbstractServer {
 		}
 	}
 
-	public static void main(String[] args) throws IOException, SQLException {
+	public static void main(String[] args) throws IOException, SQLException, ParseException {
 		Config cfg = Config.fromArgs(args);
 
 
@@ -68,5 +70,8 @@ public class Server extends AbstractServer {
 
 		Server server = new Server(cfg.getPort());
 		server.listen();
+		
+		
+		
 	}
 }

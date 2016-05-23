@@ -204,7 +204,7 @@ public class Appointments {
 		JButton newApp_btn = new JButton("Add New Appointment");
 		newApp_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewApp().getFrame().setVisible(true);
+				new NewApp(patient).getFrame().setVisible(true);
 			}
 		});
 		newApp_btn.setBounds(10, 140, 174, 30);
@@ -214,7 +214,7 @@ public class Appointments {
 		app.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
 		app.setBounds(100, 100, 629, 448);
-		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		app.setLocationRelativeTo(null);
 	}
 
@@ -223,7 +223,7 @@ public class Appointments {
 	}
 
 	private void getAppointments() {
-		ForeignCollection<Appointment> apps=patient.getAppointments();
+		ForeignCollection<Appointment> apps=apctrl.getPatientAppointments(patient);
 		for (Appointment a : apps) {
 			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 			dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
@@ -234,6 +234,5 @@ public class Appointments {
 			
 			apps_list.add(a);
 		}
-
 	}
 }
