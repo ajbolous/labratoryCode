@@ -97,21 +97,39 @@ public class SignInUI {
 		labelDetails.setBounds(10, 67, 246, 14);
 		SignInUI.getContentPane().add(labelDetails);
 		SignInUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		SignInUI.setBounds(100, 100, 275, 212);
+		SignInUI.setBounds(100, 100, 331, 324);
 		SignInUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnLogIn = new JButton("Sign in ");
 
-		btnLogIn.setBounds(66, 149, 190, 23);
+		btnLogIn.setBounds(46, 185, 190, 23);
 		SignInUI.getContentPane().add(btnLogIn);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				char[] passy= passwordField.getPassword();  
+				String pass=new String(passy); 
 				User u = IdentifecationController.getUser(textField.getText());
+				if (UITests.notEmpty(textField.getText()) == false  && UITests.notEmpty(pass)== false){			
+					labelDetails.setText("*Please enter  ID and password");
+					return;
+				}
+				else if (UITests.notEmpty(textField.getText()) == false){
+					labelDetails.setText("*Please enter  ID");
+					return;
+				}
+				else if (UITests.notEmpty(pass)== false){
+					labelDetails.setText("*Please enter  password");
+					return;	
+				}
+				else if (UITests.correctId(textField.getText()) == false){
+					labelDetails.setText("*Please enter 9 digits ID");
+					return;
+				}
 				if(u == null){
 					labelDetails.setText("*User does not exist");
 					return;
 				}
-				boolean status = IdentifecationController.authinticateUser(u, passwordField.getText());
+				boolean status = IdentifecationController.authinticateUser(u, pass);
 				if(status){
 					u = IdentifecationController.setOnline(u);
 					if(u==null){
@@ -122,7 +140,7 @@ public class SignInUI {
 					ClientUI cui = new ClientUI();
 					SignInUI.hide();
 				}else{
-					labelDetails.setText("*Wrong password");
+					labelDetails.setText("*Wrong password ");
 				}
 			}
 		});
