@@ -18,6 +18,8 @@ import java.awt.Image;
 import javax.swing.JButton;
 
 import Client.Resources;
+import Controllers.AppointmentsController;
+import Controllers.MedicalRecordController;
 
 import javax.swing.BoxLayout;
 
@@ -71,6 +73,7 @@ import javax.swing.event.TreeExpansionEvent;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -82,22 +85,27 @@ import javax.swing.ScrollPaneConstants;
 
 public class DoctorMedicalRecordUI {
 
-	private JFrame DoctorMedicalRecord ;
-	
+	private JFrame DoctorMedicalRecord;
+
 	JButton btnNewButton = new JButton("Add Visit");
 	JButton btnNewButton_1 = new JButton("Add Referral");
 	JButton btnNewButton_2 = new JButton("New button");
 	JPanel panel_2 = new JPanel();
-	
+	private AppointmentsController apctrl = new AppointmentsController();
+	private MedicalRecordController mrctrl = new MedicalRecordController();
+	JPanel panel_1 = new JPanel();
+
 	public DoctorMedicalRecordUI(Patient p) throws ParseException {
 		initialize(p);
 		DoctorMedicalRecord.setSize(950, 800);
+		DoctorMedicalRecord.setLocationRelativeTo(null);
 		DoctorMedicalRecord.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	private void initialize(Patient p) throws ParseException {
 		Resources res = new Resources();
@@ -193,7 +201,7 @@ public class DoctorMedicalRecordUI {
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 249, 272, 409);
+		scrollPane.setBounds(0, 249, 277, 409);
 		DoctorMedicalRecord.getContentPane().add(scrollPane);
 		scrollPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -204,10 +212,45 @@ public class DoctorMedicalRecordUI {
 		tree.setEditable(true);
 		tree.setShowsRootHandles(true);
 		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Treatments") {
+			new DefaultMutableTreeNode("Specialisties") {
 				{
-					DefaultMutableTreeNode node_S= new DefaultMutableTreeNode("Specialty Type : fizotrby");
+					
+					/*String  specialty [] = apctrl.getSpecialties();
+					for (int i=1;i<specialty.length;i++)
+					{
+					DefaultMutableTreeNode node_S= new DefaultMutableTreeNode(specialty[i]);
 					DefaultMutableTreeNode node_1;
+					ArrayList <Treatment> t = (ArrayList)p.getMedicalRecord().getTreatments();
+					for ( int k=0; k<p.getMedicalRecord().getTreatments().size();k++)
+					{
+						if (t.get(k).getDoctor().getSpeciality().equals(specialty[i]))
+						{
+							node_1 = new DefaultMutableTreeNode(t.get(k));
+							DefaultMutableTreeNode	node_2 = new DefaultMutableTreeNode("Visits");
+							for (int j=0 ; j<t.get(k).getVisits().size() ; j++)
+							{
+								
+								Visit visit=(Visit) ((ArrayList)t.get(k).getVisits()).get(j);
+								node_2.add(new DefaultMutableTreeNode(visit));
+							}
+							DefaultMutableTreeNode node_3 =  new DefaultMutableTreeNode("Tests");
+							for (int j=0 ; j<t.get(k).getExamination().size() ; j++)
+							{
+								
+								Examination ex=(Examination) ((ArrayList)t.get(k).getExamination()).get(j);
+								node_3.add(new DefaultMutableTreeNode(ex));
+							}
+							node_1.add(node_2);
+							node_1.add(node_3);
+									
+								
+						}
+								
+					}
+					add(node_S);
+					}*/
+					
+					/*DefaultMutableTreeNode node_1;
 					DefaultMutableTreeNode node_2;
 					DefaultMutableTreeNode node_3;
 					
@@ -249,7 +292,7 @@ public class DoctorMedicalRecordUI {
 					node_1.add(node_3);	
 					node_S.add(node_1);
 					add(node_S);
-					add(new DefaultMutableTreeNode("Specialty Type : love"));
+					add(new DefaultMutableTreeNode("Specialty Type : love"));*/
 					
 					
 					
@@ -265,43 +308,52 @@ public class DoctorMedicalRecordUI {
 		    public void valueChanged(TreeSelectionEvent e) {
 		    	DefaultMutableTreeNode node =(DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		    	Object obj = node.getUserObject();
-		    	JPanel panel_1 = new JPanel();
-		    	DoctorMedicalRecord.getContentPane().add(panel_1);
-		    	panel_1.setBackground(Color.LIGHT_GRAY);
-				panel_1.setBounds(279, 204, 539, 45);
-				
-				panel_1.setLayout(null);
-				panel_1.add(btnNewButton);
-				panel_1.add(btnNewButton_1);
-				panel_1.add(btnNewButton_2);
+		    	
+		    	
+		    	
+		    	
 				JScrollPane scrollPane_1 = new JScrollPane();
 				scrollPane_1.setBounds(279, 249, 646, 420);
 				scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 	    		scrollPane_1.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-				DoctorMedicalRecord.getContentPane().add(scrollPane_1);
+				
 		    	if(obj.getClass()== Visit.class)
 		    	{
 		    		
 		    	//	VisitPanel vi = new VisitPanel((Visit) obj);
 		    		
 		    	//	scrollPane_1.setViewportView(vi);
+		    	//	DoctorMedicalRecord.getContentPane().add(scrollPane_1);
+		    	//	DoctorMedicalRecord.getContentPane().add(panel_1);
 		    		
 		    	}
 		    	if (obj.getClass()==Treatment.class)
 		    	{
 		    	//	TreatmentPanel t = new TreatmentPanel((Treatment)obj);
 		    	//	scrollPane_1.setViewportView(t);
+		    	//	DoctorMedicalRecord.getContentPane().add(scrollPane_1);
+		    	//	DoctorMedicalRecord.getContentPane().add(panel_1);
 		    	}
 		    	
 		    	if(obj.getClass()== Examination.class)
 		    	{
 		    	//	ExaminationPanel	ep = new ExaminationPanel((Examination) obj);
 		    	//	scrollPane_1.setViewportView(ep);
+		    	//	DoctorMedicalRecord.getContentPane().add(scrollPane_1);
+		    	//	DoctorMedicalRecord.getContentPane().add(panel_1);
 		    		
 		    	}
 		    	
 		    }
 		});
+		DoctorMedicalRecord.getContentPane().add(panel_1);
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(279, 204, 539, 45);
+		panel_1.setLayout(null);
+		
+		panel_1.add(btnNewButton);
+		panel_1.add(btnNewButton_1);
+		panel_1.add(btnNewButton_2);
 		
 		JButton btnCancel = new JButton("cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -326,11 +378,9 @@ public class DoctorMedicalRecordUI {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			//	NewVisitPanel vi = new NewVisitPanel(v);
-				JScrollPane scrollPane_1 = new JScrollPane();
-				scrollPane_1.setBounds(279, 249, 646, 420);
-				DoctorMedicalRecord.getContentPane().add(scrollPane_1);
-				//scrollPane_1.setViewportView(vi);
+				NewVisitUI vi = new NewVisitUI(v);
+				
+				
 			}
 		});
 		
@@ -352,58 +402,72 @@ public class DoctorMedicalRecordUI {
 		btnReguestInformationFrom.setFont(new Font("Arial", Font.BOLD, 12));
 		btnReguestInformationFrom.setBounds(257, 123, 230, 23);
 		DoctorMedicalRecord.getContentPane().add(btnReguestInformationFrom);
+		
+		JButton btnNewTreatment = new JButton("New Treatment");
+		btnNewTreatment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				try {
+					new NewTreatmentUI(mrctrl.getNewTreatment(new Doctor(), p.getMedicalRecord()));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnNewTreatment.setBounds(10, 215, 131, 23);
+		DoctorMedicalRecord.getContentPane().add(btnNewTreatment);
 	}
-	 private static int[] calculateAge(Date birthDate)
-	   {
-	      int years = 0;
-	      int months = 0;
-	      int days = 0;
-	      int YM[]=new int[2];
-	      //create calendar object for birth day
-	      Calendar birthDay = Calendar.getInstance();
-	      birthDay.setTimeInMillis(birthDate.getTime());
-	      //create calendar object for current day
-	      long currentTime = System.currentTimeMillis();
-	      Calendar now = Calendar.getInstance();
-	      now.setTimeInMillis(currentTime);
-	      //Get difference between years
-	      years = now.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
-	      int currMonth = now.get(Calendar.MONTH) + 1;
-	      int birthMonth = birthDay.get(Calendar.MONTH) + 1;
-	      //Get difference between months
-	      months = currMonth - birthMonth;
-	      //if month difference is in negative then reduce years by one and calculate the number of months.
-	      if (months < 0)
-	      {
-	         years--;
-	         months = 12 - birthMonth + currMonth;
-	         if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
-	            months--;
-	      } else if (months == 0 && now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
-	      {
-	         years--;
-	         months = 11;
-	      }
-	      //Calculate the days
-	      if (now.get(Calendar.DATE) > birthDay.get(Calendar.DATE))
-	         days = now.get(Calendar.DATE) - birthDay.get(Calendar.DATE);
-	      else if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
-	      {
-	         int today = now.get(Calendar.DAY_OF_MONTH);
-	         now.add(Calendar.MONTH, -1);
-	         days = now.getActualMaximum(Calendar.DAY_OF_MONTH) - birthDay.get(Calendar.DAY_OF_MONTH) + today;
-	      } else
-	      {
-	         days = 0;
-	         if (months == 12)
-	         {
-	            years++;
-	            months = 0;
-	         }
-	      }
-	      YM[0]=years;
-	      YM[1]=months;
-	      //Create new Age object 
-	      return  YM;
-	   }
+
+	private static int[] calculateAge(Date birthDate) {
+		int years = 0;
+		int months = 0;
+		int days = 0;
+		int YM[] = new int[2];
+		// create calendar object for birth day
+		Calendar birthDay = Calendar.getInstance();
+		birthDay.setTimeInMillis(birthDate.getTime());
+		// create calendar object for current day
+		long currentTime = System.currentTimeMillis();
+		Calendar now = Calendar.getInstance();
+		now.setTimeInMillis(currentTime);
+		// Get difference between years
+		years = now.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
+		int currMonth = now.get(Calendar.MONTH) + 1;
+		int birthMonth = birthDay.get(Calendar.MONTH) + 1;
+		// Get difference between months
+		months = currMonth - birthMonth;
+		// if month difference is in negative then reduce years by one and
+		// calculate the number of months.
+		if (months < 0) {
+			years--;
+			months = 12 - birthMonth + currMonth;
+			if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE))
+				months--;
+		} else if (months == 0
+				&& now.get(Calendar.DATE) < birthDay.get(Calendar.DATE)) {
+			years--;
+			months = 11;
+		}
+		// Calculate the days
+		if (now.get(Calendar.DATE) > birthDay.get(Calendar.DATE))
+			days = now.get(Calendar.DATE) - birthDay.get(Calendar.DATE);
+		else if (now.get(Calendar.DATE) < birthDay.get(Calendar.DATE)) {
+			int today = now.get(Calendar.DAY_OF_MONTH);
+			now.add(Calendar.MONTH, -1);
+			days = now.getActualMaximum(Calendar.DAY_OF_MONTH)
+					- birthDay.get(Calendar.DAY_OF_MONTH) + today;
+		} else {
+			days = 0;
+			if (months == 12) {
+				years++;
+				months = 0;
+			}
+		}
+		YM[0] = years;
+		YM[1] = months;
+		// Create new Age object
+		return YM;
+	}
 }
