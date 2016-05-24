@@ -70,16 +70,17 @@ public class Server extends AbstractServer {
 
 
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
-		DbHandler db = cfg.getHandler();
-		Server server = new Server(cfg.getPort());
+		
+		Appointments ap = new Appointments();
 		server.listen();		
 		
-//		Request r = new Request("appointments/lastVisit");
-//		r.addParam("doctor_id",200000000);
-//		r.addParam("patient_id", 300000000);
-//		r.addParam("app_time", new Date() );
-//		ArrayList<Appointment> app= (ArrayList<Appointment>) new Appointments().lastVisit(r);
-//		System.out.println(app.get(0));
+		//DbHandler db = cfg.getHandler();
+		//Server server = new Server(cfg.getPort());
+		
+		
+		
+	//	server.listen();
+		
 		
 
 	}
