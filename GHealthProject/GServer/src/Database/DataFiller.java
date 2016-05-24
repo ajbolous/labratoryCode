@@ -56,7 +56,10 @@ public class DataFiller {
 			}
 			p.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			p.setPhone("0" + (548143001 + i));
-			p.setSid(""+(300000000 + i));
+			p.setSid(""+30000000+i);
+			
+			
+
 			db.patients.createIfNotExists(p);
 		}
 	}
@@ -77,10 +80,12 @@ public class DataFiller {
 			l.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			l.setPhone("0" + (548143001 + i));
 			l.setSid(""+(400000000 + i));
-			db.labratorians.createIfNotExists(l);
+			
 			
 			Labratory lab = new Labratory();
-			lab.setLabratorian(l);
+			l.setLabratory(lab);
+			
+			db.labratorians.createIfNotExists(l);
 			db.labratories.createIfNotExists(lab);
 
 			Clinic c = new Clinic();
