@@ -13,8 +13,8 @@ public class Examination extends Entity {
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
 	private Treatment treatment;
 
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
-	private Labratory labratory;
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratorian_id")
+	private Labratorian labratorian;
 
 	@DatabaseField()
 	private String eType;
@@ -47,12 +47,12 @@ public class Examination extends Entity {
 		this.treatment = treatment;
 	}
 
-	public Labratory getLabratory() {
-		return labratory;
+	public Labratorian getLabratorian() {
+		return labratorian;
 	}
 
-	public void setLabratory(Labratory labratory) {
-		this.labratory = labratory;
+	public void setLabratorian(Labratorian labratory) {
+		this.labratorian = labratorian;
 	}
 
 	public String getComments() {

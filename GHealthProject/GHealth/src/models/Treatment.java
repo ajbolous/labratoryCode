@@ -1,4 +1,5 @@
 package models;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +30,17 @@ public class Treatment extends Entity{
 	@ForeignCollectionField(eager=true)
     private ForeignCollection<Visit> visits;
 	
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Examination> examination;
+	
+	public ForeignCollection<Examination> getExamination() {
+		return examination;
+	}
+
+	public void setExamination(ForeignCollection<Examination> examination) {
+		this.examination = examination;
+	}
+
 	@DatabaseField()
     private String status;
 	
