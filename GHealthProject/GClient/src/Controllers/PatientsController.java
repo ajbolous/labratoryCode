@@ -19,4 +19,15 @@ public class PatientsController {
 		return (Patient)Application.client.sendRequest(r);
 
 	}
+	public boolean AddNewPatient(Patient patient ){
+		Request r = new Request("patients/add");
+		r.addParam("patient", patient);
+		String res=(String) Application.client.sendRequest(r);
+		if (res !=null)
+			return true ; 
+		else 
+			return false ; 
+		
+		
+	}
 }
