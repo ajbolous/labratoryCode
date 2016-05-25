@@ -33,7 +33,7 @@ public class Patients extends View{
 		DbHandler db = Config.getConfig().getHandler();
 		try {
 
-			db.patients.create((Patient) request.getParam("patient"));
+			db.patients.createIfNotExists((Patient) request.getParam("patient"));
 			return "success";
 			} catch (SQLException e) {
 			e.printStackTrace();

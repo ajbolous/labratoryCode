@@ -169,10 +169,10 @@ public class AddPatientUI {
 				 phone= PhoneField.getText();
 				 email=EmailField.getText();
 				  address=AddressField.getText();
+				  
 				  if(idctrl.exists(id))
-				  {
-					  return ;
-				  }else {
+				  	  return ;
+				  
 					Patient patient = new Patient();
 					patient.setSid(id);
 					patient.setFirstName(Fname);
@@ -180,7 +180,7 @@ public class AddPatientUI {
 					patient.setEmail(email);
 					patient.setPhone(phone);
 					patient.setAddress(address);
-					boolean res=idctrl.AddNewPatient(patient); 
+					idctrl.AddNewPatient(patient); 
 					return;
 							}
 		   
@@ -188,7 +188,7 @@ public class AddPatientUI {
 
 				
 			}
-		});
+		);
 		addPatient.getContentPane().add(btnNewButton);
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.setBounds(230, 359, 89, 23);
