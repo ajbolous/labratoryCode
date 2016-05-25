@@ -69,6 +69,7 @@ public class AddPatientUI {
 	private String lastName ;
 	private String email;
 	private String phone ; 
+	private JTextField textField_1;
 	
 	
 
@@ -103,57 +104,57 @@ public class AddPatientUI {
 		addPatient.getContentPane().add(logo);
 		
 		JLabel lblNewLabel = new JLabel("ID:");
-		lblNewLabel.setBounds(29, 106, 114, 35);
+		lblNewLabel.setBounds(29, 82, 114, 35);
 		addPatient.getContentPane().add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel("First Name:");
-		label_1.setBounds(29, 136, 114, 35);
+		label_1.setBounds(29, 112, 114, 35);
 		addPatient.getContentPane().add(label_1);
 		
 		JLabel label_2 = new JLabel("Last Name:");
-		label_2.setBounds(29, 166, 114, 35);
+		label_2.setBounds(29, 142, 114, 35);
 		addPatient.getContentPane().add(label_2);
 		
 		JLabel label_3 = new JLabel("BirthDate:");
-		label_3.setBounds(29, 196, 59, 35);
+		label_3.setBounds(29, 172, 59, 35);
 		addPatient.getContentPane().add(label_3);
 		
-		JLabel label_4 = new JLabel("Email:");
-		label_4.setBounds(29, 226, 114, 35);
-		addPatient.getContentPane().add(label_4);
+		JLabel lblPhone = new JLabel("Phone:");
+		lblPhone.setBounds(29, 262, 114, 35);
+		addPatient.getContentPane().add(lblPhone);
 		
-		JLabel label_5 = new JLabel("Phone:");
-		label_5.setBounds(29, 256, 114, 35);
-		addPatient.getContentPane().add(label_5);
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(29, 232, 114, 35);
+		addPatient.getContentPane().add(lblEmail);
 		
 		textField = new JTextField();
-		textField.setBounds(90, 110, 252, 26);
+		textField.setBounds(90, 86, 252, 26);
 		addPatient.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(90, 140, 252, 26);
+		textField_2.setBounds(90, 116, 252, 26);
 		addPatient.getContentPane().add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(90, 170, 252, 26);
+		textField_3.setBounds(90, 146, 252, 26);
 		addPatient.getContentPane().add(textField_3);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(90, 230, 252, 26);
+		textField_5.setBounds(90, 296, 252, 26);
 		addPatient.getContentPane().add(textField_5);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
-		textField_6.setBounds(90, 260, 252, 26);
+		textField_6.setBounds(90, 236, 252, 26);
 		addPatient.getContentPane().add(textField_6);
 		
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setForeground(Color.BLUE);
-		btnNewButton.setBounds(139, 297, 89, 23);
+		btnNewButton.setBounds(116, 359, 89, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
 				id=textField.getText();
@@ -167,7 +168,7 @@ public class AddPatientUI {
 		});
 		addPatient.getContentPane().add(btnNewButton);
 		JButton btnNewButton_1 = new JButton("Cancel");
-		btnNewButton_1.setBounds(253, 297, 89, 23);
+		btnNewButton_1.setBounds(230, 359, 89, 23);
 		addPatient.getContentPane().add(btnNewButton_1);
 		
 	
@@ -203,7 +204,7 @@ public class AddPatientUI {
 	
 			  year_cbox1.setModel(new DefaultComboBoxModel(y_temp)); 
 
-		year_cbox1.setBounds(89, 203, 72, 20);
+		year_cbox1.setBounds(89, 179, 72, 20);
 		addPatient.getContentPane().add(year_cbox1);
 		
 		
@@ -254,7 +255,7 @@ public class AddPatientUI {
 		month_cbox.setBackground(Color.WHITE);
 		
 
-		month_cbox.setBounds(171, 203, 80, 20);
+		month_cbox.setBounds(171, 179, 80, 20);
 		addPatient.getContentPane().add(month_cbox);
 		
 		
@@ -268,11 +269,28 @@ public class AddPatientUI {
 		});
 		day_cbox.setBackground(Color.WHITE);
 		day_cbox.setModel(new DefaultComboBoxModel(new String[]{"Days"}));
-		day_cbox.setBounds(262, 203, 80, 20);
+		day_cbox.setBounds(262, 179, 80, 20);
 		addPatient.getContentPane().add(day_cbox);
 		
+		JLabel lblAdressess = new JLabel("Address:");
+		lblAdressess.setBounds(29, 292, 114, 35);
+		addPatient.getContentPane().add(lblAdressess);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(90, 266, 252, 26);
+		addPatient.getContentPane().add(textField_1);
+		
+		JLabel lblGender = new JLabel("Gender:");
+		lblGender.setBounds(29, 202, 59, 35);
+		addPatient.getContentPane().add(lblGender);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(90, 206, 252, 20);
+		addPatient.getContentPane().add(comboBox);
+		
 		addPatient.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		addPatient.setBounds(100, 100, 428, 370);
+		addPatient.setBounds(100, 100, 428, 459);
 		addPatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
