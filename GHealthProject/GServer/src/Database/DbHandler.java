@@ -38,17 +38,20 @@ public class DbHandler {
 			connection=new JdbcConnectionSource(url,username,password);
 			createAllTables();
 			initializeDao();
-			DataFiller df = new DataFiller(this);
-//			df.fillClinics();
-//			df.fillDoctors();
-//			df.fillPatients();
-//			df.fillAppointments();
-//			df.fillStatistics();
+			fillDataBase();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
+	public void fillDataBase() throws Exception{
+		DataFiller df = new DataFiller(this);
+		df.fillClinics();
+		df.fillDoctors();
+		df.fillPatients();
+		df.fillAppointments();
+		df.fillStatistics();
+	}
 	public void initializeDao() throws Exception{
 		patients = DaoManager.createDao(connection, Patient.class);
 		doctors  = DaoManager.createDao(connection, Doctor.class);

@@ -1,8 +1,6 @@
 package ClientUI;
 
   public class UITests {
-
-	  
 	  public static boolean notEmpty(String str) {
 		  if (str.length()==0) return false;
 		  return true;

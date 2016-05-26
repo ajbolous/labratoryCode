@@ -73,7 +73,7 @@ public class TreatmentPanel extends JPanel {
 			textField_1 = new JTextField();
 			textField_1.setEditable(false);
 			textField_1.setBackground(new Color(255, 255, 255));
-			textField_1.setBounds(152, 136, 211, 20);
+			textField_1.setBounds(152, 105, 211, 20);
 			textField_1.setColumns(10);
 			add(textField_1);
 
@@ -81,57 +81,57 @@ public class TreatmentPanel extends JPanel {
 			
 			
 			JLabel lblVisitId = new JLabel("TreatmentID :");
-			lblVisitId.setFont(new Font("Arial Black", Font.BOLD, 12));
+			lblVisitId.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblVisitId.setBounds(9, 40, 119, 14);
 			add(lblVisitId);
 			
 			JLabel lblDate = new JLabel("Start Date :");
-			lblDate.setFont(new Font("Arial Black", Font.BOLD, 12));
-			lblDate.setBounds(9, 135, 101, 20);
+			lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblDate.setBounds(9, 104, 101, 20);
 			add(lblDate);
 			
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(153, 153, 153));
-			panel.setBounds(-21, 0, 119, 27);
+			panel.setBounds(0, 2, 119, 27);
 			add(panel);
 			panel.setLayout(null);
 			
 			JLabel lblVisitDetails = new JLabel("Treatment");
-			lblVisitDetails.setBounds(24, 0, 85, 29);
+			lblVisitDetails.setBounds(24, 0, 85, 27);
 			panel.add(lblVisitDetails);
 			lblVisitDetails.setHorizontalAlignment(SwingConstants.LEFT);
-			lblVisitDetails.setFont(new Font("Arial Black", Font.BOLD, 12));
+			lblVisitDetails.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			
 			JLabel lblEndDate = new JLabel("End Date : ");
-			lblEndDate.setFont(new Font("Arial Black", Font.BOLD, 12));
-			lblEndDate.setBounds(9, 182, 101, 20);
+			lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblEndDate.setBounds(9, 136, 101, 20);
 			add(lblEndDate);
 			
 			textField_2 = new JTextField();
 			textField_2.setEditable(false);
-			textField_2.setBounds(152, 183, 211, 20);
+			textField_2.setBounds(152, 137, 211, 20);
 			add(textField_2);
 			textField_2.setColumns(10);
 			
 			JLabel lblDoctorname = new JLabel("DoctorName :");
-			lblDoctorname.setFont(new Font("Arial Black", Font.BOLD, 12));
-			lblDoctorname.setBounds(9, 233, 119, 27);
+			lblDoctorname.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblDoctorname.setBounds(9, 167, 119, 27);
 			add(lblDoctorname);
 			
 			textField_3 = new JTextField(treatment.getDoctor().getFirstName()+treatment.getDoctor().getLastName());
 			textField_3.setEditable(false);
-			textField_3.setBounds(152, 237, 211, 20);
+			textField_3.setBounds(152, 171, 211, 20);
 			add(textField_3);
 			textField_3.setColumns(10);
 			
 			JLabel lblType = new JLabel("Treatment Type :");
-			lblType.setFont(new Font("Arial Black", Font.BOLD, 12));
-			lblType.setBounds(10, 82, 144, 27);
+			lblType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblType.setBounds(10, 69, 144, 27);
 			add(lblType);
 			
 			textField_4 = new JTextField(treatment.getDoctor().getSpeciality());
 			textField_4.setEditable(false);
-			textField_4.setBounds(152, 86, 211, 20);
+			textField_4.setBounds(152, 73, 211, 20);
 			add(textField_4);
 			textField_4.setColumns(10);
 			

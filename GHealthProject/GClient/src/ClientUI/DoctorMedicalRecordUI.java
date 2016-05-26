@@ -335,7 +335,7 @@ public class DoctorMedicalRecordUI {
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		DoctorMedicalRecord.getContentPane().add(panel_1);
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(290, 156, 579, 32);
+		panel_1.setBounds(290, 156, 571, 32);
 		panel_1.setLayout(null);
 		
 		panel_1.add(btnNewButton);

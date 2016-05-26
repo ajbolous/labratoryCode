@@ -126,8 +126,7 @@ public class WeeklyReport {
 		weeklyReport.getContentPane().add(weekly_scrll_table);
 
 		weekly_table = new JTable();
-		String[] report_rawNames = { "Day", "Number Of Patients",
-				"Waiting Period" };
+		String[] report_rawNames = { "Day", "Number Of Patients","Waiting Period" };
 		weekly_table.setModel(new MyTableModel(report_rawNames,
 				new Object[][] {}));
 		weekly_table.setFillsViewportHeight(true);
