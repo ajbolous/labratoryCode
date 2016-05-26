@@ -2,6 +2,8 @@ package models;
 
 import java.util.Date;
 
+import Utils.DateTime;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -14,6 +16,7 @@ public class Appointment extends Entity{
 		this.doctor = d;
 		this.patient = p;
 		this.appointmentTime = t;
+		this.appointmentTimeFinish=DateTime.addHoursToTime(t, 30);
 	}
 	
 	@DatabaseField(generatedId = true)
@@ -30,7 +33,10 @@ public class Appointment extends Entity{
 	private Date creationTime ; 
 	
 	@DatabaseField()
-	private Date appointmentTime ; 
+	private Date appointmentTime ;
+	
+	@DatabaseField()
+	private Date appointmentTimeFinish;
 
 	@DatabaseField()
 	private boolean isCanceled;

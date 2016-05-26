@@ -61,4 +61,11 @@ public class DateTime {
 			return null;
 		}
 	}
+	
+	public static Date addHoursToTime(Date date,int valueToAdd){
+		Calendar cdate= Calendar.getInstance();
+		cdate.setTime(date);
+		cdate.add(Calendar.MINUTE, valueToAdd);
+		return calendarToDate(cdate);
+	}
 }
