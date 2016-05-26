@@ -101,7 +101,7 @@ public class Identification implements FrameInterface {
 		btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new AppointmentsController().getLastVisit("200000000", "300000000", new Date());
+				disID.dispose();
 			}
 		});
 		btnNewButton.setBounds(260, 230, 89, 23);

@@ -17,6 +17,7 @@ import Client.Application;
 import Client.Resources;
 import Controllers.AppointmentsController;
 import Utils.DateTime;
+import Utils.DoctorsComparator;
 import Utils.Request;
 import models.Appointment;
 import models.Doctor;
@@ -46,6 +47,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -107,8 +110,7 @@ public class NewApp  {
 			
 			
 			public void actionPerformed(ActionEvent e) {
-//				doctors_scrll_table.setVisible(true);
-//				lblDoctors.setVisible(true);
+
 		        JComboBox cb = (JComboBox)e.getSource();
 		        spec = (String)cb.getSelectedItem();
 		        if (!spec.equals("")){
@@ -169,7 +171,6 @@ public class NewApp  {
 		Object[][] doc_data = {};
 		doctors_table = new JTable();
 		doctors_table.setModel(new MyTableModel(doc_columnNames,doc_data));
-//		getDoctorsBySpec(spec);
 		doctors_table.setFillsViewportHeight(true);
 		doctors_table.setSurrendersFocusOnKeystroke(true);
 		doctors_table.setShowVerticalLines(false);
@@ -177,7 +178,7 @@ public class NewApp  {
 		doctors_table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		doctors_scrll_table.setViewportView(doctors_table);
 		doctors_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		doctors_table.setBackground(SystemColor.menu);
+		doctors_table.setBackground(Color.WHITE);
 		//doctors_table.setCellSelectionEnabled(false);
 		
 		JScrollPane time_scrll_table = new JScrollPane();
@@ -214,7 +215,7 @@ public class NewApp  {
 		time_table.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		time_scrll_table.setViewportView(time_table);
 		time_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		time_table.setBackground(SystemColor.menu);
+		time_table.setBackground(Color.WHITE);
 		
 		
 		newApp.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
@@ -236,12 +237,26 @@ public class NewApp  {
 		
 		ArrayList<Doctor> doctors = app_ctrl.getDoctorsBySpeciality(spec);
 		Date curr= new Date();
+		
+		ArrayList<Object[]> doc_tableUI = new ArrayList<Object[]>();
 		for (Doctor d : doctors) {
-				dm.addRow(new Object[] { d.getFirstName()+d.getLastName(),d.getClinic().getName(),
-				app_ctrl.getLastVisit(d.getSid(), patient.getSid(),curr)});
-				}
-			
+			try {
+				doc_tableUI.add(new Object[] { d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
+						app_ctrl.getLastVisit(d.getSid(), patient.getSid(),
+								DateTime.getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), curr.getHours(), curr.getMinutes()))});
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
+		
+		Collections.sort(doc_tableUI, new DoctorsComparator());
+		for (Object[] record : doc_tableUI) {
+			dm.addRow(record);
+		}
+			
+	}
 	
 
 	public JFrame getFrame(){

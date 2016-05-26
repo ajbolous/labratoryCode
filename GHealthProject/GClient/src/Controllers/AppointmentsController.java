@@ -42,8 +42,18 @@ public class AppointmentsController {
 		return  (ArrayList<Doctor>) Application.client.sendRequest(r);
 	}
 	
-	public ForeignCollection<Appointment> getPatientAppointments(Patient patient){
-		return 	patient.getAppointments();
+	public ArrayList<Appointment> getPatientAppointments(Patient patient){
+		Request r = new Request("appointments/getPatientAppointments");
+		r.addParam("patient_id",patient.getSid());
+		Date curr= new Date();
+		try {
+			r.addParam("curr_date", DateTime.getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), curr.getHours(), curr.getMinutes()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (ArrayList<Appointment>) Application.client.sendRequest(r);
+		
 	}
 
 	
@@ -53,7 +63,7 @@ public class AppointmentsController {
 		r.addParam("patient_id", patient_id);
 		r.addParam("app_time", date);
 		ArrayList<Appointment> app = (ArrayList<Appointment>) Application.client.sendRequest(r);
-		if (app.size()==0) return " ";
+		if (app.size()==0) return "";
 		return DateTime.getDateString(app.get(0).getAppointmentTime());
 
 	}

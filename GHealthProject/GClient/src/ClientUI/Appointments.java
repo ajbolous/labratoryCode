@@ -223,16 +223,19 @@ public class Appointments {
 	}
 
 	private void getAppointments() {
-		ForeignCollection<Appointment> apps=apctrl.getPatientAppointments(patient);
-		for (Appointment a : apps) {
-			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
-			dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
-					a.getDoctor().getFirstName(),
-					a.getDoctor().getClinic().getName(),
-					DateTime.getDateString(a.getAppointmentTime()),
-					DateTime.getTimeString(a.getAppointmentTime())});
-			
-			apps_list.add(a);
+		ArrayList<Appointment> apps=apctrl.getPatientAppointments(patient);
+		if (apps!=null){
+		
+			for (Appointment a : apps) {
+				DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
+				dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
+						a.getDoctor().getFirstName() + " "+  a.getDoctor().getLastName(),
+						a.getDoctor().getClinic().getName(),
+						DateTime.getDateString(a.getAppointmentTime()),
+						DateTime.getTimeString(a.getAppointmentTime())});
+				
+				apps_list.add(a);
+			}
 		}
 	}
 }

@@ -18,6 +18,23 @@ import Utils.Request;
 
 public class Appointments extends View{
 
+	
+	public Object getPatientAppointments(Request request){
+		DbHandler db = Config.getConfig().getHandler();		
+		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
+		List<Appointment> app;
+		try {
+			app=  q.orderBy("appointmentTime",true).where()
+			.eq("patient_id", request.getParam("patient_id"))
+			.and()
+			.ge("appointmentTime",request.getParam("curr_date")).query();
+			
+			return app;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public  Object delete(Request request){
 		
 		try {
@@ -45,9 +62,9 @@ public class Appointments extends View{
 		DbHandler db = Config.getConfig().getHandler();		
 		
 		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
-			
+		List<Appointment> app;
 		try {
-			List<Appointment> app =  q.orderBy("appointmentTime",false).limit(1).where()
+			app=  q.orderBy("appointmentTime",false).limit(1).where()
 			.eq("doctor_id", request.getParam("doctor_id"))
 			.and()
 			.eq("patient_id", request.getParam("patient_id"))
