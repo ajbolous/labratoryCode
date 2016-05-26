@@ -87,7 +87,7 @@ public class WeeklyReport {
 		logo.setIcon(res.getIcon("logo.png"));
 		weeklyReport.getContentPane().add(logo);
 
-		JComboBox<Date> dates = new JComboBox<Date>();
+		JComboBox<String> dates = new JComboBox<String>();
 		Date date;
 		try {
 			date = Utils.DateTime.getDate(2016, 1, 3);
@@ -99,15 +99,19 @@ public class WeeklyReport {
 			Date temp = new Date();
 			temp.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
 			date = temp;
-			dates.addItem(temp);
+			dates.addItem(Utils.DateTime.getDateString(date));
 		
 		}
 		dates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Date cDate = new Date();
-				cDate = (Date) (dates.getSelectedItem());
+				try {
+					cDate = Utils.DateTime.getDate((String)dates.getSelectedItem());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 
-			fillWeeklyReport(cDate);
+				fillWeeklyReport(cDate);
 			}
 		});
 		dates.setForeground(new Color(0, 0, 0));
@@ -213,7 +217,7 @@ public class WeeklyReport {
 		report = (Report) Application.client.sendRequest(r);
 
 		DefaultTableModel dm = (DefaultTableModel) weekly_table.getModel();
-
+		dm.setNumRows(0);
 		for (Statistic s : report.getStatistic())
 			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
 					s.getWaitingPeriod() });
