@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import Client.Application;
 import Client.Resources;
 import Controllers.IdentifecationController;
+import Controllers.UsersController;
 import models.User;
 
 import javax.swing.BoxLayout;
@@ -53,7 +54,6 @@ public class SignInUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Resources res = new Resources();
 		SignInUI = new JFrame();
 		SignInUI.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		SignInUI.setTitle("Sign In - GHealth");
@@ -71,7 +71,7 @@ public class SignInUI {
 		logo.setForeground(new Color(0, 0, 0));
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		SignInUI.getContentPane().add(logo);
 		
 		JLabel lblNewLabel = new JLabel("ID:");
@@ -99,7 +99,7 @@ public class SignInUI {
 		SignInUI.getContentPane().add(labelDetails);
 		labelDetails.setVisible(false);
 		SignInUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		SignInUI.setBounds(100, 100, 331, 324);
+		SignInUI.setBounds(100, 100, 331, 247);
 		SignInUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnLogIn = new JButton("Sign in ");
@@ -109,45 +109,46 @@ public class SignInUI {
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				labelDetails.setVisible(true);
-				char[] passy= passwordField.getPassword();  
-				String pass=new String(passy); 
-				User u = IdentifecationController.getUser(textField.getText());
+	
+				String pass=new String(passwordField.getPassword()); 
+				
 				if (UITests.notEmpty(textField.getText()) == false  && UITests.notEmpty(pass)== false){			
-					labelDetails.setText("*Please enter  ID and password");
+					labelDetails.setText("*Please enter ID and password");
 					return;
 				}
 				else if (UITests.notEmpty(textField.getText()) == false){
-					labelDetails.setText("*Please enter  ID");
+					labelDetails.setText("*Please enter an ID");
 					return;
 				}
 				else if (UITests.notEmpty(pass)== false){
-					labelDetails.setText("*Please enter  password");
+					labelDetails.setText("*Please enter a password");
 					return;	
 				}
 				else if (UITests.correctId(textField.getText()) == false){
 					labelDetails.setText("*Please enter 9 digits ID");
 					return;
 				}
+				
+				User u = UsersController.getUser(textField.getText());
 				if(u == null){
 					labelDetails.setText("*User does not exist");
 					return;
 				}
-				boolean status = IdentifecationController.authinticateUser(u, pass);
-				if(status){
-					u = IdentifecationController.setOnline(u);
-					if(u==null){
-						labelDetails.setText("*Couldnt connect user");
-						return;
-					}
-					Application.user = u;
-					ClientUI cui = new ClientUI();
-					SignInUI.hide();
-				}else{
-					labelDetails.setText("*Wrong password ");
+
+				if(!UsersController.authinticateUser(u, pass)){
+					labelDetails.setText("*Wrong password or username");
+					return;
 				}
+
+				if(!UsersController.setOnline(u)){
+						labelDetails.setText("*Unable to connect multiple users");
+						return;
+				}
+				Application.user = u;
+				ClientUI cui = new ClientUI();
+				SignInUI.hide();
 			}
 		});
-		
 	}
 
 	public JFrame getFrame() {

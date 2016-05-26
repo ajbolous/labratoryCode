@@ -4,11 +4,16 @@ import Database.DbHandler;
 import Utils.Logger;
 
 public class Config {
-	private boolean isDebug = true;
+	private boolean isDebug = false;
+	public boolean isDebug() {
+		return isDebug;
+	}
+
+	public void setDebug(boolean isDebug) {
+		this.isDebug = isDebug;
+	}
+
 	private int port = 5000;
-//	private String dbUrl = "jdbc:mysql://mnasra.com:3306/mnasra_ghealth";
-//	private String dbUser = "mnasra_root";
-//	private String dbPassword = "Ghealth123456!@#";
 	private String dbUrl = "jdbc:mysql://localhost/test";
 	private String dbUser = "root";
 	private String dbPassword = "123123";
