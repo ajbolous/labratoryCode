@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Date;
+import java.util.List;
 
 import com.mysql.jdbc.Driver;
 
@@ -13,8 +14,10 @@ import Utils.DateTime;
 import Utils.Logger;
 import Utils.Request;
 import Views.Appointments;
+import Views.Reports;
 import models.Appointment;
 import models.Person;
+import models.Statistic;
 import models.Visit;
 import ocsf.server.*;
 
@@ -67,21 +70,9 @@ public class Server extends AbstractServer {
 
 	public static void main(String[] args) throws IOException, SQLException, ParseException {
 		Config cfg = Config.fromArgs(args);
-
-
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
-		
-		Appointments ap = new Appointments();
+		DbHandler db = cfg.getHandler();
+		Server server = new Server(cfg.getPort());
 		server.listen();		
-		
-		//DbHandler db = cfg.getHandler();
-		//Server server = new Server(cfg.getPort());
-		
-		
-		
-	//	server.listen();
-		
-		
-
 	}
 }

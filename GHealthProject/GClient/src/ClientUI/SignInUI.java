@@ -83,29 +83,32 @@ public class SignInUI {
 		SignInUI.getContentPane().add(lblNewLabel_1);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(66, 121, 190, 21);
+		passwordField.setBounds(69, 121, 190, 21);
 		SignInUI.getContentPane().add(passwordField);
 		
 		textField = new JTextField();
-		textField.setBounds(66, 88, 190, 23);
+		textField.setBounds(69, 88, 190, 23);
 		SignInUI.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 	
 		
 		JLabel labelDetails = new JLabel("Please enter user Id and Password");
-		labelDetails.setBounds(10, 67, 246, 14);
+		labelDetails.setForeground(Color.RED);
+		labelDetails.setBounds(79, 163, 246, 14);
 		SignInUI.getContentPane().add(labelDetails);
+		labelDetails.setVisible(false);
 		SignInUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		SignInUI.setBounds(100, 100, 331, 324);
 		SignInUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton btnLogIn = new JButton("Sign in ");
 
-		btnLogIn.setBounds(46, 185, 190, 23);
+		btnLogIn.setBounds(69, 188, 190, 23);
 		SignInUI.getContentPane().add(btnLogIn);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				labelDetails.setVisible(true);
 				char[] passy= passwordField.getPassword();  
 				String pass=new String(passy); 
 				User u = IdentifecationController.getUser(textField.getText());

@@ -3,6 +3,7 @@ package Views;
 import java.sql.SQLException;
 
 import models.Doctor;
+import models.Patient;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
@@ -30,7 +31,15 @@ public class Patients extends View{
 	
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
-		return "success";
+		try {
+
+			db.patients.createIfNotExists((Patient) request.getParam("patient"));
+			return "success";
+			} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 	
 	public Object remove(Request request) {

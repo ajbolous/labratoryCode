@@ -9,6 +9,7 @@ import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
 import ClientUI.NewApp;
 import ClientUI.PatientUI;
+import ClientUI.WeeklyReport;
 import Utils.DateTime;
 import Utils.Request;
 import models.Doctor;
@@ -37,9 +38,10 @@ public class Application {
 		SignInUI sin;
 		ClientUI ui;
 		connect();
-		if(client.isConnected()){
-			log.debug("Connceted");
-			new SignInUI();
-		}
+		WeeklyReport rp = new WeeklyReport();
+//		if(client.isConnected()){
+//			log.debug("Connceted");
+//			new SignInUI();
+//		}
 	}
 }
