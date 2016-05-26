@@ -2,6 +2,8 @@ package Database;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -140,5 +142,68 @@ public class DataFiller {
 			db.appointments.createIfNotExists(a);
 		}
 
+	}
+	
+	public void fillShifts() throws SQLException{
+	
+		for(int j=0;j<8;j++){
+			Doctor d = db.doctors.queryForId("20000000" + j);
+			ArrayList<Shift> doc_shifts = doctorShiftsGenerator(4, d);
+			for(Shift a: doc_shifts){
+				db.shifts.createIfNotExists(a);
+			}
+		
+		}
+	}
+	
+	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d){
+		ArrayList<Shift> shifts= new ArrayList<Shift>();
+		
+		int from;
+		Calendar start_time= Calendar.getInstance();
+		start_time.set(Calendar.HOUR_OF_DAY, 9);
+		start_time.set(Calendar.MINUTE, 0);
+		
+		from=start_time.get(Calendar.WEEK_OF_YEAR);
+		Calendar end_time = Calendar.getInstance();
+		end_time.set(Calendar.HOUR_OF_DAY, 9);
+		end_time.set(Calendar.MINUTE, 0);
+		end_time.add(Calendar.HOUR_OF_DAY, 8);
+		
+		
+		for( int i =from;i< weeks+from;i++){
+			
+			for(int j=0; j<5 &&
+					(start_time.get(Calendar.DAY_OF_WEEK)!=Calendar.FRIDAY ) && 
+					(start_time.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY);
+					j++){
+				shifts.add(new Shift(calendarToDate(start_time),calendarToDate(end_time),d));
+				start_time.add(Calendar.DATE, 1);
+				end_time.add(Calendar.DATE, 1);
+			}
+			if(start_time.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY){
+				start_time.add(Calendar.DATE, 2);
+				end_time.add(Calendar.DATE, 2);
+			}
+			else if(start_time.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY){
+				start_time.add(Calendar.DATE, 1);
+				end_time.add(Calendar.DATE, 1);
+			}
+		}
+		
+		return shifts;
+	}
+	
+	private  Date calendarToDate(Calendar date){
+		
+		try {
+			return  DateTime.getDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH)+1, date.get(Calendar.DAY_OF_MONTH),
+					date.get(Calendar.HOUR_OF_DAY),
+					date.get(Calendar.MINUTE));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

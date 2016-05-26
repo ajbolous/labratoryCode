@@ -44,6 +44,7 @@ public class DbHandler {
 //			df.fillPatients();
 //			df.fillAppointments();
 //			df.fillStatistics();
+//			df.fillShifts();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
