@@ -7,6 +7,8 @@ import Utils.Request;
 import models.Doctor;
 
 public class DoctorsController {
+	
+	
 	public ArrayList<Doctor> getAllDoctors(){
 		Request r = new Request("doctors/all");
 		return (ArrayList<Doctor>) Application.client.sendRequest(r);

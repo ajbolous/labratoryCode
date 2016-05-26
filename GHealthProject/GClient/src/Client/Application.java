@@ -41,5 +41,9 @@ public class Application {
 			log.debug("Connceted");
 			new SignInUI();
 		}
+//		connect();
+//
+//		Identification iden= new Identification();
+//		iden.getFrame().setVisible(true);
 	}
 }

@@ -102,7 +102,7 @@ public class DataFiller {
 		//Appointment a = new Appointment(d,p,Utils.DateTime.getDate(2016, 10, 5+i,11,10));
 		Appointment a = new Appointment(d,p, DateTime.getDate(2016, 10, 5+i,11,10));
 
-		//db.appointments.createIfNotExists(a);
+		db.appointments.createIfNotExists(a);
 		}
 	
 	}
