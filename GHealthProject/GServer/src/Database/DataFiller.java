@@ -177,7 +177,7 @@ public class DataFiller {
 					(start_time.get(Calendar.DAY_OF_WEEK)!=Calendar.FRIDAY ) && 
 					(start_time.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY);
 					j++){
-				shifts.add(new Shift(calendarToDate(start_time),calendarToDate(end_time),d));
+				shifts.add(new Shift(DateTime.calendarToDate(start_time),DateTime.calendarToDate(end_time),d));
 				start_time.add(Calendar.DATE, 1);
 				end_time.add(Calendar.DATE, 1);
 			}
@@ -194,16 +194,5 @@ public class DataFiller {
 		return shifts;
 	}
 	
-	private  Date calendarToDate(Calendar date){
-		
-		try {
-			return  DateTime.getDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH)+1, date.get(Calendar.DAY_OF_MONTH),
-					date.get(Calendar.HOUR_OF_DAY),
-					date.get(Calendar.MINUTE));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 }

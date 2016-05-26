@@ -49,4 +49,17 @@ public class DateTime {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(d);
 	}
+	
+	public static  Date calendarToDate(Calendar date){
+		
+		try {
+			return  DateTime.getDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH)+1, date.get(Calendar.DAY_OF_MONTH),
+					date.get(Calendar.HOUR_OF_DAY),
+					date.get(Calendar.MINUTE));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
