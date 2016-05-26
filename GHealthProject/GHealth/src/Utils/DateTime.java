@@ -12,9 +12,12 @@ public class DateTime {
 		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear(),d.getMonth(),d.getDay(),h,m,0));
 	}
 	
-	
-	
-	
+	public static Date addDay(Date d,int period)
+	{
+		Date date=new Date();
+		 date.setTime( d.getTime() + period * 24 * 60 * 60 * 1000);
+		 return date;
+	}
 	public static Date getDate(int y,int m,int d) throws ParseException{
 		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", y,m,d,0,0,0));
 	}

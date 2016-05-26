@@ -5,9 +5,9 @@ import java.util.Date;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "statistics")
-public class Statistic {
-	@DatabaseField(id = true)
-    private String id;
+public class Statistic extends Entity{
+	@DatabaseField(generatedId = true)
+    private int id;
 	@DatabaseField()
 	private Date date;
 	@DatabaseField()
@@ -15,32 +15,42 @@ public class Statistic {
 
 	@DatabaseField()
 	private int waitingPeriod;
-	
-	public String getid() {
+
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getdate() {
+
+	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	public int getNumOfPatients() {
 		return numOfPatients;
 	}
-	public void setNumOfPatient(int numOfPatients) {
+
+	public void setNumOfPatients(int numOfPatients) {
 		this.numOfPatients = numOfPatients;
 	}
-	
+
 	public int getWaitingPeriod() {
 		return waitingPeriod;
 	}
+
 	public void setWaitingPeriod(int waitingPeriod) {
 		this.waitingPeriod = waitingPeriod;
-	} 
+	}
+
+	
+
+	
 	
 	
 }
