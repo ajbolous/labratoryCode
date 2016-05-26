@@ -242,8 +242,7 @@ public class NewApp  {
 		for (Doctor d : doctors) {
 			try {
 				doc_tableUI.add(new Object[] { d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
-						app_ctrl.getLastVisit(d.getSid(), patient.getSid(),
-								DateTime.getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), curr.getHours(), curr.getMinutes()))});
+						app_ctrl.getLastVisit(d.getSid(), patient.getSid(), DateTime.currentDate())});
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

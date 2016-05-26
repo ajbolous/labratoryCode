@@ -1,11 +1,11 @@
 package Views;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.j256.ormlite.dao.GenericRawResults;
+import com.j256.ormlite.dao.RawRowMapper;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
@@ -53,19 +53,33 @@ public class Appointments extends View{
 	 * 
 	 * @param request
 	 * @return all appointments of specific patient in specific doctor
-	 * 		(select appointmentTime from appoitments where doctor_id="doctor id" and patient_id=" patient id")
+	 * 		(select MAX(appointmentTime)
+	 * 		 from appoitments
+	 * 		 where doctor_id="doctor_id" and patient_id=" patient_id" and appointmentTime <= current time)
 	 * @throws SQLException 
 	 */
-	public Object timeByDoctorAndPatient(Request request) throws SQLException{
+	public Object lastVisit(Request request) {
 		DbHandler db = Config.getConfig().getHandler();		
 		
 		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
 		List<Appointment> app;
-		List<Appointment> result =  q.orderBy("appointmentTime",false).limit(1).where()
+		try {
 			app=  q.orderBy("appointmentTime",false).limit(1).where()
-		.and().eq("patient_id", "200000000")
-		.and().le("appointmentTime",new Date()).query();
+			.eq("doctor_id", request.getParam("doctor_id"))
+			.and()
+			.eq("patient_id", request.getParam("patient_id"))
+			.and()
+			.le("appointmentTime",request.getParam("app_time")).query();
+			
+			return app;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 		
-		return result;
+		
+		
+		
+		
 	}
 }
