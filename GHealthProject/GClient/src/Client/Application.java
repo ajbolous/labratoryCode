@@ -34,16 +34,13 @@ public class Application {
 	}
 
 	public static void main(String[] args) {
-//		Logger log = Config.getConfig().getLogger();
-//		SignInUI sin;
-//		connect();
-//		if(client.isConnected()){
-//			log.debug("Connceted");
-//			new SignInUI();
-//		}
+		Logger log = Config.getConfig().getLogger();
+		SignInUI sin;
 		connect();
-
-		Identification iden= new Identification();
-		iden.getFrame().setVisible(true);
+		if(client.isConnected()){
+			log.debug("Connceted");
+			new SignInUI();
+		}
+		
 	}
 }

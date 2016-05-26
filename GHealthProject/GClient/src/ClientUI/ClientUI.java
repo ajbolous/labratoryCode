@@ -137,6 +137,8 @@ public class ClientUI {
 		frame.getContentPane().add(btnNewButton);
 		btnLabs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				new Identification().getFrame().setVisible(true);
 			}
 		});
 		btnLabs.setToolTipText("Laboratiries Managment form");
