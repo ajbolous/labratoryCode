@@ -80,7 +80,7 @@ public class NewTreatmentUI  {
 		NewTreatment.getContentPane().setBackground(Color.WHITE);
 		NewTreatment.getContentPane().setLayout(null);
 		
-		NewTreatment.setSize(450, 391);
+		NewTreatment.setSize(353, 283);
 		NewTreatment.setVisible(true);
 		NewTreatment.setLocationRelativeTo(null);
 	
@@ -99,18 +99,18 @@ public class NewTreatmentUI  {
 			
 			JLabel lblVisitId = new JLabel("Treatment ID :");
 			lblVisitId.setFont(new Font("Arial", Font.BOLD, 12));
-			lblVisitId.setBounds(9, 40, 119, 14);
+			lblVisitId.setBounds(9, 40, 119, 20);
 			NewTreatment.getContentPane().add(lblVisitId);
 			
 			JLabel lblDate = new JLabel("Start Date :");
 			lblDate.setFont(new Font("Arial", Font.BOLD, 12));
-			lblDate.setBounds(9, 203, 101, 20);
+			lblDate.setBounds(9, 151, 101, 20);
 			NewTreatment.getContentPane().add(lblDate);
 			
 			textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
 			textField_1.setEditable(false);
 			textField_1.setBackground(new Color(255, 255, 255));
-			textField_1.setBounds(124, 204, 211, 20);
+			textField_1.setBounds(124, 151, 211, 20);
 			textField_1.setColumns(10);
 			NewTreatment.getContentPane().add(textField_1);
 			
@@ -118,34 +118,34 @@ public class NewTreatmentUI  {
 			
 			JLabel lblEndDate = new JLabel("End Date : ");
 			lblEndDate.setFont(new Font("Arial", Font.BOLD, 12));
-			lblEndDate.setBounds(9, 253, 101, 20);
+			lblEndDate.setBounds(9, 182, 101, 20);
 			NewTreatment.getContentPane().add(lblEndDate);
 			
 			textField_2 = new JTextField();
 			textField_2.setEditable(false);
-			textField_2.setBounds(124, 254, 211, 20);
+			textField_2.setBounds(124, 182, 211, 20);
 			NewTreatment.getContentPane().add(textField_2);
 			textField_2.setColumns(10);
 			
 			JLabel lblDoctorname = new JLabel("DoctorName :");
 			lblDoctorname.setFont(new Font("Arial", Font.BOLD, 12));
-			lblDoctorname.setBounds(9, 141, 119, 27);
+			lblDoctorname.setBounds(9, 120, 119, 20);
 			NewTreatment.getContentPane().add(lblDoctorname);
 			
 			textField_3 = new JTextField(treatment.getDoctor().getFirstName()+ "  " +treatment.getDoctor().getLastName());
 			textField_3.setEditable(false);
-			textField_3.setBounds(124, 145, 211, 20);
+			textField_3.setBounds(124, 120, 211, 20);
 			NewTreatment.getContentPane().add(textField_3);
 			textField_3.setColumns(10);
 			
 			JLabel lblType = new JLabel("Treatment Type :");
 			lblType.setFont(new Font("Arial", Font.BOLD, 12));
-			lblType.setBounds(10, 89, 144, 27);
+			lblType.setBounds(10, 89, 144, 20);
 			NewTreatment.getContentPane().add(lblType);
 			
 			textField_4 = new JTextField(treatment.getDoctor().getSpeciality());
 			textField_4.setEditable(false);
-			textField_4.setBounds(124, 93, 211, 20);
+			textField_4.setBounds(124, 89, 211, 20);
 			NewTreatment.getContentPane().add(textField_4);
 			textField_4.setColumns(10);
 			
@@ -157,7 +157,7 @@ public class NewTreatmentUI  {
 					
 				}
 			});
-			btnOk.setBounds(257, 332, 70, 23);
+			btnOk.setBounds(265, 213, 70, 23);
 			NewTreatment.getContentPane().add(btnOk);
 			
 			JButton btnCancel = new JButton("Cancel");
@@ -167,7 +167,7 @@ public class NewTreatmentUI  {
 					
 				}
 			});
-			btnCancel.setBounds(351, 332, 89, 23);
+			btnCancel.setBounds(166, 213, 89, 23);
 			NewTreatment.getContentPane().add(btnCancel);
 			
 			

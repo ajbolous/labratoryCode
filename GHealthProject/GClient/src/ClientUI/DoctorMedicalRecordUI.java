@@ -1,8 +1,5 @@
 package ClientUI;
 
-import java.awt.EventQueue;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,7 +8,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -20,17 +16,6 @@ import javax.swing.JButton;
 import Client.Resources;
 import Controllers.AppointmentsController;
 import Controllers.MedicalRecordController;
-
-import javax.swing.BoxLayout;
-
-import java.awt.GridLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import java.awt.FlowLayout;
-
-import javax.swing.SwingConstants;
 
 import models.Doctor;
 import models.Examination;
@@ -45,43 +30,21 @@ import Utils.DateTime;
 import java.awt.Component;
 import java.awt.SystemColor;
 
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTree;
-import javax.swing.JScrollBar;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.ListSelectionModel;
-
-import java.awt.ScrollPane;
-import java.awt.Choice;
-
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.AbstractListModel;
-
-import java.awt.List;
-import java.awt.Scrollbar;
-import java.awt.Panel;
-
 import javax.swing.border.BevelBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeExpansionListener;
-import javax.swing.event.TreeExpansionEvent;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.Year;
 import java.util.Calendar;
 
-import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextField;
 
 public class DoctorMedicalRecordUI {
 
@@ -97,7 +60,7 @@ public class DoctorMedicalRecordUI {
 
 	public DoctorMedicalRecordUI(Patient p) throws ParseException {
 		initialize(p);
-		DoctorMedicalRecord.setSize(950, 800);
+		DoctorMedicalRecord.setSize(877, 689);
 		DoctorMedicalRecord.setLocationRelativeTo(null);
 		DoctorMedicalRecord.setVisible(true);
 	}
@@ -108,11 +71,10 @@ public class DoctorMedicalRecordUI {
 	 * @throws ParseException
 	 */
 	private void initialize(Patient p) throws ParseException {
-		Resources res = new Resources();
 		DoctorMedicalRecord = new JFrame();
 		DoctorMedicalRecord.setTitle("<Doctor Medical Record> - GHealth");
 		DoctorMedicalRecord.setResizable(false);
-		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
+		Image icon= Resources.getImage("icon.png");
 		DoctorMedicalRecord.setIconImage(icon);
 		DoctorMedicalRecord.setForeground(Color.BLACK);
 		DoctorMedicalRecord.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -120,19 +82,19 @@ public class DoctorMedicalRecordUI {
 		DoctorMedicalRecord.getContentPane().setBackground(Color.WHITE);
 		DoctorMedicalRecord.getContentPane().setLayout(null);
 		
-		JLabel logo = new JLabel("GHealth - MedicalRecord");
-		logo.setBounds(0, 0, 847, 60);
+		JLabel logo = new JLabel("Medical Record");
+		logo.setBounds(0, 0, 847, 53);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		DoctorMedicalRecord.getContentPane().add(logo);
 		DoctorMedicalRecord.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		DoctorMedicalRecord.setBounds(100, 100, 863, 595);
 		DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 67, 984, 45);
+		panel.setBounds(0, 56, 869, 78);
 		DoctorMedicalRecord.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -141,67 +103,91 @@ public class DoctorMedicalRecordUI {
 		lblNewLabel.setBounds(10, 11, 46, 21);
 		panel.add(lblNewLabel);
 		
-		JLabel cName = new JLabel(p.getFirstName()+""+ p.getLastName());
+		JTextField cName = new JTextField(p.getFirstName()+""+ p.getLastName());
 		cName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cName.setBounds(61, 11, 205, 21);
+		cName.setBounds(61, 11, 195, 21);
 		panel.add(cName);
 		
 		JLabel lblPhone = new JLabel("Phone:");
 		lblPhone.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPhone.setBounds(413, 11, 67, 21);
+		lblPhone.setBounds(293, 11, 52, 21);
 		panel.add(lblPhone);
 		
-		JLabel label_1 = new JLabel(p.getPhone());
+		JTextField label_1 = new JTextField(p.getPhone());
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(471, 11, 119, 21);
+		label_1.setBounds(351, 11, 119, 21);
 		panel.add(label_1);
 		
-		JLabel lblAge = new JLabel("Age :");
+		JLabel lblAge = new JLabel("Age:");
 		lblAge.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAge.setBounds(600, 11, 52, 21);
+		lblAge.setBounds(751, 45, 40, 21);
 		panel.add(lblAge);
 		
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH)+1;
 		
-		String age = (""+(calculateAge(p.getBirthDate()))[0]+"."+(calculateAge(p.getBirthDate()))[1]);
-		JLabel lblAge_2 = new JLabel(age);
+		String age = (String.format("%3.2f",(float)calculateAge2(p.getBirthDate())));
+		JTextField lblAge_2 = new JTextField(age);
 		lblAge_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAge_2.setBounds(641, 8, 72, 27);
+		lblAge_2.setBounds(791, 45, 67, 21);
 		panel.add(lblAge_2);
 		
-		JLabel lblWeight = new JLabel("Gender :");
+		JLabel lblWeight = new JLabel("Gender:");
 		lblWeight.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblWeight.setBounds(723, 11, 62, 21);
+		lblWeight.setBounds(293, 45, 62, 21);
 		panel.add(lblWeight);
 		
-		JLabel label = new JLabel(p.getGender());
+		JTextField label = new JTextField(p.getGender());
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(779, 14, 62, 14);
+		label.setBounds(354, 44, 72, 23);
 		panel.add(label);
 		
-		JLabel lblHeight = new JLabel("Height :");
+		JLabel lblHeight = new JLabel("Height:");
 		lblHeight.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblHeight.setBounds(851, 11, 67, 21);
+		lblHeight.setBounds(436, 45, 67, 21);
 		panel.add(lblHeight);
 		
-		JLabel label_2 = new JLabel("173");
+		JTextField label_2 = new JTextField("173");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_2.setBounds(928, 14, 46, 14);
+		label_2.setBounds(489, 44, 52, 22);
 		panel.add(label_2);
 		
 		JLabel lblId = new JLabel("Id:");
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblId.setBounds(283, 14, 33, 14);
+		lblId.setBounds(10, 48, 33, 14);
 		panel.add(lblId);
 		
-		JLabel label_3 = new JLabel(p.getSid());
+		JTextField label_3 = new JTextField(p.getSid());
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_3.setBounds(308, 14, 95, 14);
+		label_3.setBounds(61, 45, 195, 21);
 		panel.add(label_3);
+		
+		JLabel lblWeight_1 = new JLabel("Weight:");
+		lblWeight_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblWeight_1.setBounds(551, 45, 67, 21);
+		panel.add(lblWeight_1);
+		
+		JTextField label_5 = new JTextField("173");
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_5.setBounds(624, 45, 83, 21);
+		panel.add(label_5);
+		
+		JButton btnReguestInformationFrom = new JButton("Reguest Information From HMO");
+		btnReguestInformationFrom.setBounds(629, 11, 230, 23);
+		panel.add(btnReguestInformationFrom);
+		btnReguestInformationFrom.setFont(new Font("Arial", Font.BOLD, 12));
+		
+		
+		
+		
+	
+		JButton btnUpdateInformation = new JButton(" Patient Information");
+		btnUpdateInformation.setBounds(479, 11, 151, 23);
+		panel.add(btnUpdateInformation);
+		btnUpdateInformation.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 249, 277, 409);
+		scrollPane.setBounds(0, 157, 277, 501);
 		DoctorMedicalRecord.getContentPane().add(scrollPane);
 		scrollPane.setViewportBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -320,11 +306,11 @@ public class DoctorMedicalRecordUI {
 		    	if(obj.getClass()== Visit.class)
 		    	{
 		    		
-		    	//	VisitPanel vi = new VisitPanel((Visit) obj);
+		    		VisitPanel vi = new VisitPanel((Visit) obj);
 		    		
-		    	//	scrollPane_1.setViewportView(vi);
-		    	//	DoctorMedicalRecord.getContentPane().add(scrollPane_1);
-		    	//	DoctorMedicalRecord.getContentPane().add(panel_1);
+		    		scrollPane_1.setViewportView(vi);
+		    		DoctorMedicalRecord.getContentPane().add(scrollPane_1);
+		    		DoctorMedicalRecord.getContentPane().add(panel_1);
 		    		
 		    	}
 		    	if (obj.getClass()==Treatment.class)
@@ -346,28 +332,20 @@ public class DoctorMedicalRecordUI {
 		    	
 		    }
 		});
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		DoctorMedicalRecord.getContentPane().add(panel_1);
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(279, 204, 539, 45);
+		panel_1.setBounds(290, 156, 579, 32);
 		panel_1.setLayout(null);
 		
 		panel_1.add(btnNewButton);
 		panel_1.add(btnNewButton_1);
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panel_1.add(btnNewButton_2);
 		
-		JButton btnCancel = new JButton("cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DoctorMedicalRecord.setVisible(false);
-				 PatientUI p = new PatientUI();
-			}
-		});
-		btnCancel.setBounds(713, 706, 89, 23);
-		DoctorMedicalRecord.getContentPane().add(btnCancel);
 		
-		
-		btnNewButton.setBounds(26, 11, 108, 23);
-		btnNewButton.setFont(new Font("Arial Black", Font.PLAIN, 12));
+		btnNewButton.setBounds(109, 6, 114, 23);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Visit v= new Visit();
@@ -385,25 +363,23 @@ public class DoctorMedicalRecordUI {
 		});
 		
 		
-		btnNewButton_1.setBounds(235, 11, 124, 23);
-		btnNewButton_1.setFont(new Font("Arial Black", Font.PLAIN, 12));
-		btnNewButton_2.setBounds(419, 12, 89, 23);
-		
-		
-		
-		
-	
-		JButton btnUpdateInformation = new JButton(" Patient Information");
-		btnUpdateInformation.setFont(new Font("Arial", Font.BOLD, 12));
-		btnUpdateInformation.setBounds(10, 123, 151, 23);
-		DoctorMedicalRecord.getContentPane().add(btnUpdateInformation);
-		
-		JButton btnReguestInformationFrom = new JButton("Reguest Information From HMO");
-		btnReguestInformationFrom.setFont(new Font("Arial", Font.BOLD, 12));
-		btnReguestInformationFrom.setBounds(257, 123, 230, 23);
-		DoctorMedicalRecord.getContentPane().add(btnReguestInformationFrom);
+		btnNewButton_1.setBounds(233, 6, 104, 23);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnNewButton_2.setBounds(347, 6, 104, 23);
 		
 		JButton btnNewTreatment = new JButton("New Treatment");
+		btnNewTreatment.setBounds(8, 7, 98, 22);
+		panel_1.add(btnNewTreatment);
+		
+		JButton btnCancel = new JButton("cancel");
+		btnCancel.setBounds(461, 7, 89, 22);
+		panel_1.add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DoctorMedicalRecord.setVisible(false);
+				 PatientUI p = new PatientUI();
+			}
+		});
 		btnNewTreatment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -416,10 +392,11 @@ public class DoctorMedicalRecordUI {
 				}
 			}
 		});
-		btnNewTreatment.setBounds(10, 215, 131, 23);
-		DoctorMedicalRecord.getContentPane().add(btnNewTreatment);
 	}
 
+	private static double calculateAge2(Date d){
+		return (new Date().getTime() - d.getTime())/(1000*60*60*24*365.0);
+	}
 	private static int[] calculateAge(Date birthDate) {
 		int years = 0;
 		int months = 0;

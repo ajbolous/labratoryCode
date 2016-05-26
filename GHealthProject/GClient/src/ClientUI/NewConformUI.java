@@ -118,7 +118,7 @@ public class NewConformUI {
 		scrollPane.setViewportView(textPane);
 		textPane.setBorder(new LineBorder(new Color(0, 0, 0), 0));
 		NewConformUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConformUI.setBounds(100, 100, 383, 345);
+		NewConformUI.setBounds(100, 100, 320, 346);
 		NewConformUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

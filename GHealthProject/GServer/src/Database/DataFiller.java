@@ -80,17 +80,14 @@ public class DataFiller {
 
 	public void fillStatistics() throws SQLException, ParseException {
 		int i;
-
-		for (i = 0; i < 20; i++) {
+		Random r = new Random();
+		Date d = Utils.DateTime.getDate(2016,1,1);
+		for (i = 0; i < 360; i++) {
 			Statistic s = new Statistic();
-			s.setNumOfPatients(40);
-			s.setWaitingPeriod(i);
-			try {
-				s.setDate(Utils.DateTime.getDate(2016,6,i+1));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			s.setNumOfPatients(r.nextInt(30));
+			s.setWaitingPeriod(r.nextInt(60));
+			d = Utils.DateTime.addDay(d,1);
+			s.setDate(d);
 			db.statistics.createIfNotExists(s);
 		}
 	}

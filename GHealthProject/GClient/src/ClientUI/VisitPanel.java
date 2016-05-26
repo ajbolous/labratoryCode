@@ -36,7 +36,7 @@ public class VisitPanel extends JPanel {
 	 */
 	public VisitPanel(Visit visit) {
 		super();
-		setBackground(new Color(255, 255, 255));
+		setBackground(new Color(192, 192, 192));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 		
@@ -48,9 +48,10 @@ public class VisitPanel extends JPanel {
 		textField.setColumns(10);
 		//Date vdate= DateTime.getDate(visit.getVisitDate().getYear(), visit.getVisitDate().getMonth(), visit.getVisitDate().getDay());
 		textField_1 = new JTextField(DateTime.getDateString(visit.getVisitDate()));
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	
 		
-		textField_1.setBounds(273, 38, 155, 20);
+		textField_1.setBounds(273, 38, 143, 20);
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
@@ -60,24 +61,25 @@ public class VisitPanel extends JPanel {
 		
 		
 		JLabel lblVisitId = new JLabel("VisitID :");
-		lblVisitId.setBounds(10, 40, 80, 14);
-		lblVisitId.setFont(new Font("Arial Black", Font.BOLD, 12));
+		lblVisitId.setBounds(10, 40, 52, 14);
+		lblVisitId.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblVisitId);
 		
 		JLabel lblDate = new JLabel("Date :");
 		lblDate.setBounds(217, 40, 46, 14);
-		lblDate.setFont(new Font("Arial Black", Font.BOLD, 12));
+		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblDate);
 		
 		JLabel lblComments = new JLabel("Comments : ");
 		lblComments.setBounds(10, 95, 104, 20);
-		lblComments.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(lblComments);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(100, 70, 328, 73);
+		scrollPane.setBounds(90, 69, 328, 73);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane);
+		textArea.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		textArea.setText(visit.getComments());
 		textArea.setEditable(false);
@@ -85,14 +87,14 @@ public class VisitPanel extends JPanel {
 		scrollPane.setViewportView(textArea);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 128, 27);
+		panel.setBounds(90, 0, 328, 20);
 		panel.setBackground(new Color(153, 153, 153));
 		add(panel);
 		
 		JLabel lblVisitDetails = new JLabel("Visit Details");
 		lblVisitDetails.setHorizontalAlignment(SwingConstants.LEFT);
 		panel.add(lblVisitDetails);
-		lblVisitDetails.setFont(new Font("Arial Black", Font.BOLD, 12));
+		lblVisitDetails.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	
 		
 		

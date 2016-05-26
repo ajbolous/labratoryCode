@@ -36,12 +36,10 @@ public class Application {
 	public static void main(String[] args) {
 		Logger log = Config.getConfig().getLogger();
 		SignInUI sin;
-		ClientUI ui;
 		connect();
-		WeeklyReport rp = new WeeklyReport();
-//		if(client.isConnected()){
-//			log.debug("Connceted");
-//			new SignInUI();
-//		}
+		if(client.isConnected()){
+			log.debug("Connceted");
+			new SignInUI();
+		}
 	}
 }
