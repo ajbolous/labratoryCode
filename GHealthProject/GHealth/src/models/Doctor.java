@@ -9,6 +9,15 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Doctor extends ClinicEmployee{
 	private static final long serialVersionUID = 1L;
 
+	@DatabaseField()
+	private String speciality;
+
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Shift> shifts;
+	
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Appointment> appointments;
+	
 	public String getSpeciality() {
 		return speciality;
 	}
@@ -37,13 +46,6 @@ public class Doctor extends ClinicEmployee{
 		return serialVersionUID;
 	}
 
-	@DatabaseField()
-	private String speciality;
-
-	@ForeignCollectionField(eager=true)
-    private ForeignCollection<Shift> shifts;
 	
-	@ForeignCollectionField(eager=true)
-    private ForeignCollection<Appointment> appointments;
 
 }

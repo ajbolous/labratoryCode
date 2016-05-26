@@ -13,6 +13,12 @@ public class Labratory extends Entity {
 	@DatabaseField(generatedId = true)
 	private int lid;
 	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
+	private Clinic clinc ;
+	
+	@ForeignCollectionField(eager=true)
+    private ForeignCollection<Labratorian>  labratorian;
+	
 	public int getLid() {
 		return lid;
 	}
@@ -21,26 +27,23 @@ public class Labratory extends Entity {
 		this.lid = lid;
 	}
 
-	public Labratorian getLabratorian() {
+	public Clinic getClinc() {
+		return clinc;
+	}
+
+	public void setClinc(Clinic clinc) {
+		this.clinc = clinc;
+	}
+
+	public ForeignCollection<Labratorian> getLabratorian() {
 		return labratorian;
 	}
 
-	public void setLabratorian(Labratorian labratorian) {
+	public void setLabratorian(ForeignCollection<Labratorian> labratorian) {
 		this.labratorian = labratorian;
 	}
 
-	public ForeignCollection<Examination> getExaminations() {
-		return examinations;
-	}
+	
 
-	public void setExaminations(ForeignCollection<Examination> examinations) {
-		this.examinations = examinations;
-	}
-
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratorian_id")
-	private Labratorian labratorian;
-
-	@ForeignCollectionField(eager=true)
-    private ForeignCollection<Examination> examinations;
-
+	
 }

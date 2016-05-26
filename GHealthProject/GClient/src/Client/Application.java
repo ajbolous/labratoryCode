@@ -9,6 +9,7 @@ import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
 import ClientUI.NewApp;
 import ClientUI.PatientUI;
+import ClientUI.WeeklyReport;
 import Utils.DateTime;
 import Utils.Request;
 import models.Doctor;
@@ -35,7 +36,6 @@ public class Application {
 	public static void main(String[] args) {
 		Logger log = Config.getConfig().getLogger();
 		SignInUI sin;
-		ClientUI ui;
 		connect();
 		if(client.isConnected()){
 			log.debug("Connceted");

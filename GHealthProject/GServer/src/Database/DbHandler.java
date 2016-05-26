@@ -22,7 +22,7 @@ public class DbHandler {
 	public Dao<Visit, Integer> visits;
 	public Dao<Examination, Integer> examinations;
 	public Dao<Appointment, Integer> appointments;
-
+	public Dao<Statistic, Integer> statistics;
 	public Dao<Labratory, Integer> labratories;
 	public Dao<Labratorian, String> labratorians;
 	
@@ -39,10 +39,11 @@ public class DbHandler {
 			createAllTables();
 			initializeDao();
 			DataFiller df = new DataFiller(this);
-			df.fillClinics();
-			df.fillDoctors();
-			df.fillPatients();
-			//df.fillAppointments();
+		//	df.fillClinics();
+		//	df.fillDoctors();
+		//	df.fillPatients();
+		//	df.fillAppointments();
+		//	df.fillStatistics();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -58,7 +59,7 @@ public class DbHandler {
 		examinations =DaoManager.createDao(connection, Examination.class);
 		appointments =DaoManager.createDao(connection, Appointment.class);
 
-		
+		statistics=DaoManager.createDao(connection, Statistic.class);
 		labratories = DaoManager.createDao(connection, Labratory.class);
 		labratorians = DaoManager.createDao(connection, Labratorian.class);
 		confirmations = DaoManager.createDao(connection, Confirmation.class);
@@ -81,7 +82,7 @@ public class DbHandler {
 
 		TableUtils.createTableIfNotExists(connection, Labratory.class);
 		TableUtils.createTableIfNotExists(connection, Labratorian.class);
-		
+		TableUtils.createTableIfNotExists(connection, Statistic.class);	
 		TableUtils.createTableIfNotExists(connection, Appointment.class);	
 		TableUtils.createTableIfNotExists(connection, Confirmation.class);	
 		TableUtils.createTableIfNotExists(connection, Shift.class);	

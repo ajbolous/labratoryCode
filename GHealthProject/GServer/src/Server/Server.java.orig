@@ -3,8 +3,6 @@ package Server;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Date;
 import java.util.List;
@@ -73,8 +71,21 @@ public class Server extends AbstractServer {
 	public static void main(String[] args) throws IOException, SQLException, ParseException {
 		Config cfg = Config.fromArgs(args);
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
-		DbHandler db = cfg.getHandler();
-		Server server = new Server(cfg.getPort());
+		
+		Appointments ap = new Appointments();
 		server.listen();		
+<<<<<<< HEAD
+		
+		//DbHandler db = cfg.getHandler();
+		//Server server = new Server(cfg.getPort());
+		
+		
+		
+	//	server.listen();
+		
+		
+
+=======
+>>>>>>> 7df56f5ed8f30ef4ca633b5c9cb5316d522d076a
 	}
 }
