@@ -39,7 +39,6 @@ public class DbHandler {
 			createAllTables();
 			initializeDao();
 			fillDataBase();
-//			df.fillShifts();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -52,6 +51,8 @@ public class DbHandler {
 		df.fillPatients();
 		df.fillAppointments();
 		df.fillStatistics();
+		df.fillShifts();
+
 	}
 	public void initializeDao() throws Exception{
 		patients = DaoManager.createDao(connection, Patient.class);

@@ -57,7 +57,6 @@ public class DateTime {
 					date.get(Calendar.HOUR_OF_DAY),
 					date.get(Calendar.MINUTE));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
