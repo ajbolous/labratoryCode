@@ -69,25 +69,7 @@ public class AppointmentsController {
 
 	}
 	
-	public void test(){
-		Request r = new Request("appointments/availableTimes");
-		try {
-			r.addParam("curr_time", DateTime.currentDate());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		r.addParam("doctor_id", "200000000");
-		
-		r.addParam("patient_id", "300000000");
-		ArrayList<Appointment> a= (ArrayList<Appointment>) Application.client.sendRequest(r);
-		
-		for(Appointment b : a){
-			System.out.println(b.toString());
-		}
-	}
-
-
+	
 	public ArrayList<Appointment> getTimes(String doctor_id, String patient_id) {
 		Request r = new Request("appointments/availableTimes");
 		try {
