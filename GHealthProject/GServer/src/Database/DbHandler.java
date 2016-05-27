@@ -46,12 +46,12 @@ public class DbHandler {
 	
 	public void fillDataBase() throws Exception{
 		DataFiller df = new DataFiller(this);
-		df.fillClinics();
-		df.fillDoctors();
-		df.fillPatients();
-		df.fillAppointments();
-		df.fillStatistics();
-		df.fillShifts();
+//		df.fillClinics();
+//		df.fillDoctors();
+//		df.fillPatients();
+//		df.fillAppointments();
+//		df.fillStatistics();
+//		df.fillShifts();
 
 	}
 	public void initializeDao() throws Exception{
