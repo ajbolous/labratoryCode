@@ -28,10 +28,12 @@ import java.awt.Component;
 import java.awt.SystemColor;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public class labratoryUI {
 
 	private JFrame labratoryUI;
+	private JTable table;
 
 	
 	public labratoryUI() {
@@ -54,25 +56,22 @@ public class labratoryUI {
 		labratoryUI.getContentPane().setBackground(Color.WHITE);
 		labratoryUI.getContentPane().setLayout(null);
 		
-		JLabel logo = new JLabel("GHealth - <Frame Name>");
-		logo.setBounds(0, 0, 495, 80);
+		JLabel logo = new JLabel("Examinations");
+		logo.setBounds(0, 0, 645, 60);
 		logo.setForeground(SystemColor.textHighlight);
-		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
+		logo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
 		labratoryUI.getContentPane().add(logo);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 86, 495, 370);
-		labratoryUI.getContentPane().add(tabbedPane);
+		table = new JTable();
+		table.setBounds(10, 71, 635, 139);
+		table.setModel(new MyTableModel(new String[]{"id","Doctor","Patient","Comments","Status"},new Object[][]{}));
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("tests", null, panel, null);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("MedicalRecordforpatient", null, panel_1, null);
+		labratoryUI.getContentPane().add(table);
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		labratoryUI.setBounds(100, 100, 501, 496);
+		labratoryUI.setBounds(100, 100, 661, 623);
 		labratoryUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import Client.Application;
 import Client.Config;
 import Client.Resources;
+import models.Doctor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ import java.awt.Panel;
 public class ClientUI {
 
 	private JFrame frame;
-	private final JButton btnNewButton = new JButton("Medical Records");
+	private final JButton btnNewButton = new JButton("Patients");
 	private final JButton btnLabs = new JButton("Appointments");
 	private final JButton btnUsers = new JButton("Users");
 	private final JButton btnTests = new JButton("Weekly reports");
@@ -79,8 +80,8 @@ public class ClientUI {
 	private void initialize(){
 		Resources res = new Resources();
 		frame = new JFrame();
-		frame.setType(Type.UTILITY);
 		frame.setResizable(false);
+		frame.setIconImage(Resources.getImage("icon.png"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -104,6 +105,9 @@ public class ClientUI {
 		button.setToolTipText("Doctors managment form");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(Application.user.getClass().equals(Doctor.class)){
+					AddPatientUI p = new AddPatientUI();
+				}
 			}
 		});
 
