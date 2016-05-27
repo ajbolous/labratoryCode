@@ -58,9 +58,12 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.DefaultComboBoxModel;
 
 public class NewApp  {
@@ -73,6 +76,8 @@ public class NewApp  {
 	private AppointmentsController app_ctrl = new AppointmentsController();
 	private String spec;
 	private Patient patient;
+	
+	private String doctor_id;
 	public  NewApp (Patient patient) {
 		this.patient=patient;
 		initialize();
@@ -106,25 +111,7 @@ public class NewApp  {
 		JComboBox speciality = new JComboBox();
 		speciality.setName("");
 		speciality.setModel(new DefaultComboBoxModel(app_ctrl.getSpecialties()));
-		speciality.addActionListener(new ActionListener() {
-			
-			
-			public void actionPerformed(ActionEvent e) {
-
-		        JComboBox cb = (JComboBox)e.getSource();
-		        spec = (String)cb.getSelectedItem();
-		        if (!spec.equals("")){
-		        	getDoctorsBySpec(spec);
-		        	doctors_scrll_table.setVisible(true);
-					lblDoctors.setVisible(true);
-		        }
-		        else{
-		        	doctors_scrll_table.setVisible(false);
-					lblDoctors.setVisible(false);
-		        }
-				
-			}
-		});
+		
 		speciality.setBounds(120, 106, 247, 25);
 		newApp.getContentPane().add(speciality);
 		
@@ -158,6 +145,7 @@ public class NewApp  {
 		newApp.getContentPane().add(lblDoctors);
 		
 		JLabel lblTime = new JLabel("Time:");
+		lblTime.setVisible(false);
 		lblTime.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTime.setBounds(30, 357, 62, 25);
 		newApp.getContentPane().add(lblTime);
@@ -167,7 +155,7 @@ public class NewApp  {
 		doctors_scrll_table.setBounds(30, 171, 420, 175);
 		newApp.getContentPane().add(doctors_scrll_table);
 		
-		String[] doc_columnNames = {"Doctor","Clinic","Last Visit"};
+		String[] doc_columnNames = {"","Doctor","Clinic","Last Visit"};
 		Object[][] doc_data = {};
 		doctors_table = new JTable();
 		doctors_table.setModel(new MyTableModel(doc_columnNames,doc_data));
@@ -179,11 +167,24 @@ public class NewApp  {
 		doctors_scrll_table.setViewportView(doctors_table);
 		doctors_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		doctors_table.setBackground(Color.WHITE);
-		//doctors_table.setCellSelectionEnabled(false);
+
+		TableColumn doctorId= doctors_table.getColumn("");
+		doctorId.setMaxWidth(0);
+		doctorId.setMinWidth(0);
+		doctorId.setPreferredWidth(0);
+		
+		
+		
+		
+		
+		
+		
 		
 		JScrollPane time_scrll_table = new JScrollPane();
+		time_scrll_table.setVisible(false);
 		time_scrll_table.setBounds(30, 381, 420, 175);
 		newApp.getContentPane().add(time_scrll_table);
+		
 		
 		
 		
@@ -191,20 +192,7 @@ public class NewApp  {
 		String[] columnNames = {"Date",
                 "Day",
                 "Hour"};
-		Object[][] data = {
-			    {"23/2/2016", "Monday",
-			     "15:30"},
-			    {"15/3/2017", "Saunday",
-			     "17:10"},
-			    {"22/7/2016", "Sunday",
-			     "10:00"},
-			    {"27/8/2008", "Monday",
-			     "12:30"},
-			    {"22/2/2022", "Monday",
-			     "20:00"}
-			     , {"22/2/2022", "Monday",
-			     "20:00"}
-			};
+		Object[][] data = {};
 		time_table = new JTable();
 		time_table.setModel(new MyTableModel(columnNames,data));
 		time_table.setFillsViewportHeight(true);
@@ -216,6 +204,63 @@ public class NewApp  {
 		time_scrll_table.setViewportView(time_table);
 		time_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		time_table.setBackground(Color.WHITE);
+		
+		speciality.addActionListener(new ActionListener() {
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				time_scrll_table.setVisible(false);
+				lblTime.setVisible(false);
+		        JComboBox cb = (JComboBox)e.getSource();
+		        spec = (String)cb.getSelectedItem();
+		        if (!spec.equals("")){
+		        	getDoctorsBySpec(spec);
+		        	doctors_scrll_table.setVisible(true);
+					lblDoctors.setVisible(true);
+		        }
+		        else{
+		        	doctors_scrll_table.setVisible(false);
+					lblDoctors.setVisible(false);
+		        }
+				
+			}
+		});
+		
+		
+		
+		doctors_table.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent event) {
+					
+						int row=doctors_table.getSelectedRow();
+						doctor_id= (String) doctors_table.getModel().getValueAt(row, 0);
+						
+						ArrayList<Appointment> times= app_ctrl.getTimes(doctor_id,patient.getSid());
+						
+						DefaultTableModel dm = (DefaultTableModel) time_table.getModel();
+						
+						if (dm.getRowCount() > 0) {
+						    for (int rowNum = dm.getRowCount() - 1; rowNum > -1; rowNum--) {
+						        dm.removeRow(rowNum);
+						    }
+						}
+						
+						for(Appointment time: times){
+							
+							dm.addRow(new Object []{
+								DateTime.getDateString(time.getAppointmentTime()),
+								DateTime.getDayOfWeekString(time.getAppointmentTime()),
+								DateTime.getTimeString(time.getAppointmentTime())
+							
+							});
+						}
+						
+						
+						lblTime.setVisible(true);
+						time_scrll_table.setVisible(true);
+
+					}
+				});
 		
 		
 		newApp.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
@@ -237,17 +282,15 @@ public class NewApp  {
 		
 		ArrayList<Doctor> doctors = app_ctrl.getDoctorsBySpeciality(spec);
 		Date curr= new Date();
-		
 		ArrayList<Object[]> doc_tableUI = new ArrayList<Object[]>();
 		for (Doctor d : doctors) {
 			try {
-				doc_tableUI.add(new Object[] { d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
+				doc_tableUI.add(new Object[] { d.getSid(),d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
 						app_ctrl.getLastVisit(d.getSid(), patient.getSid(), DateTime.currentDate())});
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
-		
 		Collections.sort(doc_tableUI, new DoctorsComparator());
 		for (Object[] record : doc_tableUI) {
 			dm.addRow(record);

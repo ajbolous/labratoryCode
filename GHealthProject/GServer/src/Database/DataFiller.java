@@ -132,15 +132,19 @@ public class DataFiller {
 
 	public void fillAppointments() throws SQLException, ParseException {
 
-		for (int i = 0; i < 8; i++) {
-			Doctor d = db.doctors.queryForId("20000000" + i);
-			Patient p = db.patients.queryForId("30000000" + i);
+		for(int j=0;j<3;j++){
+			for (int i = 0; i < 8; i++) {
+				Doctor d = db.doctors.queryForId("20000000" + i);
+				Patient p = db.patients.queryForId("30000000" + (i+j));
 
-			Appointment a = new Appointment(d, p, DateTime.getDate(2016, 10,
-					5 + i, 9+i, 40));
+				Appointment a = new Appointment(d, p, DateTime.getDate(2016, 4+j,
+						5 + i, 9+i, 00));
 
-			db.appointments.createIfNotExists(a);
+				db.appointments.createIfNotExists(a);
+			}
 		}
+		
+		
 
 	}
 	
