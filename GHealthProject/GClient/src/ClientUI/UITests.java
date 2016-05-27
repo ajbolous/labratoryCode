@@ -16,8 +16,33 @@ package ClientUI;
 		  if (name.length()!=9) return false;
 		  return true;
 	  }
+	  public static boolean checkIsvalid(char [] array, int length,String type)
+	  {
+	if (type.compareTo("char")== 0)
+	{
+		for (int i=0 ; i<length;i++)
+		{
+			if (!(Character.isLetter(array[i]))){
+				return false; 
+			}
+		}
+		return true ;
+	}else if  (type.compareTo("digit")== 0){
+		for (int i=0 ; i<length;i++)
+		{
+			if (!(Character.isDigit(array[i]))){
+				return false; 
+			}
+		}
+		return true ;
+		
+	   }
+	return false  ;
+	  }
+  }
+	
 	  
 	  
 	  
 	  
-}
+

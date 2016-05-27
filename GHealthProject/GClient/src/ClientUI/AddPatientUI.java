@@ -77,7 +77,15 @@ public class AddPatientUI {
 	private String phone ; 
 	private String address; 
 	
-	
+	private JLabel msqlbl;
+	private JLabel msqlbl_1;
+	private JLabel msqlbl_2;
+	private JLabel msqlbl_3;
+	private JLabel msqlbl_4;
+	private JLabel msqlbl_5;
+	private JLabel msqlbl_6;
+	private JLabel msqlbl_7;
+
 	
 
 	
@@ -169,9 +177,17 @@ public class AddPatientUI {
 				 phone= PhoneField.getText();
 				 email=EmailField.getText();
 				  address=AddressField.getText();
-				  
-				  if(idctrl.exists(id))
-				  	  return ;
+				  msqlbl.setText("");
+				  msqlbl_1.setText("");
+				  msqlbl_2.setText("");
+				  msqlbl_3.setText("");
+				  msqlbl_4.setText("");
+				  msqlbl_5.setText("");
+				  msqlbl_6.setText("");
+				  msqlbl_7.setText("");
+				  if (!isvalid())
+					  return ; 
+				
 				  
 					Patient patient = new Patient();
 					patient.setSid(id);
@@ -317,9 +333,85 @@ public class AddPatientUI {
 		AddressField.setBounds(90, 296, 252, 26);
 		addPatient.getContentPane().add(AddressField);
 		
+	    msqlbl = new JLabel("");
+	    msqlbl.setForeground(Color.RED);
+		msqlbl.setBounds(352, 82, 145, 35);
+		addPatient.getContentPane().add(msqlbl);
+		
+		msqlbl_1 = new JLabel("");
+		msqlbl_1.setBounds(352, 112, 145, 35);
+		addPatient.getContentPane().add(msqlbl_1);
+		
+	    msqlbl_2 = new JLabel("");
+		msqlbl_2.setBounds(352, 142, 145, 35);
+		addPatient.getContentPane().add(msqlbl_2);
+		
+		msqlbl_3 = new JLabel("");
+		msqlbl_3.setBounds(352, 172, 145, 35);
+		addPatient.getContentPane().add(msqlbl_3);
+		
+		msqlbl_4 = new JLabel("");
+		msqlbl_4.setBounds(352, 202, 145, 35);
+		addPatient.getContentPane().add(msqlbl_4);
+		
+	    msqlbl_5 = new JLabel("");
+		msqlbl_5.setBounds(352, 232, 155, 35);
+		addPatient.getContentPane().add(msqlbl_5);
+		
+	    msqlbl_6 = new JLabel("");
+		msqlbl_6.setBounds(352, 262, 145, 35);
+		addPatient.getContentPane().add(msqlbl_6);
+		
+		msqlbl_7 = new JLabel("");
+		msqlbl_7.setBounds(352, 292, 145, 35);
+		addPatient.getContentPane().add(msqlbl_7);
+		
 		addPatient.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		addPatient.setBounds(100, 100, 428, 459);
+		addPatient.setBounds(100, 100, 513, 459);
 		addPatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+
+private Boolean isvalid(){
+	   int flag=0; 
+	  if (UITests.notEmpty(this.id) == false ){
+			msqlbl.setText("*Please enter patient ID");
+		 
+	  }else if (UITests.correctId(this.id) == false){
+		  msqlbl.setText("*ID should be 9 digit");
+		  
+	  } else if(idctrl.exists(this.id)){
+	  
+		  	msqlbl.setText("*is exist");
+	  	
+	  }
+	  if (UITests.notEmpty(this.Fname) == false){
+		  msqlbl_1.setText("*is Empty");
+	  }else if(UITests.checkIsvalid(this.Fname.toCharArray(),Fname.length(),"char") == false){
+		  msqlbl_1.setText("*should be only char");
+	  }
+		  
+	  if (UITests.notEmpty(this.Lname) == false){
+		  msqlbl_2.setText("*is Empty");
+	  }else if(UITests.checkIsvalid(this.Lname.toCharArray(),Lname.length(),"char") == false){
+		  msqlbl_2.setText("*should be only char");
+	  }
+	  if (UITests.notEmpty(this.phone) == false){
+		  msqlbl_6.setText("*is Empty");
+	  }else if(UITests.checkIsvalid(this.phone.toCharArray(),phone.length(),"digit") == false){
+		  msqlbl_2.setText("*should be only digits");
+	  }
+	  if (UITests.notEmpty(this.email) == false){
+		  msqlbl_5.setText("*is Empty");
+	  }
+	  if (UITests.notEmpty(this.address) == false){
+		  msqlbl_7.setText("*is Empty");
+	  }
+    if (flag == 0 )
+    	return false ; 
+    else
+    	return true; 
+}
+
+	
 }
