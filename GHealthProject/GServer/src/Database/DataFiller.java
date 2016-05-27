@@ -101,8 +101,33 @@ public class DataFiller {
 	
 	
 	public void fillExaminations() throws Exception {
+		Patient p = new Patient();
+		p.setFirstName("ahmad");
+		p.setSid("31153964");
+		
+		MedicalRecord md = new MedicalRecord();
+		md.setPatient(p);
+		md.setCreationDate(Utils.DateTime.currentDate());
+		p.setMedicalRecord(md);
+		
+		Treatment t= new Treatment(); 
+		Doctor d = new Doctor() ; 
+		d.setFirstName("mnasra");
+		d.setSid("3115878915");
+		t.setDoctor(d);
+		t.setMedicalRecord(md);
+		db.records.createIfNotExists(md);	
+		Examination e = new Examination();
+		e.setComments("fdddfdfdfdfdf");
+		e.setExaminationDate(Utils.DateTime.currentDate());
+        Labratorian labratory= new Labratorian(); 
+		e.setLabratorian(labratory);
+		e.setTreatment(t);
+	
+		
+		p.setMedicalRecord(md);
 		for (int i = 0; i < 20; i++) {
-			Examination e = new Examination();
+			Examination e1 = new Examination();
 			
 			
 		}

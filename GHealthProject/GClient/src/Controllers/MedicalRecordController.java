@@ -56,6 +56,14 @@ public class MedicalRecordController {
 		 Application.client.sendRequest(r);
 		 
 	 }
+	 public void AddMedicalRecord(MedicalRecord md )
+	 {
+		
+		 Request r = new Request("MedicalRecords/add");
+		 r.addParam("Mrecord", md);
+		 Application.client.sendRequest(r);
+		 
+	 }
 
 
 }

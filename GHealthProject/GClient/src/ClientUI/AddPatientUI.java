@@ -14,8 +14,9 @@ import java.awt.Image;
 import javax.swing.JButton;
 
 import Client.Resources;
+import Controllers.MedicalRecordController;
 import Controllers.PatientsController;
-
+import models.MedicalRecord;
 import models.Patient;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -27,10 +28,12 @@ import java.awt.Component;
 import java.awt.SystemColor;
 
 import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -43,6 +46,8 @@ public class AddPatientUI {
 
 	private JFrame addPatient;
 	private PatientsController idctrl = new PatientsController();
+	private MedicalRecordController mdctrl= new MedicalRecordController(); 
+
 	private JTextField FieldID;
 	private JTextField FnameField;
 	private JTextField LnameField;
@@ -201,9 +206,17 @@ public class AddPatientUI {
 				patient.setBirthDate(chooser.getDate());
 				patient.setGender((String) comboBox_gender.getSelectedItem());
 				patient.setAddress(address);
-
+			    MedicalRecord md=new MedicalRecord(); 
+			    md.setPatient(patient);
+			    try {
+					md.setCreationDate(Utils.DateTime.currentDate());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			    
 				idctrl.AddNewPatient(patient);
-
+				mdctrl.AddMedicalRecord(md);
 				Messages.successMessage("Patient was added successfully to the system", "Success", null);
 				addPatient.dispose();
 				return;
