@@ -42,6 +42,20 @@ public class DateTime {
 		return calendar.get(Calendar.DAY_OF_WEEK);
 	}
 	
+	public static String getDayOfWeekString(Date d){
+		int day= getDayOfWeek(d);
+		switch(day){
+		case 1: return "Sunday";
+		case 2: return "Monday";
+		case 3: return "Tuesday";
+		case 4: return "Wednesday";
+		case 5: return "Thursday";
+		case 6: return "Friday";
+		case 7: return "Saturday";
+		}
+		return null;
+	}
+	
 	public static int getWeekOfYear(Date d ){
 		calendar.setTime(d);
 		return calendar.get(Calendar.WEEK_OF_YEAR);
@@ -94,5 +108,14 @@ public class DateTime {
 		cdate.setTime(date);
 		cdate.add(Calendar.MINUTE, valueToAdd);
 		return calendarToDate(cdate);
+	}
+	
+	
+	public static boolean isOverlap(Date d1_start,Date d1_end, Date d2_start , Date d2_end){
+		//Overlap <==> (StartA <= EndB)  and  (EndA >= StartB)
+		
+		if(  (d1_start.before(d2_end) || d1_start.equals(d2_end)) && 
+				(d1_end.after(d2_start) || d1_end.equals(d2_start)) ) return true;
+		return false;
 	}
 }

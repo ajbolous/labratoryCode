@@ -17,7 +17,10 @@ public class Appointment extends Entity{
 		this.doctor = d;
 		this.patient = p;
 		this.appointmentTime = t;
-		this.appointmentTimeFinish=DateTime.addHoursToTime(t, 30);
+	}
+	
+	public Appointment(Date t){
+		this.appointmentTime = t;
 	}
 	
 	@DatabaseField(generatedId = true)
@@ -36,8 +39,6 @@ public class Appointment extends Entity{
 	@DatabaseField()
 	private Date appointmentTime ;
 	
-	@DatabaseField()
-	private Date appointmentTimeFinish;
 
 	@DatabaseField()
 	private boolean isCanceled;
@@ -83,4 +84,20 @@ public class Appointment extends Entity{
 		this.isCanceled = isCanceled;
 	}
 	
+	public Date getfinishTime(){
+		return DateTime.addMinutes(appointmentTime, 30);
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj){
+		
+		if(!(obj instanceof Appointment)) return false;
+		Date d1_start=((Appointment)obj).getAppointmentTime();
+		Date d1_end=((Appointment)obj).getfinishTime();
+		Date d2_start=this.appointmentTime;
+		Date d2_end=this.getfinishTime();
+		if(DateTime.isOverlap(d1_start, d1_end, d2_start, d2_end)) return true;
+		return false;
+	}
 }

@@ -8,8 +8,8 @@ public class DoctorsComparator implements Comparator<Object[]>{
 
 	@Override
 	public int compare(Object[] rec1, Object[] rec2) {
-		String date1= (String) rec1[2];
-		String date2= (String) rec2[2];
+		String date1= (String) rec1[3];
+		String date2= (String) rec2[3];
 		if(date1.equals("") && date2.equals("")) return 0;
 		if (date1.equals("") && !date2.equals("")) return 1;
 		if(!date1.equals("") && date2.equals("")) return -1;
