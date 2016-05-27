@@ -13,7 +13,7 @@ public class DateTime {
 
 	public static Date getTime(int h,int m) throws ParseException{
 		Date d = new Date();
-		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear()+1900,d.getMonth()+1,d.getDay(),h,m,0));
+		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear()+1900,d.getMonth()+1,d.getDate(),h,m,0));
 	}
 	
 	public static Date addDay(Date d,int period)
@@ -71,11 +71,7 @@ public class DateTime {
 		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
 		return format.format(d);
 	}
-	
-//	public static String getDateString(Date d){
-//		return dateFormat.format(d);
-//	}
-	
+
 	public static String getDateString(Date d){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(d);

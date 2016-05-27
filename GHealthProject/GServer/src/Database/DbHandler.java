@@ -51,7 +51,7 @@ public class DbHandler {
 //		df.fillPatients();
 //		df.fillAppointments();
 //		df.fillStatistics();
-//		df.fillShifts();
+		df.fillShifts();
 
 	}
 	public void initializeDao() throws Exception{

@@ -14,15 +14,28 @@ public class DoctorsComparator implements Comparator<Object[]>{
 		if (date1.equals("") && !date2.equals("")) return 1;
 		if(!date1.equals("") && date2.equals("")) return -1;
 		if(!date1.equals("") && !date2.equals("")) {
-			//dd/MM/yyyy
+			//split the date : dd/MM/yyyy
 			String s_date1[]=date1.split("/");
 			String s_date2[]=date2.split("/");
-			Date time1 = new Date(Integer.parseInt(s_date1[2]), Integer.parseInt(s_date1[1]), Integer.parseInt(s_date1[0]));
-			Date time2=new Date(Integer.parseInt(s_date2[2]), Integer.parseInt(s_date2[1]), Integer.parseInt(s_date2[0]));
 			
-			if(time1.before(time2)) return 1;
-			if(time1.after(time2)) return -1;
-			return 0;
+			Date time1 ;
+			Date time2;
+			try {
+				time1 = DateTime.getDate(Integer.parseInt(s_date1[2]), Integer.parseInt(s_date1[1]), Integer.parseInt(s_date1[0]));
+				time2 = DateTime.getDate(Integer.parseInt(s_date2[2]), Integer.parseInt(s_date2[1]), Integer.parseInt(s_date2[0]));
+				if(time1.before(time2)) return 1;
+				if(time1.after(time2)) return -1;
+				return 0;
+			
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}
 		return 0;
 	}
