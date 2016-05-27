@@ -4,6 +4,12 @@ package ClientUI;
 	  public static boolean notEmpty(String str) {
 		  if (str.length()==0) return false;
 		  return true;
+		   
+	}  
+	  public static boolean notEmptybirth(Object str) {
+		  if (((String)str).compareTo("Year")==0 || ((String)str).compareTo("Month")==0 ||((String)str).compareTo("Day")==0)
+			  return false;
+		  return true;
 		
 	}
 	  
@@ -16,30 +22,33 @@ package ClientUI;
 		  if (name.length()!=9) return false;
 		  return true;
 	  }
-	  public static boolean checkIsvalid(char [] array, int length,String type)
-	  {
-	if (type.compareTo("char")== 0)
-	{
-		for (int i=0 ; i<length;i++)
+	  public static boolean checkIsCh(String field) {
+		  char [] array= field.toCharArray();
+	
+		for (int i=0 ; i<field.length();i++)
 		{
 			if (!(Character.isLetter(array[i]))){
 				return false; 
 			}
 		}
 		return true ;
-	}else if  (type.compareTo("digit")== 0){
-		for (int i=0 ; i<length;i++)
-		{
-			if (!(Character.isDigit(array[i]))){
-				return false; 
-			}
-		}
-		return true ;
 		
-	   }
-	return false  ;
+	}
+  
+  public static boolean checkIsDigit(String field ){
+	  char [] array= field.toCharArray();
+	  
+			for (int i=0 ; i<field.length();i++){
+				if (!(Character.isDigit(array[i]))){
+					return false; 
+				}
+			}
+			return true ;
+
 	  }
-  }
+		  
+ }
+  
 	
 	  
 	  

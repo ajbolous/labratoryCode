@@ -121,14 +121,14 @@ public class UsersManagingUI {
 		
 		JLabel lblLockedUserAccounts = new JLabel("Locked user accounts");
 		lblLockedUserAccounts.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblLockedUserAccounts.setBounds(10, 264, 157, 14);
+		lblLockedUserAccounts.setBounds(10, 292, 157, 14);
 		ui.getContentPane().add(lblLockedUserAccounts);
 		
 		JButton btnUnlock = new JButton("Unlock");
-		btnUnlock.setBounds(10, 289, 89, 23);
+		btnUnlock.setBounds(10, 470, 157, 20);
 		ui.getContentPane().add(btnUnlock);
 		ui.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		ui.setBounds(100, 100, 466, 499);
+		ui.setBounds(100, 100, 466, 524);
 		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		ui.setVisible(true);

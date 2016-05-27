@@ -22,9 +22,6 @@ public class PatientsController {
 	public void AddNewPatient(Patient patient ){
 		Request r = new Request("patients/add");
 		r.addParam("patient", patient);
-		String ress= (String) Application.client.sendRequest(r);
-		
-		
-		
+		Application.client.sendRequest(r);
 	}
 }

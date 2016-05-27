@@ -81,7 +81,7 @@ public class PatientUI {
 		pat.getContentPane().add(logo);
 		
 		JLabel lblPatientId = new JLabel("Patient Id :");
-		lblPatientId.setBounds(30, 134, 88, 14);
+		lblPatientId.setBounds(30, 134, 68, 14);
 		pat.getContentPane().add(lblPatientId);
 		
 		textField = new JTextField();

@@ -14,20 +14,17 @@ import models.*;
 public class DataFiller {
 
 	DbHandler db;
-	public static String[] firstNames = { "John", "Tyrion", "Arya", "Sandor",
-			"Euron", "Dyneris", "Ned", "Cersi", "Sam", "Sansa", "Ramsey",
-			"Roose", "Robert", "Walder", "Jora", "Varys", "Mountain", "Yara",
-			"Jaime", "Stannis", "Renly", "Robert" };
-	public static String[] lastNames = { "Blackfrey", "Martel", "River",
-			"Andal", "Lanister", "Bolton", "Stark", "Clegane", "Targeryan",
-			"Greyjoy", "Weiss", "Drogo", "Karstak", "Turlly", "Mormont",
-			"Frey", "Baratheon", "Slavador", "Snow" };
-	public static String[] cities = { "King's Landing", "Winterfell",
-			"Iron Islands", "Valyeria", "The Wall", "Castle Black",
-			"Dreadfall", "Mereen", "Highgarden", "Dorn" };
+	public static String[] firstNames = { "John", "Tyrion", "Arya", "Sandor", "Euron", "Dyneris", "Ned", "Cersi", "Sam",
+			"Sansa", "Ramsey", "Roose", "Robert", "Walder", "Jora", "Varys", "Mountain", "Yara", "Jaime", "Stannis",
+			"Renly", "Robert" };
+	public static String[] lastNames = { "Blackfrey", "Martel", "River", "Andal", "Lanister", "Bolton", "Stark",
+			"Clegane", "Targeryan", "Greyjoy", "Weiss", "Drogo", "Karstak", "Turlly", "Mormont", "Frey", "Baratheon",
+			"Slavador", "Snow" };
+	public static String[] cities = { "King's Landing", "Winterfell", "Iron Islands", "Valyeria", "The Wall",
+			"Castle Black", "Dreadfall", "Mereen", "Highgarden", "Dorn" };
 
-	public static String[] specialities = { "Surgon", "Oncologe", "Urologe",
-			"Cardiologe", "Bone", "Family", "Children" };
+	public static String[] specialities = { "Surgon", "Oncologe", "Urologe", "Cardiologe", "Bone", "Family",
+			"Children" };
 
 	public static Random rand = new Random();
 
@@ -41,11 +38,9 @@ public class DataFiller {
 			d.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			d.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 
-			d.setEmail((d.getFirstName() + "." + d.getLastName() + i)
-					.toLowerCase() + "@crows.com");
+			d.setEmail((d.getFirstName() + "." + d.getLastName() + i).toLowerCase() + "@crows.com");
 			try {
-				d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20),
-						rand.nextInt(12), rand.nextInt(29)));
+				d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -59,17 +54,22 @@ public class DataFiller {
 		}
 	}
 
-	public void fillPatients() throws SQLException {
+	public void fillPatients() throws Exception {
 		for (int i = 0; i < 120; i++) {
 			Patient p = new Patient();
 			p.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			p.setLastName(lastNames[rand.nextInt(lastNames.length)]);
-
-			p.setEmail((p.getFirstName() + "." + p.getLastName() + i)
-					.toLowerCase() + "@crows.com");
+			
+			MedicalRecord md = new MedicalRecord();
+			md.setPatient(p);
+			md.setCreationDate(Utils.DateTime.currentDate());
+			
+			db.records.create(md);
+			p.setMedicalRecord(md);
+			
+			p.setEmail((p.getFirstName() + "." + p.getLastName() + i).toLowerCase() + "@crows.com");
 			try {
-				p.setBirthDate(Utils.DateTime.getDate(1970 + rand.nextInt(20),
-						rand.nextInt(12), rand.nextInt(29)));
+				p.setBirthDate(Utils.DateTime.getDate(1970 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -83,14 +83,28 @@ public class DataFiller {
 	public void fillStatistics() throws SQLException, ParseException {
 		int i;
 		Random r = new Random();
-		Date d = Utils.DateTime.getDate(2016,1,1);
+		Date d = Utils.DateTime.getDate(2016, 1, 1);
 		for (i = 0; i < 360; i++) {
 			Statistic s = new Statistic();
 			s.setNumOfPatients(r.nextInt(30));
 			s.setWaitingPeriod(r.nextInt(60));
-			d = Utils.DateTime.addDay(d,1);
+			d = Utils.DateTime.addDay(d, 1);
 			s.setDate(d);
 			db.statistics.createIfNotExists(s);
+		}
+	}
+
+	public void fillTreatments() throws Exception{
+		
+		
+	}
+	
+	
+	public void fillExaminations() throws Exception {
+		for (int i = 0; i < 20; i++) {
+			Examination e = new Examination();
+			
+			
 		}
 	}
 
@@ -101,11 +115,9 @@ public class DataFiller {
 			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 
-			l.setEmail((l.getFirstName() + "." + l.getLastName() + i)
-					.toLowerCase() + "@crows.com");
+			l.setEmail((l.getFirstName() + "." + l.getLastName() + i).toLowerCase() + "@crows.com");
 			try {
-				l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20),
-						rand.nextInt(12), rand.nextInt(29)));
+				l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -116,15 +128,14 @@ public class DataFiller {
 			db.labratorians.createIfNotExists(l);
 
 			Labratory lab = new Labratory();
-			//lab.setLabratorian(l);
+			// lab.setLabratorian(l);
 			db.labratories.createIfNotExists(lab);
 
 			Clinic c = new Clinic();
 			c.setAddress(cities[i]);
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
-			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i
-					+ "@crows.com");
+			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
 			c.setLabratory(lab);
 			db.clinics.create(c);
 		}
@@ -147,45 +158,41 @@ public class DataFiller {
 		
 
 	}
-	
-	public void fillShifts() throws SQLException, ParseException{
-	
-		for(int j=0;j<8;j++){
+
+	public void fillShifts() throws SQLException, ParseException {
+
+		for (int j = 0; j < 8; j++) {
 			Doctor d = db.doctors.queryForId("20000000" + j);
 			ArrayList<Shift> doc_shifts = doctorShiftsGenerator(4, d);
-			for(Shift a: doc_shifts){
+			for (Shift a : doc_shifts) {
 				db.shifts.createIfNotExists(a);
 			}
-		
+
 		}
 	}
-	
-	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d) throws ParseException{
-		ArrayList<Shift> shifts= new ArrayList<Shift>();
-		Date start_time= DateTime.getTime(9, 0);
-		int from =DateTime.getWeekOfYear(start_time);
-		Date end_time= DateTime.getTime(17, 0);
-		for( int i =from;i< weeks+from;i++){
-			for(int j=0; j<5 &&
-					(DateTime.getDayOfWeek(start_time)!=Calendar.FRIDAY ) && 
-					(DateTime.getDayOfWeek(start_time) !=Calendar.SATURDAY);
-					j++){
-				shifts.add(new Shift(start_time,end_time,d));
-				start_time=DateTime.addDay(start_time, 1);
-				end_time=DateTime.addDay(end_time, 1);
+
+	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d) throws ParseException {
+		ArrayList<Shift> shifts = new ArrayList<Shift>();
+		Date start_time = DateTime.getTime(9, 0);
+		int from = DateTime.getWeekOfYear(start_time);
+		Date end_time = DateTime.getTime(17, 0);
+		for (int i = from; i < weeks + from; i++) {
+			for (int j = 0; j < 5 && (DateTime.getDayOfWeek(start_time) != Calendar.FRIDAY)
+					&& (DateTime.getDayOfWeek(start_time) != Calendar.SATURDAY); j++) {
+				shifts.add(new Shift(start_time, end_time, d));
+				start_time = DateTime.addDay(start_time, 1);
+				end_time = DateTime.addDay(end_time, 1);
 			}
-			if(DateTime.getDayOfWeek(start_time)==Calendar.FRIDAY){
-				start_time=DateTime.addDay(start_time, 2);
-				end_time=DateTime.addDay(end_time, 2);
-			}
-			else if(DateTime.getDayOfWeek(start_time)==Calendar.SATURDAY){
-				start_time=DateTime.addDay(start_time, 1);
-				end_time=DateTime.addDay(end_time, 1);
+			if (DateTime.getDayOfWeek(start_time) == Calendar.FRIDAY) {
+				start_time = DateTime.addDay(start_time, 2);
+				end_time = DateTime.addDay(end_time, 2);
+			} else if (DateTime.getDayOfWeek(start_time) == Calendar.SATURDAY) {
+				start_time = DateTime.addDay(start_time, 1);
+				end_time = DateTime.addDay(end_time, 1);
 			}
 		}
-		
+
 		return shifts;
 	}
-	
-	
+
 }
