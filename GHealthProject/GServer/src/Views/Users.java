@@ -61,12 +61,20 @@ public class Users extends View {
 
 	public Object setLocked(Request request) throws SQLException{
 		User u = (User) request.getParam("user");
+		updateUser(u);
 		Config.getConfig().getLogger().debug("Account " + u.getSid() + " " + u.getFirstName() + " is Locked");
-		u.setLocked((boolean)request.getParam("isLocked"));
-		u.update();
+		
 		return true;
 	}
 	
+	private void updateUser(User user) throws SQLException{
+		DbHandler db = Config.getConfig().getHandler();
+		String cls = user.getClass().getTypeName();
+		switch(cls){
+		case "models.Doctor":db.doctors.update((Doctor)user);break;
+		case "models.Labratorian":db.doctors.update((Doctor)user);break;
+		}
+	}
 	
 	public Object setOnline(Request request) {
 		DbHandler db = Config.getConfig().getHandler();

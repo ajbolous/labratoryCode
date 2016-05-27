@@ -12,6 +12,7 @@ public class Appointment extends Entity{
 	
 	public Appointment(){
 	}
+	
 	public Appointment(Doctor d, Patient p, Date t){
 		this.doctor = d;
 		this.patient = p;

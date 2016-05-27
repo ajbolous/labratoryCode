@@ -23,11 +23,7 @@ public class DoctorsComparator implements Comparator<Object[]>{
 			if(time1.before(time2)) return 1;
 			if(time1.after(time2)) return -1;
 			return 0;
-
 		}
 		return 0;
-
 	}
-	
-
 }

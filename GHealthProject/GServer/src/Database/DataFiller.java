@@ -144,7 +144,7 @@ public class DataFiller {
 
 	}
 	
-	public void fillShifts() throws SQLException{
+	public void fillShifts() throws SQLException, ParseException{
 	
 		for(int j=0;j<8;j++){
 			Doctor d = db.doctors.queryForId("20000000" + j);
@@ -156,8 +156,15 @@ public class DataFiller {
 		}
 	}
 	
-	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d){
+	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d) throws ParseException{
 		ArrayList<Shift> shifts= new ArrayList<Shift>();
+		
+		
+		Date d1= Utils.DateTime.getTime(9, 0);
+		Date d2 = Utils.DateTime.addHour(d1,8);
+		
+		
+		
 		
 		int from;
 		Calendar start_time= Calendar.getInstance();
