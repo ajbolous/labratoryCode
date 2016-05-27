@@ -43,6 +43,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -63,8 +64,10 @@ public class AddPatientUI {
 	private JTextField AddressField; 
 	private JComboBox day_cbox = new JComboBox();
 	private JComboBox month_cbox = new JComboBox();
+	private JComboBox year_cbox1= new JComboBox();	
 	private JComboBox comboBox_gender = new JComboBox();
 	private int numDays = 0;
+	private Date date ; 
 	
 	
 	private  int year;
@@ -174,9 +177,9 @@ public class AddPatientUI {
 				id= FieldID.getText();
 				Fname= FnameField.getText();
 			    Lname= LnameField.getText();
-				 phone= PhoneField.getText();
-				 email=EmailField.getText();
-				  address=AddressField.getText();
+				phone= PhoneField.getText();
+				email=EmailField.getText();
+				address=AddressField.getText();
 				  msqlbl.setText("");
 				  msqlbl_1.setText("");
 				  msqlbl_2.setText("");
@@ -185,17 +188,19 @@ public class AddPatientUI {
 				  msqlbl_5.setText("");
 				  msqlbl_6.setText("");
 				  msqlbl_7.setText("");
+				  
 				  if (!isvalid())
 					  return ; 
 				
-				  
 					Patient patient = new Patient();
 					patient.setSid(id);
 					patient.setFirstName(Fname);
 					patient.setLastName(Lname);
 					patient.setEmail(email);
 					patient.setPhone(phone);
+					patient.setGender((String)comboBox_gender.getSelectedItem());
 					patient.setAddress(address);
+					
 					idctrl.AddNewPatient(patient); 
 					return;
 							}
@@ -213,7 +218,7 @@ public class AddPatientUI {
 	
 		month_cbox.setModel(new DefaultComboBoxModel(new String[] {"Month"}));
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		JComboBox year_cbox1 = new JComboBox();
+		year_cbox1 = new JComboBox();
 		year_cbox1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)  {
 				String y =  (String)year_cbox1.getSelectedItem();
@@ -255,7 +260,7 @@ public class AddPatientUI {
 				
 				 String m = (String)month_cbox.getSelectedItem();
 				 numDays = 0 ;
-				if(m.equals("Month")) {day_cbox.setModel(new DefaultComboBoxModel(new String [] {"Days"})); return;}
+				if(m.equals("Month")) {day_cbox.setModel(new DefaultComboBoxModel(new String [] {"Day"})); return;}
 				 month =  Integer.parseInt(m);
 				switch (month) {
 	            case 1: case 3: case 5:
@@ -282,7 +287,7 @@ public class AddPatientUI {
 			
 				
 			String Days[]=new String [numDays+1];
-			Days[0]="Days";
+			Days[0]="Day";
 			for (int i=1;i<=numDays;i++)
 				Days[i]=""+i;
 			day_cbox.setModel(new DefaultComboBoxModel(Days));
@@ -307,7 +312,7 @@ public class AddPatientUI {
 			}
 		});
 		day_cbox.setBackground(Color.WHITE);
-		day_cbox.setModel(new DefaultComboBoxModel(new String[]{"Days"}));
+		day_cbox.setModel(new DefaultComboBoxModel(new String[] {"Day"}));
 		day_cbox.setBounds(262, 179, 80, 20);
 		addPatient.getContentPane().add(day_cbox);
 		
@@ -323,6 +328,7 @@ public class AddPatientUI {
 		JLabel lblGender = new JLabel("Gender:");
 		lblGender.setBounds(29, 202, 59, 35);
 		addPatient.getContentPane().add(lblGender);
+		comboBox_gender.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female"}));
 		
 		
 		comboBox_gender.setBounds(90, 206, 252, 20);
@@ -333,36 +339,43 @@ public class AddPatientUI {
 		AddressField.setBounds(90, 296, 252, 26);
 		addPatient.getContentPane().add(AddressField);
 		
-	    msqlbl = new JLabel("");
+	    msqlbl = new JLabel("ID:");
 	    msqlbl.setForeground(Color.RED);
 		msqlbl.setBounds(352, 82, 145, 35);
 		addPatient.getContentPane().add(msqlbl);
 		
-		msqlbl_1 = new JLabel("");
+		msqlbl_1 = new JLabel("First Name:");
+		msqlbl_1.setForeground(Color.RED);
 		msqlbl_1.setBounds(352, 112, 145, 35);
 		addPatient.getContentPane().add(msqlbl_1);
 		
-	    msqlbl_2 = new JLabel("");
+	    msqlbl_2 = new JLabel("Last Name:");
+	    msqlbl_2.setForeground(Color.RED);
 		msqlbl_2.setBounds(352, 142, 145, 35);
 		addPatient.getContentPane().add(msqlbl_2);
 		
-		msqlbl_3 = new JLabel("");
+		msqlbl_3 = new JLabel("BirthDate:");
+		msqlbl_3.setForeground(Color.RED);
 		msqlbl_3.setBounds(352, 172, 145, 35);
 		addPatient.getContentPane().add(msqlbl_3);
 		
-		msqlbl_4 = new JLabel("");
+		msqlbl_4 = new JLabel("Gender:");
+		msqlbl_4.setForeground(Color.RED);
 		msqlbl_4.setBounds(352, 202, 145, 35);
 		addPatient.getContentPane().add(msqlbl_4);
 		
-	    msqlbl_5 = new JLabel("");
+	    msqlbl_5 = new JLabel("Email:");
+	    msqlbl_5.setForeground(Color.RED);
 		msqlbl_5.setBounds(352, 232, 155, 35);
 		addPatient.getContentPane().add(msqlbl_5);
 		
-	    msqlbl_6 = new JLabel("");
+	    msqlbl_6 = new JLabel("Phone:");
+	    msqlbl_6.setForeground(Color.RED);
 		msqlbl_6.setBounds(352, 262, 145, 35);
 		addPatient.getContentPane().add(msqlbl_6);
 		
-		msqlbl_7 = new JLabel("");
+		msqlbl_7 = new JLabel("Address:");
+		msqlbl_7.setForeground(Color.RED);
 		msqlbl_7.setBounds(352, 292, 145, 35);
 		addPatient.getContentPane().add(msqlbl_7);
 		
@@ -383,30 +396,42 @@ private Boolean isvalid(){
 	  } else if(idctrl.exists(this.id)){
 	  
 		  	msqlbl.setText("*is exist");
+		  	
 	  	
-	  }
+	  }else flag=1; 
+	  
 	  if (UITests.notEmpty(this.Fname) == false){
 		  msqlbl_1.setText("*is Empty");
-	  }else if(UITests.checkIsvalid(this.Fname.toCharArray(),Fname.length(),"char") == false){
+	  }else if(UITests.checkIsCh(this.Fname)==false){
 		  msqlbl_1.setText("*should be only char");
-	  }
+	  }else flag=1; 
+	  if( UITests.notEmptybirth(year_cbox1.getSelectedItem()) == false){
+		  msqlbl_3.setText("choose a year,mounth,day");
+	  }else if ( UITests.notEmptybirth(month_cbox.getSelectedItem()) == false){
+		  msqlbl_3.setText("choose a mounth,day");
+	  }else if ( UITests.notEmptybirth(day_cbox.getSelectedItem()) == false){
+		  msqlbl_3.setText("choose a day");
+	  }else flag=1; 
 		  
+		 
 	  if (UITests.notEmpty(this.Lname) == false){
 		  msqlbl_2.setText("*is Empty");
-	  }else if(UITests.checkIsvalid(this.Lname.toCharArray(),Lname.length(),"char") == false){
+	  }else if(UITests.checkIsCh(this.Lname) == false){
 		  msqlbl_2.setText("*should be only char");
-	  }
+	  }else flag=1; 
 	  if (UITests.notEmpty(this.phone) == false){
 		  msqlbl_6.setText("*is Empty");
-	  }else if(UITests.checkIsvalid(this.phone.toCharArray(),phone.length(),"digit") == false){
+	  }else if(UITests.checkIsDigit(this.phone)== false){
 		  msqlbl_2.setText("*should be only digits");
-	  }
+	  }else flag=1; 
 	  if (UITests.notEmpty(this.email) == false){
 		  msqlbl_5.setText("*is Empty");
-	  }
+
+	  }else flag=1; 
 	  if (UITests.notEmpty(this.address) == false){
 		  msqlbl_7.setText("*is Empty");
-	  }
+	  }else flag=1; 
+	  
     if (flag == 0 )
     	return false ; 
     else
