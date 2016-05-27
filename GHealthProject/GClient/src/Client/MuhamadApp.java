@@ -9,12 +9,11 @@ import ClientUI.UsersManagingUI;
 import Controllers.PatientsController;
 import models.Patient;
 
-public class TestApp {
+public class MuhamadApp {
 
 	public static void main(String[] args) {
 		Application.connect();
-		UsersManagingUI iden= new UsersManagingUI();
-		
+		new Identification().getFrame().setVisible(true);
 	
 	}
 }
