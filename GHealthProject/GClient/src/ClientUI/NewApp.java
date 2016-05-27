@@ -244,10 +244,8 @@ public class NewApp  {
 				doc_tableUI.add(new Object[] { d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
 						app_ctrl.getLastVisit(d.getSid(), patient.getSid(), DateTime.currentDate())});
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 		
 		Collections.sort(doc_tableUI, new DoctorsComparator());

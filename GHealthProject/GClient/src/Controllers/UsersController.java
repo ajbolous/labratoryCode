@@ -14,8 +14,6 @@ public class UsersController {
 	}
 	
 	public static boolean authinticateUser(User u, String password){
-		if(u.isLocked())
-			return false;
 		return u.getPass().equals(password);
 	}
 
@@ -25,6 +23,12 @@ public class UsersController {
 		return (boolean)Application.client.sendRequest(r);
 	}
 	
+	public static boolean setLocked(User u, boolean isLocked){
+		Request r = new Request("users/setLocked");
+		u.setLocked(isLocked);
+		r.addParam("user", u);
+		return (boolean)Application.client.sendRequest(r);
+	}
 	
 	public static List<User> getLockedUsers(){
 		Request r = new Request("users/getLockedUsers");

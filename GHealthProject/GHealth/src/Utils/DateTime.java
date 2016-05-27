@@ -9,10 +9,11 @@ import java.util.Date;
 public class DateTime {
 	public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss"); 
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+	public static Calendar calendar = Calendar.getInstance();
 
 	public static Date getTime(int h,int m) throws ParseException{
 		Date d = new Date();
-		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear(),d.getMonth(),d.getDay(),h,m,0));
+		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear()+1900,d.getMonth()+1,d.getDate(),h,m,0));
 	}
 	
 	public static Date addDay(Date d,int period)
@@ -21,6 +22,36 @@ public class DateTime {
 		 date.setTime( d.getTime() + period * 24 * 60 * 60 * 1000);
 		 return date;
 	}
+	
+	public static Date addHour(Date d,int hour)
+	{
+		Date date=new Date();
+		 date.setTime( d.getTime() +  hour * 60 * 60 * 1000);
+		 return date;
+	}
+	
+	public static Date addMinutes(Date d,int min)
+	{
+		Date date=new Date();
+		date.setTime( d.getTime() +  min * 60 * 1000);
+		return date;
+	}
+	
+	public static int getDayOfWeek(Date d ){
+		calendar.setTime(d);
+		return calendar.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	public static int getWeekOfYear(Date d ){
+		calendar.setTime(d);
+		return calendar.get(Calendar.WEEK_OF_YEAR);
+	}
+	
+	public static int getMonthOfYear(Date d ){
+		calendar.setTime(d);
+		return calendar.get(Calendar.MONTH+1);
+	}
+		
 	public static Date getDate(int y,int m,int d) throws ParseException{
 		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", y,m,d,0,0,0));
 	}
@@ -40,11 +71,7 @@ public class DateTime {
 		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
 		return format.format(d);
 	}
-	
-//	public static String getDateString(Date d){
-//		return dateFormat.format(d);
-//	}
-	
+
 	public static String getDateString(Date d){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(d);

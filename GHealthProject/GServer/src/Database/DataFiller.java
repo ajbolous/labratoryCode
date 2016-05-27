@@ -144,7 +144,7 @@ public class DataFiller {
 
 	}
 	
-	public void fillShifts() throws SQLException{
+	public void fillShifts() throws SQLException, ParseException{
 	
 		for(int j=0;j<8;j++){
 			Doctor d = db.doctors.queryForId("20000000" + j);
@@ -156,38 +156,27 @@ public class DataFiller {
 		}
 	}
 	
-	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d){
+	private ArrayList<Shift> doctorShiftsGenerator(int weeks, Doctor d) throws ParseException{
 		ArrayList<Shift> shifts= new ArrayList<Shift>();
-		
-		int from;
-		Calendar start_time= Calendar.getInstance();
-		start_time.set(Calendar.HOUR_OF_DAY, 9);
-		start_time.set(Calendar.MINUTE, 0);
-		
-		from=start_time.get(Calendar.WEEK_OF_YEAR);
-		Calendar end_time = Calendar.getInstance();
-		end_time.set(Calendar.HOUR_OF_DAY, 9);
-		end_time.set(Calendar.MINUTE, 0);
-		end_time.add(Calendar.HOUR_OF_DAY, 8);
-		
-		
+		Date start_time= DateTime.getTime(9, 0);
+		int from =DateTime.getWeekOfYear(start_time);
+		Date end_time= DateTime.getTime(17, 0);
 		for( int i =from;i< weeks+from;i++){
-			
 			for(int j=0; j<5 &&
-					(start_time.get(Calendar.DAY_OF_WEEK)!=Calendar.FRIDAY ) && 
-					(start_time.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY);
+					(DateTime.getDayOfWeek(start_time)!=Calendar.FRIDAY ) && 
+					(DateTime.getDayOfWeek(start_time) !=Calendar.SATURDAY);
 					j++){
-				shifts.add(new Shift(DateTime.calendarToDate(start_time),DateTime.calendarToDate(end_time),d));
-				start_time.add(Calendar.DATE, 1);
-				end_time.add(Calendar.DATE, 1);
+				shifts.add(new Shift(start_time,end_time,d));
+				start_time=DateTime.addDay(start_time, 1);
+				end_time=DateTime.addDay(end_time, 1);
 			}
-			if(start_time.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY){
-				start_time.add(Calendar.DATE, 2);
-				end_time.add(Calendar.DATE, 2);
+			if(DateTime.getDayOfWeek(start_time)==Calendar.FRIDAY){
+				start_time=DateTime.addDay(start_time, 2);
+				end_time=DateTime.addDay(end_time, 2);
 			}
-			else if(start_time.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY){
-				start_time.add(Calendar.DATE, 1);
-				end_time.add(Calendar.DATE, 1);
+			else if(DateTime.getDayOfWeek(start_time)==Calendar.SATURDAY){
+				start_time=DateTime.addDay(start_time, 1);
+				end_time=DateTime.addDay(end_time, 1);
 			}
 		}
 		
