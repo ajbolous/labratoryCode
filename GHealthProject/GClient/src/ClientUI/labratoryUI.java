@@ -18,20 +18,34 @@ import javax.swing.JButton;
 
 import Client.Application;
 import Client.Resources;
+import Controllers.Examinationcontroller;
+import models.Appointment;
 import models.Examination;
 import models.Labratorian;
 
 import javax.swing.BoxLayout;
+
 import java.awt.GridLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import Utils.DateTime;
+
 import java.awt.Component;
 import java.awt.SystemColor;
+import java.text.ParseException;
+import java.util.ArrayList;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -41,6 +55,8 @@ public class labratoryUI {
 
 	private JFrame labratoryUI;
 	private JTable tblToday;
+	private int  ex_id ; 
+	private Examinationcontroller ex_ctrl= new Examinationcontroller(); 
 
 	
 	public labratoryUI() {
@@ -52,6 +68,7 @@ public class labratoryUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Labratorian lab = (Labratorian) Application.user;
 		Resources res = new Resources();
 		labratoryUI = new JFrame();
 		labratoryUI.setTitle("<Frame name> - GHealth");
@@ -87,6 +104,8 @@ public class labratoryUI {
 		label_1.setBounds(61, 11, 207, 21);
 		panel.add(label_1);
 		
+		label_1.setText(new String (lab.getFirstName()+" "+lab.getLastName()));
+		
 		JLabel label_3 = new JLabel((String) null);
 		label_3.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_3.setVerticalAlignment(SwingConstants.TOP);
@@ -96,8 +115,14 @@ public class labratoryUI {
 		
 		JLabel label_2 = new JLabel("<dynamic> <dynamic>");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_2.setBounds(585, 11, 156, 21);
+		label_2.setBounds(502, 11, 239, 21);
 		panel.add(label_2);
+		try {
+			label_2.setText(new String ("Tody:"+Utils.DateTime.currentDate().toString()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 127, 741, 131);
@@ -107,22 +132,41 @@ public class labratoryUI {
 		scrollPane.setViewportView(tblToday);
 		tblToday.setModel(new MyTableModel(new String[]{"id","Doctor","Patient","Type","Status"},new Object[][]{}));
 		
+	
+		
 		JLabel lblTodaysExaminations = new JLabel("Today's Examinations");
 		lblTodaysExaminations.setBounds(0, 108, 170, 14);
 		labratoryUI.getContentPane().add(lblTodaysExaminations);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(11, 267, 740, 248);
-		labratoryUI.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		JPanel panel_test = new JPanel();
+		panel_test.setBounds(11, 267, 740, 248);
+		labratoryUI.getContentPane().add(panel_test);
+		panel_test.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(25, 11, 46, 14);
-		panel_1.add(lblNewLabel);
+		panel_test.add(lblNewLabel);
 
 		fillExaminations(tblToday);
+		
+		JButton btnSave = new JButton("save");
+		btnSave.setBounds(632, 526, 89, 23);
+		labratoryUI.getContentPane().add(btnSave);
+		tblToday.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent event) {
+					
+						int row=tblToday.getSelectedRow();
+						ex_id= (int) tblToday.getModel().getValueAt(row, 0);
+						
+						Examination ex= ex_ctrl.getById(ex_id);
+						panel_test.add(lblNewLabel);
+						
+
+					}
+				});
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		labratoryUI.setBounds(100, 100, 763, 555);
+		labratoryUI.setBounds(100, 100, 763, 599);
 		labratoryUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
