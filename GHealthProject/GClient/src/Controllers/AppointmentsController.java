@@ -36,11 +36,12 @@ public class AppointmentsController {
 
 	}
 	
-	public ArrayList<Doctor> getDoctorsBySpeciality(String spec){
+	public ArrayList<Object[]> getDoctorsBySpeciality(String spec,String patient_id){
 		Request r = new Request("doctors/bySpeciality");
 		r.addParam("speciality",spec);
+		r.addParam("patient_id", patient_id);
 
-		return  (ArrayList<Doctor>) Application.client.sendRequest(r);
+		return  (ArrayList<Object[]>) Application.client.sendRequest(r);
 	}
 	
 	public ArrayList<Appointment> getPatientAppointments(Patient patient){
@@ -55,18 +56,6 @@ public class AppointmentsController {
 		}
 		return (ArrayList<Appointment>) Application.client.sendRequest(r);
 		
-	}
-
-	
-	public String getLastVisit(String doctor_id,String patient_id,Date date){
-		Request r = new Request("appointments/lastVisit");
-		r.addParam("doctor_id",doctor_id);
-		r.addParam("patient_id", patient_id);
-		r.addParam("app_time", date);
-		ArrayList<Appointment> app = (ArrayList<Appointment>) Application.client.sendRequest(r);
-		if (app.size()==0) return "";
-		return DateTime.getDateString(app.get(0).getAppointmentTime());
-
 	}
 	
 	

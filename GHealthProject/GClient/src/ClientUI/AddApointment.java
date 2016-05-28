@@ -333,26 +333,11 @@ public class AddApointment  {
 	private void getDoctorsBySpec(String spec) {
 		DefaultTableModel dm = (DefaultTableModel) doctors_table.getModel();
 		dm.setRowCount(0);
-		
-		ArrayList<Doctor> doctors = app_ctrl.getDoctorsBySpeciality(spec);
-		Date curr= new Date();
-		ArrayList<Object[]> doc_tableUI = new ArrayList<Object[]>();
-		for (Doctor d : doctors) {
-			try {
-				doc_tableUI.add(new Object[] { d.getSid(),d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
-						app_ctrl.getLastVisit(d.getSid(), patient.getSid(), DateTime.currentDate())});
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
-		Collections.sort(doc_tableUI, new DoctorsComparator());
-		for (Object[] record : doc_tableUI) {
+		ArrayList<Object[]> doctors = app_ctrl.getDoctorsBySpeciality(spec,patient.getSid());
+		for (Object[] record : doctors) {
 			dm.addRow(record);
-		}
-			
+		}	
 	}
-	
-
 	public JFrame getFrame(){
 		return newApp;
 	}

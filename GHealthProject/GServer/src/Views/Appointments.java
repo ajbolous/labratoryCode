@@ -112,20 +112,30 @@ public class Appointments extends View{
 	 * 		 where doctor_id="doctor_id" and patient_id=" patient_id" and appointmentTime <= current time)
 	 * @throws SQLException 
 	 */
-	public Object lastVisit(Request request) {
+	public Object lastVisit(Request request,String doctor_id) {
 		DbHandler db = Config.getConfig().getHandler();		
 		
 		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
 		List<Appointment> app;
+		Date curr_date=null;
+		
+		try {
+			 curr_date=DateTime.currentDate();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		try {
 			app=  q.orderBy("appointmentTime",false).limit(1).where()
-			.eq("doctor_id", request.getParam("doctor_id"))
+			.eq("doctor_id", doctor_id)
 			.and()
 			.eq("patient_id", request.getParam("patient_id"))
 			.and()
-			.le("appointmentTime",request.getParam("app_time")).query();
+			.le("appointmentTime",curr_date).query();
 			
-			return app;
+			if(app.size()==0) return "";
+			else return DateTime.getDateString(app.get(0).getAppointmentTime());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

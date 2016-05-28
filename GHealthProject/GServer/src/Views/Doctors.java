@@ -3,12 +3,18 @@ package Views;
 import models.Doctor;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.j256.ormlite.dao.RawRowMapper;
 
 import Database.DbHandler;
 import Server.Config;
+import Utils.DateTime;
+import Utils.DoctorsComparator;
 import Utils.Request;
 
 public class Doctors extends View{
@@ -47,13 +53,22 @@ public class Doctors extends View{
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("speciality", s);
+		
+		ArrayList<Doctor> doctors;
 		try {
-			return db.doctors.queryForFieldValues(map);
+			doctors= (ArrayList<Doctor>) db.doctors.queryForFieldValues(map);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-
+		Appointments app_view= new Appointments();
+		ArrayList<Object[]> doc_tableUI = new ArrayList<Object[]>();
+		for (Doctor d : doctors) {
+			doc_tableUI.add(new Object[] { d.getSid(),d.getFirstName()+ " " +d.getLastName(),d.getClinic().getName(),
+					app_view.lastVisit(request,d.getSid())});
+		}
+		Collections.sort(doc_tableUI, new DoctorsComparator());
+		return doc_tableUI;
 	}
 	
 	public Object add(Request request){
