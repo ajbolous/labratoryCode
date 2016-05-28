@@ -4,7 +4,7 @@ import Database.DbHandler;
 import Utils.Logger;
 
 public class Config {
-	private boolean isDebug = true;
+	private boolean isDebug = false;
 	public boolean isDebug() {
 		return isDebug;
 	}

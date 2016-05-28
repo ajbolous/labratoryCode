@@ -16,7 +16,6 @@ public class MuhamadApp {
 		Application.connect();
 		new Identification().getFrame().setVisible(true);
 		
-//		new AppointmentsController().test();
 	
 	}
 }

@@ -156,7 +156,7 @@ public class ClientUI {
 		btnLabs.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLabs.setForeground(Color.BLACK);
 		btnLabs.setBackground(Color.WHITE);
-		btnLabs.setIcon(res.getIcon("result.png"));
+		btnLabs.setIcon(res.getIcon("appoitment.png"));
 		btnLabs.setBorder(null);
 
 		frame.getContentPane().add(btnLabs);

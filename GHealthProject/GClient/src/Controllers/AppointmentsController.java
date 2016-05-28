@@ -83,5 +83,14 @@ public class AppointmentsController {
 		r.addParam("patient_id", patient_id);
 		return (ArrayList<Appointment>) Application.client.sendRequest(r);
 	}
+	
+	public boolean addNewAppointment(String doctor_id,String patient_id,Date time){
+		Request r = new Request("appointments/add");
+		r.addParam("doctor_id", doctor_id);
+		r.addParam("patient_id", patient_id);
+		r.addParam("app_time", time);
+		
+		return (boolean) Application.client.sendRequest(r);
+	}
 }
 

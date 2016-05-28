@@ -59,6 +59,8 @@ public class Appointments {
 	private ArrayList<Appointment> apps_list= new ArrayList<Appointment>();
 
 	private AppointmentsController apctrl=new AppointmentsController();
+	
+	private Appointments thisRef=this;
 	public Appointments(Patient patient) {
 		this.patient = patient;
 		initialize();
@@ -204,7 +206,7 @@ public class Appointments {
 		JButton newApp_btn = new JButton("Add New Appointment");
 		newApp_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewApp(patient).getFrame().setVisible(true);
+				new AddApointment(patient,thisRef).getFrame().setVisible(true);
 			}
 		});
 		newApp_btn.setBounds(10, 140, 174, 30);
@@ -222,12 +224,12 @@ public class Appointments {
 		return app;
 	}
 
-	private void getAppointments() {
+	public void getAppointments() {
 		ArrayList<Appointment> apps=apctrl.getPatientAppointments(patient);
 		if (apps!=null){
-		
+			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
+			dm.setRowCount(0);
 			for (Appointment a : apps) {
-				DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 				dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
 						a.getDoctor().getFirstName() + " "+  a.getDoctor().getLastName(),
 						a.getDoctor().getClinic().getName(),

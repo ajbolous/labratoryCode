@@ -55,6 +55,54 @@ public class Appointments extends View{
 		
 	}
 	
+	public Object add(Request request){
+		DbHandler db = Config.getConfig().getHandler();
+		
+		Doctor doctor;
+		Patient patient;
+		try {
+			doctor= db.doctors.queryForId((String) request.getParam("doctor_id"));
+			patient = db.patients.queryForId((String) request.getParam("patient_id"));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		if(!isExist(request.getParam("doctor_id"),request.getParam("patient_id"),request.getParam("app_time"))){
+			try {
+				db.appointments.create(new Appointment(doctor, patient,(Date) request.getParam("app_time")));
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
+		
+	}
+	
+	private boolean isExist(Object doctor_id, Object patient_id, Object app_time) {
+		DbHandler db = Config.getConfig().getHandler();
+		QueryBuilder<Appointment, Integer> q= db.appointments.queryBuilder();
+		ArrayList<Appointment> app;
+		
+		try {
+			app= (ArrayList<Appointment>) q.where()
+					.eq("doctor_id", (String)doctor_id)
+					.and()
+					.eq("patient_id", (String)patient_id)
+					.and()
+					.eq("appointmentTime", (Date)app_time).query();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		if(app==null || app.size()==0) return false;
+		return true;
+	}
 	/**
 	 * 
 	 * @param request
@@ -95,7 +143,7 @@ public class Appointments extends View{
 		
 		for(Shift shift: doc_shifts){
 			Date time = shift.getStartDate();
-			while(time.before(shift.getEndDate())){
+			while(time.before(shift.getEndDate())){				
 				allOptions.add(new Appointment(time));
 				time=DateTime.addMinutes(time, 30);
 			}
@@ -140,5 +188,6 @@ public class Appointments extends View{
 		
 		return unavailableApps;
 	}
+	
 	
 }

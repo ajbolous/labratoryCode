@@ -7,7 +7,7 @@ import ClientUI.AddPatientUI;
 import ClientUI.ClientUI;
 import ClientUI.DoctorMedicalRecordUI;
 import ClientUI.Identification;
-import ClientUI.NewApp;
+import ClientUI.AddApointment;
 import ClientUI.PatientUI;
 import ClientUI.WeeklyReport;
 import Utils.DateTime;

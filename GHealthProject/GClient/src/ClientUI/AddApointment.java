@@ -45,6 +45,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.sql.Savepoint;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,7 +67,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.DefaultComboBoxModel;
 
-public class NewApp  {
+public class AddApointment  {
 
 	private JFrame newApp;
 	private JTable doctors_table;
@@ -74,12 +75,15 @@ public class NewApp  {
 	private JScrollPane doctors_scrll_table;
 	private JLabel lblDoctors;
 	private AppointmentsController app_ctrl = new AppointmentsController();
+	
 	private String spec;
 	private Patient patient;
-	
 	private String doctor_id;
-	public  NewApp (Patient patient) {
+	private ArrayList<Appointment> times;
+	Appointments appointments_class;
+	public  AddApointment (Patient patient,Appointments thisRef) {
 		this.patient=patient;
+		this.appointments_class=thisRef;
 		initialize();
 	}
 
@@ -121,10 +125,7 @@ public class NewApp  {
 		newApp.getContentPane().add(lblSpeciality);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnSave.setEnabled(false);
 		btnSave.setBounds(272, 567, 89, 23);
 		newApp.getContentPane().add(btnSave);
 		
@@ -205,12 +206,21 @@ public class NewApp  {
 		time_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		time_table.setBackground(Color.WHITE);
 		
+		JLabel noApps_lbl = new JLabel("No appointments available for this doctor");
+		noApps_lbl.setVisible(false);
+		noApps_lbl.setForeground(Color.RED);
+		noApps_lbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		noApps_lbl.setBounds(30, 345, 420, 25);
+		newApp.getContentPane().add(noApps_lbl);
+		
 		speciality.addActionListener(new ActionListener() {
 			
 			
 			public void actionPerformed(ActionEvent e) {
 				time_scrll_table.setVisible(false);
 				lblTime.setVisible(false);
+				btnSave.setEnabled(false);
+
 		        JComboBox cb = (JComboBox)e.getSource();
 		        spec = (String)cb.getSelectedItem();
 		        if (!spec.equals("")){
@@ -221,6 +231,10 @@ public class NewApp  {
 		        else{
 		        	doctors_scrll_table.setVisible(false);
 					lblDoctors.setVisible(false);
+					btnSave.setEnabled(false);
+					noApps_lbl.setVisible(false);
+
+
 		        }
 				
 			}
@@ -232,19 +246,33 @@ public class NewApp  {
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
 					
-						int row=doctors_table.getSelectedRow();
-						doctor_id= (String) doctors_table.getModel().getValueAt(row, 0);
 						
-						ArrayList<Appointment> times= app_ctrl.getTimes(doctor_id,patient.getSid());
-						
+						if(event.getValueIsAdjusting())
+						return;
+					
+						noApps_lbl.setVisible(false);
+						btnSave.setEnabled(false);
+
 						DefaultTableModel dm = (DefaultTableModel) time_table.getModel();
 						
-						if (dm.getRowCount() > 0) {
-						    for (int rowNum = dm.getRowCount() - 1; rowNum > -1; rowNum--) {
-						        dm.removeRow(rowNum);
-						    }
-						}
+						dm.setRowCount(0);
 						
+						int row=doctors_table.getSelectedRow();
+						
+						if(row<0)
+							return;
+						
+						
+						doctor_id= (String) doctors_table.getModel().getValueAt(row, 0);
+						
+						times= app_ctrl.getTimes(doctor_id,patient.getSid());
+						if(times.size()==0){
+							noApps_lbl.setVisible(true);
+							lblTime.setVisible(false);
+							time_scrll_table.setVisible(false);
+							return;
+						}
+							
 						for(Appointment time: times){
 							
 							dm.addRow(new Object []{
@@ -263,6 +291,36 @@ public class NewApp  {
 				});
 		
 		
+		
+		
+		time_table.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent event) {
+					
+						
+						if(event.getValueIsAdjusting())
+						return;
+						if(time_table.getSelectedRow()>-1) btnSave.setEnabled(true);
+					}
+				});
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int row= time_table.getSelectedRow();
+				Date timeToSet= times.get(row).getAppointmentTime();
+				if(app_ctrl.addNewAppointment(doctor_id, patient.getSid(), timeToSet)){
+					JOptionPane.showMessageDialog(null, "Appointment saved successfully", "Add new appointment", JOptionPane.INFORMATION_MESSAGE);
+					newApp.setVisible(false);
+					appointments_class.getAppointments();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Cannot complete the request,some thing goes wrong ,maybe the appointment choosed by another system , please choose another one", "Add new appointment", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
+		
 		newApp.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		newApp.setBounds(100, 100, 481, 632);
 		newApp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -274,11 +332,7 @@ public class NewApp  {
 	
 	private void getDoctorsBySpec(String spec) {
 		DefaultTableModel dm = (DefaultTableModel) doctors_table.getModel();
-		if (dm.getRowCount() > 0) {
-		    for (int row = dm.getRowCount() - 1; row > -1; row--) {
-		        dm.removeRow(row);
-		    }
-		}
+		dm.setRowCount(0);
 		
 		ArrayList<Doctor> doctors = app_ctrl.getDoctorsBySpeciality(spec);
 		Date curr= new Date();
