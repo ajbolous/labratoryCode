@@ -18,10 +18,15 @@ import com.j256.ormlite.dao.RawRowMapper;
 		
 		
 		
-		public Object add(Request request) throws Exception{
+		public Object add(Request request) {
 			DbHandler db = Config.getConfig().getHandler();
-			MedicalRecord md = (MedicalRecord)request.getParam("Mrecord");
-			db.records.createIfNotExists(md);
+			MedicalRecord md = (MedicalRecord)request.getParam("mid");
+			try {
+				db.records.createIfNotExists(md);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "success";
 		}
 		

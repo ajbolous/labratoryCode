@@ -60,7 +60,7 @@ public class MedicalRecordController {
 	 {
 		
 		 Request r = new Request("MedicalRecords/add");
-		 r.addParam("Mrecord", md);
+		 r.addParam("mid", md);
 		 Application.client.sendRequest(r);
 		 
 	 }

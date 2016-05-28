@@ -214,9 +214,10 @@ public class AddPatientUI {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			    
-				idctrl.AddNewPatient(patient);
 				mdctrl.AddMedicalRecord(md);
+			    patient.setMedicalRecord(md);
+				idctrl.AddNewPatient(patient);
+			
 				Messages.successMessage("Patient was added successfully to the system", "Success", null);
 				addPatient.dispose();
 				return;
