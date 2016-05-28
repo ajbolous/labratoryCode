@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "examinations")
 public class Examination extends Entity {
-	@DatabaseField()
+	@DatabaseField(generatedId = true)
 	private int eid;
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
@@ -51,8 +51,8 @@ public class Examination extends Entity {
 		return labratorian;
 	}
 
-	public void setLabratorian(Labratorian labratory) {
-		this.labratorian = labratorian;
+	public void setLabratorian(Labratorian lab) {
+		labratorian = lab;
 	}
 
 	public String getComments() {

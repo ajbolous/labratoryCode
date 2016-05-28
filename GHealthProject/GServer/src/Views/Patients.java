@@ -19,7 +19,6 @@ public class Patients extends View{
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 	
 	
@@ -32,23 +31,20 @@ public class Patients extends View{
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		try {
-
 			db.patients.createIfNotExists((Patient) request.getParam("patient"));
 			return "success";
 			} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 	
+	
 	public Object remove(Request request) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	public Object update(Request request) {
-		// TODO Auto-generated method stub
 		return null;
 	}	
 }

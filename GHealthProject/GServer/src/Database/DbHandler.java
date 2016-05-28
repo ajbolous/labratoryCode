@@ -38,7 +38,7 @@ public class DbHandler {
 			connection=new JdbcConnectionSource(url,username,password);
 			createAllTables();
 			initializeDao();
-//			fillDataBase();
+		//	fillDataBase();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -49,6 +49,7 @@ public class DbHandler {
 		df.fillClinics();
 		df.fillDoctors();
 		df.fillPatients();
+		df.fillMedicalRecords();
 		df.fillAppointments();
 		df.fillStatistics();
 		df.fillShifts();

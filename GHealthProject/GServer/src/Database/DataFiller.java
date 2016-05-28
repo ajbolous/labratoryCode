@@ -5,10 +5,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import Utils.DateTime;
-import Views.Reports;
 import models.*;
 
 public class DataFiller {
@@ -26,10 +26,13 @@ public class DataFiller {
 	public static String[] specialities = { "Surgon", "Oncologe", "Urologe", "Cardiologe", "Bone", "Family",
 			"Children" };
 
+	public static String[] eTypes = { "Blood", "Urine", "CT", "ECG", "X-Ray", "Eye", "CAT" };
+
 	public static Random rand = new Random();
 
 	public DataFiller(DbHandler d) {
 		db = d;
+
 	}
 
 	public void fillDoctors() throws SQLException {
@@ -50,7 +53,7 @@ public class DataFiller {
 			d.setPass("123123");
 			d.setSpeciality(specialities[i % specialities.length]);
 			d.setSid("" + (200000000 + i));
-			db.doctors.createIfNotExists(d);
+			db.doctors.create(d);
 		}
 	}
 
@@ -59,14 +62,7 @@ public class DataFiller {
 			Patient p = new Patient();
 			p.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			p.setLastName(lastNames[rand.nextInt(lastNames.length)]);
-			
-			MedicalRecord md = new MedicalRecord();
-			md.setPatient(p);
-			md.setCreationDate(Utils.DateTime.currentDate());
-			
-			db.records.create(md);
-			p.setMedicalRecord(md);
-			
+
 			p.setEmail((p.getFirstName() + "." + p.getLastName() + i).toLowerCase() + "@crows.com");
 			try {
 				p.setBirthDate(Utils.DateTime.getDate(1970 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
@@ -76,7 +72,16 @@ public class DataFiller {
 			p.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			p.setPhone("0" + (548143001 + i));
 			p.setSid("" + (300000000 + i));
-			db.patients.createIfNotExists(p);
+			db.patients.create(p);
+
+			MedicalRecord md = new MedicalRecord();
+			md.setPatient(p);
+			md.setCreationDate(Utils.DateTime.randomDate());
+
+			db.records.create(md);
+			p.setMedicalRecord(md);
+			db.patients.update(p);
+
 		}
 	}
 
@@ -90,71 +95,59 @@ public class DataFiller {
 			s.setWaitingPeriod(r.nextInt(60));
 			d = Utils.DateTime.addDay(d, 1);
 			s.setDate(d);
-			db.statistics.createIfNotExists(s);
+			db.statistics.create(s);
 		}
 	}
 
-	public void fillTreatments() throws Exception{
-		
-		
+	public void fillMedicalRecords() throws Exception {
+		List<Doctor> doctors = db.doctors.queryForAll();
+		List<Labratorian> labs = db.labratorians.queryForAll();
+
+		for (MedicalRecord md : db.records.queryForAll()) {
+			for (int i = 0; i < 3; i++) {
+				Treatment t = new Treatment();
+				t.setStart(DateTime.randomDate());
+				t.setStatus("Patient is ok");
+				t.setDoctor(doctors.get(rand.nextInt(doctors.size())));
+				t.setMedicalRecord(md);
+				db.treatments.create(t);
+				fillExaminations(t, labs);
+				fillVisits(t);
+				db.records.create(md);
+			}
+		}
 	}
-	
-	
-	public void fillExaminations() throws Exception {
-		Patient p = new Patient();
-		p.setFirstName("ahmad");
-		p.setSid("31153964");
-		
-		MedicalRecord md = new MedicalRecord();
-		md.setPatient(p);
-		md.setCreationDate(Utils.DateTime.currentDate());
-		p.setMedicalRecord(md);
-		
-		Treatment t= new Treatment(); 
-		Doctor d = new Doctor() ; 
-		d.setFirstName("mnasra");
-		d.setSid("3115878915");
-		t.setDoctor(d);
-		t.setMedicalRecord(md);
-		db.records.createIfNotExists(md);	
-		Examination e = new Examination();
-		e.setComments("fdddfdfdfdfdf");
-		e.setExaminationDate(Utils.DateTime.currentDate());
-        Labratorian labratory= new Labratorian(); 
-		e.setLabratorian(labratory);
-		e.setTreatment(t);
-	
-		
-		p.setMedicalRecord(md);
-		for (int i = 0; i < 20; i++) {
-			Examination e1 = new Examination();
-			
-			
+
+	private void fillExaminations(Treatment t, List<Labratorian> labs) throws Exception {
+
+		for (int i = 0; i < rand.nextInt(5); i++) {
+			Examination e = new Examination();
+			e.setComments("This look good");
+			e.setEType(eTypes[rand.nextInt(eTypes.length)]);
+			e.setLabratorian(labs.get(rand.nextInt(labs.size())));
+			e.setExaminationDate(DateTime.randomDate());
+			e.setTreatment(t);
+			db.examinations.create(e);
+		}
+	}
+
+	private void fillVisits(Treatment t) throws Exception {
+
+		for (int i = 0; i < rand.nextInt(5); i++) {
+			Visit v = new Visit();
+			v.setComments("The patient has a pain ");
+			v.setTreatment(t);
+			v.setVisitDate(Utils.DateTime.randomDate());
+			db.visits.create(v);
 		}
 	}
 
 	public void fillClinics() throws SQLException {
 		for (int i = 0; i < cities.length; i++) {
 
-			Labratorian l = new Labratorian();
-			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
-			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
-
-			l.setEmail((l.getFirstName() + "." + l.getLastName() + i).toLowerCase() + "@crows.com");
-			try {
-				l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			l.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
-			l.setPhone("0" + (548143001 + i));
-			l.setSid("" + (400000000 + i));
-
-			db.labratorians.createIfNotExists(l);
-
 			Labratory lab = new Labratory();
-			// lab.setLabratorian(l);
-			db.labratories.createIfNotExists(lab);
+			
+			db.labratories.create(lab);
 
 			Clinic c = new Clinic();
 			c.setAddress(cities[i]);
@@ -163,24 +156,41 @@ public class DataFiller {
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
 			c.setLabratory(lab);
 			db.clinics.create(c);
+			
+			lab.setClinc(c);
+			db.labratories.update(lab);
+			
+			Labratorian l = new Labratorian();
+			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
+			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
+			l.setPass("123123");
+			l.setEmail((l.getFirstName() + "." + l.getLastName() + i).toLowerCase() + "@crows.com");
+			try {
+				l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			l.setLabratory(lab);
+			l.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
+			l.setPhone("0" + (548143001 + i));
+			l.setSid("" + (400000000 + i));
+			l.setClinic(c);
+			db.labratorians.create(l);
 		}
 	}
 
 	public void fillAppointments() throws SQLException, ParseException {
 
-		for(int j=0;j<3;j++){
+		for (int j = 0; j < 3; j++) {
 			for (int i = 0; i < 8; i++) {
 				Doctor d = db.doctors.queryForId("20000000" + i);
-				Patient p = db.patients.queryForId("30000000" + (i+j));
+				Patient p = db.patients.queryForId("30000000" + (i + j));
 
-				Appointment a = new Appointment(d, p, DateTime.getDate(2016, 4+j,
-						5 + i, 9+i, 00));
+				Appointment a = new Appointment(d, p, DateTime.getDate(2016, 4 + j, 5 + i, 9 + i, 00));
 
-				db.appointments.createIfNotExists(a);
+				db.appointments.create(a);
 			}
 		}
-		
-		
 
 	}
 
@@ -190,7 +200,7 @@ public class DataFiller {
 			Doctor d = db.doctors.queryForId("20000000" + j);
 			ArrayList<Shift> doc_shifts = doctorShiftsGenerator(4, d);
 			for (Shift a : doc_shifts) {
-				db.shifts.createIfNotExists(a);
+				db.shifts.create(a);
 			}
 
 		}

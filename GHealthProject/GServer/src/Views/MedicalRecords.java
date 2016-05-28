@@ -15,9 +15,6 @@ import com.j256.ormlite.dao.RawRowMapper;
 
 
 	public class  MedicalRecords extends View{
-		
-		
-		
 		public Object add(Request request) {
 			DbHandler db = Config.getConfig().getHandler();
 			MedicalRecord md = (MedicalRecord)request.getParam("mid");

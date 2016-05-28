@@ -40,8 +40,8 @@ public class ClientUI {
 		initialize();
 		frame.setSize(609, 495);
 		frame.setVisible(true);
-		lblNewLabel_1.setBounds(0, 0, 172, 44);
-		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName());
+		lblNewLabel_1.setBounds(0, 0, 203, 44);
+		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " (" + Application.user.getClass().getSimpleName() + ")");
 		
 		if(Application.client.isConnected())
 			lblNewLabel_3.setText("Connected to server: " + Config.getConfig().getHost() + ":" + Config.getConfig().getPort());

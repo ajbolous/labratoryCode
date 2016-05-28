@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class DateTime {
 	public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss"); 
@@ -81,6 +82,16 @@ public class DateTime {
 		Date curr = new Date();
 		return getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), curr.getHours(), curr.getMinutes());
 	}
+	
+	public static Random rand = new Random();
+	public static Date randomDate(){
+		try {
+			return DateTime.getDate(1990+rand.nextInt(20), rand.nextInt(11), rand.nextInt(29));
+		} catch (ParseException e) {
+			return new Date();
+		}
+	}
+	
 	public static String getTimeString(Date d){
 		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
 		return format.format(d);
