@@ -206,16 +206,8 @@ public class AddPatientUI {
 				patient.setBirthDate(chooser.getDate());
 				patient.setGender((String) comboBox_gender.getSelectedItem());
 				patient.setAddress(address);
-			    MedicalRecord md=new MedicalRecord(); 
-			    md.setPatient(patient);
-			    try {
-					md.setCreationDate(Utils.DateTime.currentDate());
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				mdctrl.AddMedicalRecord(md);
-			    patient.setMedicalRecord(md);
+			
+			
 				idctrl.AddNewPatient(patient);
 			
 				Messages.successMessage("Patient was added successfully to the system", "Success", null);
