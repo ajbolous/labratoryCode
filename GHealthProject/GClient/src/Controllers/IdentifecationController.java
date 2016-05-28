@@ -14,12 +14,14 @@ import models.User;
 public class IdentifecationController {
 	
 	 private PatientsController patientController = new PatientsController();
-	 
-	 
+	
+	 //this method will be added to identificationUI then deleted it 
 	public void openMedicalRecord(String id) throws ParseException
 	{
 		Patient p = patientController.getById(id);
-		DoctorMedicalRecordUI s = new DoctorMedicalRecordUI(p);
+
+	DoctorMedicalRecordUI s = new DoctorMedicalRecordUI(p);
+	
 	}
 	
 	public static User getUser(String sid){

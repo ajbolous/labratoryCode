@@ -9,6 +9,9 @@ public class Router {
 	Reports reports=new Reports();
 	Appointments appointments = new  Appointments();
 	Users users = new Users();
+	Treatments treatments = new Treatments();
+	Visits visits = new Visits();
+	Examinations examinations = new Examinations();
 
 	public Router() {
 	}
@@ -25,6 +28,13 @@ public class Router {
 			return users.resolve(request);
 		case "reports":
 			return reports.resolve(request);
+		case "treatments": 
+			return treatments.resolve(request);
+		case "visits":
+			return visits.resolve(request);
+		case "examinations":
+			return examinations.resolve(request);
+			
 		}
 		return null;
 	}

@@ -90,6 +90,7 @@ public class ClientUI {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Settings settings = new Settings();
+				
 			}
 		});
 		button.setHorizontalAlignment(SwingConstants.LEFT);
@@ -102,8 +103,13 @@ public class ClientUI {
 		button.setIcon(res.getIcon("settings.png"));
 		frame.getContentPane().add(button);
 		button.setToolTipText("Doctors managment form");
+		
+		//delete
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				frame.setVisible(false);
+				new PatientUI();
+				
 			}
 		});
 

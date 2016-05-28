@@ -42,7 +42,7 @@ public class DataFiller {
 			d.setEmail((d.getFirstName() + "." + d.getLastName() + i)
 					.toLowerCase() + "@crows.com");
 			try {
-				d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20),
+				d.setBirthDate(Utils.DateTime.getDate(1900 + rand.nextInt(20),
 						rand.nextInt(12), rand.nextInt(29)));
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -74,6 +74,16 @@ public class DataFiller {
 			p.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			p.setPhone("0" + (548143001 + i));
 			p.setSid("" + (300000000 + i));
+			
+			MedicalRecord mr = new MedicalRecord();
+			
+			p.setMedicalRecord(mr);
+			mr.setPatient(p);
+			
+			
+			db.records.createIfNotExists(mr);
+			
+			
 			db.patients.createIfNotExists(p);
 		}
 	}
@@ -111,12 +121,12 @@ public class DataFiller {
 			l.setPhone("0" + (548143001 + i));
 			l.setSid("" + (400000000 + i));
 
-			db.labratorians.createIfNotExists(l);
+			
 
 			Labratory lab = new Labratory();
-			//lab.setLabratorian(l);
-			db.labratories.createIfNotExists(lab);
-
+			
+			
+			
 			Clinic c = new Clinic();
 			c.setAddress(cities[i]);
 			c.setPhone("04-" + (5143001 + i));
@@ -124,6 +134,10 @@ public class DataFiller {
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i
 					+ "@crows.com");
 			c.setLabratory(lab);
+			lab.setClinc(c);
+			db.labratories.createIfNotExists(lab);
+            l.setLabratory(lab);
+			db.labratorians.createIfNotExists(l);
 			db.clinics.create(c);
 		}
 	}

@@ -39,11 +39,11 @@ public class DbHandler {
 			createAllTables();
 			initializeDao();
 			DataFiller df = new DataFiller(this);
-//			df.fillClinics();
-//			df.fillDoctors();
-//			df.fillPatients();
-//			df.fillAppointments();
-//			df.fillStatistics();
+			df.fillClinics();
+			df.fillDoctors();
+			df.fillPatients();
+			df.fillAppointments();
+			df.fillStatistics();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

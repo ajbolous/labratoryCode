@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "examinations")
 public class Examination extends Entity {
-	@DatabaseField()
+	@DatabaseField(generatedId = true)
 	private int eid;
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")

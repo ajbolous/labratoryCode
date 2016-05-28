@@ -49,129 +49,144 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.DropMode;
+import javax.swing.border.TitledBorder;
 
-public class NewTreatmentUI  {
+public class NewTreatmentUI extends JPanel  {
 	
-	private JFrame NewTreatment ;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+    private JLabel lblDate ;
+	private JLabel lblEndDate;
+	private JLabel lblDoctorname;
+	private JLabel lblType;
+	private JButton btnCancel;
+	private JButton btnOk_1;
+	private JLabel error_lbl;
 	private JTextField textField_4;
-	private AppointmentsController apctrl=new AppointmentsController();
 	private MedicalRecordController mrctrl = new MedicalRecordController();
-	private Treatment treatment ;
 	/**
 	 * Create the panel.
 	 */
 	
-	public NewTreatmentUI(Treatment treatment) {
-		this.treatment = treatment;
+	public NewTreatmentUI(Treatment treatment ) {
 		
-		Resources res = new Resources();
-		NewTreatment = new JFrame();
-		NewTreatment.setTitle("<New Treatment> - GHealth");
-		NewTreatment.setResizable(false);
-		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
-		NewTreatment.setIconImage(icon);
-		NewTreatment.setForeground(Color.BLACK);
-		NewTreatment.setFont(new Font("Dialog", Font.PLAIN, 16));
-		NewTreatment.setBackground(Color.WHITE);
-		NewTreatment.getContentPane().setBackground(Color.WHITE);
-		NewTreatment.getContentPane().setLayout(null);
+		super ();
 		
-		NewTreatment.setSize(353, 283);
-		NewTreatment.setVisible(true);
-		NewTreatment.setLocationRelativeTo(null);
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Treatment", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+		setBackground(UIManager.getColor("Panel.background"));
+		setBounds(new Rectangle(283, 143, 571, 300));
+		setLayout(null);
+		
+		
 	
-		
-			
-			
-			textField = new JTextField(treatment.getTid());
-			textField.setEditable(false);
-			textField.setBackground(new Color(255, 255, 255));
-			textField.setBounds(124, 38, 107, 20);
-			NewTreatment.getContentPane().add(textField);
-			textField.setColumns(10);
-			
-			
-			
-			
-			JLabel lblVisitId = new JLabel("Treatment ID :");
-			lblVisitId.setFont(new Font("Arial", Font.BOLD, 12));
-			lblVisitId.setBounds(9, 40, 119, 20);
-			NewTreatment.getContentPane().add(lblVisitId);
-			
-			JLabel lblDate = new JLabel("Start Date :");
-			lblDate.setFont(new Font("Arial", Font.BOLD, 12));
-			lblDate.setBounds(9, 151, 101, 20);
-			NewTreatment.getContentPane().add(lblDate);
+		    lblDate = new JLabel("Start Date :");
+			lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblDate.setBounds(9, 153, 101, 20);
+	    	add(lblDate);
 			
 			textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
+			textField_1.setBackground(Color.WHITE);
 			textField_1.setEditable(false);
-			textField_1.setBackground(new Color(255, 255, 255));
-			textField_1.setBounds(124, 151, 211, 20);
+			
+			textField_1.setBounds(120, 154, 215, 20);
 			textField_1.setColumns(10);
-			NewTreatment.getContentPane().add(textField_1);
+			add(textField_1);
 			
 			
 			
-			JLabel lblEndDate = new JLabel("End Date : ");
-			lblEndDate.setFont(new Font("Arial", Font.BOLD, 12));
-			lblEndDate.setBounds(9, 182, 101, 20);
-			NewTreatment.getContentPane().add(lblEndDate);
+			 lblEndDate = new JLabel("End Date : ");
+			lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblEndDate.setBounds(9, 197, 101, 20);
+			add(lblEndDate);
 			
 			textField_2 = new JTextField();
+			textField_2.setBackground(Color.WHITE);
+			
 			textField_2.setEditable(false);
-			textField_2.setBounds(124, 182, 211, 20);
-			NewTreatment.getContentPane().add(textField_2);
+			textField_2.setBounds(120, 198, 215, 20);
+			add(textField_2);
 			textField_2.setColumns(10);
 			
-			JLabel lblDoctorname = new JLabel("DoctorName :");
-			lblDoctorname.setFont(new Font("Arial", Font.BOLD, 12));
-			lblDoctorname.setBounds(9, 120, 119, 20);
-			NewTreatment.getContentPane().add(lblDoctorname);
+		    lblDoctorname = new JLabel("Doctor Name :");
+			lblDoctorname.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblDoctorname.setBounds(10, 107, 119, 20);
+			add(lblDoctorname);
 			
 			textField_3 = new JTextField(treatment.getDoctor().getFirstName()+ "  " +treatment.getDoctor().getLastName());
+			textField_3.setBackground(Color.WHITE);
+			
 			textField_3.setEditable(false);
-			textField_3.setBounds(124, 120, 211, 20);
-			NewTreatment.getContentPane().add(textField_3);
+			textField_3.setBounds(120, 108, 215, 20);
+			add(textField_3);
 			textField_3.setColumns(10);
 			
-			JLabel lblType = new JLabel("Treatment Type :");
-			lblType.setFont(new Font("Arial", Font.BOLD, 12));
-			lblType.setBounds(10, 89, 144, 20);
-			NewTreatment.getContentPane().add(lblType);
+			 lblType = new JLabel("Treatment Type :");
+			lblType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblType.setBounds(10, 63, 144, 20);
+			add(lblType);
 			
-			textField_4 = new JTextField(treatment.getDoctor().getSpeciality());
-			textField_4.setEditable(false);
-			textField_4.setBounds(124, 89, 211, 20);
-			NewTreatment.getContentPane().add(textField_4);
+			textField_4 = new JTextField();
+			
+			textField_4.setBounds(120, 64, 215, 20);
+			add(textField_4);
 			textField_4.setColumns(10);
 			
-			JButton btnOk = new JButton("OK");
-			btnOk.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					//save Treatment
-					mrctrl.saveTreatment(treatment);
-					
-				}
-			});
-			btnOk.setBounds(265, 213, 70, 23);
-			NewTreatment.getContentPane().add(btnOk);
-			
-			JButton btnCancel = new JButton("Cancel");
+			 btnCancel = new JButton("Cancel");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0){
-					NewTreatment.setVisible(false);
+					setVisible(false);
 					
 				}
+	
 			});
-			btnCancel.setBounds(166, 213, 89, 23);
-			NewTreatment.getContentPane().add(btnCancel);
+			btnCancel.setBounds(246, 262, 89, 23);
+			add(btnCancel);
+			
+			 btnOk_1 = new JButton("Save");
+			btnOk_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String tType=textField_4.getText();
+					error_lbl.setText("");
+					if (UITests.notEmpty(tType) == false)
+						error_lbl.setText("*Please enter treatment Type");
+					
+					else {
+						treatment.settType(tType);
+						
+						mrctrl.saveTreatment(treatment);
+						removeAll();
+						revalidate();
+						updateUI();
+					
+						JLabel msg = new JLabel(" *Treatment saved successfully");
+						 msg.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						 msg.setBackground(Color.BLUE);
+						msg.setBounds(100, 86, 269, 27);
+						add(msg);
+						
+						
+						//setVisible(false);
+				   }
+				}
+			});
+			btnOk_1.setBounds(136, 262, 76, 23);
+			add(btnOk_1);
 			
 			
-		
+			error_lbl = new JLabel("");
+			error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			error_lbl.setForeground(Color.RED);
+		    error_lbl.setBounds(120, 35, 269, 27);
+			add(error_lbl);
+			
+			
+			
 			
 		}
 }

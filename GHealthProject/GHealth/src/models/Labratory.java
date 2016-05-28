@@ -13,7 +13,7 @@ public class Labratory extends Entity {
 	@DatabaseField(generatedId = true)
 	private int lid;
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "clinc_id")
 	private Clinic clinc ;
 	
 	@ForeignCollectionField(eager=true)
