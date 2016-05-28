@@ -21,6 +21,7 @@ import Views.Appointments;
 import Views.Reports;
 import Views.Users;
 import models.Appointment;
+import models.Patient;
 import models.Person;
 import models.Statistic;
 import models.Visit;
@@ -87,7 +88,13 @@ public class Server extends AbstractServer {
 		if(!cfg.isDebug())
 			System.setProperty(LocalLog.LOCAL_LOG_LEVEL_PROPERTY, "INFO");
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
+		
+	//	Patient p = cfg.getHandler().patients.queryForId("300000000");
+	
+		//int x = 1;
 		Server server = new Server(cfg.getPort());
 		server.listen();		
+		
+		
 	}
 }

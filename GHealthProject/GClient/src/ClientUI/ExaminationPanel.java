@@ -63,7 +63,7 @@ import javax.swing.JTextPane;
 			
 			JLabel lblComments = new JLabel("Comments : ");
 			lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblComments.setBounds(33, 132, 99, 14);
+			lblComments.setBounds(30, 131, 99, 14);
 			add(lblComments);
 			
 			JScrollPane scrollPane = new JScrollPane();

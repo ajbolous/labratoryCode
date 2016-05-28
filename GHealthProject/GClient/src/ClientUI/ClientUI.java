@@ -119,6 +119,11 @@ public class ClientUI {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setIcon(res.getIcon("doctors.png"));
 		btnNewButton.setBorder(null);
+		btnTests_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				labratoryUI lab = new labratoryUI();
+			}
+		});
 
 		btnTests_1.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTests_1.setForeground(Color.BLACK);
