@@ -16,6 +16,21 @@ public class Treatment extends Entity{
 	private int tid;
 	
 	@DatabaseField()
+	private boolean endFlag = false;
+	
+	public boolean isEndFlag() {
+		return endFlag;
+	}
+
+	public void setEndFlag(boolean endFlag) {
+		this.endFlag = endFlag;
+	}
+
+	@DatabaseField()
+	private String tType ;
+	
+	
+	@DatabaseField()
 	private Date start;
 	
 	@DatabaseField()
@@ -101,6 +116,15 @@ public class Treatment extends Entity{
 	{
 		return doctor;
 	}
+	
+	public String gettType() {
+		return tType;
+	}
+
+	public void settType(String tType) {
+		this.tType = tType;
+	}
+
 	
 	public String toString()
 	{

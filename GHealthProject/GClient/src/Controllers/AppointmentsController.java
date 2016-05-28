@@ -15,6 +15,7 @@ import Utils.Request;
 import models.Appointment;
 import models.Doctor;
 import models.Patient;
+import models.Shift;
 
 public class AppointmentsController {
 
@@ -66,6 +67,21 @@ public class AppointmentsController {
 		if (app.size()==0) return "";
 		return DateTime.getDateString(app.get(0).getAppointmentTime());
 
+	}
+	
+	
+	public ArrayList<Appointment> getTimes(String doctor_id, String patient_id) {
+		Request r = new Request("appointments/availableTimes");
+		try {
+			r.addParam("curr_time", DateTime.currentDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		r.addParam("doctor_id", doctor_id);
+		
+		r.addParam("patient_id", patient_id);
+		return (ArrayList<Appointment>) Application.client.sendRequest(r);
 	}
 }
 

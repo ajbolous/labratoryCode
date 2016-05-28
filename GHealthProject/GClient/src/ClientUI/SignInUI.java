@@ -43,8 +43,9 @@ public class SignInUI {
 	private JFrame SignInUI;
 	private JPasswordField passwordField;
 	private JTextField textField;
+	private int attempts = 0;
+	private JButton btnLogIn = new JButton("Sign in ");
 
-	
 	public SignInUI() {
 		initialize();
 		SignInUI.setVisible(true);
@@ -67,7 +68,7 @@ public class SignInUI {
 		SignInUI.getContentPane().setLayout(null);
 		
 		JLabel logo = new JLabel("Sign In");
-		logo.setBounds(0, 0, 259, 60);
+		logo.setBounds(0, 0, 295, 50);
 		logo.setForeground(new Color(0, 0, 0));
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -75,19 +76,19 @@ public class SignInUI {
 		SignInUI.getContentPane().add(logo);
 		
 		JLabel lblNewLabel = new JLabel("ID:");
-		lblNewLabel.setBounds(10, 92, 46, 14);
+		lblNewLabel.setBounds(10, 75, 46, 14);
 		SignInUI.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password:");
-		lblNewLabel_1.setBounds(10, 124, 76, 14);
+		lblNewLabel_1.setBounds(10, 107, 76, 14);
 		SignInUI.getContentPane().add(lblNewLabel_1);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(69, 121, 190, 21);
+		passwordField.setBounds(69, 104, 212, 21);
 		SignInUI.getContentPane().add(passwordField);
 		
 		textField = new JTextField();
-		textField.setBounds(69, 88, 190, 23);
+		textField.setBounds(69, 71, 212, 23);
 		SignInUI.getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -95,21 +96,20 @@ public class SignInUI {
 		
 		JLabel labelDetails = new JLabel("Please enter user Id and Password");
 		labelDetails.setForeground(Color.RED);
-		labelDetails.setBounds(79, 163, 246, 14);
+		labelDetails.setBounds(10, 132, 271, 14);
 		SignInUI.getContentPane().add(labelDetails);
 		labelDetails.setVisible(false);
 		SignInUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		SignInUI.setBounds(100, 100, 331, 247);
+		SignInUI.setBounds(100, 100, 301, 202);
 		SignInUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JButton btnLogIn = new JButton("Sign in ");
 
-		btnLogIn.setBounds(69, 188, 190, 23);
+		btnLogIn.setBounds(69, 147, 212, 23);
 		SignInUI.getContentPane().add(btnLogIn);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				labelDetails.setVisible(true);
-	
+				
 				String pass=new String(passwordField.getPassword()); 
 				
 				if (UITests.notEmpty(textField.getText()) == false  && UITests.notEmpty(pass)== false){			
@@ -134,11 +134,22 @@ public class SignInUI {
 					labelDetails.setText("*User does not exist");
 					return;
 				}
-
-				if(!UsersController.authinticateUser(u, pass)){
-					labelDetails.setText("*Wrong password or username");
+				if(u.isLocked()){
+					labelDetails.setText("*Your account is locked, contact admin");
+					btnLogIn.setEnabled(false);
 					return;
 				}
+				if(!UsersController.authinticateUser(u, pass)){
+					labelDetails.setText("*Wrong password or username");
+					attempts++;
+					if(attempts>3){
+						UsersController.setLocked(u,true);
+						labelDetails.setText("*Your account has been locked, contact admin");
+						btnLogIn.setEnabled(false);
+					}
+					return;
+				}
+				
 
 				if(!UsersController.setOnline(u)){
 						labelDetails.setText("*Unable to connect multiple users");

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import Client.Application;
 import Client.Config;
 import Client.Resources;
+import models.Doctor;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ import java.awt.Panel;
 public class ClientUI {
 
 	private JFrame frame;
-	private final JButton btnNewButton = new JButton("Medical Records");
+	private final JButton btnNewButton = new JButton("Patients");
 	private final JButton btnLabs = new JButton("Appointments");
 	private final JButton btnUsers = new JButton("Users");
 	private final JButton btnTests = new JButton("Weekly reports");
@@ -39,8 +40,8 @@ public class ClientUI {
 		initialize();
 		frame.setSize(609, 495);
 		frame.setVisible(true);
-		lblNewLabel_1.setBounds(0, 0, 172, 44);
-		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName());
+		lblNewLabel_1.setBounds(0, 0, 203, 44);
+		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " (" + Application.user.getClass().getSimpleName() + ")");
 		
 		if(Application.client.isConnected())
 			lblNewLabel_3.setText("Connected to server: " + Config.getConfig().getHost() + ":" + Config.getConfig().getPort());
@@ -79,8 +80,8 @@ public class ClientUI {
 	private void initialize(){
 		Resources res = new Resources();
 		frame = new JFrame();
-		frame.setType(Type.UTILITY);
 		frame.setResizable(false);
+		frame.setIconImage(Resources.getImage("icon.png"));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -104,6 +105,9 @@ public class ClientUI {
 		button.setToolTipText("Doctors managment form");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(Application.user.getClass().equals(Doctor.class)){
+					AddPatientUI p = new AddPatientUI();
+				}
 			}
 		});
 
@@ -115,6 +119,11 @@ public class ClientUI {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setIcon(res.getIcon("doctors.png"));
 		btnNewButton.setBorder(null);
+		btnTests_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				labratoryUI lab = new labratoryUI();
+			}
+		});
 
 		btnTests_1.setHorizontalAlignment(SwingConstants.LEFT);
 		btnTests_1.setForeground(Color.BLACK);

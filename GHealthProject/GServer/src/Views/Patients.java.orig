@@ -16,8 +16,7 @@ public class Patients extends View{
 		DbHandler db = Config.getConfig().getHandler();
 		
 		try {
-			Patient p = db.patients.queryForId((String)request.getParam("sid"));
-			return p;
+			return db.patients.queryForId((String)request.getParam("sid"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -34,6 +33,15 @@ public class Patients extends View{
 	
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
+<<<<<<< HEAD
+		try {
+			db.patients.createIfNotExists((Patient) request.getParam("patient"));
+			return "success";
+			} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+=======
 		 Patient patient = (Patient) request.getParam("patient");
 		MedicalRecord md=new MedicalRecord(); 
 				
@@ -59,6 +67,8 @@ public class Patients extends View{
 				e.printStackTrace();
 				return null;
 			}
+
+>>>>>>> 25b68674e4e24b5c88c1533543d2c82d50921189
 	}
 	
 	

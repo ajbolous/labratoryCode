@@ -32,12 +32,15 @@ import java.awt.SystemColor;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class UsersManagingUI {
 
 	private JFrame ui;
 	private JTable tblOnline;
 	private JTable tblLocked;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
 
 	
 	public UsersManagingUI() {
@@ -49,7 +52,7 @@ public class UsersManagingUI {
 	 */
 	private void initialize() {
 		ui = new JFrame();
-		ui.setTitle("<Frame name> - GHealth");
+		ui.setTitle("GHealth - Users manager");
 		ui.setResizable(false);
 		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		ui.setIconImage(icon);
@@ -60,39 +63,22 @@ public class UsersManagingUI {
 		ui.getContentPane().setLayout(null);
 		
 		JLabel logo = new JLabel("Users managment");
-		logo.setBounds(0, 0, 495, 60);
+		logo.setBounds(0, 0, 460, 60);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(Resources.getIcon("logo.png"));
 		ui.getContentPane().add(logo);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 89, 440, 164);
+		ui.getContentPane().add(scrollPane);
+		
 		tblOnline = new JTable();
-		tblOnline.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tblOnline.setBounds(10, 91, 475, 160);
+		tblOnline.setBackground(Color.WHITE);
+		scrollPane.setViewportView(tblOnline);
 		tblOnline.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-			},
-			new String[] {
-				"Id", "Name", "Email", "ip"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		ui.getContentPane().add(tblOnline);
-		
-		tblLocked = new JTable();
-		tblLocked.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tblLocked.setBounds(10, 275, 475, 160);
-		tblLocked.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
 			},
 			new String[] {
 				"Id", "Name", "Email"
@@ -105,10 +91,44 @@ public class UsersManagingUI {
 				return columnEditables[column];
 			}
 		});
-
-		ui.getContentPane().add(tblLocked);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 318, 440, 141);
+		ui.getContentPane().add(scrollPane_1);
+		
+		tblLocked = new JTable();
+		tblLocked.setBackground(Color.WHITE);
+		scrollPane_1.setViewportView(tblLocked);
+		tblLocked.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Id", "Name", "Email"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		
+		JLabel lblNewLabel = new JLabel("Online users");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel.setBounds(10, 71, 157, 14);
+		ui.getContentPane().add(lblNewLabel);
+		
+		JLabel lblLockedUserAccounts = new JLabel("Locked user accounts");
+		lblLockedUserAccounts.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblLockedUserAccounts.setBounds(10, 292, 157, 14);
+		ui.getContentPane().add(lblLockedUserAccounts);
+		
+		JButton btnUnlock = new JButton("Unlock");
+		btnUnlock.setBounds(10, 470, 157, 20);
+		ui.getContentPane().add(btnUnlock);
 		ui.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		ui.setBounds(100, 100, 501, 496);
+		ui.setBounds(100, 100, 466, 524);
 		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		ui.setVisible(true);
@@ -124,6 +144,6 @@ public class UsersManagingUI {
 			odm.addRow(new Object[]{u.getSid(),u.getFirstName() + " " + u.getLastName(),u.getEmail(),"127.0.0.1"});
 		
 		for(User u : UsersController.getLockedUsers())
-			odm.addRow(new Object[]{u.getSid(),u.getFirstName() + " " + u.getLastName(),u.getEmail()});
+			ldm.addRow(new Object[]{u.getSid(),u.getFirstName() + " " + u.getLastName(),u.getEmail()});
 	}
 }
