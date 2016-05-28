@@ -1,8 +1,10 @@
 package Views;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import models.Doctor;
+import models.MedicalRecord;
 import models.Patient;
 import Database.DbHandler;
 import Server.Config;
@@ -24,19 +26,38 @@ public class Patients extends View{
 	
 	public Object all(Request request){
 		DbHandler db = Config.getConfig().getHandler();
+	     
 		return null;
 	}
 	
 	
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
-		try {
-			db.patients.createIfNotExists((Patient) request.getParam("patient"));
-			return "success";
+		 Patient patient = (Patient) request.getParam("patient");
+		MedicalRecord md=new MedicalRecord(); 
+				
+		    md.setPatient(patient);
+		    try {
+				md.setCreationDate(Utils.DateTime.currentDate());
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		    try {
+				db.records.createIfNotExists(md);
 			} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    try {
+		    	patient.setMedicalRecord(md);
+				db.patients.createIfNotExists(patient);
+				return "success";
+				} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
 	}
 	
 	
