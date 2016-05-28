@@ -1,73 +1,89 @@
 package Views;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import com.j256.ormlite.dao.GenericRawResults;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.Where;
-
-import models.Appointment;
 import models.Doctor;
 import models.Labratorian;
-import models.Patient;
 import models.User;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
 
-public class Users extends View{
+public class Users extends View {
 
-	public  Object delete(Request request){
-		
-		try {
-			Config.getConfig().getHandler().appointments.delete( (Appointment) request.getParam("appointment"));	
-			return true;
+	private static HashMap<String, String> connectedUsers = new HashMap<String, String>();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-
+	public static void clientDisconnected(String ip) {
+		for (String key : connectedUsers.keySet()) {
+			if (connectedUsers.get(key).equalsIgnoreCase(ip)) {
+				Config.getConfig().getLogger().debug("Disconnected online user : " + key + " IP:" + ip);
+				connectedUsers.remove(key);
+			}
 		}
-		
 	}
-	
-	/**
-	 * 
-	 * @param request
-	 * @return all appointments of specific patient in specific doctor
-	 * 		(select appointmentTime from appoitments where doctor_id="doctor id" and patient_id=" patient id")
-	 * @throws SQLException 
-	 */
-	public Object getById(Request request) throws SQLException{
-		DbHandler db = Config.getConfig().getHandler();		
-		
-		Doctor d = db.doctors.queryForId((String) request.getParam("sid"));
+
+	public Object getById(Request request) throws SQLException {
+		return getUserById((String) request.getParam("sid"));
+	}
+
+	private User getUserById(String id) throws SQLException {
+		DbHandler db = Config.getConfig().getHandler();
+		Doctor d = db.doctors.queryForId(id);
 		if (d != null)
 			return d;
-		Labratorian l = db.labratorians.queryForId((String) request.getParam("sid"));
+		Labratorian l = db.labratorians.queryForId(id);
 		if (l != null)
 			return l;
-		
 		return null;
 	}
+
+	public Object getOnlineUsers(Request request) throws SQLException {
+		List<User> users = new ArrayList<User>();
+		for (String key : Users.connectedUsers.keySet())
+			users.add(getUserById(key));
+		return users;
+	}
+
+	public Object getLockedUsers(Request request) throws SQLException {
+		DbHandler db = Config.getConfig().getHandler();
+		HashMap<String,Object> values = new HashMap<String,Object>();
+		values.put("isLocked", 1);
+
+		List<User> users = new ArrayList<User>();
+		List<Doctor> doctors = db.doctors.queryForFieldValues(values);
+		List<Labratorian> labratorians = db.labratorians.queryForFieldValues(values);
+		users.addAll(doctors);
+		users.addAll(labratorians);
+		return users;
+	}
+
+	public Object setLocked(Request request) throws SQLException{
+		User u = (User) request.getParam("user");
+		updateUser(u);
+		Config.getConfig().getLogger().debug("Account " + u.getSid() + " " + u.getFirstName() + " is Locked");
+		
+		return true;
+	}
 	
-	public Object setOnline(Request request){
-		DbHandler db = Config.getConfig().getHandler();		
+	private void updateUser(User user) throws SQLException{
+		DbHandler db = Config.getConfig().getHandler();
+		String cls = user.getClass().getTypeName();
+		switch(cls){
+		case "models.Doctor":db.doctors.update((Doctor)user);break;
+		case "models.Labratorian":db.doctors.update((Doctor)user);break;
+		}
+	}
+	
+	public Object setOnline(Request request) {
+		DbHandler db = Config.getConfig().getHandler();
 
 		User u = (User) request.getParam("user");
-		u.setOnline(true);
-		try {
-			if(u.getClass() == Doctor.class)
-				db.doctors.update((Doctor) u);
-			if(u.getClass() == Labratorian.class)
-				db.labratorians.update((Labratorian) u);
-			return u;
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-			return null;
-		}
+		if (connectedUsers.containsKey(u.getSid()))
+			return false;
+
+		connectedUsers.put(u.getSid(), (String) request.getParam("ip"));
+		return true;
 	}
 }

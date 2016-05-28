@@ -7,13 +7,13 @@ public abstract class User extends Person {
 	private String pass;
 	
 	@DatabaseField()
-	private boolean isOnline;
+	private boolean isLocked;
 	
-	public boolean isOnline() {
-		return isOnline;
+	public boolean isLocked() {
+		return isLocked;
 	}
-	public void setOnline(boolean isOnline) {
-		this.isOnline = isOnline;
+	public void setLocked(boolean isLocked) {
+		this.isLocked = isLocked;
 	}
 	public String getPass() {
 		return pass;

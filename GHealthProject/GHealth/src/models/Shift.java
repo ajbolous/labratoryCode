@@ -1,6 +1,7 @@
 package models;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -8,15 +9,23 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "shifts")
 public class Shift extends Entity{
 	
+	public Shift(){
+		super();
+	}
+	public Shift(Date startDate, Date endDate,Doctor doctor){
+		this.startDate=startDate;
+		this.endDate=endDate;
+		this.doctor=doctor;
+	}
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField()
+	@DatabaseField(uniqueCombo=true)
 	private Date startDate;
 	
-	@DatabaseField()
+	@DatabaseField(uniqueCombo=true)
 	private Date endDate;
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id")
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id" , uniqueCombo=true)
 	private Doctor doctor;
 	
 	public int getId() {
