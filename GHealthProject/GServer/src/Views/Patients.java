@@ -68,4 +68,27 @@ public class Patients extends View{
 	public Object update(Request request) {
 		return null;
 	}	
+	
+	public Object  createMedicalRecord (Request request)
+	{
+		DbHandler db = Config.getConfig().getHandler();
+	    Patient patient = (Patient) request.getParam("patient");
+		MedicalRecord md=(MedicalRecord)  request.getParam("medicalRecord");
+		try {
+			db.records.createIfNotExists(md);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			db.patients.update(patient);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+		
+	}
 }

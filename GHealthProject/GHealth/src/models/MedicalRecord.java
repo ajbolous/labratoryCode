@@ -19,7 +19,7 @@ public class MedicalRecord extends Entity{
 	@DatabaseField()
 	private Date creationDate;
 	
-	@ForeignCollectionField(eager=true)
+	@ForeignCollectionField(eager=true , maxEagerLevel=2)
     private ForeignCollection<Treatment> treatments;
 
 	public int getMid() {

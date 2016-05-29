@@ -63,34 +63,34 @@ public class NewVisitUI extends JPanel  {
 	
 	MedicalRecordController mrctrl = new MedicalRecordController();
 	// TODO Auto-generated constructor stub
-	public NewVisitUI(Visit visit) {
+	public NewVisitUI(Visit visit, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 				
 				
 				super ();
-				setBorder(new TitledBorder(null, "New Visit", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, Color.BLACK));
+				setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Visit", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 				setBackground(UIManager.getColor("Panel.background"));
 				setBounds(new Rectangle(283, 143, 122, 144));
 				setLayout(null);
 				
 				textField_1 = new JTextField(DateTime.getDateString(visit.getVisitDate()));
-				textField_1.setBounds(82, 52, 155, 20);
-				textField_1.setBackground(new Color(255, 255, 255));
+				textField_1.setBounds(107, 52, 155, 20);
+				textField_1.setBackground(Color.WHITE);
 				textField_1.setEditable(false);
 				textField_1.setColumns(10);
 				add(textField_1);
 				
-				JLabel lblDate = new JLabel("Date :");
-				lblDate.setBounds(10, 54, 46, 14);
+				JLabel lblDate = new JLabel("Visit Date :");
+				lblDate.setBounds(10, 54, 77, 14);
 				lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				add(lblDate);
 				
-				JLabel lblComments = new JLabel("Comments : ");
-				lblComments.setBounds(10, 122, 104, 20);
+				JLabel lblComments = new JLabel("Visit description : ");
+				lblComments.setBounds(10, 121, 97, 20);
 				lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				add(lblComments);
 				
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(82, 108, 328, 73);
+				scrollPane.setBounds(107, 122, 329, 162);
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				add(scrollPane);
 				
@@ -117,53 +117,51 @@ public class NewVisitUI extends JPanel  {
 						else {
 							visit.setComments(textArea.getText());
 							
-							removeAll();
-							revalidate();
-							updateUI();
 						
-							JLabel msg = new JLabel(" ");
+							
 							if (visit.getTreatment().isEndFlag()){
-								msg.setText("you canit add visits and Examibations to Treatment"+visit.getTreatment().getTid()+
-										visit.getTreatment().gettType()+"\nEnd Date :  "+DateTime.getDateString(visit.getTreatment().getEnd()));
-								msg.setBackground(Color.RED);
+								Messages.successMessage("canot add Visits or Examibations to Treatment"+visit.getTreatment().getTid()+
+										"-" +visit.getTreatment().gettType()+"\nThis treatment is closed", "warnning", doctorMedicalRecordUI.DoctorMedicalRecord);
+							
+								
 							}
 							else{
 								mrctrl.saveVisit(visit);
-							msg.setText(" *Treatment saved successfully");
-							msg.setBackground(Color.BLUE);
+								Messages.successMessage("Visit was added successfully to Treatment "+visit.getTreatment().getTid()+
+										"-"+visit.getTreatment().gettType(), "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
+
+								doctorMedicalRecordUI.updateTree(visit);
+							
 							
 							}
 							
-							 msg.setFont(new Font("Tahoma", Font.PLAIN, 13));
-							 
-							msg.setBounds(100, 86, 269, 27);
-							add(msg);
 							
-							//setVisible(false);
+							
+							setVisible(false);
 							
 					   }
 					
 					}
 				});
-				btnSave.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				btnSave.setBounds(117, 218, 89, 23);
+				btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				btnSave.setBounds(107, 322, 89, 23);
 				add(btnSave);
 				
 				JButton btnNewButton = new JButton("Cancel");
-				btnNewButton.setFont(UIManager.getFont("Button.font"));
+				btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
 						
 					}
 				});
-				btnNewButton.setBounds(270, 218, 89, 23);
+				btnNewButton.setBounds(264, 322, 89, 23);
 				add(btnNewButton);
 				
 				error_lbl = new JLabel("");
 				 error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
 					error_lbl.setForeground(Color.RED);
-					error_lbl.setBounds(82, 83, 269, 27);
+					error_lbl.setBounds(107, 94, 269, 27);
 				
 				add(error_lbl);
 				

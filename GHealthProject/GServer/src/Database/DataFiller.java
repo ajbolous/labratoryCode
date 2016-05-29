@@ -126,6 +126,7 @@ public class DataFiller {
 			e.setEType(eTypes[rand.nextInt(eTypes.length)]);
 			e.setLabratorian(labs.get(rand.nextInt(labs.size())));
 			e.setExaminationDate(DateTime.randomDate());
+			e.setReferralDate(DateTime.getDate(e.getExaminationDate().getYear()+1900,e.getExaminationDate().getMonth()+1,e.getExaminationDate().getDay()-rand.nextInt(5)));
 			e.setTreatment(t);
 			db.examinations.create(e);
 		}

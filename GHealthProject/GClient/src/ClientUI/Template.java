@@ -26,6 +26,10 @@ import javax.swing.SwingConstants;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.SystemColor;
+import javax.swing.JScrollPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
 
 public class Template {
 

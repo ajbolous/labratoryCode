@@ -128,7 +128,7 @@ public class Treatment extends Entity{
 	
 	public String toString()
 	{
-		return "Treatment"+this.tid;
+		return "Treatment"+this.tid+ "-"+this.tType;
 	}
 
 	

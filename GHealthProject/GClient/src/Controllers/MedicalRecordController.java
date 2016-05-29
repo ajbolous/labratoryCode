@@ -16,7 +16,27 @@ import models.Visit;
 
 public class MedicalRecordController {
 
-	
+	public void createMedicalRecord(Patient p)
+	{
+		MedicalRecord mr = new MedicalRecord();
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
+		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		try {
+			mr.setCreationDate(DateTime.getDate(currentYear, currentMonth+1, currentday));
+			mr.setPatient(p);
+			p.setMedicalRecord(mr);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 Request r = new Request("patients/createMedicalRecord");
+		 r.addParam("medicalRecord", mr);
+		 r.addParam("patient",p);
+		 
+		 Application.client.sendRequest(r);
+	}
 	public Treatment getNewTreatment(Doctor d , MedicalRecord mr ) throws ParseException
 	{
 		Treatment t =new Treatment();
@@ -25,7 +45,7 @@ public class MedicalRecordController {
 		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
 		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		try{
-		t.setStart(DateTime.getDate(currentYear, currentMonth, currentday));
+		t.setStart(DateTime.getDate(currentYear, currentMonth+1, currentday));
 		}
 		catch(Exception e)
 		{
@@ -43,7 +63,7 @@ public class MedicalRecordController {
 		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
 		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		try{
-		v.setVisitDate((DateTime.getDate(currentYear, currentMonth, currentday)));
+		v.setVisitDate((DateTime.getDate(currentYear, currentMonth+1, currentday)));
 		}
 		catch(Exception e)
 		{
@@ -60,7 +80,7 @@ public class MedicalRecordController {
 		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
 		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		try{
-		ex.setExaminationDate(DateTime.getDate(currentYear, currentMonth, currentday));
+		ex.setExaminationDate(DateTime.getDate(currentYear, currentMonth+1, currentday));
 		}
 		catch(Exception e)
 		{
@@ -71,12 +91,12 @@ public class MedicalRecordController {
 	}
 	
 	
-	 public void saveTreatment(Treatment t)
+	 public Object saveTreatment(Treatment t)
 	 {
 		 Request r = new Request("treatments/add");
 		 r.addParam("treatment", t);
 		 
-		 Application.client.sendRequest(r);
+		 return Application.client.sendRequest(r);
 		
 		 
 	 }
@@ -106,6 +126,16 @@ public class MedicalRecordController {
 		 Application.client.sendRequest(r);
 		 
 	 }
+	 public void updatTreatment(Treatment t)
+	 {
+		 Request r = new Request("treatments/update");
+		 r.addParam("treatment", t);
+		 
+		 Application.client.sendRequest(r);
+		
+		 
+	 }
+	 
 
 
 }

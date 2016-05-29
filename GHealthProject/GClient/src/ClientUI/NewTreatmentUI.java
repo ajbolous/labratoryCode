@@ -60,10 +60,8 @@ public class NewTreatmentUI extends JPanel  {
 	
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
     private JLabel lblDate ;
 	private JLabel lblEndDate;
-	private JLabel lblDoctorname;
 	private JLabel lblType;
 	private JButton btnCancel;
 	private JButton btnOk_1;
@@ -72,9 +70,10 @@ public class NewTreatmentUI extends JPanel  {
 	private MedicalRecordController mrctrl = new MedicalRecordController();
 	/**
 	 * Create the panel.
+	 * @param doctorMedicalRecordUI 
 	 */
 	
-	public NewTreatmentUI(Treatment treatment ) {
+	public NewTreatmentUI(Treatment treatment, DoctorMedicalRecordUI doctorMedicalRecordUI ) {
 		
 		super ();
 		
@@ -87,14 +86,14 @@ public class NewTreatmentUI extends JPanel  {
 	
 		    lblDate = new JLabel("Start Date :");
 			lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblDate.setBounds(9, 153, 101, 20);
+			lblDate.setBounds(9, 109, 101, 20);
 	    	add(lblDate);
 			
 			textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
 			textField_1.setBackground(Color.WHITE);
 			textField_1.setEditable(false);
 			
-			textField_1.setBounds(120, 154, 215, 20);
+			textField_1.setBounds(120, 110, 215, 20);
 			textField_1.setColumns(10);
 			add(textField_1);
 			
@@ -102,29 +101,16 @@ public class NewTreatmentUI extends JPanel  {
 			
 			 lblEndDate = new JLabel("End Date : ");
 			lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblEndDate.setBounds(9, 197, 101, 20);
+			lblEndDate.setBounds(9, 151, 101, 20);
 			add(lblEndDate);
 			
 			textField_2 = new JTextField();
 			textField_2.setBackground(Color.WHITE);
 			
 			textField_2.setEditable(false);
-			textField_2.setBounds(120, 198, 215, 20);
+			textField_2.setBounds(120, 152, 215, 20);
 			add(textField_2);
 			textField_2.setColumns(10);
-			
-		    lblDoctorname = new JLabel("Doctor Name :");
-			lblDoctorname.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblDoctorname.setBounds(10, 107, 119, 20);
-			add(lblDoctorname);
-			
-			textField_3 = new JTextField(treatment.getDoctor().getFirstName()+ "  " +treatment.getDoctor().getLastName());
-			textField_3.setBackground(Color.WHITE);
-			
-			textField_3.setEditable(false);
-			textField_3.setBounds(120, 108, 215, 20);
-			add(textField_3);
-			textField_3.setColumns(10);
 			
 			 lblType = new JLabel("Treatment Type :");
 			lblType.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -132,12 +118,14 @@ public class NewTreatmentUI extends JPanel  {
 			add(lblType);
 			
 			textField_4 = new JTextField();
+			textField_4.setBackground(Color.WHITE);
 			
 			textField_4.setBounds(120, 64, 215, 20);
 			add(textField_4);
 			textField_4.setColumns(10);
 			
 			 btnCancel = new JButton("Cancel");
+			 btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0){
 					setVisible(false);
@@ -145,10 +133,11 @@ public class NewTreatmentUI extends JPanel  {
 				}
 	
 			});
-			btnCancel.setBounds(246, 262, 89, 23);
+			btnCancel.setBounds(240, 211, 89, 23);
 			add(btnCancel);
 			
 			 btnOk_1 = new JButton("Save");
+			 btnOk_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnOk_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String tType=textField_4.getText();
@@ -159,23 +148,19 @@ public class NewTreatmentUI extends JPanel  {
 					else {
 						treatment.settType(tType);
 						
-						mrctrl.saveTreatment(treatment);
-						removeAll();
-						revalidate();
-						updateUI();
-					
-						JLabel msg = new JLabel(" *Treatment saved successfully");
-						 msg.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						 msg.setBackground(Color.BLUE);
-						msg.setBounds(100, 86, 269, 27);
-						add(msg);
+
 						
+					{
+						Messages.successMessage("Treatment was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
 						
-						//setVisible(false);
+						doctorMedicalRecordUI.createtree(treatment.getMedicalRecord().getPatient().getSid());
+						setVisible(false);
+						
+					}
 				   }
 				}
 			});
-			btnOk_1.setBounds(136, 262, 76, 23);
+			btnOk_1.setBounds(133, 211, 76, 23);
 			add(btnOk_1);
 			
 			

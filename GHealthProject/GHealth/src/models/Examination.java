@@ -2,6 +2,8 @@ package models;
 
 import java.util.Date;
 
+import Utils.DateTime;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -24,6 +26,17 @@ public class Examination extends Entity {
 
 	@DatabaseField()
 	private Date examinationDate;
+
+	@DatabaseField()
+	private Date referralDate;
+	
+	public Date getReferralDate() {
+		return referralDate;
+	}
+
+	public void setReferralDate(Date referralDate) {
+		this.referralDate = referralDate;
+	}
 
 	@DatabaseField()
 	private String results;
@@ -98,7 +111,7 @@ public class Examination extends Entity {
 	
 	public String toString()
 	{
-		return "Examination "+this.eid;
+		return "Examination"+this.eid+": "+DateTime.getDateString(examinationDate);
 	}
 
 }

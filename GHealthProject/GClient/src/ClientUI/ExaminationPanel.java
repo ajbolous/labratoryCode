@@ -26,10 +26,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.AncestorEvent;
+
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
+
 import javax.swing.UIManager;
+
 import java.awt.SystemColor;
+
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -37,161 +41,379 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.LineBorder;
 
-	public class ExaminationPanel  extends JPanel {
-		private JTextField textField_1;
-		private JTextField textField_3;
-		private JTextField textField_2;
-		String str = new String();
-		JTextArea textArea_1 = new JTextArea();
+	public class ExaminationPanel   {
+
+		
+		
+		private JTextArea textArea_1 = new JTextArea();
+		
 		private JTextField textField_4;
 		private JTextField textField_5;
 		private JTextField textField_6;
+		private JButton btnCancel;
+		private JLabel lblNewLabel_2;
+		private JTextField textField;
+		private JLabel lblExaminationType;
+		private JScrollPane scrollPane_1;
+		private JLabel lblPhotolink;
+		private JLabel lblClincsName ;
+		private JLabel lblLabortianName ;
+		private JLabel lblDate_1;
+		private JButton btnViewReferral ;
+		private JButton btnBack;
+		private JButton btnCancel_1;
+		
+		
+		private JTextField textField_1;
+		private JTextField textField_3;
+		private JTextField textField_2;
+		
+		private JLabel lblDate;
+		private JLabel lblComments;
+		private JLabel lblDoctorname;
+		private JTextArea textArea;
+		private JLabel lblNewLabel;
+		public JPanel mainPanel;
+		private JScrollPane scrollPane;
+		
+		
+		
+		
+		
+		
 
 		/**
-		 * Create the panel.
+		 * Create the JScrollPane.
 		 */
-		public ExaminationPanel(Examination ex) {
-			super();
-			setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
-			setBackground(UIManager.getColor("Panel.background"));
-			setBounds(new Rectangle(283, 143, 122, 144));
-			setLayout(null);
+		public ExaminationPanel(Examination ex ) {
+			
+			mainPanel= new JPanel();
+			
+
+			mainPanel.setBackground(UIManager.getColor("Panel.background"));
+			mainPanel.setBounds(283, 143, 477, 458);
+			mainPanel.setLayout(null);
 			
 			
-			textField_1 = new JTextField(DateTime.getDateString(ex.getExaminationDate()));
-			textField_1.setBackground(new Color(255, 255, 255));
-			textField_1.setEditable(false);
-			textField_1.setBounds(130, 38, 197, 20);
-			textField_1.setColumns(10);
-			add(textField_1);
 			
-			JLabel lblDate = new JLabel("Date :");
-			lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblDate.setBounds(9, 40, 46, 14);
-			add(lblDate);
 			
-			JLabel lblComments = new JLabel("Comments : ");
-			lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblComments.setBounds(9, 169, 110, 14);
-			add(lblComments);
-			
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.setBounds(130, 164, 328, 44);
-			add(scrollPane);
-			
-			JTextArea textArea = new JTextArea();
-			textArea.setEditable(false);
-			textArea.addInputMethodListener(new InputMethodListener() {
-				public void caretPositionChanged(InputMethodEvent arg0) {
-				}
-				public void inputMethodTextChanged(InputMethodEvent arg0) {
-					str= textArea.getText();
-					textArea_1.setText(str);
-				}
-			});
-			
-			scrollPane.setViewportView(textArea);
-			
-			JLabel lblDoctorname = new JLabel("DoctorName : ");
-			lblDoctorname.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblDoctorname.setBounds(9, 80, 110, 21);
-			add(lblDoctorname);
-			
-			textField_3 = new JTextField(ex.getTreatment().getDoctor().getFirstName()+(ex.getTreatment().getDoctor().getLastName()));
-			textField_3.setEditable(false);
-			textField_3.setBounds(130, 81, 197, 20);
-			add(textField_3);
-			textField_3.setColumns(10);
-			
-			JLabel lblNewLabel = new JLabel("Examination Type :");
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNewLabel.setBounds(9, 126, 110, 20);
-			add(lblNewLabel);
-			
-			textField_2 = new JTextField(ex.getEType());
-			
-			textField_2.setEditable(false);
-			textField_2.setBounds(130, 127, 197, 20);
-			add(textField_2);
-			textField_2.setColumns(10);
-			
-			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
-			panel.setBounds(0, 235, 521, 329);
-			add(panel);
-			panel.setLayout(null);
 			
 			textField_5 = new JTextField();
+			textField_5.setBackground(Color.WHITE);
 			textField_5.setBounds(131, 119, 197, 20);
-			panel.add(textField_5);
+			mainPanel.add(textField_5);
 			
 			textField_5.setEditable(false);
 			textField_5.setColumns(10);
 			
-			JScrollPane scrollPane_1 = new JScrollPane();
-			scrollPane_1.setBounds(130, 169, 328, 50);
-			panel.add(scrollPane_1);
+			 scrollPane_1 = new JScrollPane();
+			scrollPane_1.setBounds(131, 211, 328, 92);
+			mainPanel.add(scrollPane_1);
 			
 			
 			textArea_1.setEditable(false);
 			scrollPane_1.setViewportView(textArea_1);
 			
-			JLabel lblPhotolink = new JLabel("PhotoLink :");
-			lblPhotolink.setBounds(10, 255, 63, 16);
-			panel.add(lblPhotolink);
+			 lblPhotolink = new JLabel("PhotoLink :");
+			lblPhotolink.setBounds(11, 336, 63, 16);
+			mainPanel.add(lblPhotolink);
 			lblPhotolink.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			
-			JLabel lblNewLabel_2 = new JLabel("Examination Result :");
-			lblNewLabel_2.setBounds(10, 189, 110, 15);
-			panel.add(lblNewLabel_2);
+			 lblNewLabel_2 = new JLabel("Examination Result :");
+			lblNewLabel_2.setBounds(11, 216, 110, 15);
+			mainPanel.add(lblNewLabel_2);
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblNewLabel_2.setForeground(new Color(0, 0, 0));
 			
-			JLabel lblClincsName = new JLabel("Clincs Name : ");
+			 lblClincsName = new JLabel("Clincs Name : ");
 			lblClincsName.setBounds(10, 119, 133, 14);
-			panel.add(lblClincsName);
+			mainPanel.add(lblClincsName);
 			lblClincsName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			
-			JLabel lblLabortianName = new JLabel("Labortian Name : ");
+			 lblLabortianName = new JLabel("Labortian Name : ");
 			lblLabortianName.setBounds(10, 69, 143, 20);
-			panel.add(lblLabortianName);
+			mainPanel.add(lblLabortianName);
 			lblLabortianName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			
 			textField_4 = new JTextField();
+			textField_4.setBackground(Color.WHITE);
 			textField_4.setBounds(130, 70, 197, 20);
-			panel.add(textField_4);
+			mainPanel.add(textField_4);
 			
 			textField_4.setEditable(false);
 			textField_4.setColumns(10);
 			
-			JLabel lblDate_1 = new JLabel("Date : ");
-			lblDate_1.setBounds(10, 28, 79, 14);
-			panel.add(lblDate_1);
+			 lblDate_1 = new JLabel("Date : ");
+			lblDate_1.setBounds(10, 28, 80, 14);
+			mainPanel.add(lblDate_1);
 			lblDate_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			
 			textField_6 = new JTextField();
+			textField_6.setBackground(Color.WHITE);
 			textField_6.setBounds(129, 27, 197, 20);
-			panel.add(textField_6);
+			mainPanel.add(textField_6);
 			
 			textField_6.setEditable(false);
 			textField_6.setColumns(10);
 			
-			JButton btnCancel = new JButton("Cancel");
-			btnCancel.setBounds(350, 295, 89, 23);
-			panel.add(btnCancel);
+		    btnCancel = new JButton("Cancel");
+			btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			btnCancel.setBounds(358, 423, 89, 23);
+			mainPanel.add(btnCancel);
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					removeAll();
-	                revalidate();
-	                repaint();
+					mainPanel.setVisible(false);
 				}
 			});
 			
 			
 			
-		
+				
+				textArea_1.setText(""+ex.getResults());
+				textField_6.setText(DateTime.getDateString(ex.getExaminationDate()));
+				textField_5.setText(""+ex.getLabratorian().getClinic().getName());
+				textField_4.setText(ex.getLabratorian().getFirstName()+" "+ex.getLabratorian().getLastName());
+				
+				 lblExaminationType = new JLabel("Examination Type : ");
+				 lblExaminationType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblExaminationType.setBounds(11, 168, 110, 14);
+				mainPanel.add(lblExaminationType);
+				
+				textField = new JTextField();
+				textField.setBackground(Color.WHITE);
+				textField.setEditable(false);
+				textField.setBounds(131, 165, 197, 20);
+				mainPanel.add(textField);
+				textField.setColumns(10);
+				
+				
+				
+				
+				
+				lblDate = new JLabel("Date :");
+				lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblDate.setBounds(9, 40, 46, 14);
+				mainPanel.add(lblDate);
+				
+				 lblComments = new JLabel("Comments : ");
+				lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblComments.setBounds(9, 169, 110, 14);
+				mainPanel.add(lblComments);
+				
+				 scrollPane = new JScrollPane();
+				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				scrollPane.setBounds(130, 164, 328, 108);
+				mainPanel.add(scrollPane);
+				
+			    textArea = new JTextArea();
+			    textArea.setEditable(false);
+				
+				
+				scrollPane.setViewportView(textArea);
+				
+				lblDoctorname = new JLabel("DoctorName : ");
+				lblDoctorname.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblDoctorname.setBounds(9, 80, 110, 21);
+				mainPanel.add(lblDoctorname);
+				
+				textField_3 = new JTextField();
+				textField_3.setBackground(Color.WHITE);
+				textField_3.setEditable(false);
+				textField_3.setBounds(130, 81, 197, 20);
+				mainPanel.add(textField_3);
+				textField_3.setColumns(10);
+				
+				lblNewLabel = new JLabel("Examination Type :");
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				lblNewLabel.setBounds(9, 126, 110, 20);
+				mainPanel.add(lblNewLabel);
+				
+				textField_2 = new JTextField();
+				textField_2.setBackground(Color.WHITE);
+				
+				textField_2.setEditable(false);
+				textField_2.setBounds(130, 127, 197, 20);
+				mainPanel.add(textField_2);
+				textField_2.setColumns(10);
+				
+				
+				textField_1 = new JTextField();
+				textField_1.setBackground(new Color(255, 255, 255));
+				textField_1.setEditable(false);
+				textField_1.setBounds(130, 38, 197, 20);
+				textField_1.setColumns(10);
+				mainPanel.add(textField_1);
+				
+				textField_1.setText(DateTime.getDateString(ex.getReferralDate()));
+				
+				textField_2.setText(ex.getEType());
+				textField_3.setText(""+ex.getTreatment().getDoctor().getFirstName() +" "+(ex.getTreatment().getDoctor().getLastName()));
+				textArea.setText(ex.getComments());
+				
+				
+				
+			    btnViewReferral = new JButton("View Referral");
+				btnViewReferral.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						mainPanel.setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+
+						textArea_1.setVisible(false);
+						textField_5.setVisible(false);
+						textField_4.setVisible(false);
+						textField_6.setVisible(false);
+						btnCancel.setVisible(false);
+						lblNewLabel_2.setVisible(false);
+						lblExaminationType.setVisible(false);
+						scrollPane_1.setVisible(false);
+						lblPhotolink.setVisible(false);
+						lblClincsName.setVisible(false);
+						lblLabortianName.setVisible(false);
+						lblDate_1.setVisible(false);
+						btnViewReferral.setVisible(false);
+						textField.setVisible(false);
+						
+						
+						btnCancel_1.setVisible(true);
+						btnBack.setVisible(true);
+
+						textField_1.setVisible(true);
+						textField_3.setVisible(true);
+						textField_2.setVisible(true);
+						lblDate.setVisible(true);
+						lblComments.setVisible(true);
+						lblDoctorname.setVisible(true);
+						textArea.setVisible(true);
+						lblNewLabel.setVisible(true);
+						mainPanel.setVisible(true);
+						 scrollPane.setVisible(true);
+						
+					}
+				});
+				btnViewReferral.setBounds(179, 424, 133, 23);
+				mainPanel.add(btnViewReferral);
+				
+				btnBack = new JButton("Back");
+				btnBack.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+						textArea_1.setVisible(true);
+						textField_5.setVisible(true);
+						textField_4.setVisible(true);
+						textField_6.setVisible(true);
+						btnCancel.setVisible(true);
+						lblNewLabel_2.setVisible(true);
+						lblExaminationType.setVisible(true);
+						scrollPane_1.setVisible(true);
+						lblPhotolink.setVisible(true);
+						lblClincsName.setVisible(true);
+						lblLabortianName.setVisible(true);
+						lblDate_1.setVisible(true);
+						btnViewReferral.setVisible(true);
+						textField.setVisible(true);
+						
+						btnBack.setVisible(false);
+						btnCancel_1.setVisible(false);
+						btnCancel_1.setVisible(false);
+						btnBack.setVisible(false);
+
+						textField_1.setVisible(false);
+						textField_3.setVisible(false);
+						textField_2.setVisible(false);
+						lblDate.setVisible(false);
+						lblComments.setVisible(false);
+						lblDoctorname.setVisible(false);
+						textArea.setVisible(false);
+						lblNewLabel.setVisible(false);
+						 scrollPane.setVisible(false);
+						mainPanel.setVisible(true);
+					}
+				});
+				btnBack.setToolTipText("Return to Examination Result Panel");
+				btnBack.setBounds(189, 334, 89, 23);
+				mainPanel.add(btnBack);
+				btnBack.setVisible(false);
+				btnCancel_1 = new JButton("Cancel");
+				btnCancel_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						mainPanel.setVisible(false);
+					}
+				});
+				btnCancel_1.setBounds(330, 334, 89, 23);
+				mainPanel.add(btnCancel_1);
+				btnCancel_1.setVisible(false);
+				
+				if (ex.getExaminationDate()!=null)
+				{//display Examination result
+					mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+					textArea_1.setVisible(true);
+					textField_5.setVisible(true);
+					textField_4.setVisible(true);
+					textField_6.setVisible(true);
+					btnCancel.setVisible(true);
+					lblNewLabel_2.setVisible(true);
+					lblExaminationType.setVisible(true);
+					scrollPane_1.setVisible(true);
+					lblPhotolink.setVisible(true);
+					lblClincsName.setVisible(true);
+					lblLabortianName.setVisible(true);
+					lblDate_1.setVisible(true);
+					btnViewReferral.setVisible(true);
+					textField.setVisible(true);
+					
+					btnBack.setVisible(false);
+					btnCancel_1.setVisible(false);
+					
+
+					textField_1.setVisible(false);
+					textField_3.setVisible(false);
+					textField_2.setVisible(false);
+					lblDate.setVisible(false);
+					lblComments.setVisible(false);
+					lblDoctorname.setVisible(false);
+					textArea.setVisible(false);
+					lblNewLabel.setVisible(false);
+					scrollPane.setVisible(false);
+					mainPanel.setVisible(true);
+					
+				}
+				else
+				{
+					mainPanel.setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+					textArea_1.setVisible(false);
+					textField_5.setVisible(false);
+					textField_4.setVisible(false);
+					textField_6.setVisible(false);
+					btnCancel.setVisible(false);
+					lblNewLabel_2.setVisible(false);
+					lblExaminationType.setVisible(false);
+					scrollPane_1.setVisible(false);
+					lblPhotolink.setVisible(false);
+					lblClincsName.setVisible(false);
+					lblLabortianName.setVisible(false);
+					lblDate_1.setVisible(false);
+					btnViewReferral.setVisible(false);
+					textField.setVisible(false);
+					
+					btnCancel_1.setVisible(true);
+					btnBack.setVisible(true);
+
+					textField_1.setVisible(true);
+					textField_3.setVisible(true);
+					textField_2.setVisible(true);
+					lblDate.setVisible(true);
+					lblComments.setVisible(true);
+					lblDoctorname.setVisible(true);
+					textArea.setVisible(true);
+					lblNewLabel.setVisible(true);
+					scrollPane.setVisible(true);
+					mainPanel.setVisible(true);
+				}
+			
 			
 		}
+			
+			
+			
+		
 	}
 

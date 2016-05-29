@@ -38,7 +38,7 @@ public class DbHandler {
 			connection=new JdbcConnectionSource(url,username,password);
 			createAllTables();
 			initializeDao();
-		//	fillDataBase();
+			fillDataBase();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

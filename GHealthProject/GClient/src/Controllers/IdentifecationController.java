@@ -20,7 +20,7 @@ public class IdentifecationController {
 	{
 		Patient p = patientController.getById(id);
 
-	DoctorMedicalRecordUI s = new DoctorMedicalRecordUI(p);
+	new DoctorMedicalRecordUI(p);
 	
 	}
 	

@@ -51,8 +51,9 @@ public class NewExaminationReferralPanel  extends JPanel {
 		
 		/**
 		 * Create the panel.
+		 * @param doctorMedicalRecordUI 
 		 */
-		public NewExaminationReferralPanel(Examination ex) {
+		public NewExaminationReferralPanel(Examination ex, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 			super();
 			setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Referral", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			setBackground(UIManager.getColor("Panel.background"));
@@ -92,6 +93,7 @@ public class NewExaminationReferralPanel  extends JPanel {
 			add(lblNewLabel);
 			
 			JComboBox comboBox = new JComboBox();
+			comboBox.setBackground(Color.WHITE);
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					exType=(String) comboBox.getSelectedItem();
@@ -103,6 +105,7 @@ public class NewExaminationReferralPanel  extends JPanel {
 			add(comboBox);
 			
 			JButton btnSave = new JButton("Save");
+			btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					String comment = textArea.getText();
@@ -114,29 +117,25 @@ public class NewExaminationReferralPanel  extends JPanel {
 					else {
 						ex.setComments(comment);
 						ex.setEType(exType);
-						removeAll();
-						revalidate();
-						updateUI();
+						
 					
-						JLabel msg = new JLabel("");
+						
 						if (ex.getTreatment().isEndFlag()){
-							msg.setText("you canit add visits and Examibations to Treatment"+ex.getTreatment().getTid()+
-									ex.getTreatment().gettType()+"\nEnd Date :  "+DateTime.getDateString(ex.getTreatment().getEnd()));
-							msg.setBackground(Color.RED);
+							
+							Messages.warningMessage("canot add visits or Examibations to Treatment"+ex.getTreatment().getTid() +"-"+ ex.getTreatment().gettType() , "warning",doctorMedicalRecordUI.DoctorMedicalRecord);
+									
 						}
 						else{
 							mrctrl.saveExamination(ex);
-						msg.setText(" *Examnation added to Treatment "+ex.getTreatment().getTid()+
-									" "+ex.getTreatment().gettType()+ "  successfully");
-						msg.setBackground(Color.BLUE);
+							Messages.successMessage("Examnation was added successfully to Treatment "+ex.getTreatment().getTid()+
+										"-"+ex.getTreatment().gettType(), "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
+							doctorMedicalRecordUI.updateTree(ex);
+						
 						
 						}
 						
-						 msg.setFont(new Font("Tahoma", Font.PLAIN, 13));
-						 
-						msg.setBounds(100, 86, 269, 27);
-						add(msg);
-						//setVisible(false);
+						
+						setVisible(false);
 				}
 				}
 			});
@@ -144,6 +143,7 @@ public class NewExaminationReferralPanel  extends JPanel {
 			add(btnSave);
 			
 			JButton btnCancel = new JButton("Cancel");
+			btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);

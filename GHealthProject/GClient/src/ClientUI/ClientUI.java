@@ -106,7 +106,7 @@ public class ClientUI {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Application.user.getClass().equals(Doctor.class)){
-					AddPatientUI p = new AddPatientUI();
+					PatientUI p = new PatientUI();
 				}
 			}
 		});

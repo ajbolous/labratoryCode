@@ -2,6 +2,8 @@ package models;
 
 import java.util.Date;
 
+import Utils.DateTime;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -53,7 +55,7 @@ public class Visit extends Entity{
 	}
 	
 	public String toString(){
-		return "Visit"+vid;
+		return "Visit"+vid + ": "+DateTime.getDateString(visitDate);
 		
 	}
 	
