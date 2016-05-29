@@ -67,20 +67,55 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.DefaultComboBoxModel;
 
+/**
+ * Add new appointment GUI for patient
+ * @author Muhamad Igbaria
+ *
+ */
 public class AddApointment  {
 
+	/**
+	 * current frame
+	 */
 	private JFrame newApp;
+	/**
+	 * shows all doctors by specific specialty
+	 */
 	private JTable doctors_table;
+	/**
+	 * shows all available times for specific doctor
+	 */
 	private JTable time_table;
 	private JScrollPane doctors_scrll_table;
 	private JLabel lblDoctors;
+	/**
+	 * Appointments Controller instance
+	 */
 	private AppointmentsController app_ctrl = new AppointmentsController();
 	
+	/**
+	 * Specialty chooses
+	 */
 	private String spec;
+	/**
+	 * specific patient instance
+	 */
 	private Patient patient;
+	/**
+	 * the doctor id that has choose in doctors table 
+	 */
 	private String doctor_id;
+	/**
+	 * all available times for doctor
+	 */
 	private ArrayList<Appointment> times;
+	
 	Appointments appointments_class;
+	/**
+	 * 
+	 * @param patient : patient instance to add new appointment for him
+	 * @param thisRef : reference to the appointments GUI class to back 
+	 */
 	public  AddApointment (Patient patient,Appointments thisRef) {
 		this.patient=patient;
 		this.appointments_class=thisRef;
@@ -213,6 +248,10 @@ public class AddApointment  {
 		noApps_lbl.setBounds(30, 345, 420, 25);
 		newApp.getContentPane().add(noApps_lbl);
 		
+		/**
+		 * Combobox handler to choose specific specialty
+		 * use getDoctorsBySpec to show the doctors in doctors table
+		 */
 		speciality.addActionListener(new ActionListener() {
 			
 			
@@ -240,7 +279,10 @@ public class AddApointment  {
 			}
 		});
 		
-		
+		/**
+		 * Doctor table Handler , shows all available times for doctor by select doctor row .
+		 * use the getTimes method from appointments controller
+		 */
 		
 		doctors_table.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
@@ -291,7 +333,9 @@ public class AddApointment  {
 				});
 		
 		
-		
+		/**
+		 * choose specific time to set as appointment
+		 */
 		
 		time_table.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
@@ -303,6 +347,10 @@ public class AddApointment  {
 						if(time_table.getSelectedRow()>-1) btnSave.setEnabled(true);
 					}
 				});
+		/**
+		 * call to addNewAppointment method in appointment controller to add new appointment 
+		 * this handler send to the controller the patient id , doctor id and time of appointment
+		 */
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -329,7 +377,10 @@ public class AddApointment  {
 		
 
 	}
-	
+	/**
+	 * call getDoctorsBySpeciality method from appointments controller to show all doctors by specialty
+	 * @param spec : the chooses specialty from the specialty combobox
+	 */
 	private void getDoctorsBySpec(String spec) {
 		DefaultTableModel dm = (DefaultTableModel) doctors_table.getModel();
 		dm.setRowCount(0);
@@ -338,6 +389,10 @@ public class AddApointment  {
 			dm.addRow(record);
 		}	
 	}
+	/**
+	 * 
+	 * @return current JFrame
+	 */
 	public JFrame getFrame(){
 		return newApp;
 	}

@@ -30,7 +30,13 @@ public class Doctors extends View{
 
 		}
 	}
-	
+	/**
+	 * Query to get all available doctors specialties .
+	 * @param request :Request instance that has all the information the query need -
+	 * 					no parameters.
+	 * @return all specialities.
+	 * @throws SQLException
+	 */
 	public Object getSpecialities(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		try {
@@ -46,6 +52,17 @@ public class Doctors extends View{
 		}
 	}
 
+	
+	
+	/**
+	 * Query to give all available doctors by given specialty .
+	 * @param request : Request instance that has all the information the query need -
+	 * 					doctor specialty .
+	 * @return sorted arraylist of Objects which has three attributes: 
+	 * @return	doctor name , clinic name, last visit (when was the last time this patient visit this doctor)
+	 * @return the list sorted In descending order by last visit
+	 * @throws SQLException
+	 */
 	public Object bySpeciality(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		String s = (String)request.getParam("speciality");

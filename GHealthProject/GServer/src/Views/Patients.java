@@ -12,6 +12,12 @@ import Utils.Request;
 
 public class Patients extends View{
 	
+	/**
+	 * Query to get patient from database by his id.
+	 * @param request : "patients/getById" params: "sid" (patient id)
+	 * @return Patient instance 
+	 * @throws SQLException
+	 */
 	public Object getById(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		

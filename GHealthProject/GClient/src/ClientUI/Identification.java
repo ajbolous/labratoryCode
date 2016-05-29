@@ -27,8 +27,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 
-public class Identification implements FrameInterface {
 
+/**
+ * Identification GUI frame , the user enter patient ID and enter to his appropriate frame ,for example:
+ * enters to Appointments window of the patient or the Medical record of the patient 
+ * @author Muhamad Igbaria
+ *
+ */
+public class Identification implements FrameInterface {
+	
+	/**
+	 * current frame
+	 */
 	private JFrame disID;
 	private JTextField IdTxt;
 	private JLabel error_lbl;
@@ -36,7 +46,10 @@ public class Identification implements FrameInterface {
 	private JButton btnNewButton_1;
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
-
+	
+	/**
+	 * Patient Controller instance
+	 */
 	private PatientsController idctrl = new PatientsController();
 
 	public Identification() {
@@ -132,7 +145,12 @@ public class Identification implements FrameInterface {
 		
 		
 	}
-
+	
+	/**
+	 * This private method implement the identification use case ,and create patient instance if the identification success
+	 * else it will show error messages in the GUI Frame
+	 * used in textField and enter Button handler 
+	 */
 	private void identificationHandler() {
 		String id = IdTxt.getText();
 		Patient patient;
@@ -151,6 +169,9 @@ public class Identification implements FrameInterface {
 
 	}
 
+	/**
+	 * @return current JFrame
+	 */
 	@Override
 	public JFrame getFrame() {
 		return disID;
