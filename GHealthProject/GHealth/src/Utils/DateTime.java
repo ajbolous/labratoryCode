@@ -129,4 +129,16 @@ public class DateTime {
 				(d1_end.after(d2_start) ) ) return true;
 		return false;
 	}
+	
+
+	public static Date getTomorrowDate(){
+		try {
+			return addDay(currentDate(), 1);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }

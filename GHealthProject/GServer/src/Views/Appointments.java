@@ -264,6 +264,51 @@ public class Appointments extends View{
 		
 		return unavailableApps;
 	}
+
+	/**
+	 * find all appointments of tomorrow and send email reminder to the patients.
+	 */
+	public void sendEmails() {
+		DbHandler db = Config.getConfig().getHandler();		
+		
+		Date tmr_start= DateTime.getTomorrowDate();//tomorrow begin of day 
+		tmr_start.setHours(0);
+		tmr_start.setMinutes(0);
+		Date tmr_end= DateTime.getTomorrowDate();//tomorrow end of day
+		tmr_end.setHours(23);
+		tmr_end.setMinutes(59);
+		QueryBuilder<Appointment, Integer> q= db.appointments.queryBuilder();
+		ArrayList<Appointment> res=null;
+		
+		try {
+			res= (ArrayList<Appointment>) q.where().ge("appointmentTime", tmr_start)
+					.and()
+					.le("appointmentTime", tmr_end).query();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Patient patient;
+		System.out.println("----------------------------------------");
+		System.out.println("Send messages to patients:");
+		System.out.println();
+		if (res==null || res.size()==0) System.out.println("No messages to send");
+		else{
+			for(Appointment app:res){
+				patient= app.getPatient();
+				System.out.println("Message sent to :" +patient.getFirstName() +" "+patient.getLastName() +
+						" at email address: " + patient.getEmail());
+				System.out.println("Message: Tomorrow you have appointment at " + app.getAppointmentTime()+
+						" in clinic : "+ app.getDoctor().getClinic().getName());
+				System.out.println();
+			}
+		}
+			
+		
+		System.out.println("----------------------------------------");
+		
+		
+	}
 	
 	
 }

@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Date;
 import java.util.List;
 
+import java.util.Timer;
+
 import com.j256.ormlite.logger.LocalLog;
 import com.mysql.jdbc.Driver;
 
@@ -17,6 +19,7 @@ import Database.DbHandler;
 import Utils.DateTime;
 import Utils.Logger;
 import Utils.Request;
+import Utils.TimeTask;
 import Views.Appointments;
 import Views.Reports;
 import Views.Users;
@@ -89,11 +92,14 @@ public class Server extends AbstractServer {
 			System.setProperty(LocalLog.LOCAL_LOG_LEVEL_PROPERTY, "INFO");
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
 		
-	//	Patient p = cfg.getHandler().patients.queryForId("300000000");
-	
-		//int x = 1;
 		Server server = new Server(cfg.getPort());
-		server.listen();		
+		
+		//Timer for sending messages to all patients that have an appointment tomorrow
+		Timer timer = new Timer();
+	    timer.schedule(new TimeTask(), DateTime.getTime(0, 0),(24*60*60*1000));
+		
+	    
+	    server.listen();		
 		
 		
 	}
