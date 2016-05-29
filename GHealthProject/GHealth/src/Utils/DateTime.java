@@ -93,7 +93,7 @@ public class DateTime {
 	}
 	
 	public static String getTimeString(Date d){
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		return format.format(d);
 	}
 
@@ -123,10 +123,22 @@ public class DateTime {
 	
 	
 	public static boolean isOverlap(Date d1_start,Date d1_end, Date d2_start , Date d2_end){
-		//Overlap <==> (StartA <= EndB)  and  (EndA >= StartB)
+		//Overlap <==> (StartA < EndB)  and  (EndA > StartB)
 		
-		if(  (d1_start.before(d2_end) || d1_start.equals(d2_end)) && 
-				(d1_end.after(d2_start) || d1_end.equals(d2_start)) ) return true;
+		if(  (d1_start.before(d2_end) ) && 
+				(d1_end.after(d2_start) ) ) return true;
 		return false;
+	}
+	
+
+	public static Date getTomorrowDate(){
+		try {
+			return addDay(currentDate(), 1);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 }

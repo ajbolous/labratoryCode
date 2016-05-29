@@ -12,18 +12,11 @@ import Utils.Request;
 
 public class Patients extends View{
 	
-	/**
-	 * Query to get patient from database by his id.
-	 * @param request : "patients/getById" params: "sid" (patient id)
-	 * @return Patient instance 
-	 * @throws SQLException
-	 */
 	public Object getById(Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		
 		try {
-			Patient p = db.patients.queryForId((String)request.getParam("sid"));
-			return p;
+			return db.patients.queryForId((String)request.getParam("sid"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -40,6 +33,15 @@ public class Patients extends View{
 	
 	public Object add(Request request){
 		DbHandler db = Config.getConfig().getHandler();
+<<<<<<< HEAD
+		try {
+			db.patients.createIfNotExists((Patient) request.getParam("patient"));
+			return "success";
+			} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+=======
 		 Patient patient = (Patient) request.getParam("patient");
 		MedicalRecord md=new MedicalRecord(); 
 				
@@ -65,6 +67,8 @@ public class Patients extends View{
 				e.printStackTrace();
 				return null;
 			}
+
+>>>>>>> 25b68674e4e24b5c88c1533543d2c82d50921189
 	}
 	
 	
@@ -75,27 +79,4 @@ public class Patients extends View{
 	public Object update(Request request) {
 		return null;
 	}	
-	
-	public Object  createMedicalRecord (Request request)
-	{
-		DbHandler db = Config.getConfig().getHandler();
-	    Patient patient = (Patient) request.getParam("patient");
-		MedicalRecord md=(MedicalRecord)  request.getParam("medicalRecord");
-		try {
-			db.records.createIfNotExists(md);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			db.patients.update(patient);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return null;
-		
-	}
 }

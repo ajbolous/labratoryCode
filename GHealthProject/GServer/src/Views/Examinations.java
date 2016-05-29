@@ -3,6 +3,7 @@ package Views;
 import java.sql.SQLException;
 
 import models.Examination;
+import models.Patient;
 import models.Treatment;
 import Database.DbHandler;
 import Server.Config;
@@ -17,6 +18,17 @@ public class Examinations extends View {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	public Object getById(Request request){
+		DbHandler db = Config.getConfig().getHandler();
+		
+		try {
+			Examination ex = db.examinations.queryForId((Integer)request.getParam("sid"));
+			return ex;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

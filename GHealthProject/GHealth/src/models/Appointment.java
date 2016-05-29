@@ -6,89 +6,150 @@ import Utils.DateTime;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
+/**
+ * Appointment Entity Class .
+ * @author Muhamad Igbaria
+ *
+ */
 @DatabaseTable(tableName = "appoitments")
 public class Appointment extends Entity{
-	
+	/**
+	 * default constructor
+	 */
 	public Appointment(){
 	}
-	
+	/**
+	 * 
+	 * @param d: Doctor instance
+	 * @param p: Patient instance
+	 * @param t: Date instance -the appointment time .
+	 */
 	public Appointment(Doctor d, Patient p, Date t){
 		this.doctor = d;
 		this.patient = p;
 		this.appointmentTime = t;
 	}
-	
+	/**
+	 * 
+	 * @param t: Date instance -the appointment time .
+	 */
 	public Appointment(Date t){
 		this.appointmentTime = t;
 	}
-	
+	/**
+	 * appointment id , auto generate in database.
+	 */
 	@DatabaseField(generatedId = true)
 	private int id;
 	
+	/**
+	 * appointment doctor
+	 */
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "doctor_id")
 	private Doctor doctor ; 
 	
-
+	/**
+	 * appointment patient
+	 */
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
 	private Patient patient; 
-	
+	/**
+	 * the creation time of the appointment
+	 */
 	@DatabaseField()
 	private Date creationTime ; 
-	
+	/**
+	 * the appointment time
+	 */
 	@DatabaseField()
 	private Date appointmentTime ;
 	
 
-	@DatabaseField()
-	private boolean isCanceled;
+	/**
+	 * 
+	 * @return appointment id 
+	 */
 	
 	public int getId() {
 		return id;
 	}
+	/**
+	 * set appointment id
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * 
+	 * @return appointment creation time 
+	 */
 	public Date getCreationTime() {
 		return creationTime;
 	}
+	/**
+	 * set appointment creation time
+	 * @param creationTime
+	 */
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
+	/**
+	 * 
+	 * @return appointment time
+	 */
 	public Date getAppointmentTime() {
 		return appointmentTime;
 	}
+	/**
+	 * set appointment time
+	 * @param appointmentTime
+	 */
 	public void setAppointmentTime(Date appointmentTime) {
 		this.appointmentTime = appointmentTime;
 	}
+	/**
+	 * 
+	 * @return  appointment doctor
+	 */
 	public Doctor getDoctor() {
 		return doctor;
 	}
-
+	/**
+	 * set appointment doctor.
+	 * @param doctor 
+	 */
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
-
+	/**
+	 * 
+	 * @return appointment patient
+	 */
 	public Patient getPatient() {
 		return patient;
 	}
-
+	/**
+	 * set appointment patient
+	 * @param patient
+	 */
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 
-	public boolean isCanceled() {
-		return isCanceled;
-	}
-	public void setCanceled(boolean isCanceled) {
-		this.isCanceled = isCanceled;
-	}
+	/**
+	 * 
+	 * @return the appointment finish time , finish= begin +30 minutes.
+	 */
 	
 	public Date getfinishTime(){
 		return DateTime.addMinutes(appointmentTime, 30);
 	}
 	
-	
+	/**
+	 * two appointment equals if they overlap in times
+	 * Overlap <==> (StartA < EndB)  and  (EndA > StartB)
+	 */
 	@Override
 	public boolean equals(Object obj){
 		

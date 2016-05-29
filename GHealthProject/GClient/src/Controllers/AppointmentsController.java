@@ -17,8 +17,21 @@ import models.Doctor;
 import models.Patient;
 import models.Shift;
 
+
+/**
+ * Appointments Controller .
+ * have all the methods that connect the client GUI to the database .
+ * the methods send request to the database and recieve the database results.
+ * @author Muhamad Igbaria
+ *
+ */
 public class AppointmentsController {
 
+	/**
+	 * send request to the database to delete (Cancel) an appointment
+	 * @param app : Appointment instance to delete
+	 * @return true if the cancel success , false else.
+	 */
 	public boolean deleteAppointment(Appointment app){
 		Request r = new Request("appointments/delete");
 		r.addParam("appointment", app);
@@ -27,6 +40,10 @@ public class AppointmentsController {
 	}
 
 	
+	/**
+	 * send request to database to return all available doctors specialties list.
+	 * @return String Array of all specialties ,the first String in the array is empty String
+	 */
 	public String [] getSpecialties(){
 		Request r = new Request("doctors/getSpecialities");
 		ArrayList<String> specs= (ArrayList<String>) Application.client.sendRequest(r);
@@ -36,13 +53,31 @@ public class AppointmentsController {
 
 	}
 	
-	public ArrayList<Doctor> getDoctorsBySpeciality(String spec){
+	/**
+	 * send request to database to return all available doctors by given specialty .
+	 * @param spec : an specialty 
+	 * @param patient_id : ptient id , to know when the last time this patient visit every doctor.
+	 * @return sorted arraylist of Objects which has three attributes: 
+	 * @return	doctor name , clinic name, last visit (when was the last time this patient visit this doctor)
+	 * @return the list sorted In descending order by last visit
+ 
+	 */
+	
+	public ArrayList<Object[]> getDoctorsBySpeciality(String spec,String patient_id){
 		Request r = new Request("doctors/bySpeciality");
 		r.addParam("speciality",spec);
+		r.addParam("patient_id", patient_id);
 
-		return  (ArrayList<Doctor>) Application.client.sendRequest(r);
+		return  (ArrayList<Object[]>) Application.client.sendRequest(r);
 	}
 	
+	
+	/**
+	 * send request to database to return all future patient's appointments 
+	 * @param patient instance 
+	 * @return Arraylist of patient's future Appointments 
+	 * @throws ParseException
+	 */
 	public ArrayList<Appointment> getPatientAppointments(Patient patient){
 		Request r = new Request("appointments/getPatientAppointments");
 		r.addParam("patient_id",patient.getSid());
@@ -56,20 +91,14 @@ public class AppointmentsController {
 		return (ArrayList<Appointment>) Application.client.sendRequest(r);
 		
 	}
-
 	
-	public String getLastVisit(String doctor_id,String patient_id,Date date){
-		Request r = new Request("appointments/lastVisit");
-		r.addParam("doctor_id",doctor_id);
-		r.addParam("patient_id", patient_id);
-		r.addParam("app_time", date);
-		ArrayList<Appointment> app = (ArrayList<Appointment>) Application.client.sendRequest(r);
-		if (app.size()==0) return "";
-		return DateTime.getDateString(app.get(0).getAppointmentTime());
-
-	}
-	
-	
+	/**
+	 * send request to database to return all available times to set an appointment , the times has to be not overlap with the patient's and doctor's appointments .
+	 * @param doctor_id : doctor which the appointment set to him  
+	 * @param patient_id: patient to set appointment fro him
+	 * @return all available times for set appointment
+	 * @throws ParseException
+	 */
 	public ArrayList<Appointment> getTimes(String doctor_id, String patient_id) {
 		Request r = new Request("appointments/availableTimes");
 		try {
@@ -82,6 +111,22 @@ public class AppointmentsController {
 		
 		r.addParam("patient_id", patient_id);
 		return (ArrayList<Appointment>) Application.client.sendRequest(r);
+	}
+	
+	/**
+	 * send request to database to add new appointment to appointments table
+	 * @param doctor_id : doctor which the appointment set to him  
+	 * @param patient_id: patient to set appointment fro him
+	 * @param time : the choosed time from available times  to set as appointment 
+	 * @return true if the add success , false else.
+	 */
+	public boolean addNewAppointment(String doctor_id,String patient_id,Date time){
+		Request r = new Request("appointments/add");
+		r.addParam("doctor_id", doctor_id);
+		r.addParam("patient_id", patient_id);
+		r.addParam("app_time", time);
+		
+		return (boolean) Application.client.sendRequest(r);
 	}
 }
 
