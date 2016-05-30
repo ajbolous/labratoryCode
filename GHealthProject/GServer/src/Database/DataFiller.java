@@ -107,7 +107,7 @@ public class DataFiller {
 			for (int i = 0; i < 3; i++) {
 				Treatment t = new Treatment();
 				t.setStart(DateTime.randomDate());
-				t.setStatus("Patient is ok");
+				t.settType("Patient is ok");
 				t.setDoctor(doctors.get(rand.nextInt(doctors.size())));
 				t.setMedicalRecord(md);
 				db.treatments.create(t);

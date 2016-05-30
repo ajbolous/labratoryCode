@@ -170,7 +170,7 @@ import javax.swing.border.LineBorder;
 			
 				
 				textArea_1.setText(""+ex.getResults());
-				textField_6.setText(DateTime.getDateString(ex.getExaminationDate()));
+				textField_6.setText(DateTime.getDateString(ex.getExaminationDate())+" "+DateTime.getTimeString(ex.getExaminationDate()));
 				textField_5.setText(""+ex.getLabratorian().getClinic().getName());
 				textField_4.setText(ex.getLabratorian().getFirstName()+" "+ex.getLabratorian().getLastName());
 				
@@ -244,7 +244,7 @@ import javax.swing.border.LineBorder;
 				textField_1.setColumns(10);
 				mainPanel.add(textField_1);
 				
-				textField_1.setText(DateTime.getDateString(ex.getReferralDate()));
+				textField_1.setText(DateTime.getDateString(ex.getReferralDate())+" "+DateTime.getTimeString(ex.getReferralDate()));
 				
 				textField_2.setText(ex.getEType());
 				textField_3.setText(""+ex.getTreatment().getDoctor().getFirstName() +" "+(ex.getTreatment().getDoctor().getLastName()));
@@ -253,6 +253,7 @@ import javax.swing.border.LineBorder;
 				
 				
 			    btnViewReferral = new JButton("View Referral");
+			    btnViewReferral.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				btnViewReferral.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						mainPanel.setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
@@ -293,6 +294,7 @@ import javax.swing.border.LineBorder;
 				mainPanel.add(btnViewReferral);
 				
 				btnBack = new JButton("Back");
+				btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
@@ -328,19 +330,49 @@ import javax.swing.border.LineBorder;
 						mainPanel.setVisible(true);
 					}
 				});
-				btnBack.setToolTipText("Return to Examination Result Panel");
+				btnBack.setToolTipText("Return to Examination Result ");
 				btnBack.setBounds(189, 334, 89, 23);
 				mainPanel.add(btnBack);
 				btnBack.setVisible(false);
 				btnCancel_1 = new JButton("Cancel");
+				btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				btnCancel_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						mainPanel.setVisible(false);
 					}
 				});
-				btnCancel_1.setBounds(330, 334, 89, 23);
+				btnCancel_1.setBounds(358, 334, 89, 23);
 				mainPanel.add(btnCancel_1);
 				btnCancel_1.setVisible(false);
+				
+				textArea_1.setVisible(false);
+				textField_5.setVisible(false);
+				textField_4.setVisible(false);
+				textField_6.setVisible(false);
+				btnCancel.setVisible(false);
+				lblNewLabel_2.setVisible(false);
+				lblExaminationType.setVisible(false);
+				scrollPane_1.setVisible(false);
+				lblPhotolink.setVisible(false);
+				lblClincsName.setVisible(false);
+				lblLabortianName.setVisible(false);
+				lblDate_1.setVisible(false);
+				btnViewReferral.setVisible(false);
+				textField.setVisible(false);
+				
+				btnBack.setVisible(false);
+				btnCancel_1.setVisible(false);
+				
+
+				textField_1.setVisible(false);
+				textField_3.setVisible(false);
+				textField_2.setVisible(false);
+				lblDate.setVisible(false);
+				lblComments.setVisible(false);
+				lblDoctorname.setVisible(false);
+				textArea.setVisible(false);
+				lblNewLabel.setVisible(false);
+				scrollPane.setVisible(false);
 				
 				if (ex.getExaminationDate()!=null)
 				{//display Examination result

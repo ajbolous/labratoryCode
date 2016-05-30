@@ -19,11 +19,9 @@ public class MedicalRecordController {
 	public void createMedicalRecord(Patient p)
 	{
 		MedicalRecord mr = new MedicalRecord();
-		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
-		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+	
 		try {
-			mr.setCreationDate(DateTime.getDate(currentYear, currentMonth+1, currentday));
+			mr.setCreationDate(DateTime.currentDate());
 			mr.setPatient(p);
 			p.setMedicalRecord(mr);
 			
@@ -41,11 +39,9 @@ public class MedicalRecordController {
 	{
 		Treatment t =new Treatment();
 		t.setDoctor(d);
-		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
-		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+	
 		try{
-		t.setStart(DateTime.getDate(currentYear, currentMonth+1, currentday));
+		t.setStart(DateTime.currentDate());
 		}
 		catch(Exception e)
 		{
@@ -59,11 +55,9 @@ public class MedicalRecordController {
 	{
 		Visit v =new Visit();
 		v.setTreatment(t);
-		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
-		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		
 		try{
-		v.setVisitDate((DateTime.getDate(currentYear, currentMonth+1, currentday)));
+		v.setVisitDate(DateTime.currentDate());
 		}
 		catch(Exception e)
 		{
@@ -76,11 +70,8 @@ public class MedicalRecordController {
 	{
 		Examination ex =new Examination();
 		ex.setTreatment(t);
-		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		int currentMonth=Calendar.getInstance().get(Calendar.MONTH);
-		int currentday= Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		try{
-		ex.setExaminationDate(DateTime.getDate(currentYear, currentMonth+1, currentday));
+		ex.setReferralDate(DateTime.currentDate());
 		}
 		catch(Exception e)
 		{
@@ -95,46 +86,95 @@ public class MedicalRecordController {
 	 {
 		 Request r = new Request("treatments/add");
 		 r.addParam("treatment", t);
+		 String str= (String)Application.client.sendRequest(r);
+		  
+		return str;
+		
+		 
+	 }
+	 public Object getLastTreatmentInMR(int id)
+	 {
+		 
+		 Request r = new Request("treatments/getLastTreatment");
+		 r.addParam("medical_id", id);
+		 r.addParam("date", "start");
+		return Application.client.sendRequest(r);
+	 }
+	 public Object getLastVisitByTid(int id )
+	 {
+		
+		 Request r = new Request("visits/getVisit");
+		 r.addParam("treatment_id", id);
+		return Application.client.sendRequest(r);
+		 
+		 
+	 }
+	 
+	 public Object getLastReferralByTid(int id )
+	 {
+		
+		 Request r = new Request("examinations/getLastReferral");
+		 r.addParam("treatment_id", id);
+		return Application.client.sendRequest(r);
+		 
+		 
+	 }
+	 
+	 public Object saveVisit(Visit v )
+	 {
+		
+		 Request r = new Request("visits/add");
+		 r.addParam("visits", v);
+		return Application.client.sendRequest(r);
+		 
+		 
+	 }
+	 public Object saveReferral(Examination e )
+	 {
+		
+		 Request r = new Request("examinations/add");
+		 r.addParam("examination", e);
+		 return Application.client.sendRequest(r);
+		 
+	 }
+	 
+	 public Object saveExaminationResult(Examination e )
+	 {
+		
+		 Request r = new Request("examinations/update");
+		 r.addParam("examinations", e);
+		 return Application.client.sendRequest(r);
+		 
+	 }
+	 
+	 
+	 public Object  AddMedicalRecord(MedicalRecord md )
+	 {
+		
+		 Request r = new Request("MedicalRecords/add");
+		 r.addParam("mid", md);
+		return  Application.client.sendRequest(r);
+		 
+	 }
+	 public Object updatTreatment(Treatment t)
+	 {
+		 Request r = new Request("treatments/update");
+		 r.addParam("treatment", t);
+		 r.addParam("date","End");
 		 
 		 return Application.client.sendRequest(r);
 		
 		 
 	 }
 	 
-	 public void saveVisit(Visit v )
-	 {
+	
+	public Object sendReguestToHMO(Patient p) {
+		// TODO Auto-generated method stub
+		 Request r = new Request("patients/sendRequest");
+		 r.addParam("patient",p);
+		 return  Application.client.sendRequest(r);
 		
-		 Request r = new Request("visits/add");
-		 r.addParam("visit", v);
-		 Application.client.sendRequest(r);
-		 
-	 }
-	 
-	 public void saveExamination(Examination e )
-	 {
-		
-		 Request r = new Request("examinations/add");
-		 r.addParam("examination", e);
-		 Application.client.sendRequest(r);
-		 
-	 }
-	 public void AddMedicalRecord(MedicalRecord md )
-	 {
-		
-		 Request r = new Request("MedicalRecords/add");
-		 r.addParam("mid", md);
-		 Application.client.sendRequest(r);
-		 
-	 }
-	 public void updatTreatment(Treatment t)
-	 {
-		 Request r = new Request("treatments/update");
-		 r.addParam("treatment", t);
-		 
-		 Application.client.sendRequest(r);
-		
-		 
-	 }
+	}
 	 
 
 

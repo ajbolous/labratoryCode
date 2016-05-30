@@ -45,7 +45,7 @@ public class VisitPanel extends JPanel {
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 		
-		textField_1 = new JTextField(DateTime.getDateString(visit.getVisitDate()));
+		textField_1 = new JTextField(DateTime.getDateString(visit.getVisitDate())+" "+ DateTime.getTimeString(visit.getVisitDate()));
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	
 		
@@ -66,7 +66,7 @@ public class VisitPanel extends JPanel {
 		add(lblComments);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(112, 138, 328, 169);
+		scrollPane.setBounds(112, 138, 328, 120);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane);
 		textArea.setEditable(false);
@@ -83,7 +83,7 @@ public class VisitPanel extends JPanel {
 				setVisible(false);
 			}
 		});
-		btnNewButton.setBounds(351, 356, 89, 23);
+		btnNewButton.setBounds(304, 317, 89, 23);
 		add(btnNewButton);
 		
 		JLabel lblDoctorName = new JLabel("Doctor Name : ");

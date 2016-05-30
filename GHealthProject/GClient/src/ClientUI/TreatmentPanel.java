@@ -72,7 +72,7 @@ public class TreatmentPanel extends JPanel {
 	 * Create the panel.
 	 */
 	
-	public TreatmentPanel(Treatment treatment) {
+	public TreatmentPanel(Treatment treatment ,DoctorMedicalRecordUI doctorMedicalRecordUI ) {
 		
 	
 		
@@ -104,7 +104,7 @@ public class TreatmentPanel extends JPanel {
 			if(treatment.isEndFlag())
 			{
 				textField_2.setText(DateTime.getDateString(treatment.getEnd()));
-				btnCancel_1.setVisible(true);
+				//btnCancel_1.setVisible(true);
 				scrollPane.setVisible(true);
 				textArea.setText(treatment.getStatus());
 				lblResult.setVisible(true);
@@ -167,10 +167,11 @@ public class TreatmentPanel extends JPanel {
 			});
 			btnAddReport.setBounds(147, 242, 101, 23);
 			add(btnAddReport);
-			btnAddReport.setVisible(false);
+			btnAddReport.setVisible(true);
+			btnAddReport.setEnabled(false);
 			if(treatment.getDoctor().getSid().equals(Application.user.getSid()))
 			{
-				btnAddReport.setVisible(true);
+				btnAddReport.setEnabled(true);
 			}
 			
 		 lblResult = new JLabel("Result : ");
@@ -193,7 +194,7 @@ public class TreatmentPanel extends JPanel {
 			 		String str =textArea.getText();
 			 	error_lbl.setText("");
 			    if (UITests.notEmpty(str) == false)
-							error_lbl.setText("*Please enter Results");
+							error_lbl.setText("* Please enter Results");
 			 		else{
 			 		treatment.setStatus(str);
 			 		treatment.setEndFlag(true);
@@ -203,8 +204,10 @@ public class TreatmentPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} 
+			 		Messages.successMessage("Treatment Report was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
 			 		setVisible(false);
 			 		mrctrl.updatTreatment(treatment);
+			 		
 			 		
 			 		}  
 			 		

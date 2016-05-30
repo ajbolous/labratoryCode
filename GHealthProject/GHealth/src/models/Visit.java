@@ -55,7 +55,7 @@ public class Visit extends Entity{
 	}
 	
 	public String toString(){
-		return "Visit"+vid + ": "+DateTime.getDateString(visitDate);
+		return "Visit" +vid+ ": "+DateTime.getDateString(visitDate);
 		
 	}
 	

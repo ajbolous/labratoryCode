@@ -13,7 +13,7 @@ public class TestApp {
 		Application.connect();
 		//UsersManagingUI iden= new UsersManagingUI();
 		//AddPatientUI u = new AddPatientUI();
-		//new SignInUI();
+		new SignInUI();
 		//Application.user=new Doctor();
 		//PatientUI p = new PatientUI();
 	//RequestInformationUI p = new RequestInformationUI();

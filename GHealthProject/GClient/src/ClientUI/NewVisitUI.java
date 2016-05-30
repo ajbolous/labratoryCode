@@ -72,7 +72,7 @@ public class NewVisitUI extends JPanel  {
 				setBounds(new Rectangle(283, 143, 122, 144));
 				setLayout(null);
 				
-				textField_1 = new JTextField(DateTime.getDateString(visit.getVisitDate()));
+				textField_1 = new JTextField(DateTime.getDateString(visit.getVisitDate())+" "+ DateTime.getTimeString(visit.getVisitDate()));
 				textField_1.setBounds(107, 52, 155, 20);
 				textField_1.setBackground(Color.WHITE);
 				textField_1.setEditable(false);
@@ -90,7 +90,7 @@ public class NewVisitUI extends JPanel  {
 				add(lblComments);
 				
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(107, 122, 329, 162);
+				scrollPane.setBounds(107, 122, 329, 120);
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				add(scrollPane);
 				
@@ -112,7 +112,7 @@ public class NewVisitUI extends JPanel  {
 						String comments= textArea.getText(); 
 						error_lbl.setText("");
 						if (UITests.notEmpty(comments) == false)
-							error_lbl.setText("*Please enter comments");
+							error_lbl.setText("*Please enter visit description");
 						
 						else {
 							visit.setComments(textArea.getText());
@@ -120,17 +120,23 @@ public class NewVisitUI extends JPanel  {
 						
 							
 							if (visit.getTreatment().isEndFlag()){
-								Messages.successMessage("canot add Visits or Examibations to Treatment"+visit.getTreatment().getTid()+
+								Messages.warningMessage("canot add Visits or Examibations to Treatment"+visit.getTreatment().getTid()+
 										"-" +visit.getTreatment().gettType()+"\nThis treatment is closed", "warnning", doctorMedicalRecordUI.DoctorMedicalRecord);
 							
 								
 							}
 							else{
 								mrctrl.saveVisit(visit);
+								
+								Visit visitDB =(Visit)mrctrl.getLastVisitByTid(visit.getTreatment().getTid());
+								
 								Messages.successMessage("Visit was added successfully to Treatment "+visit.getTreatment().getTid()+
 										"-"+visit.getTreatment().gettType(), "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
+								System.out.println("visitDB"+visitDB.getVid());
 
-								doctorMedicalRecordUI.updateTree(visit);
+								doctorMedicalRecordUI.updateTree(visitDB , true);
+							
+							
 							
 							
 							}
@@ -144,7 +150,7 @@ public class NewVisitUI extends JPanel  {
 					}
 				});
 				btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				btnSave.setBounds(107, 322, 89, 23);
+				btnSave.setBounds(138, 322, 89, 23);
 				add(btnSave);
 				
 				JButton btnNewButton = new JButton("Cancel");
@@ -155,7 +161,7 @@ public class NewVisitUI extends JPanel  {
 						
 					}
 				});
-				btnNewButton.setBounds(264, 322, 89, 23);
+				btnNewButton.setBounds(280, 322, 89, 23);
 				add(btnNewButton);
 				
 				error_lbl = new JLabel("");

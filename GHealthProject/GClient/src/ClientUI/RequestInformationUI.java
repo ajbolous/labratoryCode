@@ -11,9 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import models.Patient;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Resources;
+import Controllers.MedicalRecordController;
 
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
@@ -38,10 +41,10 @@ public class RequestInformationUI {
      private JScrollPane scrollPane;
      private JRadioButton rdbtnNewRadioButton;
      private JLabel lblPleaseChooseType;
-
+     MedicalRecordController mrctrl = new MedicalRecordController();
 	
-	public RequestInformationUI() {
-		initialize();
+	public RequestInformationUI(Patient patient ) {
+		initialize(patient);
 		requestInfo.setSize(405, 394);
 		requestInfo.setLocale(null);
 		requestInfo.setLocationRelativeTo(null);
@@ -52,7 +55,7 @@ public class RequestInformationUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Patient p) {
 		Resources res = new Resources();
 		requestInfo = new JFrame();
 		requestInfo.setTitle("<Request Information> - GHealth");
@@ -82,6 +85,7 @@ public class RequestInformationUI {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Messages.successMessage("Request was sended successfully", "success",requestInfo );
+				mrctrl.sendReguestToHMO(p);
 				requestInfo.setVisible(false);
 			}
 		});

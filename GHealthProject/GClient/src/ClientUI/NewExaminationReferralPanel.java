@@ -35,6 +35,7 @@ import java.awt.event.InputMethodEvent;
 import javax.swing.JComboBox;
 
 import java.awt.SystemColor;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.UIManager;
@@ -61,7 +62,8 @@ public class NewExaminationReferralPanel  extends JPanel {
 			setLayout(null);
 			
 			
-			textField_1 = new JTextField(DateTime.getDateString(ex.getExaminationDate()));
+			textField_1 = new JTextField(DateTime.getDateString(ex.getReferralDate())+" "+DateTime.getTimeString(ex.getReferralDate()));
+			textField_1.setEnabled(false);
 			textField_1.setBackground(new Color(255, 255, 255));
 			textField_1.setEditable(false);
 			textField_1.setBounds(140, 59, 197, 20);
@@ -126,10 +128,13 @@ public class NewExaminationReferralPanel  extends JPanel {
 									
 						}
 						else{
-							mrctrl.saveExamination(ex);
-							Messages.successMessage("Examnation was added successfully to Treatment "+ex.getTreatment().getTid()+
-										"-"+ex.getTreatment().gettType(), "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
-							doctorMedicalRecordUI.updateTree(ex);
+							
+							mrctrl.saveReferral(ex);
+							/*
+							Examination exDB=(Examination) mrctrl.getLastReferralByTid(ex.getTreatment().getTid());
+							Messages.successMessage("Referral was added successfully  "
+									, "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
+							doctorMedicalRecordUI.updateTree(exDB , true);*/
 						
 						
 						}
