@@ -147,16 +147,15 @@ public class NewTreatmentUI extends JPanel  {
 					
 					else {
 						treatment.settType(tType);
-						
-
-						
-					{
+				
 						Messages.successMessage("Treatment was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
+						mrctrl.saveTreatment(treatment);
+						Treatment treatmentDB= (Treatment ) mrctrl.getLastTreatmentInMR(treatment.getMedicalRecord().getMid());
 						
-						doctorMedicalRecordUI.createtree(treatment.getMedicalRecord().getPatient().getSid());
+						doctorMedicalRecordUI.updateTree(treatmentDB , true);
 						setVisible(false);
 						
-					}
+					
 				   }
 				}
 			});

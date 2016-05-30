@@ -3,6 +3,7 @@ package Views;
 import java.sql.SQLException;
 import java.text.ParseException;
 
+import models.Appointment;
 import models.Doctor;
 import models.MedicalRecord;
 import models.Patient;
@@ -97,5 +98,20 @@ public class Patients extends View{
 		
 		return null;
 		
+	}
+	
+	public Object sendRequest(Request request)
+	{
+		 Patient patient = (Patient) request.getParam("patient");
+		System.out.println("----------------------------------------");
+		System.out.println();
+	
+				System.out.println("Request Information about Patient : " +patient.getFirstName() +" "+patient.getLastName() +
+						"sent to HMo :");
+				
+		
+		
+		System.out.println("----------------------------------------");
+		return "success";
 	}
 }
