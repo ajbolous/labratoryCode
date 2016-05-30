@@ -21,11 +21,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -91,7 +93,9 @@ public class RequestInformationUI {
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				requestInfo.setVisible(false);
+				int result = Messages.confirmMessage("Are you sure you want to cancel?","GHealth" , null);
+				if(result == JOptionPane.YES_OPTION)
+					requestInfo.dispose();
 			}
 		});
 		btnCancel.setBounds(210, 315, 89, 23);

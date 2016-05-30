@@ -17,15 +17,25 @@ import java.awt.Image;
 import javax.swing.JButton;
 
 import Client.Resources;
+
 import javax.swing.BoxLayout;
+
 import java.awt.GridLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SwingConstants;
+
+import models.Patient;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
 import java.awt.SystemColor;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -43,14 +53,15 @@ public class NewConformUI {
 	private JTextField textField_2;
 
 	
-	public NewConformUI() {
-		initialize();
+	public NewConformUI(Patient p ) {
+		initialize(p);
+		NewConformUI.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Patient p) {
 		Resources res = new Resources();
 		NewConformUI = new JFrame();
 		NewConformUI.setTitle("New Conformation - GHealth");
@@ -87,7 +98,7 @@ public class NewConformUI {
 		lblOther.setBounds(20, 188, 71, 14);
 		NewConformUI.getContentPane().add(lblOther);
 		
-		textField = new JTextField();
+		textField = new JTextField(p.getSid());
 		textField.setBounds(100, 100, 200, 20);
 		NewConformUI.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -105,6 +116,7 @@ public class NewConformUI {
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(110, 281, 89, 23);
 		NewConformUI.getContentPane().add(btnSave);
+		
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(211, 281, 89, 23);
