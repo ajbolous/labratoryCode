@@ -230,16 +230,18 @@ public class DoctorMedicalRecordUI {
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(232, 156, 571, 32);
 		panel_1.setLayout(null);
+		btnNewButton.setToolTipText("You must choose Treatment to add Visit ");
 
 		btnNewButton.setEnabled(false);
 
 		panel_1.add(btnNewButton);
+		btnNewButton_1.setToolTipText("You must choose Treatment to add Referral");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					enableAddVisitOrreferral(false);
 					NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(
-							mrctrl.getNewExamination(t), doctorMedicalRecordUI);
+							mrctrl.getNewReferral(t), doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(exPanel);
 
 				} catch (ParseException e1) {
@@ -412,7 +414,7 @@ public class DoctorMedicalRecordUI {
 			public void actionPerformed(ActionEvent arg0) {
 				DoctorMedicalRecord.setVisible(false);
 				DoctorMedicalRecord.dispose();
-				 new PatientUI();
+				 new ClientUI();
 			}
 		});
 		btnNewTreatment.addActionListener(new ActionListener() {
@@ -543,10 +545,10 @@ public class DoctorMedicalRecordUI {
 		btnNewButton_1.setEnabled(b);
 
 	}
-	public void createtree(String id) {
+	/*public void createtree(String id) {
 		Patient p = patientController.getById(id);
 		tree.removeAll();
-		/*
+		
 		 * tree.setModel(new DefaultTreeModel( new
 		 * DefaultMutableTreeNode("Specialisties") { {
 		 * 
@@ -588,7 +590,7 @@ public class DoctorMedicalRecordUI {
 		 * 
 		 * 
 		 * } } ));
-		 */
+		 
 
-	}
-}// end class
+	}*/
+}

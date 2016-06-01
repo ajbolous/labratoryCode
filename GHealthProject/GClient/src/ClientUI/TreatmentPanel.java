@@ -104,7 +104,8 @@ public class TreatmentPanel extends JPanel {
 			if(treatment.isEndFlag())
 			{
 				textField_2.setText(DateTime.getDateString(treatment.getEnd()));
-				//btnCancel_1.setVisible(true);
+				System.out.printf(DateTime.getDateString(treatment.getEnd()));
+				btnCancel_1.setVisible(true);
 				scrollPane.setVisible(true);
 				textArea.setText(treatment.getStatus());
 				lblResult.setVisible(true);
@@ -149,7 +150,7 @@ public class TreatmentPanel extends JPanel {
 					setVisible(false);
 				}
 			});
-			btnCancel.setBounds(275, 241, 89, 23);
+			btnCancel.setBounds(311, 242, 89, 23);
 			add(btnCancel);
 			
 			 btnAddReport = new JButton("Add Report");
@@ -165,7 +166,7 @@ public class TreatmentPanel extends JPanel {
 					btnCancel.setVisible(false);
 				}
 			});
-			btnAddReport.setBounds(147, 242, 101, 23);
+			btnAddReport.setBounds(200, 242, 101, 23);
 			add(btnAddReport);
 			btnAddReport.setVisible(true);
 			btnAddReport.setEnabled(false);
@@ -221,7 +222,7 @@ public class TreatmentPanel extends JPanel {
 			
 			add(error_lbl);
 			btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			btnSave.setBounds(147, 365, 89, 23);
+			btnSave.setBounds(212, 365, 89, 23);
 			add(btnSave);
 			btnSave.setVisible(false);
 			
@@ -232,7 +233,7 @@ public class TreatmentPanel extends JPanel {
 			 	}
 			 });
 			btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			btnCancel_1.setBounds(275, 365, 89, 23);
+			btnCancel_1.setBounds(311, 365, 89, 23);
 			add(btnCancel_1);
 			btnCancel_1.setVisible(false);
 			

@@ -24,7 +24,7 @@ public class Visits extends View{
 		try {
 			
 			db.visits.create(v); 
-			return "success";
+			return getVisit(request) ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,7 +40,7 @@ public class Visits extends View{
 			
 				try {
 					visits=  q.orderBy("visitDate",false).limit(1).where()
-					.eq("treatment_id",request.getParam("treatment_id") ).query();
+					.eq("treatment_id",(Integer)request.getParam("treatment_id") ).query();
 					if(visits.size()== 0) return null;
 					else return visits.get(0);
 				

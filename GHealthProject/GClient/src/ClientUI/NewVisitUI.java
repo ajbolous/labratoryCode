@@ -59,7 +59,7 @@ public class NewVisitUI extends JPanel  {
 	
 	private JTextField textField_1;
 	private JTextArea textArea = new JTextArea();
-	JLabel error_lbl;
+	 private JLabel error_lbl;
 	
 	MedicalRecordController mrctrl = new MedicalRecordController();
 	// TODO Auto-generated constructor stub
@@ -126,9 +126,9 @@ public class NewVisitUI extends JPanel  {
 								
 							}
 							else{
-								mrctrl.saveVisit(visit);
 								
-								Visit visitDB =(Visit)mrctrl.getLastVisitByTid(visit.getTreatment().getTid());
+								
+								Visit visitDB =(Visit)mrctrl.saveVisit(visit);
 								
 								Messages.successMessage("Visit was added successfully to Treatment "+visit.getTreatment().getTid()+
 										"-"+visit.getTreatment().gettType(), "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
@@ -150,7 +150,7 @@ public class NewVisitUI extends JPanel  {
 					}
 				});
 				btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				btnSave.setBounds(138, 322, 89, 23);
+				btnSave.setBounds(220, 322, 89, 23);
 				add(btnSave);
 				
 				JButton btnNewButton = new JButton("Cancel");
@@ -161,7 +161,7 @@ public class NewVisitUI extends JPanel  {
 						
 					}
 				});
-				btnNewButton.setBounds(280, 322, 89, 23);
+				btnNewButton.setBounds(319, 322, 89, 23);
 				add(btnNewButton);
 				
 				error_lbl = new JLabel("");

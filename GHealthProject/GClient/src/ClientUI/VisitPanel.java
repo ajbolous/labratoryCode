@@ -83,7 +83,7 @@ public class VisitPanel extends JPanel {
 				setVisible(false);
 			}
 		});
-		btnNewButton.setBounds(304, 317, 89, 23);
+		btnNewButton.setBounds(318, 317, 89, 23);
 		add(btnNewButton);
 		
 		JLabel lblDoctorName = new JLabel("Doctor Name : ");

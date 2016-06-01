@@ -82,13 +82,11 @@ import javax.swing.border.LineBorder;
 		
 		
 
-		/**
-		 * Create the JScrollPane.
-		 */
+		
 		public ExaminationPanel(Examination ex ) {
 			
 			mainPanel= new JPanel();
-			
+			mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 
 			mainPanel.setBackground(UIManager.getColor("Panel.background"));
 			mainPanel.setBounds(283, 143, 477, 458);
@@ -158,7 +156,7 @@ import javax.swing.border.LineBorder;
 			
 		    btnCancel = new JButton("Cancel");
 			btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			btnCancel.setBounds(358, 423, 89, 23);
+			btnCancel.setBounds(338, 423, 89, 23);
 			mainPanel.add(btnCancel);
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -191,11 +189,13 @@ import javax.swing.border.LineBorder;
 				
 				
 				lblDate = new JLabel("Date :");
+				lblDate.setVisible(false);
 				lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblDate.setBounds(9, 40, 46, 14);
 				mainPanel.add(lblDate);
 				
 				 lblComments = new JLabel("Comments : ");
+				 lblComments.setVisible(false);
 				lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblComments.setBounds(9, 169, 110, 14);
 				mainPanel.add(lblComments);
@@ -207,16 +207,19 @@ import javax.swing.border.LineBorder;
 				
 			    textArea = new JTextArea();
 			    textArea.setEditable(false);
-				
-				
 				scrollPane.setViewportView(textArea);
+				 textArea.setVisible(false);
+				 scrollPane.setVisible(false);
 				
 				lblDoctorname = new JLabel("DoctorName : ");
+				lblDoctorname.setVisible(false);
+				
 				lblDoctorname.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblDoctorname.setBounds(9, 80, 110, 21);
 				mainPanel.add(lblDoctorname);
 				
 				textField_3 = new JTextField();
+				textField_3.setVisible(false);
 				textField_3.setBackground(Color.WHITE);
 				textField_3.setEditable(false);
 				textField_3.setBounds(130, 81, 197, 20);
@@ -224,11 +227,13 @@ import javax.swing.border.LineBorder;
 				textField_3.setColumns(10);
 				
 				lblNewLabel = new JLabel("Examination Type :");
+				lblNewLabel.setVisible(false);
 				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblNewLabel.setBounds(9, 126, 110, 20);
 				mainPanel.add(lblNewLabel);
 				
 				textField_2 = new JTextField();
+				textField_2.setVisible(false);
 				textField_2.setBackground(Color.WHITE);
 				
 				textField_2.setEditable(false);
@@ -238,6 +243,7 @@ import javax.swing.border.LineBorder;
 				
 				
 				textField_1 = new JTextField();
+				textField_1.setVisible(false);
 				textField_1.setBackground(new Color(255, 255, 255));
 				textField_1.setEditable(false);
 				textField_1.setBounds(130, 38, 197, 20);
@@ -290,10 +296,11 @@ import javax.swing.border.LineBorder;
 						
 					}
 				});
-				btnViewReferral.setBounds(179, 424, 133, 23);
+				btnViewReferral.setBounds(195, 423, 133, 23);
 				mainPanel.add(btnViewReferral);
 				
 				btnBack = new JButton("Back");
+				btnBack.setVisible(false);
 				btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -331,21 +338,23 @@ import javax.swing.border.LineBorder;
 					}
 				});
 				btnBack.setToolTipText("Return to Examination Result ");
-				btnBack.setBounds(189, 334, 89, 23);
+				btnBack.setBounds(239, 333, 89, 23);
 				mainPanel.add(btnBack);
 				btnBack.setVisible(false);
+				
 				btnCancel_1 = new JButton("Cancel");
+				btnCancel_1.setVisible(false);
 				btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				btnCancel_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						mainPanel.setVisible(false);
 					}
 				});
-				btnCancel_1.setBounds(358, 334, 89, 23);
+				btnCancel_1.setBounds(338, 333, 89, 23);
 				mainPanel.add(btnCancel_1);
 				btnCancel_1.setVisible(false);
 				
-				textArea_1.setVisible(false);
+				/*textArea_1.setVisible(false);
 				textField_5.setVisible(false);
 				textField_4.setVisible(false);
 				textField_6.setVisible(false);
@@ -358,9 +367,9 @@ import javax.swing.border.LineBorder;
 				lblLabortianName.setVisible(false);
 				lblDate_1.setVisible(false);
 				btnViewReferral.setVisible(false);
-				textField.setVisible(false);
+				textField.setVisible(false);*/
 				
-				btnBack.setVisible(false);
+				/*btnBack.setVisible(false);
 				btnCancel_1.setVisible(false);
 				
 
@@ -372,9 +381,9 @@ import javax.swing.border.LineBorder;
 				lblDoctorname.setVisible(false);
 				textArea.setVisible(false);
 				lblNewLabel.setVisible(false);
-				scrollPane.setVisible(false);
+				scrollPane.setVisible(false);*/
 				
-				if (ex.getExaminationDate()!=null)
+				/*if (ex.getExaminationDate()!=null)
 				{//display Examination result
 					mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 					textArea_1.setVisible(true);
@@ -439,7 +448,7 @@ import javax.swing.border.LineBorder;
 					lblNewLabel.setVisible(true);
 					scrollPane.setVisible(true);
 					mainPanel.setVisible(true);
-				}
+				}*/
 			
 			
 		}

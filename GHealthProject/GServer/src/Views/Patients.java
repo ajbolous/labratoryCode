@@ -107,7 +107,7 @@ public class Patients extends View{
 		System.out.println();
 	
 				System.out.println("Request Information about Patient : " +patient.getFirstName() +" "+patient.getLastName() +
-						"sent to HMo :");
+						" sended to HMo :");
 				
 		
 		

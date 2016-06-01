@@ -8,6 +8,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
+import models.Appointment;
 import models.Treatment;
 import models.Visit;
 
@@ -17,15 +18,17 @@ public class Treatments extends View {
 	public Object add (Request request){
 		
 		try {
-			db.treatments.create((Treatment) request.getParam("treatment")); 
+			db.treatments.create((Treatment) request.getParam("treatment"));
+			return getLastTreatment(request);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return "success";
+		
 	}
 	
-	public Object update (Request request){
+	public Object updateTreatment (Request request){
 		DbHandler db = Config.getConfig().getHandler();
 		try {
 			db.treatments.update((Treatment) request.getParam("treatment")); 
@@ -45,7 +48,7 @@ public class Treatments extends View {
 			
 				try {
 					treatments=  q.orderBy( (String)request.getParam("date"),false).limit(1).where()
-					.eq("medical_id",request.getParam("medical_id") ).query();
+					.eq("medical_id",((Integer)request.getParam("medical_id")) ).query();
 					if(treatments.size()== 0) return null;
 					else return treatments.get(0);
 				
@@ -56,7 +59,23 @@ public class Treatments extends View {
 				}					
 				
 	}
-				
+				public Object getTreatment(Request request)
+				{
+					QueryBuilder<Treatment, Integer> q = db.treatments.queryBuilder();
+					List<Treatment> tr;
+					try {
+						tr=  q.query();
+						return tr;
+					}
+					
+					catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return null;
+					
+					}
+					
+				}
 	
 	
 	

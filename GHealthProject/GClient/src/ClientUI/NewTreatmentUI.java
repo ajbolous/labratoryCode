@@ -105,6 +105,7 @@ public class NewTreatmentUI extends JPanel  {
 			add(lblEndDate);
 			
 			textField_2 = new JTextField();
+			textField_2.setEnabled(false);
 			textField_2.setBackground(Color.WHITE);
 			
 			textField_2.setEditable(false);
@@ -133,7 +134,7 @@ public class NewTreatmentUI extends JPanel  {
 				}
 	
 			});
-			btnCancel.setBounds(240, 211, 89, 23);
+			btnCancel.setBounds(246, 211, 89, 23);
 			add(btnCancel);
 			
 			 btnOk_1 = new JButton("Save");
@@ -149,8 +150,8 @@ public class NewTreatmentUI extends JPanel  {
 						treatment.settType(tType);
 				
 						Messages.successMessage("Treatment was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
-						mrctrl.saveTreatment(treatment);
-						Treatment treatmentDB= (Treatment ) mrctrl.getLastTreatmentInMR(treatment.getMedicalRecord().getMid());
+						
+						Treatment treatmentDB= (Treatment )mrctrl.saveTreatment(treatment); ;
 						
 						doctorMedicalRecordUI.updateTree(treatmentDB , true);
 						setVisible(false);
@@ -159,7 +160,7 @@ public class NewTreatmentUI extends JPanel  {
 				   }
 				}
 			});
-			btnOk_1.setBounds(133, 211, 76, 23);
+			btnOk_1.setBounds(160, 211, 76, 23);
 			add(btnOk_1);
 			
 			

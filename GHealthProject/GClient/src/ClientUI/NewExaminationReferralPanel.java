@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import models.Examination;
+import models.Labratory;
 import models.Patient;
 import models.Visit;
 
@@ -36,12 +37,14 @@ import javax.swing.JComboBox;
 
 import java.awt.SystemColor;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.DefaultComboBoxModel;
 
 public class NewExaminationReferralPanel  extends JPanel {
 		private JTextField textField_1;
@@ -63,7 +66,6 @@ public class NewExaminationReferralPanel  extends JPanel {
 			
 			
 			textField_1 = new JTextField(DateTime.getDateString(ex.getReferralDate())+" "+DateTime.getTimeString(ex.getReferralDate()));
-			textField_1.setEnabled(false);
 			textField_1.setBackground(new Color(255, 255, 255));
 			textField_1.setEditable(false);
 			textField_1.setBounds(140, 59, 197, 20);
@@ -77,12 +79,12 @@ public class NewExaminationReferralPanel  extends JPanel {
 			
 			JLabel lblComments = new JLabel("Comments : ");
 			lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblComments.setBounds(10, 183, 110, 14);
+			lblComments.setBounds(20, 252, 110, 14);
 			add(lblComments);
 			
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.setBounds(140, 178, 308, 68);
+			scrollPane.setBounds(140, 247, 308, 68);
 			add(scrollPane);
 			
 			JTextArea textArea = new JTextArea();
@@ -124,17 +126,20 @@ public class NewExaminationReferralPanel  extends JPanel {
 						
 						if (ex.getTreatment().isEndFlag()){
 							
-							Messages.warningMessage("canot add visits or Examibations to Treatment"+ex.getTreatment().getTid() +"-"+ ex.getTreatment().gettType() , "warning",doctorMedicalRecordUI.DoctorMedicalRecord);
+							Messages.warningMessage("cannot add visits or Examibations to Treatment"+ex.getTreatment().getTid() +"-"+ ex.getTreatment().gettType() , "warning",doctorMedicalRecordUI.DoctorMedicalRecord);
 									
 						}
 						else{
 							
 							mrctrl.saveReferral(ex);
-							/*
-							Examination exDB=(Examination) mrctrl.getLastReferralByTid(ex.getTreatment().getTid());
+							
+							//Examination exDB=(Examination) mrctrl.getLastReferralByTid(ex.getTreatment().getTid());
 							Messages.successMessage("Referral was added successfully  "
 									, "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
-							doctorMedicalRecordUI.updateTree(exDB , true);*/
+							//doctorMedicalRecordUI.updateTree(exDB , true);*/
+							
+							
+								
 						
 						
 						}
@@ -144,7 +149,7 @@ public class NewExaminationReferralPanel  extends JPanel {
 				}
 				}
 			});
-			btnSave.setBounds(140, 277, 89, 23);
+			btnSave.setBounds(248, 365, 89, 23);
 			add(btnSave);
 			
 			JButton btnCancel = new JButton("Cancel");
@@ -154,7 +159,7 @@ public class NewExaminationReferralPanel  extends JPanel {
 					setVisible(false);
 				}
 			});
-			btnCancel.setBounds(296, 277, 89, 23);
+			btnCancel.setBounds(359, 365, 89, 23);
 			add(btnCancel);
 			
 			 error_lbl = new JLabel("");
@@ -164,8 +169,25 @@ public class NewExaminationReferralPanel  extends JPanel {
 			
 			add(error_lbl);
 			
+			JLabel lblLabortary = new JLabel("Labratory :");
+			lblLabortary.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblLabortary.setBounds(9, 180, 121, 20);
+			add(lblLabortary);
+			
+			JComboBox comboBox_1 = new JComboBox();
+			ArrayList<Labratory> labList=(ArrayList<Labratory>) mrctrl.getAllLabratories();
+			
+			String[] lab=new String[labList.size()];
+			lab=labList.toArray(lab);
+			comboBox_1.setModel(new DefaultComboBoxModel(lab));
+			comboBox_1.setBounds(140, 180, 197, 31);
+			add(comboBox_1);
+			
+
 			
 			
-		}
+			
+		
 	}
+}
 

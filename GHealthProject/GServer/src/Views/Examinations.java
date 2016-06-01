@@ -20,11 +20,13 @@ public class Examinations extends View {
 		
 		try {
 			db.examinations.createIfNotExists((Examination)request.getParam("examination"));
+			return getLastReferral(request) ; 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "Fail" ; 
 		}
-		return "success";
+	
 	}
 	public Object getById(Request request){
 		
@@ -58,7 +60,7 @@ public class Examinations extends View {
 			
 				try {
 					examination=  q.orderBy("referralDate",false).limit(1).where()
-					.eq("treatment_id",request.getParam("treatment_id") ).query();
+					.eq("treatment_id",(Integer)request.getParam("treatment_id") ).query();
 					if(examination.size()== 0) return null;
 					else return examination.get(0);
 				

@@ -83,6 +83,9 @@ public class RequestInformationUI {
 		btnSend.setEnabled(false);
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String str = textArea.getText();
+			
+					
 				Messages.successMessage("Request was sended successfully", "success",requestInfo );
 				mrctrl.sendReguestToHMO(p);
 				requestInfo.setVisible(false);
