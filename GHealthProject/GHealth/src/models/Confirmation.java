@@ -13,5 +13,14 @@ public class Confirmation {
 	private int hmo_id ; 
 	
 	@DatabaseField()
+	private String Refferal_id ; 
+	
+	@DatabaseField()
+	private String Approval_id ; 
+	
+	@DatabaseField()
 	private String details; 
+
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
+	private Patient patient;
 }

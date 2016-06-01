@@ -17,15 +17,27 @@ import java.awt.Image;
 import javax.swing.JButton;
 
 import Client.Resources;
+import Controllers.AppointmentsController;
+
 import javax.swing.BoxLayout;
+
 import java.awt.GridLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SwingConstants;
+
+import models.Patient;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
 import java.awt.SystemColor;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -34,6 +46,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;
 
 public class NewConformUI {
 
@@ -41,16 +54,17 @@ public class NewConformUI {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-
+	private AppointmentsController app_ctrl = new AppointmentsController();
 	
-	public NewConformUI() {
-		initialize();
+	public NewConformUI(Patient p ) {
+		initialize(p);
+		NewConformUI.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Patient p) {
 		Resources res = new Resources();
 		NewConformUI = new JFrame();
 		NewConformUI.setTitle("New Conformation - GHealth");
@@ -80,14 +94,14 @@ public class NewConformUI {
 		NewConformUI.getContentPane().add(lblRefferalNum);
 		
 		JLabel lblApprovalNum = new JLabel("Approval Num:");
-		lblApprovalNum.setBounds(20, 163, 71, 14);
+		lblApprovalNum.setBounds(18, 163, 71, 14);
 		NewConformUI.getContentPane().add(lblApprovalNum);
 		
 		JLabel lblOther = new JLabel("Other: ");
-		lblOther.setBounds(20, 188, 71, 14);
+		lblOther.setBounds(18, 226, 71, 14);
 		NewConformUI.getContentPane().add(lblOther);
 		
-		textField = new JTextField();
+		textField = new JTextField(p.getSid());
 		textField.setBounds(100, 100, 200, 20);
 		NewConformUI.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -103,22 +117,33 @@ public class NewConformUI {
 		NewConformUI.getContentPane().add(textField_2);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(110, 281, 89, 23);
+		btnSave.setBounds(110, 317, 89, 23);
 		NewConformUI.getContentPane().add(btnSave);
 		
+		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(211, 281, 89, 23);
+		btnCancel.setBounds(211, 317, 89, 23);
 		NewConformUI.getContentPane().add(btnCancel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(101, 190, 200, 80);
+		scrollPane.setBounds(100, 226, 200, 80);
 		NewConformUI.getContentPane().add(scrollPane);
 		
 		JTextPane textPane = new JTextPane();
 		scrollPane.setViewportView(textPane);
 		textPane.setBorder(new LineBorder(new Color(0, 0, 0), 0));
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setName("");
+		comboBox.setModel(new DefaultComboBoxModel(app_ctrl.getSpecialties()));
+		comboBox.setBounds(100, 190, 200, 25);
+		NewConformUI.getContentPane().add(comboBox);
+		
+		JLabel lblSpeciality = new JLabel("Speciality:");
+		lblSpeciality.setBounds(18, 197, 71, 14);
+		NewConformUI.getContentPane().add(lblSpeciality);
 		NewConformUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConformUI.setBounds(100, 100, 320, 346);
+		NewConformUI.setBounds(100, 100, 320, 388);
 		NewConformUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

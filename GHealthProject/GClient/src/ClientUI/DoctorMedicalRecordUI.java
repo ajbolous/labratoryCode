@@ -175,7 +175,7 @@ public class DoctorMedicalRecordUI {
 		lblHeight.setBounds(10, 45, 67, 21);
 		panel.add(lblHeight);
 
-		JTextField label_2 = new JTextField(p.getHeight() + "");
+		JTextField label_2 = new JTextField(Float.toString(p.getHeight()));
 		label_2.setBackground(Color.WHITE);
 		label_2.setEditable(false);
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -199,7 +199,7 @@ public class DoctorMedicalRecordUI {
 		lblWeight_1.setBounds(146, 43, 67, 21);
 		panel.add(lblWeight_1);
 
-		JTextField label_5 = new JTextField(p.getWeight() + "");
+		JTextField label_5 = new JTextField(Float.toString(p.getWeight()));
 		label_5.setBackground(Color.WHITE);
 		label_5.setEditable(false);
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
