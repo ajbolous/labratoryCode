@@ -61,15 +61,15 @@ public class DoctorMedicalRecordUI {
 
 	public JFrame DoctorMedicalRecord;
 
-	private JButton btnNewButton = new JButton("Add Visit");
-	private JButton btnNewButton_1 = new JButton("Add Referral");
+	private JButton btnNewButton ;
+	private JButton btnNewButton_1;
 	private JTree tree;
-	// private JPanel panel_2 = new JPanel();
+	
 	private Treatment t;
-	private JScrollPane scrollPane_1 = new JScrollPane();;
+	private JScrollPane scrollPane_1 ;
 	private AppointmentsController apctrl = new AppointmentsController();
 	private MedicalRecordController mrctrl = new MedicalRecordController();
-	private JPanel panel_1 = new JPanel();
+	private JPanel panel_1 ;
 	private DoctorMedicalRecordUI doctorMedicalRecordUI;
 	private PatientsController patientController = new PatientsController();
 	private DefaultTreeModel treeModel;
@@ -116,6 +116,11 @@ public class DoctorMedicalRecordUI {
 		panel.setBounds(0, 56, 869, 78);
 		DoctorMedicalRecord.getContentPane().add(panel);
 		panel.setLayout(null);
+		
+		 btnNewButton_1 = new JButton("Add Referral");
+		 btnNewButton = new JButton("Add Visit");
+		 scrollPane_1 = new JScrollPane();
+		 panel_1 = new JPanel();
 
 		JLabel lblNewLabel = new JLabel("Name:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -215,7 +220,7 @@ public class DoctorMedicalRecordUI {
 				"Reguest Information From HMO");
 		btnReguestInformationFrom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				enableAddVisitOrreferral(false);
+				enableAddVisitOrReferral(false);
 				 new RequestInformationUI(p);
 				 
 			}
@@ -239,7 +244,7 @@ public class DoctorMedicalRecordUI {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					enableAddVisitOrreferral(false);
+					enableAddVisitOrReferral(false);
 					NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(
 							mrctrl.getNewReferral(t), doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(exPanel);
@@ -260,7 +265,7 @@ public class DoctorMedicalRecordUI {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					enableAddVisitOrreferral(false);
+					enableAddVisitOrReferral(false);
 					NewVisitUI vPanel = new NewVisitUI(mrctrl.getNewVisit(t),
 							doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(vPanel);
@@ -372,9 +377,9 @@ public class DoctorMedicalRecordUI {
 								VisitPanel vi = new VisitPanel(v);
 								scrollPane_1.setViewportView(vi);
 								if (t.getDoctor().getSid().equals(Application.user.getSid())) 
-									enableAddVisitOrreferral(true);
+									enableAddVisitOrReferral(true);
 								else
-									enableAddVisitOrreferral(false);
+									enableAddVisitOrReferral(false);
 								
 
 							}
@@ -383,9 +388,9 @@ public class DoctorMedicalRecordUI {
 								TreatmentPanel tPanel = new TreatmentPanel((Treatment) obj,doctorMedicalRecordUI);
 								scrollPane_1.setViewportView(tPanel);
 								if (t.getDoctor().getSid().equals(Application.user.getSid())) 
-									enableAddVisitOrreferral(true);
+									enableAddVisitOrReferral(true);
 									else
-										enableAddVisitOrreferral(false);
+										enableAddVisitOrReferral(false);
 								}
 
 							
@@ -398,9 +403,9 @@ public class DoctorMedicalRecordUI {
 
 								scrollPane_1.setViewportView(ep.mainPanel);
 								if (t.getDoctor().getSid().equals(Application.user.getSid())) 
-									enableAddVisitOrreferral(true);
+									enableAddVisitOrReferral(true);
 									else
-										enableAddVisitOrreferral(false);
+										enableAddVisitOrReferral(false);
 								}
 
 							
@@ -425,7 +430,7 @@ public class DoctorMedicalRecordUI {
 					NewTreatmentUI tPanel = new NewTreatmentUI(treatment,doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(tPanel);
 					t=treatment ;
-					enableAddVisitOrreferral(true);
+					enableAddVisitOrReferral(true);
 
 
 				} catch (Exception e) {
@@ -539,7 +544,7 @@ public class DoctorMedicalRecordUI {
         	    }  	
     	}
 }
-	public void enableAddVisitOrreferral(boolean b)
+	public void enableAddVisitOrReferral(boolean b)
 	{
 		btnNewButton.setEnabled(b);
 		btnNewButton_1.setEnabled(b);

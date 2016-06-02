@@ -106,7 +106,8 @@ public class ClientUI {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Application.user.getClass().equals(Doctor.class)){
-					//Identification p = new Identification();
+					Identification p = new Identification();
+					 p.getFrame().setVisible(true);
 				}
 			}
 		});
@@ -162,6 +163,7 @@ public class ClientUI {
 		frame.getContentPane().add(btnLabs);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
 			}
 		});
 		btnUsers.setToolTipText("Users managment form");

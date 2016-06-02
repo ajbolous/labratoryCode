@@ -17,13 +17,17 @@ public class Labratories extends View  {
 	public Object getLabratories(Request request )
 	{
 		DbHandler db = Config.getConfig().getHandler();
-		try {
-			return  db.labratories.queryForAll();
-		} catch (SQLException e) {
+		
+		 
+			  // return db.labratories.queryForAll();
+			  
+			  System.out.print("dfdf");
+			  return "success";
+		/* catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return "fail";
 
-		}
+		}*/
 		
 		
 			

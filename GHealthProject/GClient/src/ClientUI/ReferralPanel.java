@@ -117,7 +117,7 @@ import javax.swing.border.LineBorder;
 			
 			textField_1.setText(DateTime.getDateString(ex.getReferralDate()));
 			
-			textField_2.setText(ex.getEType());
+			textField_2.setText(ex.geteType());
 			textField_3.setText(""+ex.getTreatment().getDoctor().getFirstName() +" "+(ex.getTreatment().getDoctor().getLastName()));
 			textArea.setText(ex.getComments());
 			

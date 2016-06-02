@@ -42,7 +42,10 @@ public class Labratory extends Entity {
 	public void setLabratorian(ForeignCollection<Labratorian> labratorian) {
 		this.labratorian = labratorian;
 	}
-
+public String toString()
+{
+	return ""+clinc.getName();
+}
 	
 
 	

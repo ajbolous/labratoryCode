@@ -252,7 +252,7 @@ import javax.swing.border.LineBorder;
 				
 				textField_1.setText(DateTime.getDateString(ex.getReferralDate())+" "+DateTime.getTimeString(ex.getReferralDate()));
 				
-				textField_2.setText(ex.getEType());
+				textField_2.setText(ex.geteType());
 				textField_3.setText(""+ex.getTreatment().getDoctor().getFirstName() +" "+(ex.getTreatment().getDoctor().getLastName()));
 				textArea.setText(ex.getComments());
 				
@@ -354,102 +354,7 @@ import javax.swing.border.LineBorder;
 				mainPanel.add(btnCancel_1);
 				btnCancel_1.setVisible(false);
 				
-				/*textArea_1.setVisible(false);
-				textField_5.setVisible(false);
-				textField_4.setVisible(false);
-				textField_6.setVisible(false);
-				btnCancel.setVisible(false);
-				lblNewLabel_2.setVisible(false);
-				lblExaminationType.setVisible(false);
-				scrollPane_1.setVisible(false);
-				lblPhotolink.setVisible(false);
-				lblClincsName.setVisible(false);
-				lblLabortianName.setVisible(false);
-				lblDate_1.setVisible(false);
-				btnViewReferral.setVisible(false);
-				textField.setVisible(false);*/
 				
-				/*btnBack.setVisible(false);
-				btnCancel_1.setVisible(false);
-				
-
-				textField_1.setVisible(false);
-				textField_3.setVisible(false);
-				textField_2.setVisible(false);
-				lblDate.setVisible(false);
-				lblComments.setVisible(false);
-				lblDoctorname.setVisible(false);
-				textArea.setVisible(false);
-				lblNewLabel.setVisible(false);
-				scrollPane.setVisible(false);*/
-				
-				/*if (ex.getExaminationDate()!=null)
-				{//display Examination result
-					mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
-					textArea_1.setVisible(true);
-					textField_5.setVisible(true);
-					textField_4.setVisible(true);
-					textField_6.setVisible(true);
-					btnCancel.setVisible(true);
-					lblNewLabel_2.setVisible(true);
-					lblExaminationType.setVisible(true);
-					scrollPane_1.setVisible(true);
-					lblPhotolink.setVisible(true);
-					lblClincsName.setVisible(true);
-					lblLabortianName.setVisible(true);
-					lblDate_1.setVisible(true);
-					btnViewReferral.setVisible(true);
-					textField.setVisible(true);
-					
-					btnBack.setVisible(false);
-					btnCancel_1.setVisible(false);
-					
-
-					textField_1.setVisible(false);
-					textField_3.setVisible(false);
-					textField_2.setVisible(false);
-					lblDate.setVisible(false);
-					lblComments.setVisible(false);
-					lblDoctorname.setVisible(false);
-					textArea.setVisible(false);
-					lblNewLabel.setVisible(false);
-					scrollPane.setVisible(false);
-					mainPanel.setVisible(true);
-					
-				}
-				else
-				{
-					mainPanel.setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
-					textArea_1.setVisible(false);
-					textField_5.setVisible(false);
-					textField_4.setVisible(false);
-					textField_6.setVisible(false);
-					btnCancel.setVisible(false);
-					lblNewLabel_2.setVisible(false);
-					lblExaminationType.setVisible(false);
-					scrollPane_1.setVisible(false);
-					lblPhotolink.setVisible(false);
-					lblClincsName.setVisible(false);
-					lblLabortianName.setVisible(false);
-					lblDate_1.setVisible(false);
-					btnViewReferral.setVisible(false);
-					textField.setVisible(false);
-					
-					btnCancel_1.setVisible(true);
-					btnBack.setVisible(true);
-
-					textField_1.setVisible(true);
-					textField_3.setVisible(true);
-					textField_2.setVisible(true);
-					lblDate.setVisible(true);
-					lblComments.setVisible(true);
-					lblDoctorname.setVisible(true);
-					textArea.setVisible(true);
-					lblNewLabel.setVisible(true);
-					scrollPane.setVisible(true);
-					mainPanel.setVisible(true);
-				}*/
-			
 			
 		}
 			

@@ -48,10 +48,10 @@ import javax.swing.DefaultComboBoxModel;
 
 public class NewExaminationReferralPanel  extends JPanel {
 		private JTextField textField_1;
-		JLabel error_lbl;
+		private JLabel error_lbl;
 		
-		String exType;
-		MedicalRecordController mrctrl = new MedicalRecordController();
+		private String exType;
+		private MedicalRecordController mrctrl = new MedicalRecordController();
 		
 		/**
 		 * Create the panel.
@@ -117,10 +117,11 @@ public class NewExaminationReferralPanel  extends JPanel {
 					error_lbl.setText("");
 					if (UITests.notEmpty(comment) == false)
 						error_lbl.setText("*Please enter comment");
+				
 					
 					else {
 						ex.setComments(comment);
-						ex.setEType(exType);
+						ex.seteType(exType);
 						
 					
 						
@@ -165,7 +166,7 @@ public class NewExaminationReferralPanel  extends JPanel {
 			 error_lbl = new JLabel("");
 			 error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				error_lbl.setForeground(Color.RED);
-				error_lbl.setBounds(140, 153, 269, 27);
+				error_lbl.setBounds(140, 219, 269, 27);
 			
 			add(error_lbl);
 			
@@ -174,12 +175,21 @@ public class NewExaminationReferralPanel  extends JPanel {
 			lblLabortary.setBounds(9, 180, 121, 20);
 			add(lblLabortary);
 			
-			JComboBox comboBox_1 = new JComboBox();
-			ArrayList<Labratory> labList=(ArrayList<Labratory>) mrctrl.getAllLabratories();
+			JComboBox<Labratory> comboBox_1 = new JComboBox();
+			
+			System.out.print((String)mrctrl.getAllLabratories());
+			/*ArrayList<Labratory> labList=(ArrayList<Labratory>) mrctrl.getAllLabratories();
 			
 			String[] lab=new String[labList.size()];
 			lab=labList.toArray(lab);
 			comboBox_1.setModel(new DefaultComboBoxModel(lab));
+			comboBox_1.setBackground(Color.WHITE);
+			comboBox_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Labratory labName=(Labratory) comboBox_1.getSelectedItem();
+					ex.setLabratory(labName);
+				}
+			});*/
 			comboBox_1.setBounds(140, 180, 197, 31);
 			add(comboBox_1);
 			

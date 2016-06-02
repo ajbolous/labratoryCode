@@ -177,7 +177,7 @@ public class labratoryUI {
 			model.addRow(new Object[]{e.getEid(),
 					e.getTreatment().getDoctor().getFirstName(),
 					e.getTreatment().getMedicalRecord().getPatient().getSid(),
-					e.getEType(),
+					e.geteType(),
 					"Opened"
 			});
 	}

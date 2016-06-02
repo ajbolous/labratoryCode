@@ -1,6 +1,7 @@
 package Views;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -9,6 +10,8 @@ import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
 import models.Appointment;
+import models.Doctor;
+import models.Secretary;
 import models.Treatment;
 import models.Visit;
 
@@ -61,11 +64,27 @@ public class Treatments extends View {
 	}
 				public Object getTreatment(Request request)
 				{
-					QueryBuilder<Treatment, Integer> q = db.treatments.queryBuilder();
-					List<Treatment> tr;
+					QueryBuilder<Doctor, String > d = db.doctors.queryBuilder();
+					QueryBuilder<Treatment, Integer > p = db.treatments.queryBuilder();
+					List<Doctor> doctor;
+					Secretary secr=(Secretary)request.getParam("Secretary");
+					List <Treatment> tretmentList ;
+					List <Treatment> allTreatment= new ArrayList<Treatment>() ; 
+					
 					try {
-						tr=  q.query();
-						return tr;
+						doctor=  d.where()
+								.eq("clinic_id", secr.getClinic().getCid()).query();
+						for (Doctor doc : doctor)
+						{
+							tretmentList=p.where()
+									.eq("endFlag",true )
+									.and()
+									.eq("hasInvoice", false)
+									.and()
+									.eq("doctor_id", doc.getSid()).query();
+							allTreatment.addAll(tretmentList);
+						}
+						return allTreatment;
 					}
 					
 					catch (SQLException e) {
@@ -74,6 +93,7 @@ public class Treatments extends View {
 						return null;
 					
 					}
+				
 					
 				}
 	

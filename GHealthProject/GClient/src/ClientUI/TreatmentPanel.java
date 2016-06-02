@@ -62,7 +62,6 @@ public class TreatmentPanel extends JPanel {
 	private JLabel lblResult;
 	private JScrollPane scrollPane; 
 	private JButton btnSave;
-	private JButton btnCancel_1 ;
 	private JButton btnAddReport;
 	private JButton btnCancel;
 	private JTextArea textArea ;
@@ -101,18 +100,21 @@ public class TreatmentPanel extends JPanel {
 			add(lblEndDate);
 			
 			textField_2 = new JTextField();
+			
+			 textArea = new JTextArea();
+			 scrollPane = new JScrollPane();
+			 lblResult = new JLabel("Result : ");
+			 btnAddReport = new JButton("Add Report");
+			 btnCancel = new JButton("Cancel");
+			 btnSave = new JButton("Save");
 			if(treatment.isEndFlag())
 			{
 				textField_2.setText(DateTime.getDateString(treatment.getEnd()));
-				System.out.printf(DateTime.getDateString(treatment.getEnd()));
-				btnCancel_1.setVisible(true);
-				scrollPane.setVisible(true);
-				textArea.setText(treatment.getStatus());
-				lblResult.setVisible(true);
-				btnAddReport.setVisible(false);
-				btnCancel.setVisible(false);
 				
+				textArea.setText(treatment.getStatus());
+			
 			}
+			
 			textField_2.setBackground(Color.WHITE);
 			textField_2.setEditable(false);
 			textField_2.setBounds(131, 183, 211, 20);
@@ -153,43 +155,45 @@ public class TreatmentPanel extends JPanel {
 			btnCancel.setBounds(311, 242, 89, 23);
 			add(btnCancel);
 			
-			 btnAddReport = new JButton("Add Report");
+			
 			 btnAddReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnAddReport.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					btnCancel_1.setVisible(true);
+					
 					btnSave.setVisible(true);
 					scrollPane.setVisible(true);
 					lblResult.setVisible(true);
 					btnAddReport.setVisible(false);
-					btnCancel.setVisible(false);
+					btnCancel.setBounds(311, 365, 89, 23);
+					
+					
 				}
 			});
 			btnAddReport.setBounds(200, 242, 101, 23);
 			add(btnAddReport);
-			btnAddReport.setVisible(true);
+			btnAddReport.setVisible(!treatment.isEndFlag());
 			btnAddReport.setEnabled(false);
 			if(treatment.getDoctor().getSid().equals(Application.user.getSid()))
 			{
 				btnAddReport.setEnabled(true);
 			}
 			
-		 lblResult = new JLabel("Result : ");
+		
 			lblResult.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblResult.setBounds(9, 241, 62, 14);
 			add(lblResult);
-			lblResult.setVisible(false);
+			lblResult.setVisible(treatment.isEndFlag());
 			
 			scrollPane = new JScrollPane();
 			scrollPane.setBounds(131, 240, 294, 89);
 			add(scrollPane);
-			scrollPane.setVisible(false);
+			scrollPane.setVisible(treatment.isEndFlag());
 			
-			textArea = new JTextArea();
+			
 			scrollPane.setViewportView(textArea);
 			
-			 btnSave = new JButton("Save");
+			
 			 btnSave.addActionListener(new ActionListener() {
 			 	public void actionPerformed(ActionEvent e) {
 			 		String str =textArea.getText();
@@ -206,6 +210,7 @@ public class TreatmentPanel extends JPanel {
 						e1.printStackTrace();
 					} 
 			 		Messages.successMessage("Treatment Report was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
+			 		
 			 		setVisible(false);
 			 		mrctrl.updatTreatment(treatment);
 			 		
@@ -224,18 +229,20 @@ public class TreatmentPanel extends JPanel {
 			btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnSave.setBounds(212, 365, 89, 23);
 			add(btnSave);
+			
+			JButton btnCancel_1 = new JButton("Cancel");
+			btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			btnCancel_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					setVisible(false);
+				}
+			});
+			btnCancel_1.setBounds(311, 366, 89, 23);
+			add(btnCancel_1);
+			btnCancel_1.setVisible(treatment.isEndFlag());
 			btnSave.setVisible(false);
 			
-			 btnCancel_1 = new JButton("Cancel");
-			 btnCancel_1.addActionListener(new ActionListener() {
-			 	public void actionPerformed(ActionEvent e) {
-			 		setVisible(false);
-			 	}
-			 });
-			btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			btnCancel_1.setBounds(311, 365, 89, 23);
-			add(btnCancel_1);
-			btnCancel_1.setVisible(false);
+			
 			
 			
 			

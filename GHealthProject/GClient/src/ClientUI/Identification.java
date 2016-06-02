@@ -11,10 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import models.Appointment;
+import models.Doctor;
 import models.Patient;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import Client.Application;
 import Client.Resources;
 import Controllers.AppointmentsController;
 import Controllers.PatientsController;
@@ -25,6 +27,7 @@ import javax.swing.JTextPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 import java.util.Date;
 
 
@@ -164,6 +167,18 @@ public class Identification implements FrameInterface {
 			error_lbl.setText("*Patient does not exist in the system");
 		else {
 			disID.setVisible(false);
+			if(Application.user.getClass() == Doctor.class)
+			{
+		
+				try {
+					new DoctorMedicalRecordUI(patient);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+				
+			else	
 			new Appointments(patient).getFrame().setVisible(true);
 		}
 

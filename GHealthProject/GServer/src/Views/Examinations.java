@@ -19,7 +19,8 @@ public class Examinations extends View {
 	public Object add (Request request){
 		
 		try {
-			db.examinations.createIfNotExists((Examination)request.getParam("examination"));
+			Examination ex = (Examination)request.getParam("examination");
+			db.examinations.create(ex);
 			return getLastReferral(request) ; 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

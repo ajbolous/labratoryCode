@@ -19,6 +19,7 @@ import java.awt.Image;
 	import javax.swing.JButton;
 
 	import Client.Resources;
+import Controllers.InvoiceController;
 
 import javax.swing.BoxLayout;
 
@@ -26,11 +27,13 @@ import java.awt.GridLayout;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 
+import models.Examination;
 import models.Invoice;
 import models.Treatment;
 
@@ -54,6 +57,8 @@ import javax.swing.AbstractListModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 	public class InvoiceUI {
 		
@@ -64,11 +69,14 @@ import java.text.ParseException;
 		private JTextField textField_2;
 		private JTextField textField_3;
 		private JLabel error_lbl ;
+		private String[] exList ;
+		private InvoiceController invoicectrl = new InvoiceController();
+		
 		
 
 		
-		public InvoiceUI(Treatment treatment) {
-			initialize(treatment);
+		public InvoiceUI(Treatment treatment  ,SecretaryUI secUI) {
+			initialize(treatment ,secUI);
 			
 			Invoice.setLocationRelativeTo(null);
 			Invoice.setVisible(true);
@@ -77,10 +85,10 @@ import java.text.ParseException;
 		/**
 		 * Initialize the contents of the frame.
 		 */
-		private void initialize(Treatment treatment) {
+		private void initialize(Treatment treatment ,SecretaryUI secUI) {
 			Resources res = new Resources();
 			Invoice = new JFrame();
-			Invoice.setTitle("<InVoice> - GHealth");
+			Invoice.setTitle("<Invoice> - GHealth");
 			Invoice.setResizable(false);
 			Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 			Invoice.setIconImage(icon);
@@ -91,7 +99,7 @@ import java.text.ParseException;
 			Invoice.getContentPane().setLayout(null);
 			Invoice.setLocale(null);
 			Invoice.setSize(388, 491);
-			JLabel logo = new JLabel("GHealth - <InVoice>");
+			JLabel logo = new JLabel("GHealth - <Invoice>");
 			logo.setBounds(0, 0, 365, 71);
 			logo.setForeground(SystemColor.textHighlight);
 			logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
@@ -126,8 +134,21 @@ import java.text.ParseException;
 			JList list = new JList();
 			list.setEnabled(false);
 			list.setVisibleRowCount(3);
+			ArrayList<String> examinationList = new ArrayList<String>(); 
+			Iterator<Examination> examination = treatment
+					.getExamination().iterator();
+			while (examination.hasNext()) {
+				Examination ex = examination.next();
+				examinationList.add(ex.geteType());
+				
+				
+			}
+			 exList = new String[examinationList.size()] ;
+			exList=examinationList.toArray(exList);
+			
 			list.setModel(new AbstractListModel() {
-				String[] values = new String[] {};
+				
+				String[] values =exList;
 				public int getSize() {
 					return values.length;
 				}
@@ -142,20 +163,20 @@ import java.text.ParseException;
 			lblPayment.setBounds(21, 347, 90, 22);
 			Invoice.getContentPane().add(lblPayment);
 			
-			textField = new JTextField(treatment.getTid());
+			textField = new JTextField(""+treatment.getTid());
 			textField.setEditable(false);
 			textField.setBounds(121, 84, 146, 20);
 			Invoice.getContentPane().add(textField);
 			textField.setColumns(10);
 			
 			textField_1 = new JTextField(treatment.gettType());
-			textField_1.setEnabled(false);
+			textField_1.setEditable(false);
 			textField_1.setBounds(121, 134, 146, 20);
 			Invoice.getContentPane().add(textField_1);
 			textField_1.setColumns(10);
 			
-			textField_2 = new JTextField(treatment.getVisits().size());
-			textField_2.setEnabled(false);
+			textField_2 = new JTextField(""+treatment.getVisits().size());
+			textField_2.setEditable(false);
 			textField_2.setBounds(121, 187, 146, 20);
 			Invoice.getContentPane().add(textField_2);
 			textField_2.setColumns(10);
@@ -166,10 +187,12 @@ import java.text.ParseException;
 			textField_3.setColumns(10);
 			
 			JLabel label = new JLabel("$");
+			label.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			label.setBounds(269, 352, 27, 14);
 			Invoice.getContentPane().add(label);
 			
-			JButton btnSend = new JButton("Send");
+			JButton btnSend = new JButton("Send ");
+			btnSend.setToolTipText("Send the invoice to HMO  .");
 			btnSend.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Invoice invoice = new Invoice();
@@ -180,16 +203,19 @@ import java.text.ParseException;
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					String str = textField_3.getText();
-					invoice.setPayment(Double.parseDouble(str));
+					String payment = textField_3.getText();
+					
 					error_lbl.setText("");
-					if (UITests.notEmpty(str) == false)
+					if (UITests.notEmpty(payment) == false)
 						error_lbl.setText("* Please enter Payment");
 					else
 					{
-						//save Invoice in DB and send 
+						invoice.setPayment(Double.parseDouble(payment));
+						//send Invoice to HMO
+						invoicectrl.sendInvoice(invoice);
 						
 						Messages.successMessage("Invoice was sended successfully ", "Success",Invoice);
+						secUI.removeTreatment(treatment);
 					}
 					
 				}
@@ -197,8 +223,8 @@ import java.text.ParseException;
 			error_lbl = new JLabel("");
 			error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			error_lbl.setForeground(Color.RED);
-		    error_lbl.setBounds(120, 35, 269, 27);
-		    Invoice.add(error_lbl);
+		    error_lbl.setBounds(121, 319, 269, 30);
+		    Invoice.getContentPane().add(error_lbl);
 			
 			btnSend.setBounds(121, 426, 89, 23);
 			Invoice.getContentPane().add(btnSend);
@@ -207,8 +233,10 @@ import java.text.ParseException;
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int result = Messages.confirmMessage("Are you sure you want to cancel?","GHealth" , null);
-								if(result == JOptionPane.YES_OPTION)
+								if(result == JOptionPane.YES_OPTION){
 									Invoice.dispose();
+								}
+								
 										
 					
 				}

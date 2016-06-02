@@ -18,6 +18,17 @@ public class Treatment extends Entity{
 	@DatabaseField()
 	private boolean endFlag = false;
 	
+	@DatabaseField()
+	private boolean hasInvoice = false;
+	
+	public boolean isHasInvoice() {
+		return hasInvoice;
+	}
+
+	public void setHasInvoice(boolean hasInvoice) {
+		this.hasInvoice = hasInvoice;
+	}
+
 	public boolean isEndFlag() {
 		return endFlag;
 	}
@@ -25,6 +36,8 @@ public class Treatment extends Entity{
 	public void setEndFlag(boolean endFlag) {
 		this.endFlag = endFlag;
 	}
+	
+	
 
 	@DatabaseField()
 	private String tType ;

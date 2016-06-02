@@ -11,6 +11,25 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Examination extends Entity {
 	@DatabaseField(generatedId = true)
 	private int eid;
+	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
+	private Labratory labratory;
+
+	public Labratory getLabratory() {
+		return labratory;
+	}
+
+	public void setLabratory(Labratory labratory) {
+		this.labratory = labratory;
+	}
+
+	public String geteType() {
+		return eType;
+	}
+
+	public void seteType(String eType) {
+		this.eType = eType;
+	}
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
 	private Treatment treatment;
@@ -99,15 +118,7 @@ public class Examination extends Entity {
 	public void setFile(String file) {
 		this.file = file;
 	}
-	public void setEType(String t)
-	{
-		eType = t;
-	}
 	
-	public String getEType()
-	{
-		return eType;
-	}
 	
 	public String toString()
 	{

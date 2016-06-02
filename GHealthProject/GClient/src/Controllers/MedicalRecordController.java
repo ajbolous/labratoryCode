@@ -166,6 +166,7 @@ public class MedicalRecordController {
 	 public Object updatTreatment(Treatment t)
 	 {
 		 Request r = new Request("treatments/updateTreatment");
+		 r.addParam("treatment", t);
 		 r.addParam("medical_id", t.getMedicalRecord().getMid());
 		 r.addParam("date","End");
 		 
@@ -183,16 +184,9 @@ public class MedicalRecordController {
 		
 	}
 	 
-	public Object getAllopenTreatments(Secretary sec)
 	
-	{
-		 Request r = new Request("treatments/getTreatment");
-		 r.addParam("Secretary",sec);
-		  return  Application.client.sendRequest(r);
-		
-	}
 	
-	@SuppressWarnings("unchecked")
+	
 	public Object getAllLabratories()
 	{
 		 Request r = new Request("labratories/getLabratories");

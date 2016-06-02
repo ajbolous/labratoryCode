@@ -56,6 +56,8 @@ public class DataFiller {
 			db.doctors.create(d);
 		}
 	}
+	
+	
 
 	public void fillPatients() throws Exception {
 		for (int i = 0; i < 120; i++) {
@@ -123,7 +125,7 @@ public class DataFiller {
 		for (int i = 0; i < rand.nextInt(5); i++) {
 			Examination e = new Examination();
 			e.setComments("This look good");
-			e.setEType(eTypes[rand.nextInt(eTypes.length)]);
+			e.seteType(eTypes[rand.nextInt(eTypes.length)]);
 			e.setLabratorian(labs.get(rand.nextInt(labs.size())));
 			e.setExaminationDate(DateTime.randomDate());
 			e.setReferralDate(DateTime.getDate(e.getExaminationDate().getYear()+1900,e.getExaminationDate().getMonth()+1,e.getExaminationDate().getDay()-rand.nextInt(5)));
@@ -148,7 +150,9 @@ public class DataFiller {
 
 			Labratory lab = new Labratory();
 			
+			
 			db.labratories.create(lab);
+			
 
 			Clinic c = new Clinic();
 			c.setAddress(cities[i]);
@@ -159,6 +163,7 @@ public class DataFiller {
 			db.clinics.create(c);
 			
 			lab.setClinc(c);
+			
 			db.labratories.update(lab);
 			
 			Labratorian l = new Labratorian();
@@ -177,6 +182,22 @@ public class DataFiller {
 			l.setSid("" + (400000000 + i));
 			l.setClinic(c);
 			db.labratorians.create(l);
+			
+			Secretary sec = new Secretary();
+			sec.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
+			sec.setLastName(lastNames[rand.nextInt(lastNames.length)]);
+			sec.setPass("123123");
+			sec.setEmail((sec.getFirstName() + "." + sec.getLastName() + i).toLowerCase() + "@crows.com");
+			try {
+				sec.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			sec.setClinic(c);
+			sec.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
+			sec.setPhone("0" + (548143001 + i));
+			sec.setSid("" + (400000010 + i));
+			db.secretaries.createIfNotExists(sec);
 		}
 	}
 
