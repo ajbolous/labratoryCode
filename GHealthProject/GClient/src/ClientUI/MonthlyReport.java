@@ -33,14 +33,15 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import models.Appointment;
 import models.Report;
 import models.Statistic;
+import Utils.DateTime;
 import Utils.Request;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class WeeklyReport {
-	private JFrame weeklyReport;
-	private JTable weekly_table;
+public class MonthlyReport {
+	private JFrame monthlyReport;
+	private JTable monthly_table;
 	private JTable table;
 	private Statistic s;
 	private Appointment a;
@@ -58,168 +59,159 @@ public class WeeklyReport {
 	 * @wbp.parser.entryPoint
 	 */
 
-	public WeeklyReport() {
+	public MonthlyReport() {
 		initialize();
-		weeklyReport.setVisible(true);
+		monthlyReport.setVisible(true);
 	}
 
 	private void initialize() {
 		
-		
+		int weekNum;
 		Report r = new Report();
 		Resources res = new Resources();
-		weeklyReport = new JFrame();
-		weeklyReport.getContentPane().setBackground(Color.WHITE);
-		weeklyReport.setResizable(true);
-		weeklyReport.getContentPane().setLayout(null);
-		weeklyReport.setTitle("Weekly Report");
+		monthlyReport = new JFrame();
+		monthlyReport.getContentPane().setBackground(Color.WHITE);
+		monthlyReport.setResizable(true);
+		monthlyReport.getContentPane().setLayout(null);
+		monthlyReport.setTitle("Monthly Report");
 		Image icon = new ImageIcon(this.getClass().getResource(
 				"/img/" + "icon.png")).getImage();
-		weeklyReport.setIconImage(icon);
+		monthlyReport.setIconImage(icon);
 		JLabel lblChooseDate = new JLabel("Choose Date :");
 		lblChooseDate.setForeground(new Color(0, 0, 0));
 		lblChooseDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblChooseDate.setBounds(10, 59, 84, 20);
-		weeklyReport.getContentPane().add(lblChooseDate);
+		monthlyReport.getContentPane().add(lblChooseDate);
 		
-		JLabel logo = new JLabel("Weekly Report");
+		JLabel logo = new JLabel("Monthly Report");
 		logo.setBounds(0, 0, 439, 50);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
-		weeklyReport.getContentPane().add(logo);
+		monthlyReport.getContentPane().add(logo);
 
-		JComboBox<String> dates = new JComboBox<String>();
-		Date date;
-		
-			date = Utils.DateTime.getDate(2016, 1, 3);
-		
-
-		for (int i = 0; i < 54; i++) {
-			Date temp = new Date();
-			temp.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
-			date = temp;
-			dates.addItem(Utils.DateTime.getDateString(date));
-		
+		JComboBox<String> months = new JComboBox<String>();
+		for (Date d : DateTime.getMonths(2016)){
+			months.addItem(DateTime.getDateString(d));
 		}
-		dates.addActionListener(new ActionListener() {
+		months.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Date cDate = new Date();
 				try {
-					cDate = Utils.DateTime.getReportDate((String)dates.getSelectedItem());
+					cDate = Utils.DateTime.getReportDate((String)months.getSelectedItem());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 
-				fillWeeklyReport(cDate);
+				fillMonthlyReport(cDate);
 				
 			}
 		});
 		
-		dates.setForeground(new Color(0, 0, 0));
-		dates.setBackground(new Color(192, 192, 192));
-		dates.setBounds(104, 59, 335, 22);
+		months.setForeground(new Color(0, 0, 0));
+		months.setBackground(new Color(192, 192, 192));
+		months.setBounds(104, 59, 335, 22);
 
-		weeklyReport.getContentPane().add(dates);
-		weeklyReport.setBounds(100, 100, 465, 511);
+		monthlyReport.getContentPane().add(months);
+		monthlyReport.setBounds(100, 100, 465, 511);
 
 		JScrollPane weekly_scrll_table = new JScrollPane();
 		weekly_scrll_table.setBounds(10, 90, 430, 240);
-		weeklyReport.getContentPane().add(weekly_scrll_table);
+		monthlyReport.getContentPane().add(weekly_scrll_table);
 
-		weekly_table = new JTable();
+		monthly_table = new JTable();
 		String[] report_rawNames = { "Day", "Number Of Patients","Waiting Period" };
-		weekly_table.setModel(new MyTableModel(report_rawNames,
+		monthly_table.setModel(new MyTableModel(report_rawNames,
 				new Object[][] {}));
-		weekly_table.setFillsViewportHeight(true);
-		weekly_table.setSurrendersFocusOnKeystroke(true);
-		weekly_table.setShowVerticalLines(false);
-		weekly_table.setRowHeight(30);
-		weekly_table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		weekly_scrll_table.setViewportView(weekly_table);
-		weekly_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		weekly_table.setBackground(Color.WHITE);
+		monthly_table.setFillsViewportHeight(true);
+		monthly_table.setSurrendersFocusOnKeystroke(true);
+		monthly_table.setShowVerticalLines(false);
+		monthly_table.setRowHeight(30);
+		monthly_table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		weekly_scrll_table.setViewportView(monthly_table);
+		monthly_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		monthly_table.setBackground(Color.WHITE);
 		
 		txtPavg = new JTextField();
 		txtPavg.setEditable(false);
 		txtPavg.setBounds(30, 388, 95, 20);
-		weeklyReport.getContentPane().add(txtPavg);
+		monthlyReport.getContentPane().add(txtPavg);
 		txtPavg.setColumns(10);
 		
 		txtPmax = new JTextField();
 		txtPmax.setEditable(false);
 		txtPmax.setColumns(10);
 		txtPmax.setBounds(135, 388, 95, 20);
-		weeklyReport.getContentPane().add(txtPmax);
+		monthlyReport.getContentPane().add(txtPmax);
 		
 		txtPmin = new JTextField();
 		txtPmin.setEditable(false);
 		txtPmin.setColumns(10);
 		txtPmin.setBounds(240, 388, 95, 20);
-		weeklyReport.getContentPane().add(txtPmin);
+		monthlyReport.getContentPane().add(txtPmin);
 		
 		txtPstd = new JTextField();
 		txtPstd.setEditable(false);
 		txtPstd.setColumns(10);
 		txtPstd.setBounds(345, 388, 95, 20);
-		weeklyReport.getContentPane().add(txtPstd);
+		monthlyReport.getContentPane().add(txtPstd);
 		
 		JLabel lblNewLabel_1 = new JLabel("Statistics");
 		lblNewLabel_1.setForeground(new Color(30, 144, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_1.setBounds(10, 341, 84, 14);
-		weeklyReport.getContentPane().add(lblNewLabel_1);
+		monthlyReport.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblPatientsStatistics = new JLabel("Number of patients");
 		lblPatientsStatistics.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPatientsStatistics.setBounds(20, 363, 130, 14);
-		weeklyReport.getContentPane().add(lblPatientsStatistics);
+		monthlyReport.getContentPane().add(lblPatientsStatistics);
 		
 		JLabel lblWaitingPeriodStatistics = new JLabel("Waiting period");
 		lblWaitingPeriodStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWaitingPeriodStatistics.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblWaitingPeriodStatistics.setBounds(10, 419, 107, 14);
-		weeklyReport.getContentPane().add(lblWaitingPeriodStatistics);
+		monthlyReport.getContentPane().add(lblWaitingPeriodStatistics);
 		
 		txtWavg = new JTextField();
 		txtWavg.setEditable(false);
 		txtWavg.setColumns(10);
 		txtWavg.setBounds(30, 444, 93, 20);
-		weeklyReport.getContentPane().add(txtWavg);
+		monthlyReport.getContentPane().add(txtWavg);
 		
 		txtWmax = new JTextField();
 		txtWmax.setEditable(false);
 		txtWmax.setColumns(10);
 		txtWmax.setBounds(135, 444, 93, 20);
-		weeklyReport.getContentPane().add(txtWmax);
+		monthlyReport.getContentPane().add(txtWmax);
 		
 		txtWmin = new JTextField();
 		txtWmin.setEditable(false);
 		txtWmin.setColumns(10);
 		txtWmin.setBounds(240, 444, 93, 20);
-		weeklyReport.getContentPane().add(txtWmin);
+		monthlyReport.getContentPane().add(txtWmin);
 		
 		txtWstd = new JTextField();
 		txtWstd.setEditable(false);
 		txtWstd.setColumns(10);
 		txtWstd.setBounds(345, 444, 93, 20);
-		weeklyReport.getContentPane().add(txtWstd);
-		weekly_table.setVisible(true);
-		weeklyReport.getContentPane().setFocusTraversalPolicy(
+		monthlyReport.getContentPane().add(txtWstd);
+		monthly_table.setVisible(true);
+		monthlyReport.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
 
-		weeklyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		monthlyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 
-	public void fillWeeklyReport(Date d) {
+	public void fillMonthlyReport(Date d) {
 		Report report;
-		Request r = new Request("reports/getWeeklyReport");
+		Request r = new Request("reports/getMonthlyReport");
 		r.addParam("date", d);
 		report = (Report) Application.client.sendRequest(r);
 
-		DefaultTableModel dm = (DefaultTableModel) weekly_table.getModel();
+		DefaultTableModel dm = (DefaultTableModel) monthly_table.getModel();
 		dm.setNumRows(0);
 		for (Statistic s : report.getStatistic())
 			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
@@ -233,36 +225,12 @@ public class WeeklyReport {
 		txtPmin.setText("Min: " + report.getpMin());
 		txtWmin.setText("Min: " + report.getwMin());
 		
-		txtPstd.setText("StdDev: " + report.getpStd());
-		txtWstd.setText("StdDev: " + report.getwStd());
+		txtPstd.setText(String.format("StdDev: %.2f",report.getpStd()));
+		txtWstd.setText(String.format("StdDev: %.2f",report.getwStd()));
 
 	}
-	/*public void fillMonthlylyReport(Date d) {
-		Report report;
-		Request r = new Request("reports/getWeeklyReport");
-		r.addParam("date", d);
-		report = (Report) Application.client.sendRequest(r);
-
-		DefaultTableModel dm = (DefaultTableModel) weekly_table.getModel();
-		dm.setNumRows(0);
-		for (Statistic s : report.getStatistic())
-			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
-					s.getWaitingPeriod() });
-		txtPavg.setText("Average: " + report.getpAvg());
-		txtWavg.setText("Average: " + report.getwAvg());
-		
-		txtPmax.setText("Max: " + report.getpMax());
-		txtWmax.setText("Max: " + report.getwMax());
-		
-		txtPmin.setText("Min: " + report.getpMin());
-		txtWmin.setText("Min: " + report.getwMin());
-		
-		txtPstd.setText("StdDev: " + report.getpStd());
-		txtWstd.setText("StdDev: " + report.getwStd());
-
-	}*/
 	
 	public JFrame getFrame() {
-		return weeklyReport;
+		return monthlyReport;
 	}
 }
