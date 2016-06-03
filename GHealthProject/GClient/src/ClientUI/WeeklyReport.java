@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import Client.Application;
+import Client.Client;
 import Client.Resources;
 
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ import models.Appointment;
 import models.Report;
 import models.Statistic;
 import Utils.Request;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -62,7 +64,8 @@ public class WeeklyReport {
 	}
 
 	private void initialize() {
-
+		
+		
 		Report r = new Report();
 		Resources res = new Resources();
 		weeklyReport = new JFrame();
@@ -78,7 +81,7 @@ public class WeeklyReport {
 		lblChooseDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblChooseDate.setBounds(10, 59, 84, 20);
 		weeklyReport.getContentPane().add(lblChooseDate);
-
+		
 		JLabel logo = new JLabel("Weekly Report");
 		logo.setBounds(0, 0, 439, 50);
 		logo.setForeground(SystemColor.textHighlight);
@@ -106,14 +109,16 @@ public class WeeklyReport {
 			public void actionPerformed(ActionEvent arg0) {
 				Date cDate = new Date();
 				try {
-					cDate = Utils.DateTime.getDate((String)dates.getSelectedItem());
+					cDate = Utils.DateTime.getReportDate((String)dates.getSelectedItem());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 
 				fillWeeklyReport(cDate);
+				
 			}
 		});
+		
 		dates.setForeground(new Color(0, 0, 0));
 		dates.setBackground(new Color(192, 192, 192));
 		dates.setBounds(104, 59, 335, 22);
@@ -208,6 +213,7 @@ public class WeeklyReport {
 
 		weeklyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 
 	public void fillWeeklyReport(Date d) {
 		Report report;
@@ -233,7 +239,31 @@ public class WeeklyReport {
 		txtWstd.setText("StdDev: " + report.getwStd());
 
 	}
+	/*public void fillMonthlylyReport(Date d) {
+		Report report;
+		Request r = new Request("reports/getWeeklyReport");
+		r.addParam("date", d);
+		report = (Report) Application.client.sendRequest(r);
 
+		DefaultTableModel dm = (DefaultTableModel) weekly_table.getModel();
+		dm.setNumRows(0);
+		for (Statistic s : report.getStatistic())
+			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
+					s.getWaitingPeriod() });
+		txtPavg.setText("Average: " + report.getpAvg());
+		txtWavg.setText("Average: " + report.getwAvg());
+		
+		txtPmax.setText("Max: " + report.getpMax());
+		txtWmax.setText("Max: " + report.getwMax());
+		
+		txtPmin.setText("Min: " + report.getpMin());
+		txtWmin.setText("Min: " + report.getwMin());
+		
+		txtPstd.setText("StdDev: " + report.getpStd());
+		txtWstd.setText("StdDev: " + report.getwStd());
+
+	}*/
+	
 	public JFrame getFrame() {
 		return weeklyReport;
 	}

@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class DateTime {
 	public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss"); 
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	public static Calendar calendar = Calendar.getInstance();
 
 	public static Date getTime(int h,int m) throws ParseException{
@@ -21,6 +21,12 @@ public class DateTime {
 	{
 		Date date=new Date();
 		 date.setTime( d.getTime() + period * 24 * 60 * 60 * 1000);
+		 return date;
+	}
+	public static Date addMonth(Date d,int period)
+	{
+		Date date=new Date();
+		 date.setTime( d.getTime() + period *4*7* 24 * 60 * 60 * 1000);
 		 return date;
 	}
 	
@@ -72,6 +78,11 @@ public class DateTime {
 	}
 	
 	public static Date getDate(String s) throws ParseException{
+		
+		return dateFormat.parse(s);
+	}
+	public static Date getReportDate(String s) throws ParseException{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dateFormat.parse(s);
 	}
 	

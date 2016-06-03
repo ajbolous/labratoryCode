@@ -100,6 +100,20 @@ public class DataFiller {
 			db.statistics.create(s);
 		}
 	}
+	/*public void fillMonthlyStatics() throws ParseException, SQLException
+	{
+		int i;
+		Random r = new Random();
+		Date d = Utils.DateTime.getDate(2016, 1, 1);
+		for (i = 0; i < 360; i++) {
+			Statistic sM = new Statistic();
+			sM.setNumOfPatients(r.nextInt(30));
+			sM.setWaitingPeriod(r.nextInt(60));
+			d = Utils.DateTime.addDay(d, 7);
+			sM.setDate(d);
+			db.statistics.create(sM);
+		}
+	}*/
 
 	public void fillMedicalRecords() throws Exception {
 		List<Doctor> doctors = db.doctors.queryForAll();

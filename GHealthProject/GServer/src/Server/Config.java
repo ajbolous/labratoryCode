@@ -16,7 +16,7 @@ public class Config {
 	private int port = 5000;
 	private String dbUrl = "jdbc:mysql://localhost/test";
 	private String dbUser = "root";
-	private String dbPassword = "2222";
+	private String dbPassword = "123123";
 	private Logger logger = new Logger(isDebug);
 
 	private DbHandler handler;

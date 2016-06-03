@@ -18,9 +18,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Window.Type;
 import java.awt.Panel;
-
 public class ClientUI {
-
+	
 	private JFrame frame;
 	private final JButton btnNewButton = new JButton("Patients");
 	private final JButton btnLabs = new JButton("Appointments");
@@ -78,6 +77,7 @@ public class ClientUI {
 	}
 
 	private void initialize(){
+		
 		Resources res = new Resources();
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -179,6 +179,15 @@ public class ClientUI {
 
 		
 		frame.getContentPane().add(btnUsers);
+		btnTests.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				WeeklyReport report = new WeeklyReport();
+				report.getFrame().setVisible(true);
+				
+				
+			}
+		});
 		btnTests.setBounds(54, 123, 194, 65);
 		btnTests.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTests.setBackground(Color.WHITE);
@@ -186,6 +195,14 @@ public class ClientUI {
 		btnTests.setForeground(Color.BLACK);
 		btnTests.setIcon(res.getIcon("tests.png"));
 		btnTests.setBorder(null);
+		btnMonthly.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				WeeklyReport mReport=new WeeklyReport();
+				
+				mReport.getFrame().setVisible(true);
+			}
+		});
 
 		btnMonthly.setHorizontalAlignment(SwingConstants.LEFT);
 		btnMonthly.setForeground(Color.BLACK);
