@@ -55,7 +55,7 @@ public class AddPatientUI {
 	private JTextField EmailField;
 	private JTextField AddressField;
 	private JComboBox comboBox_gender = new JComboBox();
-	JDateChooser chooser= null;
+	private JDateChooser chooser= null;
 	private String id;
 	private String Fname;
 	private String Lname;

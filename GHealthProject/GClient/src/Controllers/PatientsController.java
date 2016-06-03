@@ -9,7 +9,7 @@ import models.Patient;
  * Patients Controller .
  * have all the methods that connect the client GUI to the database .
  * the methods send request to the database and receive the database results.
- * @author Muhamad Igbaria , Bolous Abu Jaber , Ahmad Manasra
+ * @author Muhamad Igbaria , Bolous Abu Jaber , Ahmad Mnasra
  *
  */
 public class PatientsController {
@@ -17,7 +17,7 @@ public class PatientsController {
 	/**
 	 * 
 	 * @param id : patient id
-	 * @return boolean value , if patient exist in the database rteurn true , else false.
+	 * @return boolean value , if patient exist in the database return true , else false.
 	 */
 	public boolean exists(String id){
 		if(getById(id)!=null)
