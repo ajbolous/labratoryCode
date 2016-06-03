@@ -18,16 +18,15 @@ public class Labratories extends View  {
 	{
 		DbHandler db = Config.getConfig().getHandler();
 		
-		 
-			  // return db.labratories.queryForAll();
-			  
-			  System.out.print("dfdf");
-			  return "success";
-		/* catch (SQLException e) {
+		 try{
+			   return db.labratories.queryForAll();
+
+		 }
+		catch (SQLException e) {
 			e.printStackTrace();
 			return "fail";
 
-		}*/
+		}
 		
 		
 			
