@@ -8,46 +8,46 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "referals")
 public class Referral extends Entity{
 	
-	private int getRid() {
+	public int getRid() {
 		return rid;
 	}
-	private void setRid(int rid) {
+	public void setRid(int rid) {
 		this.rid = rid;
 	}
-	private Patient getPatient() {
+	public Patient getPatient() {
 		return patient;
 	}
-	private void setPatient(Patient patient) {
+	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	private String getDoctor_name() {
+	public String getDoctor_name() {
 		return doctor_name;
 	}
-	private void setDoctor_name(String doctor_name) {
+	public void setDoctor_name(String doctor_name) {
 		this.doctor_name = doctor_name;
 	}
-	private Date getDate() {
+	public Date getDate() {
 		return date;
 	}
-	private void setDate(Date date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	private String getDescription() {
+	public String getDescription() {
 		return Description;
 	}
-	private void setDescription(String description) {
+	public void setDescription(String description) {
 		Description = description;
 	}
-	private String getSpeciality() {
+	public String getSpeciality() {
 		return speciality;
 	}
-	private void setSpeciality(String speciality) {
+	public void setSpeciality(String speciality) {
 		this.speciality = speciality;
 	}
-	private Confirmation getConfirmation() {
+	public Confirmation getConfirmation() {
 		return confirmation;
 	}
-	private void setConfirmation(Confirmation confirmation) {
+	public void setConfirmation(Confirmation confirmation) {
 		this.confirmation = confirmation;
 	}
 	@DatabaseField(generatedId = true)
@@ -65,7 +65,7 @@ public class Referral extends Entity{
 	@DatabaseField()
 	private String Description; 
 	@DatabaseField()
-	private  String speciality; 
+	private String speciality; 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "medical_id")
 	private Confirmation confirmation;
 	
