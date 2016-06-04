@@ -6,10 +6,15 @@ import Client.Application;
 import Utils.Request;
 
 public class ConfirmationController {
-	public void addDoctor(String NumRefferal ,String NumApproval, String details ){
+	
+	public void addConfirmation(Confirmation c){
 		Request r = new Request("confirmations/add");
-		Confirmation c = new Confirmation();
+		r.addParam("confirmation", c);
 		Application.client.sendRequest(r);
 	}
+	
+	/*public boolean IshasConfirm(Patient p){
+		
+	}*/
 
 }

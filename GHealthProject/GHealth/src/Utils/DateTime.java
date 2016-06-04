@@ -5,16 +5,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class DateTime {
 	public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss"); 
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	public static Calendar calendar = Calendar.getInstance();
 
-	public static Date getTime(int h,int m) throws ParseException{
+	public static Date getTime(int h,int m){
 		Date d = new Date();
-		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear()+1900,d.getMonth()+1,d.getDate(),h,m,0));
+		try {
+			return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", d.getYear()+1900,d.getMonth()+1,d.getDate(),h,m,0));
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public static Date addDay(Date d,int period)
@@ -24,6 +30,25 @@ public class DateTime {
 		 return date;
 	}
 	
+	public static Date addMonth(Date d){
+		Calendar c =  Calendar.getInstance();
+		c.setTime(d);
+		c.add(Calendar.MONTH,1);
+		return c.getTime();
+	}
+	
+	
+	public static List<Date> getMonths(int year){
+		Date d = DateTime.getDate(year, 1, 1);
+		
+		ArrayList<Date> dates = new ArrayList<Date>();
+		for (int i =0;i<12;i++){
+			dates.add(d);
+			d = DateTime.addMonth(d);
+		}
+		
+		return dates;
+	}
 	public static Date addHour(Date d,int hour)
 	{
 		Date date=new Date();
@@ -67,11 +92,22 @@ public class DateTime {
 		return calendar.get(Calendar.MONTH+1);
 	}
 		
-	public static Date getDate(int y,int m,int d) throws ParseException{
-		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", y,m,d,0,0,0));
+	public static Date getDate(int y,int m,int d) {
+		try {
+			return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", y,m,d,0,0,0));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public static Date getDate(String s) throws ParseException{
+		
+		return dateFormat.parse(s);
+	}
+	public static Date getReportDate(String s) throws ParseException{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dateFormat.parse(s);
 	}
 	
@@ -85,11 +121,9 @@ public class DateTime {
 	
 	public static Random rand = new Random();
 	public static Date randomDate(){
-		try {
+		
 			return DateTime.getDate(1990+rand.nextInt(20), rand.nextInt(11), rand.nextInt(29));
-		} catch (ParseException e) {
-			return new Date();
-		}
+		 
 	}
 	
 	public static String getTimeString(Date d){

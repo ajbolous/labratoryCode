@@ -30,10 +30,7 @@ public class DoctorsComparator implements Comparator<Object[]>{
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			
 			
 		}

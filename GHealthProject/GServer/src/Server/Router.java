@@ -14,7 +14,7 @@ public class Router {
 	Examinations examinations = new Examinations();
 	Labratories labratories = new Labratories(); 
 	Invoices invoices = new Invoices();
-
+	Referrals referrals = new Referrals();
 	public Router() {
 	}
 
@@ -40,7 +40,8 @@ public class Router {
 			return labratories.resolve(request);
 		case "invoices":
 			return invoices.resolve(request);
-			
+		case "referrals":
+			return referrals.resolve(request);
 		}
 		return null;
 	}

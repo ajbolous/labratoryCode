@@ -1,6 +1,6 @@
 package Database;
 
-import java.sql.SQLException;
+ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,11 +42,7 @@ public class DataFiller {
 			d.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 
 			d.setEmail((d.getFirstName() + "." + d.getLastName() + i).toLowerCase() + "@crows.com");
-			try {
-				d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			d.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			d.setPhone("0" + (548143001 + i));
 			d.setClinic(db.clinics.queryForId(i % 10 + 1));
@@ -66,11 +62,7 @@ public class DataFiller {
 			p.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 
 			p.setEmail((p.getFirstName() + "." + p.getLastName() + i).toLowerCase() + "@crows.com");
-			try {
-				p.setBirthDate(Utils.DateTime.getDate(1970 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			p.setBirthDate(Utils.DateTime.getDate(1970 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			p.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			p.setPhone("0" + (548143001 + i));
 			p.setSid("" + (300000000 + i));
@@ -83,6 +75,10 @@ public class DataFiller {
 			db.records.create(md);
 			p.setMedicalRecord(md);
 			db.patients.update(p);
+			Referral ref=new Referral(); 
+			ref.setPatient(p);
+			ref.setDoctor_name("ahmad");
+			db.refferals.create(ref); 
 
 		}
 	}
@@ -171,11 +167,7 @@ public class DataFiller {
 			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 			l.setPass("123123");
 			l.setEmail((l.getFirstName() + "." + l.getLastName() + i).toLowerCase() + "@crows.com");
-			try {
-				l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			l.setLabratory(lab);
 			l.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			l.setPhone("0" + (548143001 + i));
@@ -188,11 +180,8 @@ public class DataFiller {
 			sec.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 			sec.setPass("123123");
 			sec.setEmail((sec.getFirstName() + "." + sec.getLastName() + i).toLowerCase() + "@crows.com");
-			try {
-				sec.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			sec.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
+
 			sec.setClinic(c);
 			sec.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			sec.setPhone("0" + (548143001 + i));

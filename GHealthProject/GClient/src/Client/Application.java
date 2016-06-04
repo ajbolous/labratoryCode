@@ -3,21 +3,19 @@ package Client;
 import java.sql.Date;
 import java.text.ParseException;
 
-import ClientUI.AddPatientUI;
-import ClientUI.ClientUI;
-import ClientUI.DoctorMedicalRecordUI;
-import ClientUI.Identification;
-import ClientUI.AddApointment;
-
-import ClientUI.WeeklyReport;
 import Utils.DateTime;
 import Utils.Request;
 import models.Doctor;
 import models.Patient;
-import ClientUI.ClientUI;
-import ClientUI.SignInUI;
 import Utils.Logger;
 import models.User;
+import ui.appointments.AddApointment;
+import ui.appointments.AddPatientUI;
+import ui.main.ClientUI;
+import ui.main.Identification;
+import ui.main.SignInUI;
+import ui.medical.DoctorMedicalRecordUI;
+import ui.reports.WeeklyReport;
 
 public class Application {
 
@@ -40,6 +38,7 @@ public class Application {
 		if(client.isConnected()){
 			log.debug("Connceted");
 			new SignInUI();
+	      
 			
 		}
 		

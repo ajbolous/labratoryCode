@@ -8,19 +8,58 @@ public class Confirmation {
 	
 	@DatabaseField(generatedId = true)
 	private int cid ; 
+	@DatabaseField()
+	private String refferal_id ; 
+	
+	@DatabaseField()
+	private String approval_id ; 
+	
+	@DatabaseField()
+	private String details; 
 	
 	@DatabaseField()
 	private int hmo_id ; 
 	
-	@DatabaseField()
-	private String Refferal_id ; 
 	
-	@DatabaseField()
-	private String Approval_id ; 
 	
-	@DatabaseField()
-	private String details; 
+	public int getCid() {
+		return cid;
+	}
 
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
-	private Patient patient;
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+
+	public int getHmo_id() {
+		return hmo_id;
+	}
+
+	public void setHmo_id(int hmo_id) {
+		this.hmo_id = hmo_id;
+	}
+
+	public String getRefferal_id() {
+		return refferal_id;
+	}
+
+	public void setRefferal_id(String refferal_id) {
+		this.refferal_id = refferal_id;
+	}
+
+	public String getApproval_id() {
+		return approval_id;
+	}
+
+	public void setApproval_id(String approval_id) {
+		this.approval_id = approval_id;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+    
 }
