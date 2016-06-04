@@ -23,7 +23,6 @@ public class DbHandler {
 	public Dao<Examination, Integer> examinations;
 	public Dao<Appointment, Integer> appointments;
 	public Dao<Statistic, Integer> statistics;
-	public Dao<Labratory, Integer> labratories;
 	public Dao<Labratorian, String> labratorians;
 	
 	public Dao<Referral, String> refferals;
@@ -66,7 +65,6 @@ public class DbHandler {
 		appointments =DaoManager.createDao(connection, Appointment.class);
 
 		statistics=DaoManager.createDao(connection, Statistic.class);
-		labratories = DaoManager.createDao(connection, Labratory.class);
 		labratorians = DaoManager.createDao(connection, Labratorian.class);
 		confirmations = DaoManager.createDao(connection, Confirmation.class);
 		shifts = DaoManager.createDao(connection, Shift.class);
@@ -78,6 +76,22 @@ public class DbHandler {
 	}
 	
 	public void createAllTables() throws Exception{
+		
+		TableUtils.dropTable(connection, Patient.class, true);
+		TableUtils.dropTable(connection, Doctor.class, true);
+		TableUtils.dropTable(connection, Visit.class, true);
+		TableUtils.dropTable(connection, Treatment.class, true);
+		TableUtils.dropTable(connection, MedicalRecord.class, true);
+		TableUtils.dropTable(connection, Examination.class, true);
+		TableUtils.dropTable(connection, Labratorian.class, true);
+		TableUtils.dropTable(connection, Statistic.class, true);
+		TableUtils.dropTable(connection, Appointment.class, true);
+		TableUtils.dropTable(connection, Confirmation.class, true);
+		TableUtils.dropTable(connection, Shift.class, true);
+		TableUtils.dropTable(connection, Referral.class, true);
+		TableUtils.dropTable(connection, Secretary.class, true);
+		TableUtils.dropTable(connection, Clinic.class, true);
+
 		TableUtils.createTableIfNotExists(connection, Patient.class);
 		TableUtils.createTableIfNotExists(connection, Doctor.class);
 		
@@ -86,7 +100,6 @@ public class DbHandler {
 		TableUtils.createTableIfNotExists(connection, MedicalRecord.class);	
 		TableUtils.createTableIfNotExists(connection, Examination.class);	
 
-		TableUtils.createTableIfNotExists(connection, Labratory.class);
 		TableUtils.createTableIfNotExists(connection, Labratorian.class);
 		TableUtils.createTableIfNotExists(connection, Statistic.class);	
 		TableUtils.createTableIfNotExists(connection, Appointment.class);	

@@ -7,7 +7,7 @@ import Utils.Request;
 
 public class InvoiceController {
 	
-public Object getAllopenTreatments(Secretary sec)
+public static Object getAllopenTreatments(Secretary sec)
 	
 	{
 		 Request r = new Request("treatments/getTreatment");
@@ -15,7 +15,7 @@ public Object getAllopenTreatments(Secretary sec)
 		  return  Application.client.sendRequest(r);
 		
 	}
-public Object sendInvoice(Invoice invoice)
+public static Object sendInvoice(Invoice invoice)
 {
 	
 	 Request r = new Request("invoices/send");

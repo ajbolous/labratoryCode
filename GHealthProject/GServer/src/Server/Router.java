@@ -12,7 +12,7 @@ public class Router {
 	Treatments treatments = new Treatments();
 	Visits visits = new Visits();
 	Examinations examinations = new Examinations();
-	Labratories labratories = new Labratories(); 
+	Clinics clinics = new Clinics(); 
 	Invoices invoices = new Invoices();
 	Referrals referrals = new Referrals();
 	public Router() {
@@ -36,8 +36,8 @@ public class Router {
 			return visits.resolve(request);
 		case "examinations":
 			return examinations.resolve(request);
-		case "labratories":
-			return labratories.resolve(request);
+		case "clinics":
+			return clinics.resolve(request);
 		case "invoices":
 			return invoices.resolve(request);
 		case "referrals":

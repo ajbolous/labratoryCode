@@ -2,6 +2,7 @@ package Client;
 
 import models.Patient;
 import ui.labratories.Labratory;
+import ui.main.SignInUI;
 import Controllers.PatientsController;
 
 public class TestApp {

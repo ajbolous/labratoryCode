@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import Client.Resources;
 import Controllers.MedicalRecordController;
 import Controllers.PatientsController;
-import models.MedicalRecord;
 import models.Patient;
 import ui.utils.Messages;
 import ui.utils.UITests;
@@ -35,14 +34,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JPanel;
 
 public class AddPatientUI {
 

@@ -92,7 +92,7 @@ public class ClientUI {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Settings settings = new Settings();
+				new Settings();
 			}
 		});
 		button.setHorizontalAlignment(SwingConstants.LEFT);
@@ -124,7 +124,7 @@ public class ClientUI {
 		btnNewButton.setBorder(null);
 		btnTests_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Labratory lab = new Labratory();
+				new Labratory();
 			}
 		});
 

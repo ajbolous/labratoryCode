@@ -69,7 +69,6 @@ public class NewTreatmentUI extends JPanel  {
 	private JButton btnOk_1;
 	private JLabel error_lbl;
 	private JTextField textField_4;
-	private MedicalRecordController mrctrl = new MedicalRecordController();
 	/**
 	 * Create the panel.
 	 * @param doctorMedicalRecordUI 
@@ -153,7 +152,7 @@ public class NewTreatmentUI extends JPanel  {
 				
 						Messages.successMessage("Treatment was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
 						
-						Treatment treatmentDB= (Treatment )mrctrl.saveTreatment(treatment); ;
+						Treatment treatmentDB= (Treatment )MedicalRecordController.saveTreatment(treatment); ;
 						
 						doctorMedicalRecordUI.updateTree(treatmentDB , true);
 						setVisible(false);

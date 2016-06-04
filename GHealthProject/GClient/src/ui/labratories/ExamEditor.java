@@ -51,16 +51,18 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.Canvas;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextPane;
 
-public class Labratory {
+public class ExamEditor {
 
 	private JFrame labratoryUI;
-	private JTable tblToday;
 	private int  ex_id ; 
 	private ExaminationController ex_ctrl= new ExaminationController(); 
 
 	
-	public Labratory() {
+	public ExamEditor() {
 		initialize();
 		labratoryUI.setVisible(true);
 	}
@@ -92,17 +94,17 @@ public class Labratory {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBounds(0, 66, 751, 36);
+		panel.setBounds(0, 66, 757, 157);
 		labratoryUI.getContentPane().add(panel);
 		
-		JLabel label = new JLabel("Name:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label.setBounds(10, 11, 46, 21);
-		panel.add(label);
+		JLabel lblPatient = new JLabel("Patient:");
+		lblPatient.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPatient.setBounds(10, 11, 80, 21);
+		panel.add(lblPatient);
 		
 		JLabel label_1 = new JLabel("<dynamic> <dynamic>");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(61, 11, 207, 21);
+		label_1.setBounds(106, 11, 207, 21);
 		panel.add(label_1);
 		
 		label_1.setText(new String (lab.getFirstName()+" "+lab.getLastName()));
@@ -120,52 +122,59 @@ public class Labratory {
 		panel.add(label_2);
 		try {
 			label_2.setText(new String ("Tody:"+Utils.DateTime.currentDate().toString()));
+			
+			JLabel lblExaminationType = new JLabel("Examination Type:");
+			lblExaminationType.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblExaminationType.setBounds(10, 43, 452, 21);
+			panel.add(lblExaminationType);
+			
+			JLabel lblComments = new JLabel("Doctor comments:");
+			lblComments.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblComments.setBounds(10, 75, 168, 21);
+			panel.add(lblComments);
+			
+			JScrollPane scrollPane_1 = new JScrollPane();
+			scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane_1.setBounds(161, 46, 416, 87);
+			panel.add(scrollPane_1);
+			
+			Canvas canvas = new Canvas();
+			canvas.setBackground(Color.GRAY);
+			canvas.setBounds(442, 249, 305, 157);
+			labratoryUI.getContentPane().add(canvas);
+			
+			JLabel lblResults = new JLabel("Result comments:");
+			lblResults.setBounds(179, 229, 128, 14);
+			labratoryUI.getContentPane().add(lblResults);
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.setBounds(10, 250, 416, 156);
+			labratoryUI.getContentPane().add(scrollPane);
+			
+			JTextPane textPane = new JTextPane();
+			scrollPane.setViewportView(textPane);
+			
+			JLabel lblAttachedImage = new JLabel("Attached Image");
+			lblAttachedImage.setBounds(542, 229, 128, 14);
+			labratoryUI.getContentPane().add(lblAttachedImage);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 127, 741, 409);
-		labratoryUI.getContentPane().add(scrollPane);
-		
-		tblToday = new JTable();
-		scrollPane.setViewportView(tblToday);
-		tblToday.setModel(new MyTableModel(new String[]{"id","Doctor","Patient","Type","Status"},new Object[][]{}));
-		
-	
-		
-		JLabel lblTodaysExaminations = new JLabel("Examinations");
-		lblTodaysExaminations.setBounds(0, 108, 170, 14);
-		labratoryUI.getContentPane().add(lblTodaysExaminations);
-
-		fillExaminations(tblToday);
-		tblToday.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent event) {
-					
-						int row=tblToday.getSelectedRow();
-						ex_id= (int) tblToday.getModel().getValueAt(row, 0);
-						
-						Examination ex= ex_ctrl.getById(ex_id);
-						
-
-					}
-				});
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		labratoryUI.setBounds(100, 100, 763, 576);
+		labratoryUI.setBounds(100, 100, 763, 440);
 		labratoryUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void fillExaminations(JTable tbl){
-		DefaultTableModel model = (DefaultTableModel) tbl.getModel();
 		Labratorian lab = (Labratorian) Application.user;
-		for(Examination e : lab.getExaminations())
-			model.addRow(new Object[]{e.getEid(),
-					e.getTreatment().getDoctor().getFirstName(),
-					e.getTreatment().getMedicalRecord().getPatient().getSid(),
-					e.geteType(),
-					"Opened"
-			});
+	//	for(Examination e : lab.getExaminations())
+//			model.addRow(new Object[]{e.getEid(),
+//					e.getTreatment().getDoctor().getFirstName(),
+//					e.getTreatment().getMedicalRecord().getPatient().getSid(),
+//					e.geteType(),
+//					"Opened"
+//			});
 	}
 }

@@ -8,10 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "labratorians")
 public class Labratorian extends ClinicEmployee {
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
-	private Labratory labratory;
-	
-	@ForeignCollectionField(eager=true)
+	@ForeignCollectionField(eager=false)
     private ForeignCollection<Examination> examinations;
 
 	public ForeignCollection<Examination> getExaminations() {
@@ -20,13 +17,5 @@ public class Labratorian extends ClinicEmployee {
 
 	public void setExaminations(ForeignCollection<Examination> examinations) {
 		this.examinations = examinations;
-	}
-
-	public Labratory getLabratory() {
-		return labratory;
-	}
-
-	public void setLabratory(Labratory labratory) {
-		this.labratory = labratory;
 	}
 }

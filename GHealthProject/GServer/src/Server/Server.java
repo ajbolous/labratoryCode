@@ -24,6 +24,7 @@ import Views.Appointments;
 import Views.Reports;
 import Views.Users;
 import models.Appointment;
+import models.Labratorian;
 import models.Patient;
 import models.Person;
 import models.Statistic;
@@ -97,10 +98,7 @@ public class Server extends AbstractServer {
 		//Timer for sending messages to all patients that have an appointment tomorrow
 		Timer timer = new Timer();
 	    timer.schedule(new TimeTask(), DateTime.getTime(0, 0),(24*60*60*1000));
-		
-	    
+		    
 	    server.listen();		
-		
-		
 	}
 }

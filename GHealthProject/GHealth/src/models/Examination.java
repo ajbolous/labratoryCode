@@ -11,17 +11,6 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Examination extends Entity {
 	@DatabaseField(generatedId = true)
 	private int eid;
-	
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratory_id")
-	private Labratory labratory;
-
-	public Labratory getLabratory() {
-		return labratory;
-	}
-
-	public void setLabratory(Labratory labratory) {
-		this.labratory = labratory;
-	}
 
 	public String geteType() {
 		return eType;
@@ -48,7 +37,7 @@ public class Examination extends Entity {
 
 	@DatabaseField()
 	private Date referralDate;
-	
+
 	public Date getReferralDate() {
 		return referralDate;
 	}
@@ -118,11 +107,9 @@ public class Examination extends Entity {
 	public void setFile(String file) {
 		this.file = file;
 	}
-	
-	
-	public String toString()
-	{
-		return "Examination"+ eid + ": "+DateTime.getDateString(examinationDate);
+
+	public String toString() {
+		return "Examination" + eid + ": " + DateTime.getDateString(examinationDate);
 	}
 
 }
