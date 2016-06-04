@@ -154,7 +154,7 @@ public class TreatmentPanel extends JPanel {
 			});
 			btnCancel.setBounds(311, 242, 89, 23);
 			add(btnCancel);
-			
+			btnCancel.setVisible(!treatment.isEndFlag());
 			
 			 btnAddReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			btnAddReport.addActionListener(new ActionListener() {

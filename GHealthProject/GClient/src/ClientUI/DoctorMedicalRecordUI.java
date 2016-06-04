@@ -244,7 +244,7 @@ public class DoctorMedicalRecordUI {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					enableAddVisitOrReferral(false);
+					//enableAddVisitOrReferral(false);
 					NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(
 							mrctrl.getNewReferral(t), doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(exPanel);
@@ -265,7 +265,7 @@ public class DoctorMedicalRecordUI {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					enableAddVisitOrReferral(false);
+					//enableAddVisitOrReferral(false);
 					NewVisitUI vPanel = new NewVisitUI(mrctrl.getNewVisit(t),
 							doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(vPanel);
@@ -303,9 +303,9 @@ public class DoctorMedicalRecordUI {
 		tree = new JTree();
 		scrollPane.setViewportView(tree);
 		//
-		tree.setShowsRootHandles(true);
+		tree.setShowsRootHandles(false);
 		tree.putClientProperty("JTree.lineStyle", "Horizontal");
-
+		
 		//
 		         rootNode =	new DefaultMutableTreeNode("Specialisties") ;
 				 treeModel =new DefaultTreeModel(rootNode);
@@ -320,14 +320,16 @@ public class DoctorMedicalRecordUI {
 					
 
 					while (treatment.hasNext()) {
-						DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode("Visits");
-						DefaultMutableTreeNode node_3 = new DefaultMutableTreeNode("Examinations");
+						DefaultMutableTreeNode node_2 = new DefaultMutableTreeNode(" *Visits");
+						DefaultMutableTreeNode node_3 = new DefaultMutableTreeNode(" *Examinations");
 
 						Treatment t = treatment.next();
 
 						if (t.getDoctor().getSpeciality().equals(specialty[i])) {
 
 							node_1 = new DefaultMutableTreeNode(t);
+						
+							
 							
 							
 							Iterator<Visit> visit = t.getVisits().iterator();
@@ -495,8 +497,8 @@ public class DoctorMedicalRecordUI {
     	    	{
     	    	
     	    		DefaultMutableTreeNode parent = (DefaultMutableTreeNode)tree.getModel().getChild(rootNode, i);
-    	    		DefaultMutableTreeNode	node_2 = new DefaultMutableTreeNode("Visits");
-					DefaultMutableTreeNode node_3 =  new DefaultMutableTreeNode("Examinations");
+    	    		DefaultMutableTreeNode	node_2 = new DefaultMutableTreeNode(" *Visits");
+					DefaultMutableTreeNode node_3 =  new DefaultMutableTreeNode(" *Examinations");
 					childNode.add(node_2);
 					childNode.add(node_3);
     	    		
@@ -550,6 +552,8 @@ public class DoctorMedicalRecordUI {
 		btnNewButton_1.setEnabled(b);
 
 	}
+	
+
 	/*public void createtree(String id) {
 		Patient p = patientController.getById(id);
 		tree.removeAll();

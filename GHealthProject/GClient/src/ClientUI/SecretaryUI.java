@@ -183,10 +183,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 					new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent event){
 							int row=table.getSelectedRow();
-							System.out.print(""+row);
+							
 							Treatment treatment =trList.get(row);
-							System.out.print("\n"+treatment.getTid());
-							new InvoiceUI(treatment ,secUI);
+							
+							InvoiceUI in = new InvoiceUI(treatment ,secUI);
 							
 							
 							
@@ -199,11 +199,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 			secretary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		
-		public void removeTreatment(Treatment treatment )
+		public void removeTreatment(Treatment t )
 		{
 	
 			DefaultTableModel dm = (DefaultTableModel) table.getModel();
-			dm.removeRow(trList.indexOf(treatment ));
+			dm.removeRow(trList.indexOf(t ));
 			
 			
 		}

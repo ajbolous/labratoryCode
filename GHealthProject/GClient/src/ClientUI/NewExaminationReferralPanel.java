@@ -177,27 +177,25 @@ public class NewExaminationReferralPanel  extends JPanel {
 			
 			JComboBox<Labratory> comboBox_1 = new JComboBox();
 			
-			System.out.print((String)mrctrl.getAllLabratories());
-			/*ArrayList<Labratory> labList=(ArrayList<Labratory>) mrctrl.getAllLabratories();
 			
-			String[] lab=new String[labList.size()];
-			lab=labList.toArray(lab);
-			comboBox_1.setModel(new DefaultComboBoxModel(lab));
+			ArrayList<Labratory> labList=(ArrayList<Labratory>) mrctrl.getAllLabratories();
+			for(Labratory lab :labList)
+				comboBox_1.addItem(lab);
+			
+			//String[] lab=new String[labList.size()];
+				
+			//lab=labList.toArray(lab);
+			//comboBox_1.setModel(new DefaultComboBoxModel(labList));
 			comboBox_1.setBackground(Color.WHITE);
 			comboBox_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Labratory labName=(Labratory) comboBox_1.getSelectedItem();
 					ex.setLabratory(labName);
 				}
-			});*/
+			});
 			comboBox_1.setBounds(140, 180, 197, 31);
 			add(comboBox_1);
-			
-
-			
-			
-			
-		
+	
 	}
 }
 

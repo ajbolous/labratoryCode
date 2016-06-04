@@ -94,11 +94,11 @@ import java.util.Iterator;
 			Invoice.setIconImage(icon);
 			Invoice.setForeground(Color.BLACK);
 			Invoice.setFont(new Font("Dialog", Font.PLAIN, 16));
-			Invoice.setBackground(Color.WHITE);
 			Invoice.getContentPane().setBackground(Color.WHITE);
 			Invoice.getContentPane().setLayout(null);
 			Invoice.setLocale(null);
 			Invoice.setSize(388, 491);
+			
 			JLabel logo = new JLabel("GHealth - <Invoice>");
 			logo.setBounds(0, 0, 365, 71);
 			logo.setForeground(SystemColor.textHighlight);
@@ -127,13 +127,11 @@ import java.util.Iterator;
 			lblTreatmenttype.setBounds(21, 136, 90, 14);
 			Invoice.getContentPane().add(lblTreatmenttype);
 			
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(121, 234, 146, 81);
-			Invoice.getContentPane().add(scrollPane);
+			
 			
 			JList list = new JList();
 			list.setEnabled(false);
-			list.setVisibleRowCount(3);
+			
 			ArrayList<String> examinationList = new ArrayList<String>(); 
 			Iterator<Examination> examination = treatment
 					.getExamination().iterator();
@@ -143,6 +141,7 @@ import java.util.Iterator;
 				
 				
 			}
+			list.setVisibleRowCount(examinationList.size()+1);
 			 exList = new String[examinationList.size()] ;
 			exList=examinationList.toArray(exList);
 			
@@ -156,7 +155,8 @@ import java.util.Iterator;
 					return values[index];
 				}
 			});
-			scrollPane.setViewportView(list);
+			list.setVisibleRowCount(examinationList.size()+1);
+			Invoice.getContentPane().add(new JScrollPane(list));
 			
 			JLabel lblPayment = new JLabel("Payment :");
 			lblPayment.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -216,6 +216,7 @@ import java.util.Iterator;
 						
 						Messages.successMessage("Invoice was sended successfully ", "Success",Invoice);
 						secUI.removeTreatment(treatment);
+						Invoice.dispose();
 					}
 					
 				}

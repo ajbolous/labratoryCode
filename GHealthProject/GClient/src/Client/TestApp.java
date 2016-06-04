@@ -15,7 +15,7 @@ public class TestApp {
 		Application.connect();
 		//UsersManagingUI iden= new UsersManagingUI();
 		//AddPatientUI u = new AddPatientUI();
-		//new SignInUI();
+		new SignInUI();
 		
 		//PatientsController ctrl= new PatientsController(); 
 		//Patient patient=ctrl.getById("300000002");

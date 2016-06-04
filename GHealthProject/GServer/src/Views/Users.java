@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import models.Doctor;
 import models.Labratorian;
+import models.Secretary;
 import models.User;
 import Database.DbHandler;
 import Server.Config;
@@ -36,6 +38,9 @@ public class Users extends View {
 		Labratorian l = db.labratorians.queryForId(id);
 		if (l != null)
 			return l;
+		Secretary s = db.secretaries.queryForId(id);
+		if (s != null)
+			return s;
 		return null;
 	}
 
