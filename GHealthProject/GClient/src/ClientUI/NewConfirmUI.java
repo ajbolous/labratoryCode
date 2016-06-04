@@ -52,19 +52,20 @@ import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
+import javax.swing.JTabbedPane;
+import javax.swing.JEditorPane;
 
 public class NewConfirmUI {
 
-	private JFrame NewConfirmUI;
-	private JTextField HMOId_field;
-	private JTextField doctor_name;
-	private JTextField AproveNum_field;
-	private JTextField RefNum_field;
-	private JComboBox spec_comboBox; 
+	private JFrame NewConfirmUI; 
 	private JTextPane des_textPane; 
 	private AppointmentsController app_ctrl = new AppointmentsController();
 	private ConfirmationController ConformCtrl= new ConfirmationController();
 	private ReferralController RefCtrl = new ReferralController(); 
+	private JTextField field_Name;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
 	
 	
@@ -91,95 +92,129 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().setBackground(Color.WHITE);
 		NewConfirmUI.getContentPane().setLayout(null);
 		
-		JLabel logo = new JLabel("New Conformation");
-		logo.setBounds(-11, 0, 377, 80);
+		JLabel logo = new JLabel("New Refferal and conformation");
+		logo.setBounds(-89, -12, 412, 80);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
 		NewConfirmUI.getContentPane().add(logo);
 		
-		JLabel lblPatientId = new JLabel("Patient ID");
-		lblPatientId.setBounds(20, 100, 66, 14);
-		NewConfirmUI.getContentPane().add(lblPatientId);
-		
-		JLabel lblRefferalNum = new JLabel("Refferal Num:");
-		lblRefferalNum.setBounds(20, 362, 69, 14);
-		NewConfirmUI.getContentPane().add(lblRefferalNum);
-		
-		JLabel lblApprovalNum = new JLabel("Approval Num:");
-		lblApprovalNum.setBounds(18, 393, 71, 14);
-		NewConfirmUI.getContentPane().add(lblApprovalNum);
-		
-		JLabel lblOther = new JLabel("Description:");
-		lblOther.setBounds(18, 193, 71, 14);
-		NewConfirmUI.getContentPane().add(lblOther);
-		
-		HMOId_field = new JTextField();
-		HMOId_field.setColumns(10);
-		HMOId_field.setBounds(96, 328, 200, 25);
-		NewConfirmUI.getContentPane().add(HMOId_field);
-		
-		doctor_name = new JTextField();
-		doctor_name.setColumns(10);
-		doctor_name.setBounds(96, 125, 200, 25);
-		NewConfirmUI.getContentPane().add(doctor_name);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(96, 192, 200, 117);
-		NewConfirmUI.getContentPane().add(scrollPane);
-		
-		JTextPane des_textPane = new JTextPane();
-		scrollPane.setViewportView(des_textPane);
-		des_textPane.setBorder(new LineBorder(new Color(0, 0, 0), 0));
-		
-		JComboBox spec_comboBox = new JComboBox();
-		spec_comboBox.setName("");
-		spec_comboBox.setModel(new DefaultComboBoxModel(app_ctrl.getSpecialties()));
-		spec_comboBox.setBounds(96, 156, 200, 25);
-		NewConfirmUI.getContentPane().add(spec_comboBox);
-		
-		AproveNum_field = new JTextField();
-		AproveNum_field.setColumns(10);
-		AproveNum_field.setBounds(96, 390, 200, 25);
-		NewConfirmUI.getContentPane().add(AproveNum_field);
-		
-		JLabel lblDoctorName = new JLabel("Doctor Name:");
-		lblDoctorName.setBounds(20, 128, 69, 14);
-		NewConfirmUI.getContentPane().add(lblDoctorName);
-		
-		JLabel lblSpeciality = new JLabel("speciality");
-		lblSpeciality.setBounds(18, 161, 71, 14);
-		NewConfirmUI.getContentPane().add(lblSpeciality);
-		
-		RefNum_field = new JTextField();
-		RefNum_field.setColumns(10);
-		RefNum_field.setBounds(96, 359, 200, 25);
-		NewConfirmUI.getContentPane().add(RefNum_field);
-		
-		JLabel lblHmoId = new JLabel("HMO ID : ");
-		lblHmoId.setBounds(20, 331, 66, 14);
-		NewConfirmUI.getContentPane().add(lblHmoId);
-		
-		JLabel label = new JLabel(p.getSid());
-		label.setBounds(96, 95, 200, 25);
-		NewConfirmUI.getContentPane().add(label);
-		
-		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(110, 465, 89, 23);
+		JButton btnSave = new JButton("Finish");
+		btnSave.setEnabled(false);
+		btnSave.setBounds(211, 357, 89, 23);
 		NewConfirmUI.getContentPane().add(btnSave);
 		
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(211, 465, 89, 23);
+		btnCancel.setBounds(10, 357, 89, 23);
 		NewConfirmUI.getContentPane().add(btnCancel);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(10, 100, 300, 239);
+		NewConfirmUI.getContentPane().add(tabbedPane);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Add Referral", null, panel, null);
+		panel.setLayout(null);
+		
+		JLabel label_1 = new JLabel("Description:");
+		label_1.setBounds(0, 80, 71, 14);
+		panel.add(label_1);
+		
+		field_Name = new JTextField();
+		field_Name.setColumns(10);
+		field_Name.setBounds(78, 11, 200, 25);
+		panel.add(field_Name);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(78, 71, 200, 129);
+		panel.add(scrollPane);
+		
+		JEditorPane editorPane = new JEditorPane();
+		scrollPane.setViewportView(editorPane);
+		
+		JComboBox speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
+		speciality_cbox.setName("");
+		speciality_cbox.setBounds(78, 39, 200, 25);
+		panel.add(speciality_cbox);
+		
+		JLabel label_2 = new JLabel("Doctor Name:");
+		label_2.setBounds(2, 16, 69, 14);
+		panel.add(label_2);
+		
+		JLabel label_3 = new JLabel("speciality");
+		label_3.setBounds(0, 44, 71, 14);
+		panel.add(label_3);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Add confirm", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JLabel label_5 = new JLabel("Refferal Num:");
+		label_5.setBounds(2, 59, 69, 14);
+		panel_1.add(label_5);
+		
+		JLabel label_6 = new JLabel("Approval Num:");
+		label_6.setBounds(0, 90, 71, 14);
+		panel_1.add(label_6);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(78, 25, 200, 25);
+		panel_1.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(78, 87, 200, 25);
+		panel_1.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(78, 56, 200, 25);
+		panel_1.add(textField_3);
+		
+		JLabel label_7 = new JLabel("HMO ID : ");
+		label_7.setBounds(2, 28, 66, 14);
+		panel_1.add(label_7);
+		
+		JLabel lblPatientId = new JLabel("Patient ID:");
+		lblPatientId.setBounds(24, 69, 66, 14);
+		NewConfirmUI.getContentPane().add(lblPatientId);
+		
+		JLabel label_id = new JLabel((String) p.getSid());
+		label_id.setBounds(85, 64, 200, 25);
+		NewConfirmUI.getContentPane().add(label_id);
+		
+		JButton btnPrev = new JButton("prev");
+		btnPrev.setVisible(false);
+		btnPrev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		btnPrev.setBounds(109, 357, 89, 23);
+		NewConfirmUI.getContentPane().add(btnPrev);
+		
+		JButton btnNext = new JButton("Next");
+		btnNext.setBounds(109, 357, 89, 23);
+		NewConfirmUI.getContentPane().add(btnNext);
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnSave.setEnabled(true);
+				btnNext.setVisible(false);
+				btnPrev.setVisible(true);
+
+			}
+		});
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				 Referral ref =new Referral(); 
 				 
-				ref.setDoctor_name(doctor_name.getText());
-				ref.setSpeciality((String) spec_comboBox.getSelectedItem());
+				ref.setDoctor_name(field_Name.getText());
+				ref.setSpeciality((String) speciality_cbox.getSelectedItem());
 				ref.setDescription(des_textPane.getText());
 				ref.setPatient(p);
 				
@@ -221,7 +256,7 @@ public class NewConfirmUI {
 
 		});
 		NewConfirmUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConfirmUI.setBounds(100, 100, 316, 528);
+		NewConfirmUI.setBounds(100, 100, 316, 420);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
