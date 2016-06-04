@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "labratorians")
 public class Labratorian extends ClinicEmployee {
 	
-	@ForeignCollectionField(eager=false)
+	@ForeignCollectionField(eager=true)
     private ForeignCollection<Examination> examinations;
 
 	public ForeignCollection<Examination> getExaminations() {
