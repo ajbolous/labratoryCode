@@ -17,10 +17,10 @@ public class TestApp {
 		//AddPatientUI u = new AddPatientUI();
 		//new SignInUI();
 		
-		MonthlyReport r=new MonthlyReport();
-		//PatientsController ctrl= new PatientsController(); 
-		//Patient patient=ctrl.getById("300000002");
-	   // new NewConfirmUI(patient); 
+		//MonthlyReport r=new MonthlyReport();
+		PatientsController ctrl= new PatientsController(); 
+		Patient patient=ctrl.getById("300000002");
+		new NewConfirmUI(patient); 
 		
 	  
 
