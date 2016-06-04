@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import Client.Application;
-import ClientUI.DoctorMedicalRecordUI;
 import Utils.DateTime;
 import Utils.Request;
 import models.Doctor;
@@ -16,6 +15,7 @@ import models.Patient;
 import models.Secretary;
 import models.Treatment;
 import models.Visit;
+import ui.medical.DoctorMedicalRecordUI;
 
 public class MedicalRecordController {
 

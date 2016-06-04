@@ -24,7 +24,7 @@ public class Invoices extends View{
 		System.out.println("----------------------------------------");
 		System.out.println();
 	
-				System.out.println("Invoice was send to HMO. \nInvoice Details  : "+"Invoice number" +invoice.getInvoiceId() +" \nTreatment"+invoice.getTreatment().getTid() +
+				System.out.println("Invoice was send to HMO. \nInvoice Details  : "+"\nInvoice " +invoice.getInvoiceId() +" \nabout\nTreatment"+invoice.getTreatment().getTid() +
 						" \n Payment : "+invoice.getPayment());
 				
 		
