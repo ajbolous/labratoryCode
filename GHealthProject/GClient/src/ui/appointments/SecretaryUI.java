@@ -184,6 +184,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 			table.getSelectionModel().addListSelectionListener(
 					new ListSelectionListener() {
 						public void valueChanged(ListSelectionEvent event){
+							
+							if(event.getValueIsAdjusting()==true)
+								return;
+							
 							int row=table.getSelectedRow();
 							
 							Treatment treatment =trList.get(row);

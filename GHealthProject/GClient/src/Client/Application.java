@@ -38,9 +38,6 @@ public class Application {
 		if(client.isConnected()){
 			log.debug("Connceted");
 			new SignInUI();
-	      
-			
-		}
-		
+		}	
 	}
 }

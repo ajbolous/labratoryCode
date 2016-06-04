@@ -52,7 +52,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
-public class labratoryUI {
+public class Labratory {
 
 	private JFrame labratoryUI;
 	private JTable tblToday;
@@ -60,7 +60,7 @@ public class labratoryUI {
 	private Examinationcontroller ex_ctrl= new Examinationcontroller(); 
 
 	
-	public labratoryUI() {
+	public Labratory() {
 		initialize();
 		labratoryUI.setVisible(true);
 	}

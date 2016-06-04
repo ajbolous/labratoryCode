@@ -1,7 +1,7 @@
 package Client;
 
 import models.Patient;
-import ui.labratories.labratoryUI;
+import ui.labratories.Labratory;
 import Controllers.PatientsController;
 
 public class TestApp {
@@ -16,8 +16,7 @@ public class TestApp {
 		PatientsController ctrl= new PatientsController(); 
 		Patient patient=ctrl.getById("300000002");
 		//new NewConfirmUI(patient); 
-		
-		new labratoryUI();
+		new Labratory();
 		
 	}
 }
