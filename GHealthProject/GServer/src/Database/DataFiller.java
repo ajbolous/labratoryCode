@@ -1,6 +1,6 @@
 package Database;
 
-import java.sql.SQLException;
+ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,6 +83,10 @@ public class DataFiller {
 			db.records.create(md);
 			p.setMedicalRecord(md);
 			db.patients.update(p);
+			Referral ref=new Referral(); 
+			ref.setPatient(p);
+			ref.setDoctor_name("ahmad");
+			db.refferals.create(ref); 
 
 		}
 	}

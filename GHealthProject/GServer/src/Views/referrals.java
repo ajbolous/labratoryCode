@@ -1,9 +1,10 @@
 package Views;
 
 import java.sql.SQLException;
-import java.text.ParseException;
 
 
+
+import models.Doctor;
 import models.Referral;
 import Database.DbHandler;
 import Server.Config;
@@ -13,16 +14,16 @@ public class referrals extends View{
 	
 public Object add (Request request){
 	DbHandler db = Config.getConfig().getHandler();
-
-		try {
-			return db.refferals.createIfNotExists((Referral) request.getParam("ref"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		
+	Referral ref = (Referral)request.getParam("ref");
+	
+	try {
+		db.refferals.create(ref);
+	} catch (SQLException e) {
+		return "Failed";
 	}
+	
+	return "success";
+}
 	
 
 }
