@@ -18,6 +18,7 @@ import models.Doctor;
 import models.Report;
 import Database.DbHandler;
 import Server.Config;
+import Utils.DateTime;
 import Utils.Request;
 import models.Statistic;
 
@@ -44,12 +45,44 @@ public class Reports extends View {
 		return x;
 	}
 
-	public Object getWeeklyReport(Request request) {
+	public Object getMonthlyReport(Request request) {
+		Date d = (Date) request.getParam("date");
 		Report r = new Report();
-		Date d=(Date) request.getParam("date");
-		ArrayList<Statistic> stat = (ArrayList<Statistic>) reportByDate(d,Utils.DateTime.addDay(d, 7));
+
+		r.setStatistic(new ArrayList<Statistic>());
+		int i = 0;
+
+		Statistic stat = new Statistic();
+		for (Statistic s : reportByDate(d, Utils.DateTime.addMonth(d))) {
+			stat.setDate(s.getDate());
+			stat.setNumOfPatients(s.getNumOfPatients()
+					+ stat.getNumOfPatients());
+			stat.setWaitingPeriod(s.getWaitingPeriod()
+					+ stat.getWaitingPeriod());
+			i++;
+
+			if (i % 7 == 0) {
+				r.getStatistic().add(stat);
+				stat = new Statistic();
+			}
+		}
+
+		fillStat(r);
+		return r;
+	}
+
+	public Object getWeeklyReport(Request request) {
+		Date d = (Date) request.getParam("date");
+
+		return buildWeeklyReport(d);
+	}
+
+	public Report buildWeeklyReport(Date d) {
+		Report r = new Report();
+		ArrayList<Statistic> stat = (ArrayList<Statistic>) reportByDate(d,
+				Utils.DateTime.addDay(d, 7));
 		r.setStatistic(stat);
-		r=fillStat(r);
+		r = fillStat(r);
 		return r;
 	}
 
@@ -86,6 +119,8 @@ public class Reports extends View {
 		wStd = wStd / size;
 		pStd = Math.sqrt(pStd);
 		wStd = Math.sqrt(wStd);
+		r.setpStd(pStd);
+		r.setwStd(wStd);
 		return r;
 	}
 
@@ -94,7 +129,8 @@ public class Reports extends View {
 		QueryBuilder<Statistic, Integer> q = db.statistics.queryBuilder();
 
 		try {
-			return q.orderBy("date", false).where().between("date", d1, d2).query();
+			return q.orderBy("date", false).where().between("date", d1, d2)
+					.query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

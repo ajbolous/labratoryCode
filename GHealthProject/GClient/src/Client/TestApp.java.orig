@@ -15,14 +15,26 @@ public class TestApp {
 		Application.connect();
 		//UsersManagingUI iden= new UsersManagingUI();
 		//AddPatientUI u = new AddPatientUI();
+<<<<<<< Updated upstream
 		//new SignInUI();
 		
-		MonthlyReport r=new MonthlyReport();
-		//PatientsController ctrl= new PatientsController(); 
-		//Patient patient=ctrl.getById("300000002");
-	   // new NewConfirmUI(patient); 
+		PatientsController ctrl= new PatientsController(); 
+		Patient patient=ctrl.getById("300000002");
+	    new NewConfirmUI(patient); 
 		
 	  
+=======
+		new SignInUI();
+		//Application.user=new Doctor();
+		//PatientUI p = new PatientUI();
+		MonthlyReport r=new MonthlyReport();
+	//RequestInformationUI p = new RequestInformationUI();
+		//PatientsController ctrl= new PatientsController(); 
+		//Patient patient=ctrl.getById("300000002");
+	  //  new NewConformUI(patient); 
+	    //new DoctorMedicalRecordUI(patient); 
+	   // new WeeklyReport();
+>>>>>>> Stashed changes
 
 		
 	}

@@ -159,13 +159,10 @@ public class Appointments {
 				Date appointment_date= apps_list.get(row).getAppointmentTime();
 				Date curr_date = null;
 				Date app_date=null;
-				try {
+				
 					curr_date= DateTime.getDate(current.getYear(), current.getMonth(), current.getDay());
 					app_date= DateTime.getDate(appointment_date.getYear(), appointment_date.getMonth(), appointment_date.getDay());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				if(curr_date.equals(app_date)){
 					JOptionPane.showMessageDialog(cancel_btn, "Cannot cancel appointment of today", "Cancel Appointment", JOptionPane.ERROR_MESSAGE);
 
