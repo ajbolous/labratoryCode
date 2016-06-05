@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
@@ -42,16 +43,20 @@ public class NewExaminationReferralPanel extends JPanel {
 	 * 
 	 * @param doctorMedicalRecordUI
 	 */
-	public NewExaminationReferralPanel(Examination ex, DoctorMedicalRecordUI doctorMedicalRecordUI) {
+	public NewExaminationReferralPanel(Examination ex,
+			DoctorMedicalRecordUI doctorMedicalRecordUI) {
 		super();
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Referral", TitledBorder.CENTER,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"New Referral", TitledBorder.CENTER, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(
-				DateTime.getDateString(ex.getReferralDate()) + " " + DateTime.getTimeString(ex.getReferralDate()));
+		textField_1 = new JTextField(DateTime.getDateString(ex
+				.getReferralDate())
+				+ " "
+				+ DateTime.getTimeString(ex.getReferralDate()));
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setEditable(false);
 		textField_1.setBounds(140, 59, 197, 20);
@@ -65,11 +70,12 @@ public class NewExaminationReferralPanel extends JPanel {
 
 		JLabel lblComments = new JLabel("Comments : ");
 		lblComments.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblComments.setBounds(20, 252, 110, 14);
+		lblComments.setBounds(9, 252, 121, 14);
 		add(lblComments);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(140, 247, 308, 68);
 		add(scrollPane);
 
@@ -82,6 +88,8 @@ public class NewExaminationReferralPanel extends JPanel {
 		add(lblNewLabel);
 
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Blood",
+				"Urine", "CT", "ECG", "X-Ray", "Eye", "CAT" }));
 		comboBox.setBackground(Color.WHITE);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,19 +118,18 @@ public class NewExaminationReferralPanel extends JPanel {
 					if (ex.getTreatment().isEndFlag()) {
 
 						Messages.warningMessage(
-								"cannot add visits or Examibations to Treatment" + ex.getTreatment().getTid() + "-"
+								"cannot add visits or Examibations to Treatment"
+										+ ex.getTreatment().getTid() + "-"
 										+ ex.getTreatment().gettType(),
-								"warning", doctorMedicalRecordUI.DoctorMedicalRecord);
+								"warning",
+								doctorMedicalRecordUI.DoctorMedicalRecord);
 
 					} else {
 
 						MedicalRecordController.saveReferral(ex);
-
-						// Examination exDB=(Examination)
-						// mrctrl.getLastReferralByTid(ex.getTreatment().getTid());
-						Messages.successMessage("Referral was added successfully  ", "Success",
+						Messages.successMessage(
+								"Referral was added successfully  ", "Success",
 								doctorMedicalRecordUI.DoctorMedicalRecord);
-						// doctorMedicalRecordUI.updateTree(exDB , true);*/
 
 					}
 
@@ -157,7 +164,8 @@ public class NewExaminationReferralPanel extends JPanel {
 
 		JComboBox<Clinic> comboBox_1 = new JComboBox();
 
-		ArrayList<Clinic> labList = (ArrayList<Clinic>) MedicalRecordController.getAllLabratories();
+		ArrayList<Clinic> labList = (ArrayList<Clinic>) MedicalRecordController
+				.getAllLabratories();
 		for (Clinic clinic : labList)
 			comboBox_1.addItem(clinic);
 
@@ -169,7 +177,7 @@ public class NewExaminationReferralPanel extends JPanel {
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Clinic clinic = (Clinic) comboBox_1.getSelectedItem();
-				ex.setLabratorian(clinic.getLabratorians().iterator().next());
+				ex.setClinic(clinic);
 			}
 		});
 		comboBox_1.setBounds(140, 180, 197, 31);

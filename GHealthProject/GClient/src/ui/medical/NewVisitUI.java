@@ -37,19 +37,21 @@ public class NewVisitUI extends JPanel {
 	private JTextArea textArea = new JTextArea();
 	private JLabel error_lbl;
 
-
 	// TODO Auto-generated constructor stub
 	public NewVisitUI(Visit visit, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Visit", TitledBorder.CENTER,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"New Visit", TitledBorder.CENTER, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(
-				DateTime.getDateString(visit.getVisitDate()) + " " + DateTime.getTimeString(visit.getVisitDate()));
+		textField_1 = new JTextField(DateTime.getDateString(visit
+				.getVisitDate())
+				+ " "
+				+ DateTime.getTimeString(visit.getVisitDate()));
 		textField_1.setBounds(107, 52, 155, 20);
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setEditable(false);
@@ -68,7 +70,8 @@ public class NewVisitUI extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(107, 122, 329, 120);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane);
 
 		JTextArea textArea = new JTextArea();
@@ -97,19 +100,24 @@ public class NewVisitUI extends JPanel {
 
 					if (visit.getTreatment().isEndFlag()) {
 						Messages.warningMessage(
-								"canot add Visits or Examibations to Treatment" + visit.getTreatment().getTid() + "-"
-										+ visit.getTreatment().gettType() + "\nThis treatment is closed",
-								"warnning", doctorMedicalRecordUI.DoctorMedicalRecord);
+								"canot add Visits or Examibations to Treatment"
+										+ visit.getTreatment().getTid() + "-"
+										+ visit.getTreatment().gettType()
+										+ "\nThis treatment is closed",
+								"warnning",
+								doctorMedicalRecordUI.DoctorMedicalRecord);
 
 					} else {
 
-						Visit visitDB = (Visit) MedicalRecordController.saveVisit(visit);
+						Visit visitDB = (Visit) MedicalRecordController
+								.saveVisit(visit);
 
 						Messages.successMessage(
-								"Visit was added successfully to Treatment " + visit.getTreatment().getTid() + "-"
+								"Visit was added successfully to Treatment "
+										+ visit.getTreatment().getTid() + "-"
 										+ visit.getTreatment().gettType(),
-								"Success", doctorMedicalRecordUI.DoctorMedicalRecord);
-						System.out.println("visitDB" + visitDB.getVid());
+								"Success",
+								doctorMedicalRecordUI.DoctorMedicalRecord);
 
 						doctorMedicalRecordUI.updateTree(visitDB, true);
 

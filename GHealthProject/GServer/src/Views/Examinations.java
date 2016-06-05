@@ -4,11 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.j256.ormlite.stmt.QueryBuilder;
-
 import models.Examination;
-import models.Patient;
-import models.Treatment;
-import models.Visit;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
@@ -21,7 +17,8 @@ public class Examinations extends View {
 		try {
 			Examination ex = (Examination)request.getParam("examination");
 			db.examinations.create(ex);
-			return getLastReferral(request) ; 
+			//return getLastReferral(request) ; 
+			return "success" ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

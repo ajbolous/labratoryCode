@@ -25,6 +25,7 @@ import java.awt.GridLayout;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import java.awt.FlowLayout;
@@ -71,8 +72,8 @@ public class InvoiceUI {
 	private JLabel error_lbl;
 	private String[] exList;
 
-	public InvoiceUI(Treatment treatment, SecretaryUI secUI) {
-		initialize(treatment, secUI);
+	public InvoiceUI(Treatment treatment, SecretaryUI secUI, int row) {
+		initialize(treatment, secUI , row);
 
 		Invoice.setLocationRelativeTo(null);
 		Invoice.setVisible(true);
@@ -81,7 +82,7 @@ public class InvoiceUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Treatment treatment, SecretaryUI secUI) {
+	private void initialize(Treatment treatment, SecretaryUI secUI , int row) {
 		Invoice = new JFrame();
 		Invoice.setTitle("<Invoice> - GHealth");
 		Invoice.setResizable(false);
@@ -207,7 +208,9 @@ public class InvoiceUI {
 					InvoiceController.sendInvoice(invoice);
 
 					Messages.successMessage("Invoice was sended successfully ", "Success", Invoice);
-					secUI.removeTreatment(treatment);
+					DefaultTableModel dm = (DefaultTableModel) secUI.table.getModel();
+					dm.removeRow(row);
+					
 					Invoice.dispose();
 				}
 

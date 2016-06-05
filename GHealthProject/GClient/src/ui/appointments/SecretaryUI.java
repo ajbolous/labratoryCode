@@ -64,7 +64,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 	public class SecretaryUI { 
 
 		private JFrame secretary;
-		private JTable table;
+		public JTable table;
 		private InvoiceController invoicectrl = new InvoiceController();
 		private ArrayList <Treatment> trList;
 		private JPanel panel;
@@ -192,7 +192,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 							
 							Treatment treatment =trList.get(row);
 							
-							InvoiceUI in = new InvoiceUI(treatment ,secUI);
+							InvoiceUI in = new InvoiceUI(treatment ,secUI,row);
 							
 							
 							

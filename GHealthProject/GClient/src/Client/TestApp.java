@@ -14,10 +14,10 @@ public class TestApp {
 		new SignInUI();
 		
 		//MonthlyReport r=new MonthlyReport();
-		PatientsController ctrl= new PatientsController(); 
-		Patient patient=ctrl.getById("300000002");
+		//PatientsController ctrl= new PatientsController(); 
+		//Patient patient=ctrl.getById("300000002");
 		//new NewConfirmUI(patient); 
-		new Labratory();
+		//new Labratory();
 		
 	}
 }
