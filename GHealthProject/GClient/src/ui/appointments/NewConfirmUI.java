@@ -32,6 +32,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 
+import models.Confirmation;
 import models.Patient;
 import models.Referral;
 
@@ -126,8 +127,6 @@ public class NewConfirmUI {
 		panel.add(label_1);
 		
 		field_Name = new JTextField();
-		field_Name.setEnabled(false);
-		field_Name.setEditable(false);
 		field_Name.setColumns(10);
 		field_Name.setBounds(78, 41, 200, 25);
 		panel.add(field_Name);
@@ -137,8 +136,6 @@ public class NewConfirmUI {
 		panel.add(scrollPane);
 		
 		JEditorPane editorPane = new JEditorPane();
-		editorPane.setEnabled(false);
-		editorPane.setEditable(false);
 		editorPane.setLocation(79, 0);
 		scrollPane.setViewportView(editorPane);
 		
@@ -213,6 +210,18 @@ public class NewConfirmUI {
 		 btnNext = new JButton("Next");
 		btnNext.setBounds(109, 357, 89, 23);
 		NewConfirmUI.getContentPane().add(btnNext);
+		
+		JLabel msqlbl_1 = new JLabel("New label");
+		msqlbl_1.setBounds(305, 139, 127, 14);
+		NewConfirmUI.getContentPane().add(msqlbl_1);
+		
+		JLabel msqlbl_2 = new JLabel("New label");
+		msqlbl_2.setBounds(305, 175, 127, 14);
+		NewConfirmUI.getContentPane().add(msqlbl_2);
+		
+		JLabel msqlbl_3 = new JLabel("New label");
+		msqlbl_3.setBounds(305, 236, 127, 14);
+		NewConfirmUI.getContentPane().add(msqlbl_3);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnFinish.setEnabled(true);
@@ -237,6 +246,22 @@ public class NewConfirmUI {
 				// RefNum_field.getText();
 				 
 				 RefCtrl.addReferralHMO(ref);
+				 Confirmation conf = new Confirmation(); 
+				  conf.setRefferal_id(textField_3.getText());
+				  conf.setApproval_id(textField_2.getText());
+				 conf.setHmo_id(textField_1.getText());
+				ref.setConfirmation(conf);
+				 RefCtrl.addConfirmHMO(ref);
+				 
+				/* if (!ConfirmIsEmpty()){
+					 
+					 //isValid();
+				 
+				 }*/
+					 
+					 
+				
+					 
 				/*id = FieldID.getText();
 				Fname = FnameField.getText();
 				Lname = LnameField.getText();
@@ -272,40 +297,19 @@ public class NewConfirmUI {
 		NewConfirmUI.setBounds(100, 100, 451, 420);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	private Boolean isvalidConfirm() {
+	private Boolean ConfirmIsEmpty() {
 		boolean flag = true;
-	/*
-		if (UITests.notEmpty(this.Fname) == false) {
-			msqlbl_1.setText("*is Empty");
-			flag = false;
-		} else if (UITests.checkIsCh(this.Fname) == false) {
-			msqlbl_1.setText("*should be only char");
-			flag = false;
+	
+		if (UITests.notEmpty(textField_1.getText()) == true) {
+			flag=false; 			
 		}
-		if (UITests.notEmpty(this.Lname) == false) {
-			msqlbl_2.setText("*is Empty");
-			flag = false;
-		} else if (UITests.checkIsCh(this.Lname) == false) {
-			msqlbl_2.setText("*should be only char");
-			flag = false;
+		if (UITests.notEmpty(textField_2.getText()) == true) {
+			flag=false; 			
+		} 
+		if (UITests.notEmpty(textField_3.getText()) == true) {
+			flag=false; 			
 		}
-		if (UITests.notEmpty(this.phone) == false) {
-			msqlbl_6.setText("*is Empty");
-			flag = false;
-
-		} else if (UITests.checkIsDigit(this.phone) == false) {
-			msqlbl_6.setText("*should be only digits");
-			flag = false;
-		}
-		if (UITests.notEmpty(this.email) == false) {
-			msqlbl_5.setText("*is Empty");
-			flag = false;
-		}
-		
-		if (UITests.notEmpty(this.address) == false) {
-			msqlbl_7.setText("*is Empty");
-			flag = false;
-		}*/
+	
 		return flag;
 	}
 }
