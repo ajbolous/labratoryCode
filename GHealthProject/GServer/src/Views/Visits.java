@@ -1,18 +1,11 @@
 package Views;
 
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
-
 import com.j256.ormlite.stmt.QueryBuilder;
-
-import models.Appointment;
-import models.Treatment;
 import models.Visit;
 import Database.DbHandler;
 import Server.Config;
-import Utils.DateTime;
 import Utils.Request;
 
 public class Visits extends View{

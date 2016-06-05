@@ -25,6 +25,18 @@ public class Examination extends Entity {
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratorian_id")
 	private Labratorian labratorian;
+	
+	
+	@DatabaseField(foreign = true, foreignAutoRefresh = false, columnName = "clinic_id")
+	private Clinic clinic;
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
 
 	@DatabaseField()
 	private String eType;

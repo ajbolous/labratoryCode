@@ -20,19 +20,28 @@ import Client.Application;
 import Client.Resources;
 import Controllers.UsersController;
 import models.User;
+import ui.appointments.SecretaryUI;
 import ui.utils.UITests;
 
 import javax.swing.BoxLayout;
+
 import java.awt.GridLayout;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SwingConstants;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
 import java.awt.SystemColor;
+
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
@@ -157,6 +166,7 @@ public class SignInUI {
 				}
 				Application.user = u;
 				ClientUI cui = new ClientUI();
+				//SecretaryUI sec = new SecretaryUI();
 				SignInUI.hide();
 			}
 		});
