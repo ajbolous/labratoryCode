@@ -5,22 +5,15 @@ import javax.swing.JTextField;
 
 import models.Visit;
 
-import java.awt.Panel;
 import java.awt.Rectangle;
 
 import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
 
 import Utils.DateTime;
 
 import java.awt.Font;
 import java.awt.Color;
-import java.text.ParseException;
-import java.util.Date;
-
-import javax.swing.SwingConstants;
-import javax.swing.DropMode;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -33,7 +26,6 @@ public class VisitPanel extends JPanel {
 	public JTextField textField_1;
 	public JTextArea textArea = new JTextArea();
 	public JTextField textField;
-
 
 	/**
 	 * Create the panel.
@@ -96,11 +88,6 @@ public class VisitPanel extends JPanel {
 		textField.setEditable(false);
 		textField.setBounds(112, 82, 158, 20);
 		add(textField);
-		textField.setColumns(10);
-	
-		
-		
-	
-		
+		textField.setColumns(10);		
 	}
 }

@@ -8,7 +8,7 @@ import Client.Application;
 import Client.Config;
 import Client.Resources;
 import models.Doctor;
-import ui.labratories.labratoryUI;
+import ui.labratories.Labratory;
 import ui.reports.WeeklyReport;
 
 import java.awt.event.ActionListener;
@@ -92,7 +92,7 @@ public class ClientUI {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Settings settings = new Settings();
+				new Settings();
 			}
 		});
 		button.setHorizontalAlignment(SwingConstants.LEFT);
@@ -124,7 +124,7 @@ public class ClientUI {
 		btnNewButton.setBorder(null);
 		btnTests_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				labratoryUI lab = new labratoryUI();
+				new Labratory();
 			}
 		});
 

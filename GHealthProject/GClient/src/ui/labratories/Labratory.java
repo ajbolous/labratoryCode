@@ -1,8 +1,5 @@
 package ui.labratories;
 
-import java.awt.EventQueue;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -10,28 +7,15 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
 
-import javax.swing.JButton;
-
 import Client.Application;
 import Client.Resources;
-import Controllers.Examinationcontroller;
-import models.Appointment;
+import Controllers.ExaminationController;
 import models.Examination;
 import models.Labratorian;
 import ui.utils.MyTableModel;
-
-import javax.swing.BoxLayout;
-
-import java.awt.GridLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -40,27 +24,22 @@ import javax.swing.table.DefaultTableModel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
-import Utils.DateTime;
-
 import java.awt.Component;
 import java.awt.SystemColor;
 import java.text.ParseException;
-import java.util.ArrayList;
-
-import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
-public class labratoryUI {
+public class Labratory {
 
 	private JFrame labratoryUI;
 	private JTable tblToday;
 	private int  ex_id ; 
-	private Examinationcontroller ex_ctrl= new Examinationcontroller(); 
+	private ExaminationController ex_ctrl= new ExaminationController(); 
 
 	
-	public labratoryUI() {
+	public Labratory() {
 		initialize();
 		labratoryUI.setVisible(true);
 	}
@@ -69,8 +48,7 @@ public class labratoryUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Labratorian lab = (Labratorian) Application.user;
-		Resources res = new Resources();
+		Labratorian labratorian = (Labratorian) Application.user;
 		labratoryUI = new JFrame();
 		labratoryUI.setTitle("<Frame name> - GHealth");
 		labratoryUI.setResizable(false);
@@ -87,7 +65,7 @@ public class labratoryUI {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		labratoryUI.getContentPane().add(logo);
 		
 		JPanel panel = new JPanel();
@@ -105,7 +83,7 @@ public class labratoryUI {
 		label_1.setBounds(61, 11, 207, 21);
 		panel.add(label_1);
 		
-		label_1.setText(new String (lab.getFirstName()+" "+lab.getLastName()));
+		label_1.setText(new String (labratorian.getFirstName()+" "+labratorian.getLastName()));
 		
 		JLabel label_3 = new JLabel((String) null);
 		label_3.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -144,11 +122,12 @@ public class labratoryUI {
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
 					
+					
 						int row=tblToday.getSelectedRow();
 						ex_id= (int) tblToday.getModel().getValueAt(row, 0);
 						
-						Examination ex= ex_ctrl.getById(ex_id);
-						
+						Examination ex= ExaminationController.getById(ex_id);
+						ExamEditor edit = new ExamEditor(ex);
 
 					}
 				});

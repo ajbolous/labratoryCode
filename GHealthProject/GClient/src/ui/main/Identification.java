@@ -57,7 +57,6 @@ public class Identification implements FrameInterface {
 	/**
 	 * Patient Controller instance
 	 */
-	private PatientsController idctrl = new PatientsController();
 
 	public Identification() {
 		initialize();
@@ -67,12 +66,11 @@ public class Identification implements FrameInterface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Resources res = new Resources();
 		disID = new JFrame();
 		disID.setTitle("Appointments- GHealth");
 		disID.setResizable(false);
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
-		ImageIcon loginImg = res.getIcon("loginRow.png");
+		ImageIcon loginImg = Resources.getIcon("loginRow.png");
 		disID.setIconImage(icon);
 		disID.setForeground(Color.BLACK);
 		disID.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -109,7 +107,7 @@ public class Identification implements FrameInterface {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		disID.getContentPane().add(logo);
 
 		error_lbl = new JLabel("");
@@ -138,7 +136,7 @@ public class Identification implements FrameInterface {
 		disID.getContentPane().add(txtpnEnterPatientId);
 
 		lblNewLabel_1 = new JLabel("");
-		ImageIcon info = res.getIcon("info.png");
+		ImageIcon info = Resources.getIcon("info.png");
 		lblNewLabel_1.setIcon(info);
 		lblNewLabel_1.setBounds(26, 113, 44, 70);
 		disID.getContentPane().add(lblNewLabel_1);
@@ -167,7 +165,7 @@ public class Identification implements FrameInterface {
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
-		else if ((patient = idctrl.getById(id)) == null)
+		else if ((patient = PatientsController.getById(id)) == null)
 			error_lbl.setText("*Patient does not exist in the system");
 		else {
 			disID.setVisible(false);

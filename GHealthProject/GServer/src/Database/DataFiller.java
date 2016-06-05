@@ -20,8 +20,7 @@ public class DataFiller {
 	public static String[] lastNames = { "Blackfrey", "Martel", "River", "Andal", "Lanister", "Bolton", "Stark",
 			"Clegane", "Targeryan", "Greyjoy", "Weiss", "Drogo", "Karstak", "Turlly", "Mormont", "Frey", "Baratheon",
 			"Slavador", "Snow" };
-	public static String[] cities = { "King's Landing", "Winterfell", "Iron Islands", "Valyeria", "The Wall",
-			"Castle Black", "Dreadfall", "Mereen", "Highgarden", "Dorn" };
+	public static String[] cities = { "King's Landing", "Winterfell", "Iron Islands", "Valyeria", "The Wall" };
 
 	public static String[] specialities = { "Surgon", "Oncologe", "Urologe", "Cardiologe", "Bone", "Family",
 			"Children" };
@@ -36,7 +35,7 @@ public class DataFiller {
 	}
 
 	public void fillDoctors() throws SQLException {
-		for (int i = 0; i < 120; i++) {
+		for (int i = 0; i < 15; i++) {
 			Doctor d = new Doctor();
 			d.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			d.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -45,7 +44,7 @@ public class DataFiller {
 			d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
 			d.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			d.setPhone("0" + (548143001 + i));
-			d.setClinic(db.clinics.queryForId(i % 10 + 1));
+			d.setClinic(db.clinics.queryForId(i % cities.length + 1));
 			d.setPass("123123");
 			d.setSpeciality(specialities[i % specialities.length]);
 			d.setSid("" + (200000000 + i));
@@ -56,7 +55,7 @@ public class DataFiller {
 	
 
 	public void fillPatients() throws Exception {
-		for (int i = 0; i < 120; i++) {
+		for (int i = 0; i < 30; i++) {
 			Patient p = new Patient();
 			p.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			p.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -111,7 +110,7 @@ public class DataFiller {
 				db.treatments.create(t);
 				fillExaminations(t, labs);
 				fillVisits(t);
-				db.records.create(md);
+				db.records.update(md);
 			}
 		}
 	}
@@ -143,38 +142,29 @@ public class DataFiller {
 
 	public void fillClinics() throws SQLException {
 		for (int i = 0; i < cities.length; i++) {
-
-			Labratory lab = new Labratory();
 			
-			
-			db.labratories.create(lab);
-			
-
 			Clinic c = new Clinic();
 			c.setAddress(cities[i]);
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
-			c.setLabratory(lab);
+			c.setHasLabratory(true);
 			db.clinics.create(c);
 			
-			lab.setClinc(c);
-			
-			db.labratories.update(lab);
-			
+		
 			Labratorian l = new Labratorian();
 			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 			l.setPass("123123");
 			l.setEmail((l.getFirstName() + "." + l.getLastName() + i).toLowerCase() + "@crows.com");
 			l.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
-			l.setLabratory(lab);
 			l.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			l.setPhone("0" + (548143001 + i));
 			l.setSid("" + (400000000 + i));
 			l.setClinic(c);
 			db.labratorians.create(l);
 			
+		
 			Secretary sec = new Secretary();
 			sec.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			sec.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -193,7 +183,7 @@ public class DataFiller {
 	public void fillAppointments() throws SQLException, ParseException {
 
 		for (int j = 0; j < 3; j++) {
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 5; i++) {
 				Doctor d = db.doctors.queryForId("20000000" + i);
 				Patient p = db.patients.queryForId("30000000" + (i + j));
 

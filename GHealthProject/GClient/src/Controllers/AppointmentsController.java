@@ -32,7 +32,7 @@ public class AppointmentsController {
 	 * @param app : Appointment instance to delete
 	 * @return true if the cancel success , false else.
 	 */
-	public boolean deleteAppointment(Appointment app){
+	public static boolean deleteAppointment(Appointment app){
 		Request r = new Request("appointments/delete");
 		r.addParam("appointment", app);
 		app=null;
@@ -44,7 +44,7 @@ public class AppointmentsController {
 	 * send request to database to return all available doctors specialties list.
 	 * @return String Array of all specialties ,the first String in the array is empty String
 	 */
-	public String [] getSpecialties(){
+	public static String [] getSpecialties(){
 		Request r = new Request("doctors/getSpecialities");
 		ArrayList<String> specs= (ArrayList<String>) Application.client.sendRequest(r);
 		Collections.sort(specs);
@@ -63,7 +63,7 @@ public class AppointmentsController {
  
 	 */
 	
-	public ArrayList<Object[]> getDoctorsBySpeciality(String spec,String patient_id){
+	public static ArrayList<Object[]> getDoctorsBySpeciality(String spec,String patient_id){
 		Request r = new Request("doctors/bySpeciality");
 		r.addParam("speciality",spec);
 		r.addParam("patient_id", patient_id);
@@ -78,7 +78,7 @@ public class AppointmentsController {
 	 * @return Arraylist of patient's future Appointments 
 	 * @throws ParseException
 	 */
-	public ArrayList<Appointment> getPatientAppointments(Patient patient){
+	public static ArrayList<Appointment> getPatientAppointments(Patient patient){
 		Request r = new Request("appointments/getPatientAppointments");
 		r.addParam("patient_id",patient.getSid());
 		Date curr= new Date();
@@ -99,7 +99,7 @@ public class AppointmentsController {
 	 * @return all available times for set appointment
 	 * @throws ParseException
 	 */
-	public ArrayList<Appointment> getTimes(String doctor_id, String patient_id) {
+	public static ArrayList<Appointment> getTimes(String doctor_id, String patient_id) {
 		Request r = new Request("appointments/availableTimes");
 		try {
 			r.addParam("curr_time", DateTime.currentDate());
@@ -120,7 +120,7 @@ public class AppointmentsController {
 	 * @param time : the choosed time from available times  to set as appointment 
 	 * @return true if the add success , false else.
 	 */
-	public boolean addNewAppointment(String doctor_id,String patient_id,Date time){
+	public static boolean addNewAppointment(String doctor_id,String patient_id,Date time){
 		Request r = new Request("appointments/add");
 		r.addParam("doctor_id", doctor_id);
 		r.addParam("patient_id", patient_id);

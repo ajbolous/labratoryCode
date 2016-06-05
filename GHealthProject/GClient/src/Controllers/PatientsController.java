@@ -19,7 +19,7 @@ public class PatientsController {
 	 * @param id : patient id
 	 * @return boolean value , if patient exist in the database return true , else false.
 	 */
-	public boolean exists(String id){
+	public static boolean exists(String id){
 		if(getById(id)!=null)
 			return true;
 		return false;
@@ -31,7 +31,7 @@ public class PatientsController {
 	 * @return Patient instance if found , and null else.
 	 */
 	
-	public Patient getById(String id){
+	public static Patient getById(String id){
 		
 		Request r = new Request("patients/getById");
 		r.addParam("sid", id);
@@ -43,7 +43,7 @@ public class PatientsController {
 	 * send request to database to add new patient 
 	 * @param patient : Patient instance 
 	 */
-	public void AddNewPatient(Patient patient ){
+	public static void AddNewPatient(Patient patient ){
 		Request r = new Request("patients/add");
 		r.addParam("patient", patient);
 		Application.client.sendRequest(r);

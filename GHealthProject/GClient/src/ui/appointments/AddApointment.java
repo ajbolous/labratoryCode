@@ -127,7 +127,6 @@ public class AddApointment  {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Resources res = new Resources();
 		newApp = new JFrame();
 		newApp.setResizable(false);
 		newApp.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -145,12 +144,12 @@ public class AddApointment  {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		newApp.getContentPane().add(logo);
 		
 		JComboBox speciality = new JComboBox();
 		speciality.setName("");
-		speciality.setModel(new DefaultComboBoxModel(app_ctrl.getSpecialties()));
+		speciality.setModel(new DefaultComboBoxModel(AppointmentsController.getSpecialties()));
 		
 		speciality.setBounds(120, 106, 247, 25);
 		newApp.getContentPane().add(speciality);
@@ -210,25 +209,12 @@ public class AddApointment  {
 		doctorId.setMinWidth(0);
 		doctorId.setPreferredWidth(0);
 		
-		
-		
-		
-		
-		
-		
-		
 		JScrollPane time_scrll_table = new JScrollPane();
 		time_scrll_table.setVisible(false);
 		time_scrll_table.setBounds(30, 381, 420, 175);
 		newApp.getContentPane().add(time_scrll_table);
-		
-		
-		
-		
-		
-		String[] columnNames = {"Date",
-                "Day",
-                "Hour"};
+
+		String[] columnNames = {"Date","Day","Hour"};
 		Object[][] data = {};
 		time_table = new JTable();
 		time_table.setModel(new MyTableModel(columnNames,data));
@@ -273,8 +259,6 @@ public class AddApointment  {
 					lblDoctors.setVisible(false);
 					btnSave.setEnabled(false);
 					noApps_lbl.setVisible(false);
-
-
 		        }
 				
 			}
@@ -308,7 +292,7 @@ public class AddApointment  {
 						
 						doctor_id= (String) doctors_table.getModel().getValueAt(row, 0);
 						
-						times= app_ctrl.getTimes(doctor_id,patient.getSid());
+						times= AppointmentsController.getTimes(doctor_id,patient.getSid());
 						if(times.size()==0){
 							noApps_lbl.setVisible(true);
 							lblTime.setVisible(false);
@@ -357,7 +341,7 @@ public class AddApointment  {
 				
 				int row= time_table.getSelectedRow();
 				Date timeToSet= times.get(row).getAppointmentTime();
-				if(app_ctrl.addNewAppointment(doctor_id, patient.getSid(), timeToSet)){
+				if(AppointmentsController.addNewAppointment(doctor_id, patient.getSid(), timeToSet)){
 					JOptionPane.showMessageDialog(null, "Appointment saved successfully", "Add new appointment", JOptionPane.INFORMATION_MESSAGE);
 					newApp.setVisible(false);
 					appointments_class.getAppointments();
@@ -374,9 +358,6 @@ public class AddApointment  {
 		newApp.setBounds(100, 100, 481, 632);
 		newApp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newApp.setLocationRelativeTo(null);
-
-		
-
 	}
 	/**
 	 * call getDoctorsBySpeciality method from appointments controller to show all doctors by specialty
@@ -385,7 +366,7 @@ public class AddApointment  {
 	private void getDoctorsBySpec(String spec) {
 		DefaultTableModel dm = (DefaultTableModel) doctors_table.getModel();
 		dm.setRowCount(0);
-		ArrayList<Object[]> doctors = app_ctrl.getDoctorsBySpeciality(spec,patient.getSid());
+		ArrayList<Object[]> doctors = AppointmentsController.getDoctorsBySpeciality(spec,patient.getSid());
 		for (Object[] record : doctors) {
 			dm.addRow(record);
 		}	
