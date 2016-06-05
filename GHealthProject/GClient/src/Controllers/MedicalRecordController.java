@@ -122,11 +122,9 @@ public class MedicalRecordController {
 	}
 
 	public static Object saveExaminationResult(Examination e) {
-
 		Request r = new Request("examinations/update");
 		r.addParam("examinations", e);
 		return Application.client.sendRequest(r);
-
 	}
 
 	public static Object AddMedicalRecord(MedicalRecord md) {

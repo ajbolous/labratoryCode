@@ -37,6 +37,8 @@ import models.Referral;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import ui.utils.UITests;
+
 import java.awt.Component;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -58,7 +60,6 @@ import javax.swing.JEditorPane;
 public class NewConfirmUI {
 
 	private JFrame NewConfirmUI; 
-	private JTextPane des_textPane; 
 	private AppointmentsController app_ctrl = new AppointmentsController();
 	private ConfirmationController ConformCtrl= new ConfirmationController();
 	private ReferralController RefCtrl = new ReferralController(); 
@@ -66,7 +67,7 @@ public class NewConfirmUI {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-
+	private JButton btnNext;
 	
 	
 	
@@ -100,10 +101,10 @@ public class NewConfirmUI {
 		logo.setIcon(res.getIcon("logo.png"));
 		NewConfirmUI.getContentPane().add(logo);
 		
-		JButton btnSave = new JButton("Finish");
-		btnSave.setEnabled(false);
-		btnSave.setBounds(211, 357, 89, 23);
-		NewConfirmUI.getContentPane().add(btnSave);
+		JButton btnFinish = new JButton("Finish");
+		btnFinish.setEnabled(false);
+		btnFinish.setBounds(211, 357, 89, 23);
+		NewConfirmUI.getContentPane().add(btnFinish);
 		
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -111,11 +112,13 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().add(btnCancel);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 100, 300, 239);
+		tabbedPane.setBounds(10, 100, 285, 246);
 		NewConfirmUI.getContentPane().add(tabbedPane);
 		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Add Referral", null, panel, null);
+		tabbedPane.setEnabledAt(0, true);
+		
 		panel.setLayout(null);
 		
 		JLabel label_1 = new JLabel("Description:");
@@ -123,8 +126,10 @@ public class NewConfirmUI {
 		panel.add(label_1);
 		
 		field_Name = new JTextField();
+		field_Name.setEnabled(false);
+		field_Name.setEditable(false);
 		field_Name.setColumns(10);
-		field_Name.setBounds(78, 11, 200, 25);
+		field_Name.setBounds(78, 41, 200, 25);
 		panel.add(field_Name);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -132,23 +137,27 @@ public class NewConfirmUI {
 		panel.add(scrollPane);
 		
 		JEditorPane editorPane = new JEditorPane();
+		editorPane.setEnabled(false);
+		editorPane.setEditable(false);
+		editorPane.setLocation(79, 0);
 		scrollPane.setViewportView(editorPane);
 		
 		JComboBox speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
 		speciality_cbox.setName("");
-		speciality_cbox.setBounds(78, 39, 200, 25);
+		speciality_cbox.setBounds(78, 11, 200, 25);
 		panel.add(speciality_cbox);
 		
 		JLabel label_2 = new JLabel("Doctor Name:");
-		label_2.setBounds(2, 16, 69, 14);
+		label_2.setBounds(0, 46, 69, 14);
 		panel.add(label_2);
 		
 		JLabel label_3 = new JLabel("speciality");
-		label_3.setBounds(0, 44, 71, 14);
+		label_3.setBounds(0, 16, 71, 14);
 		panel.add(label_3);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Add confirm", null, panel_1, null);
+		tabbedPane.setEnabledAt(1, false);
 		panel_1.setLayout(null);
 		
 		JLabel label_5 = new JLabel("Refferal Num:");
@@ -190,32 +199,36 @@ public class NewConfirmUI {
 		btnPrev.setVisible(false);
 		btnPrev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				tabbedPane.setSelectedIndex(0);	
+				btnNext.setVisible(true);
+				btnPrev.setVisible(false);
+
+
 				
 			}
 		});
 		btnPrev.setBounds(109, 357, 89, 23);
 		NewConfirmUI.getContentPane().add(btnPrev);
 		
-		JButton btnNext = new JButton("Next");
+		 btnNext = new JButton("Next");
 		btnNext.setBounds(109, 357, 89, 23);
 		NewConfirmUI.getContentPane().add(btnNext);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnSave.setEnabled(true);
+				btnFinish.setEnabled(true);
 				btnNext.setVisible(false);
 				btnPrev.setVisible(true);
+				tabbedPane.setEnabledAt(1, true);
+				tabbedPane.setSelectedIndex(1);
 
 			}
 		});
-		btnSave.addActionListener(new ActionListener() {
+		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				 Referral ref =new Referral(); 
-				 
 				ref.setDoctor_name(field_Name.getText());
 				ref.setSpeciality((String) speciality_cbox.getSelectedItem());
-				ref.setDescription(des_textPane.getText());
+				ref.setDescription(editorPane.getText());
 				ref.setPatient(p);
 				
 
@@ -256,7 +269,45 @@ public class NewConfirmUI {
 
 		});
 		NewConfirmUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConfirmUI.setBounds(100, 100, 316, 420);
+		NewConfirmUI.setBounds(100, 100, 451, 420);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	private Boolean isvalidConfirm() {
+		boolean flag = true;
+	/*
+		if (UITests.notEmpty(this.Fname) == false) {
+			msqlbl_1.setText("*is Empty");
+			flag = false;
+		} else if (UITests.checkIsCh(this.Fname) == false) {
+			msqlbl_1.setText("*should be only char");
+			flag = false;
+		}
+		if (UITests.notEmpty(this.Lname) == false) {
+			msqlbl_2.setText("*is Empty");
+			flag = false;
+		} else if (UITests.checkIsCh(this.Lname) == false) {
+			msqlbl_2.setText("*should be only char");
+			flag = false;
+		}
+		if (UITests.notEmpty(this.phone) == false) {
+			msqlbl_6.setText("*is Empty");
+			flag = false;
+
+		} else if (UITests.checkIsDigit(this.phone) == false) {
+			msqlbl_6.setText("*should be only digits");
+			flag = false;
+		}
+		if (UITests.notEmpty(this.email) == false) {
+			msqlbl_5.setText("*is Empty");
+			flag = false;
+		}
+		
+		if (UITests.notEmpty(this.address) == false) {
+			msqlbl_7.setText("*is Empty");
+			flag = false;
+		}*/
+		return flag;
+	}
 }
+
+
