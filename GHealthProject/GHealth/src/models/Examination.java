@@ -7,18 +7,12 @@ import Utils.DateTime;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+
 @DatabaseTable(tableName = "examinations")
 public class Examination extends Entity {
+
 	@DatabaseField(generatedId = true)
 	private int eid;
-
-	public String geteType() {
-		return eType;
-	}
-
-	public void seteType(String eType) {
-		this.eType = eType;
-	}
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
 	private Treatment treatment;
@@ -30,13 +24,6 @@ public class Examination extends Entity {
 	@DatabaseField(foreign = true, foreignAutoRefresh = false, columnName = "clinic_id")
 	private Clinic clinic;
 
-	public Clinic getClinic() {
-		return clinic;
-	}
-
-	public void setClinic(Clinic clinic) {
-		this.clinic = clinic;
-	}
 
 	@DatabaseField()
 	private String eType;
@@ -50,13 +37,105 @@ public class Examination extends Entity {
 	@DatabaseField()
 	private Date referralDate;
 
+	public int getEid() {
+		return eid;
+	}
+
+
+	public void setEid(int eid) {
+		this.eid = eid;
+	}
+
+
+	public Treatment getTreatment() {
+		return treatment;
+	}
+
+
+	public void setTreatment(Treatment treatment) {
+		this.treatment = treatment;
+	}
+
+
+	public Labratorian getLabratorian() {
+		return labratorian;
+	}
+
+
+	public void setLabratorian(Labratorian labratorian) {
+		this.labratorian = labratorian;
+	}
+
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+
+	public String geteType() {
+		return eType;
+	}
+
+
+	public void seteType(String eType) {
+		this.eType = eType;
+	}
+
+
+	public String getComments() {
+		return comments;
+	}
+
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+
+	public Date getExaminationDate() {
+		return examinationDate;
+	}
+
+
+	public void setExaminationDate(Date examinationDate) {
+		this.examinationDate = examinationDate;
+	}
+
+
 	public Date getReferralDate() {
 		return referralDate;
 	}
 
+
 	public void setReferralDate(Date referralDate) {
 		this.referralDate = referralDate;
 	}
+
+
+	public String getResults() {
+		return results;
+	}
+
+
+	public void setResults(String results) {
+		this.results = results;
+	}
+
+
+	public String getFile() {
+		return file;
+	}
+
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
 
 	@DatabaseField()
 	private String results;
@@ -64,62 +143,7 @@ public class Examination extends Entity {
 	@DatabaseField()
 	private String file;
 
-	public int getEid() {
-		return eid;
-	}
-
-	public void setEid(int eid) {
-		this.eid = eid;
-	}
-
-	public Treatment getTreatment() {
-		return treatment;
-	}
-
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
-	}
-
-	public Labratorian getLabratorian() {
-		return labratorian;
-	}
-
-	public void setLabratorian(Labratorian lab) {
-		labratorian = lab;
-	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public Date getExaminationDate() {
-		return examinationDate;
-	}
-
-	public void setExaminationDate(Date examinationDate) {
-		this.examinationDate = examinationDate;
-	}
-
-	public String getResults() {
-		return results;
-	}
-
-	public void setResults(String results) {
-		this.results = results;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
+	
 	public String toString() {
 		return "Examination" + eid + ": " + DateTime.getDateString(examinationDate);
 	}

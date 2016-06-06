@@ -244,9 +244,9 @@ public class DoctorMedicalRecordUI {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// enableAddVisitOrReferral(false);
+				
 				NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(
-						MedicalRecordController.getNewReferral(t),
-						doctorMedicalRecordUI);
+						t , doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(exPanel);
 
 			}
@@ -259,16 +259,9 @@ public class DoctorMedicalRecordUI {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					// enableAddVisitOrReferral(false);
-					NewVisitUI vPanel = new NewVisitUI(MedicalRecordController
-							.getNewVisit(t), doctorMedicalRecordUI);
-					scrollPane_1.setViewportView(vPanel);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
+				// enableAddVisitOrReferral(false);
+				NewVisitUI vPanel = new NewVisitUI(t, doctorMedicalRecordUI);
+				scrollPane_1.setViewportView(vPanel);
 			}
 		});
 
@@ -434,13 +427,9 @@ public class DoctorMedicalRecordUI {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					Treatment treatment = MedicalRecordController
-							.getNewTreatment((Doctor) Application.user,
-									p.getMedicalRecord());
-					NewTreatmentUI tPanel = new NewTreatmentUI(treatment,
+					NewTreatmentUI tPanel = new NewTreatmentUI(p.getMedicalRecord(),
 							doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(tPanel);
-					t = treatment;
 					enableAddVisitOrReferral(true);
 
 				} catch (Exception e) {
@@ -522,6 +511,8 @@ public class DoctorMedicalRecordUI {
 			}
 		}
 		if (child.getClass() == Treatment.class) {
+			t = (Treatment) child;
+			tree.clearSelection();
 
 			DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree
 					.getModel().getRoot();

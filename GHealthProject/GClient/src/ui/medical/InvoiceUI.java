@@ -72,8 +72,8 @@ public class InvoiceUI {
 	private JLabel error_lbl;
 	private String[] exList;
 
-	public InvoiceUI(Treatment treatment, SecretaryUI secUI, int row) {
-		initialize(treatment, secUI , row);
+	public InvoiceUI(Treatment treatment, SecretaryUI secUI) {
+		initialize(treatment, secUI );
 
 		Invoice.setLocationRelativeTo(null);
 		Invoice.setVisible(true);
@@ -82,7 +82,7 @@ public class InvoiceUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Treatment treatment, SecretaryUI secUI , int row) {
+	private void initialize(Treatment treatment, SecretaryUI secUI ) {
 		Invoice = new JFrame();
 		Invoice.setTitle("<Invoice> - GHealth");
 		Invoice.setResizable(false);
@@ -208,9 +208,7 @@ public class InvoiceUI {
 					InvoiceController.sendInvoice(invoice);
 
 					Messages.successMessage("Invoice was sended successfully ", "Success", Invoice);
-					DefaultTableModel dm = (DefaultTableModel) secUI.table.getModel();
-					dm.removeRow(row);
-					
+					secUI.removeTreatment();
 					Invoice.dispose();
 				}
 

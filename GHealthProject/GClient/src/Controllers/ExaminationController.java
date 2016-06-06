@@ -32,4 +32,12 @@ public class ExaminationController {
 		Application.client.sendRequest(r);
 
 	}
+
+	public static void addReferral(Examination e) {
+
+		Request r = new Request("examinations/add");
+		r.addParam("exam", e);
+		Application.client.sendRequest(r);
+	}
+
 }
