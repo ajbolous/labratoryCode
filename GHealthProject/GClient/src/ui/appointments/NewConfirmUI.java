@@ -105,7 +105,7 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().setLayout(null);
 		
 		JLabel logo = new JLabel("New Refferal and conformation");
-		logo.setBounds(-89, -12, 412, 80);
+		logo.setBounds(-25, -11, 412, 80);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -114,16 +114,16 @@ public class NewConfirmUI {
 		
 		JButton btnFinish = new JButton("Finish");
 		btnFinish.setEnabled(false);
-		btnFinish.setBounds(211, 357, 89, 23);
+		btnFinish.setBounds(211, 385, 89, 23);
 		NewConfirmUI.getContentPane().add(btnFinish);
 		
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(10, 357, 89, 23);
+		btnCancel.setBounds(10, 385, 89, 23);
 		NewConfirmUI.getContentPane().add(btnCancel);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 100, 285, 246);
+		tabbedPane.setBounds(10, 100, 290, 270);
 		NewConfirmUI.getContentPane().add(tabbedPane);
 		
 		JPanel panel = new JPanel();
@@ -133,34 +133,44 @@ public class NewConfirmUI {
 		panel.setLayout(null);
 		
 		JLabel label_1 = new JLabel("Description:");
-		label_1.setBounds(0, 80, 71, 14);
+		label_1.setBounds(6, 79, 71, 14);
 		panel.add(label_1);
 		
 		field_Name = new JTextField();
 		field_Name.setColumns(10);
-		field_Name.setBounds(78, 41, 200, 25);
+		field_Name.setBounds(75, 47, 200, 25);
 		panel.add(field_Name);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(78, 71, 200, 129);
+		scrollPane.setBounds(75, 79, 200, 141);
 		panel.add(scrollPane);
 		
 		 editorPane = new JEditorPane();
-		editorPane.setLocation(79, 0);
-		scrollPane.setViewportView(editorPane);
+		 scrollPane.setViewportView(editorPane);
 		
 		speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
+		speciality_cbox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		speciality_cbox.setName("");
-		speciality_cbox.setBounds(78, 11, 200, 25);
+		speciality_cbox.setBounds(75, 11, 200, 25);
 		panel.add(speciality_cbox);
 		
 		JLabel label_2 = new JLabel("Doctor Name:");
-		label_2.setBounds(0, 46, 69, 14);
+		label_2.setBounds(2, 52, 79, 14);
 		panel.add(label_2);
 		
 		JLabel label_3 = new JLabel("speciality");
-		label_3.setBounds(0, 16, 71, 14);
+		label_3.setBounds(6, 16, 71, 14);
 		panel.add(label_3);
+		
+		JLabel note = new JLabel("New label");
+		note.setForeground(Color.RED);
+		note.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		note.setBounds(10, 218, 203, 13);
+		panel.add(note);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Add confirm", null, panel_1, null);
@@ -199,7 +209,7 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().add(lblPatientId);
 		
 		JLabel label_id = new JLabel((String) p.getSid());
-		label_id.setBounds(85, 64, 200, 25);
+		label_id.setBounds(85, 64, 113, 25);
 		NewConfirmUI.getContentPane().add(label_id);
 		
 
@@ -216,11 +226,11 @@ public class NewConfirmUI {
 				
 			}
 		});
-		btnPrev.setBounds(109, 357, 89, 23);
+		btnPrev.setBounds(109, 385, 89, 23);
 		NewConfirmUI.getContentPane().add(btnPrev);
 		
 		 btnNext = new JButton("Next");
-		btnNext.setBounds(109, 357, 89, 23);
+		btnNext.setBounds(109, 385, 89, 23);
 		NewConfirmUI.getContentPane().add(btnNext);
 		
 		msqlbl_1 = new JLabel("New label");
@@ -236,6 +246,24 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().add(msqlbl_3);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				field_Name.setText("");
+				editorPane.setText(""); 
+				msqlbl_1.setText("");
+				msqlbl_2.setText("");
+				msqlbl_3.setText("");
+				
+				note.setText(""); 
+				field_Name.setEditable(true);
+				editorPane.setEditable(true);	
+				Referral ref;
+			
+				if((ref=referalExit())!= null){
+					field_Name.setText(ref.getDoctor_name());
+					editorPane.setText(ref.getDescription()); 
+					field_Name.setEditable(false);
+					editorPane.setEditable(false);	
+					return;
+				}
 				if (!isvalidRef())
 					return ; 
 				btnFinish.setEnabled(true);
@@ -243,23 +271,30 @@ public class NewConfirmUI {
 				btnPrev.setVisible(true);
 				tabbedPane.setEnabledAt(1, true);
 				tabbedPane.setSelectedIndex(1);
-				msqlbl_1.setText("");
-				msqlbl_2.setText("");
-				msqlbl_3.setText("");
-
+		
+				
 				
 
 			}
+			private Referral referalExit() {
+			 	for(Referral ref : p.getReferrals()){
+						   if (ref.isActive()== true && 
+								   ref.getSpeciality().compareTo((String) speciality_cbox.getSelectedItem())== 0 ){
+							   note.setText("there is refferal exist to speical and approval ");
+							   return ref ; 
+						   }
+						}
+					return null ; 
+					}
+					
 		});
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				msqlbl_1.setText("");
 				msqlbl_2.setText("");
 				msqlbl_3.setText("");
-
-			/*	if(ReferalIsExit()){
-					return;
-				}*/
+			
+			
 				if (!isvalidconf())
 					return ; 
 				 Referral ref =new Referral(); 
@@ -296,16 +331,13 @@ public class NewConfirmUI {
 			
 			}
 
-		/*	private boolean ReferalIsExit() {
-				
-				}*/
-				
+	
 				
 		
 
 		});
 		NewConfirmUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConfirmUI.setBounds(100, 100, 451, 420);
+		NewConfirmUI.setBounds(100, 100, 383, 470);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	private Boolean isvalidRef() {
