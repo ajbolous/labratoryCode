@@ -37,6 +37,11 @@ public class MedicalRecordController {
 		return Application.client.sendRequest(r);
 
 	}
+	/**
+	 * the method send Request to save a new visit 
+	 * @param v visit will be saved in dataBase
+	 * @return
+	 */
 
 	public static Object saveVisit(Visit v) {
 
