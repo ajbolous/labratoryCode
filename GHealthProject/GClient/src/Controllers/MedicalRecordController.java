@@ -24,7 +24,7 @@ public class MedicalRecordController {
 
 	
 	/**
-	 *  send Request to server to save a new treatment in database
+	 * the method send Request to server to save a new treatment in database
 	 * @param t treatment will be added to database 
 	 * @return the treatment that added to database 
 	 */
@@ -38,9 +38,9 @@ public class MedicalRecordController {
 
 	}
 	/**
-	 *  send Request to server to save a new visit in dataBase
+	 * the method send Request to save a new visit 
 	 * @param v visit will be saved in dataBase
-	 * @return visit instance from dataBase
+	 * @return
 	 */
 
 	public static Object saveVisit(Visit v) {
@@ -53,37 +53,31 @@ public class MedicalRecordController {
 	}
 
 
+	public static Object AddMedicalRecord(MedicalRecord md) {
 
-	
-	/**
-	 * update treatment ( add to treatment result and End date )
-	 * @param t Treatment will be updated
-	 *
-	 */
-
-	public static void updatTreatment(Treatment t) {
-		Request r = new Request("treatments/updateTreatment");
-		r.addParam("treatment", t);
-		 Application.client.sendRequest(r);
+		Request r = new Request("MedicalRecords/add");
+		r.addParam("mid", md);
+		return Application.client.sendRequest(r);
 
 	}
-	/**
-	 * send Request to HMO to ask about patient information 
-	 * @param p The patient is requested the information
-	 */
 
-	public static void sendReguestToHMO(Patient p) {
+	public static Object updatTreatment(Treatment t) {
+		Request r = new Request("treatments/updateTreatment");
+		r.addParam("treatment", t);
+		r.addParam("medical_id", t.getMedicalRecord().getMid());
+		r.addParam("date", "End");
+
+		return Application.client.sendRequest(r);
+
+	}
+
+	public static Object sendReguestToHMO(Patient p) {
 		// TODO Auto-generated method stub
 		Request r = new Request("patients/sendRequest");
 		r.addParam("patient", p);
-		 Application.client.sendRequest(r);
+		return Application.client.sendRequest(r);
 
 	}
-	
-	/**
-	 * Sending a request for a list of clinics which has a laboratories 
-	 * @return list of clinics  
-	 */
 
 	public static Object getAllLabratories() {
 		Request r = new Request("clinics/getClinics");
