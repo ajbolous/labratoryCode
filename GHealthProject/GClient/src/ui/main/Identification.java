@@ -13,7 +13,9 @@ import javax.swing.JLabel;
 import models.Appointment;
 import models.Doctor;
 import models.Patient;
+import models.Secretary;
 import ui.appointments.Appointments;
+import ui.appointments.NewConfirmUI;
 import ui.medical.DoctorMedicalRecordUI;
 import ui.utils.FrameInterface;
 import ui.utils.UITests;
@@ -60,6 +62,7 @@ public class Identification implements FrameInterface {
 
 	public Identification() {
 		initialize();
+		disID.setVisible(true);
 	}
 
 	/**
@@ -165,9 +168,10 @@ public class Identification implements FrameInterface {
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
-		else if ((patient = PatientsController.getById(id)) == null)
+		else if ((patient = PatientsController.getById(id)) == null){
+			
 			error_lbl.setText("*Patient does not exist in the system");
-		else {
+		}else {
 			disID.setVisible(false);
 			if(Application.user.getClass() == Doctor.class)
 			{
@@ -178,6 +182,9 @@ public class Identification implements FrameInterface {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}else if( Application.user.getClass() == Secretary.class){
+				
+						new NewConfirmUI(patient); 
 			}
 				
 			else	
