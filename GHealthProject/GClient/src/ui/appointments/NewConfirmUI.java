@@ -66,7 +66,6 @@ public class NewConfirmUI {
 
 	private JFrame NewConfirmUI; 
 	private AppointmentsController app_ctrl = new AppointmentsController();
-	private ConfirmationController ConformCtrl= new ConfirmationController();
 	private ReferralController RefCtrl = new ReferralController(); 
 	private JTextField field_Name;
 	private JTextField textField_1;
@@ -105,7 +104,7 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().setLayout(null);
 		
 		JLabel logo = new JLabel("New Refferal and conformation");
-		logo.setBounds(-25, -11, 412, 80);
+		logo.setBounds(-33, -11, 412, 80);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -128,7 +127,7 @@ public class NewConfirmUI {
 		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Add Referral", null, panel, null);
-		tabbedPane.setEnabledAt(0, true);
+		tabbedPane.setEnabledAt(0, false);
 		
 		panel.setLayout(null);
 		
@@ -166,7 +165,7 @@ public class NewConfirmUI {
 		label_3.setBounds(6, 16, 71, 14);
 		panel.add(label_3);
 		
-		JLabel note = new JLabel("New label");
+		JLabel note = new JLabel("");
 		note.setForeground(Color.RED);
 		note.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		note.setBounds(10, 218, 203, 13);
@@ -233,15 +232,15 @@ public class NewConfirmUI {
 		btnNext.setBounds(109, 385, 89, 23);
 		NewConfirmUI.getContentPane().add(btnNext);
 		
-		msqlbl_1 = new JLabel("New label");
+		msqlbl_1 = new JLabel("");
 		msqlbl_1.setBounds(305, 139, 127, 14);
 		NewConfirmUI.getContentPane().add(msqlbl_1);
 		
-		msqlbl_2 = new JLabel("New label");
+		msqlbl_2 = new JLabel("");
 		msqlbl_2.setBounds(305, 175, 127, 14);
 		NewConfirmUI.getContentPane().add(msqlbl_2);
 		
-		msqlbl_3 = new JLabel("New label");
+		msqlbl_3 = new JLabel("");
 		msqlbl_3.setBounds(305, 236, 127, 14);
 		NewConfirmUI.getContentPane().add(msqlbl_3);
 		btnNext.addActionListener(new ActionListener() {
@@ -257,6 +256,7 @@ public class NewConfirmUI {
 				editorPane.setEditable(true);	
 				Referral ref;
 			
+
 				if((ref=referalExit())!= null){
 					field_Name.setText(ref.getDoctor_name());
 					editorPane.setText(ref.getDescription()); 
@@ -264,6 +264,8 @@ public class NewConfirmUI {
 					editorPane.setEditable(false);	
 					return;
 				}
+			
+					
 				if (!isvalidRef())
 					return ; 
 				btnFinish.setEnabled(true);
@@ -337,7 +339,7 @@ public class NewConfirmUI {
 
 		});
 		NewConfirmUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		NewConfirmUI.setBounds(100, 100, 383, 470);
+		NewConfirmUI.setBounds(100, 100, 370, 444);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	private Boolean isvalidRef() {

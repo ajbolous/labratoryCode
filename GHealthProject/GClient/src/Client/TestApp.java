@@ -2,6 +2,8 @@ package Client;
 
 import models.Labratorian;
 import models.Patient;
+import ui.appointments.NewConfirmUI;
+import ui.appointments.testconfirm;
 import ui.labratories.Labratory;
 import ui.main.SignInUI;
 import Controllers.PatientsController;
@@ -18,10 +20,11 @@ public class TestApp {
 		//MonthlyReport r=new MonthlyReport();
 		PatientsController ctrl= new PatientsController(); 
 		Patient patient=ctrl.getById("300000002");
-		Labratorian lab = (Labratorian)UsersController.getUser("400000000");
-		Application.user = lab;
-		//new NewConfirmUI(patient); 
-		new Labratory();
+		///Labratorian lab = (Labratorian)UsersController.getUser("400000000");
+		//Application.user = lab;
+		new NewConfirmUI(patient); 
+		new testconfirm(patient); 
+		//new Labratory();
 		
 	}
 }

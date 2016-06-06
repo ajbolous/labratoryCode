@@ -47,10 +47,13 @@ public Object add (Request request){
 }
 public Object update (Request request){
 	DbHandler db = Config.getConfig().getHandler();
-	Referral ref = (Referral)request.getParam("con");
-	
-	
-	
+	Referral ref = (Referral)request.getParam("ref");
+	try {
+		db.refferals.update(ref);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		return "failed"; 
+	}
 	return "success";
 }
 
