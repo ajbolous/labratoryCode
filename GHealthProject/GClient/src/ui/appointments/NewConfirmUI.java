@@ -18,7 +18,6 @@ import javax.swing.JButton;
 
 import Client.Resources;
 import Controllers.AppointmentsController;
-import Controllers.ConfirmationController;
 import Controllers.ReferralController;
 
 import javax.swing.BoxLayout;
