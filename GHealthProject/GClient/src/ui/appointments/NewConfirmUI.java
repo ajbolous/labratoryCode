@@ -33,11 +33,13 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 
 import models.Confirmation;
+import models.Examination;
 import models.Patient;
 import models.Referral;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import ui.utils.MyTableModel;
 import ui.utils.UITests;
 
 import java.awt.Component;
@@ -47,11 +49,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -69,7 +73,13 @@ public class NewConfirmUI {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JButton btnNext;
-	
+	private JTable tblToday; 
+	private JComboBox speciality_cbox; 
+	private JEditorPane editorPane; 
+	private JLabel msqlbl_1; 
+	private JLabel msqlbl_2; 
+	private JLabel msqlbl_3; 
+
 	
 	
 	public NewConfirmUI(Patient p ) {
@@ -135,11 +145,11 @@ public class NewConfirmUI {
 		scrollPane.setBounds(78, 71, 200, 129);
 		panel.add(scrollPane);
 		
-		JEditorPane editorPane = new JEditorPane();
+		 editorPane = new JEditorPane();
 		editorPane.setLocation(79, 0);
 		scrollPane.setViewportView(editorPane);
 		
-		JComboBox speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
+		speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
 		speciality_cbox.setName("");
 		speciality_cbox.setBounds(78, 11, 200, 25);
 		panel.add(speciality_cbox);
@@ -192,6 +202,8 @@ public class NewConfirmUI {
 		label_id.setBounds(85, 64, 200, 25);
 		NewConfirmUI.getContentPane().add(label_id);
 		
+
+		
 		JButton btnPrev = new JButton("prev");
 		btnPrev.setVisible(false);
 		btnPrev.addActionListener(new ActionListener() {
@@ -211,105 +223,127 @@ public class NewConfirmUI {
 		btnNext.setBounds(109, 357, 89, 23);
 		NewConfirmUI.getContentPane().add(btnNext);
 		
-		JLabel msqlbl_1 = new JLabel("New label");
+		msqlbl_1 = new JLabel("New label");
 		msqlbl_1.setBounds(305, 139, 127, 14);
 		NewConfirmUI.getContentPane().add(msqlbl_1);
 		
-		JLabel msqlbl_2 = new JLabel("New label");
+		msqlbl_2 = new JLabel("New label");
 		msqlbl_2.setBounds(305, 175, 127, 14);
 		NewConfirmUI.getContentPane().add(msqlbl_2);
 		
-		JLabel msqlbl_3 = new JLabel("New label");
+		msqlbl_3 = new JLabel("New label");
 		msqlbl_3.setBounds(305, 236, 127, 14);
 		NewConfirmUI.getContentPane().add(msqlbl_3);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!isvalidRef())
+					return ; 
 				btnFinish.setEnabled(true);
 				btnNext.setVisible(false);
 				btnPrev.setVisible(true);
 				tabbedPane.setEnabledAt(1, true);
 				tabbedPane.setSelectedIndex(1);
+				msqlbl_1.setText("");
+				msqlbl_2.setText("");
+				msqlbl_3.setText("");
+
+				
 
 			}
 		});
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				msqlbl_1.setText("");
+				msqlbl_2.setText("");
+				msqlbl_3.setText("");
+
+			/*	if(ReferalIsExit()){
+					return;
+				}*/
+				if (!isvalidconf())
+					return ; 
 				 Referral ref =new Referral(); 
 				ref.setDoctor_name(field_Name.getText());
 				ref.setSpeciality((String) speciality_cbox.getSelectedItem());
 				ref.setDescription(editorPane.getText());
-				ref.setPatient(p);
-				
-
-				// HMOId_field.getText();
-				// AproveNum_field.getText();;
-				// RefNum_field.getText();
-				 
-				 RefCtrl.addReferralHMO(ref);
-				 Confirmation conf = new Confirmation(); 
-				  conf.setRefferal_id(textField_3.getText());
-				  conf.setApproval_id(textField_2.getText());
-				 conf.setHmo_id(textField_1.getText());
+				ref.setPatient(p);		
+				Confirmation conf = new Confirmation(); 
+				conf.setRefferal_id(textField_3.getText());
+				conf.setApproval_id(textField_2.getText());
+				conf.setHmo_id(textField_1.getText());
 				ref.setConfirmation(conf);
-				 RefCtrl.addConfirmHMO(ref);
+				ref.setActive(true); 
+				RefCtrl.addReferralHMO(ref);
 				 
-				/* if (!ConfirmIsEmpty()){
+				/* {
 					 
-					 //isValid();
+					
 				 
-				 }*/
+				 }
 					 
-					 
-				
-					 
-				/*id = FieldID.getText();
-				Fname = FnameField.getText();
-				Lname = LnameField.getText();
-				phone = PhoneField.getText();
-				email = EmailField.getText();
-				address = AddressField.getText();
-			
+	
 
-				/*if (!isvalid()){
+				if (!isvalid()){
 					addPatient.setBounds(addPatient.getX(), addPatient.getY(), 500, addPatient.getHeight());
 					return;
-				}*/
+				}
 
-			//	addPatient.setBounds(addPatient.getX(), addPatient.getY(), 350, addPatient.getHeight());
+			//	addPatient.setBounds(addPatient.getX(), addPatient.getY(), 350, addPatient.getHeight());*/
 
-				/*Patient patient = new Patient();
-				patient.setSid(id);
-				patient.setFirstName(Fname);
-				patient.setLastName(Lname);
-				patient.setEmail(email);
-				patient.setPhone(phone);
-				patient.setBirthDate(chooser.getDate());
-				patient.setGender((String) comboBox_gender.getSelectedItem());
-				patient.setAddress(address);
+		
 			
 			
-				Cctrl.AddNewPatient(patient);
-			*/
+			
 			}
+
+		/*	private boolean ReferalIsExit() {
+				
+				}*/
+				
+				
+		
 
 		});
 		NewConfirmUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
 		NewConfirmUI.setBounds(100, 100, 451, 420);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	private Boolean ConfirmIsEmpty() {
+	private Boolean isvalidRef() {
 		boolean flag = true;
 	
-		if (UITests.notEmpty(textField_1.getText()) == true) {
+		if (UITests.notEmpty((String)speciality_cbox.getSelectedItem())== false) {
+			msqlbl_1.setText("isempty");
 			flag=false; 			
 		}
-		if (UITests.notEmpty(textField_2.getText()) == true) {
+		if (UITests.notEmpty(field_Name.getText()) == false) {
+			msqlbl_2.setText("isempty");
 			flag=false; 			
 		} 
-		if (UITests.notEmpty(textField_3.getText()) == true) {
+		if (UITests.notEmpty(editorPane.getText()) == false) {
+			msqlbl_3.setText("isempty");
 			flag=false; 			
 		}
 	
+		return flag;
+	}
+	private Boolean isvalidconf() {
+		boolean flag = true;
+	
+		if (UITests.notEmpty(textField_1.getText()) == false) {
+			msqlbl_1.setText("isempty");
+			flag=false; 			
+		}
+		if (UITests.notEmpty(textField_2.getText()) == false) {
+			msqlbl_3.setText("isempty");
+
+			flag=false; 			
+		} 
+		if (UITests.notEmpty(textField_3.getText()) == false) {
+			msqlbl_2.setText("isempty");
+
+			flag=false; 			
+		}
+			
 		return flag;
 	}
 }
