@@ -27,7 +27,6 @@ public class Examinations extends View {
 			Examination ex = (Examination) request.getParam("examination");
 			db.examinations.create(ex);
 			return getLastReferral(request);
-			return "success" ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
