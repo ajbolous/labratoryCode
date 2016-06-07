@@ -25,12 +25,12 @@ public class TestApp {
 		///S lab = (Labratorian)UsersController.getUser("400000000");
 		
 		//Application.user = lab;
-	//	new NewConfirmUI(patient); 
+		new NewConfirmUI(patient); 
 	//	new testconfirm(patient); 
 		//new Labratory();
 		Secretary sec = (Secretary)UsersController.getUser("400000010");
 		Application.user = sec;
-		new Identification();
+		//new Identification();
 		
 	}
 }
