@@ -23,17 +23,19 @@ public class Examinations extends View {
 	
 
 	public Object add(Request request) {
-		try {
+			
 			DbHandler db = Config.getConfig().getHandler();
 			Examination ex = (Examination) request.getParam("exam");
-			db.examinations.create(ex);
-			return "success" ;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "Fail";
-		}
-
+			try {
+				db.examinations.create(ex);
+				return "success";
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null ;
+			}
+			
+			
+			
 	}
 
 	

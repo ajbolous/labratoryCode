@@ -4,7 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "confirmations")
-public class Confirmation {
+public class Confirmation  extends Entity {
 	
 	@DatabaseField(generatedId = true)
 	private int cid ; 
@@ -18,7 +18,7 @@ public class Confirmation {
 	private String details; 
 	
 	@DatabaseField()
-	private int hmo_id ; 
+	private String hmo_id ; 
 	
 	
 	
@@ -30,12 +30,12 @@ public class Confirmation {
 		this.cid = cid;
 	}
 
-	public int getHmo_id() {
+	public String getHmo_id() {
 		return hmo_id;
 	}
 
-	public void setHmo_id(int hmo_id) {
-		this.hmo_id = hmo_id;
+	public void setHmo_id(String idHMOO) {
+		this.hmo_id = idHMOO;
 	}
 
 	public String getRefferal_id() {

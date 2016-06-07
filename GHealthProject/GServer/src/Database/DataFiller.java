@@ -77,7 +77,17 @@ public class DataFiller {
 			Referral ref=new Referral(); 
 			ref.setPatient(p);
 			ref.setDoctor_name("ahmad");
+			ref.setSpeciality(specialities[i % specialities.length]);
+			ref.setDate(Utils.DateTime.randomDate());
+			ref.setActive(false);
+			Confirmation conf = new Confirmation(); 
+			conf.setRefferal_id(""+50 + i);
+			conf.setHmo_id(""+100 + i);
+			conf.setApproval_id(""+50 + i);
+			ref.setConfirmation(conf);
+			db.confirmations.create(conf); 
 			db.refferals.create(ref); 
+			
 
 		}
 	}
