@@ -62,7 +62,6 @@ import javax.swing.JSplitPane;
 public class DoctorMedicalRecordUI {
 
 	public JFrame DoctorMedicalRecord;
-
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JTree tree;
