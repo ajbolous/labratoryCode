@@ -1,11 +1,13 @@
 package Client;
 
-import models.Examination;
 import models.Labratorian;
 import models.Patient;
+import models.Secretary;
+import ui.appointments.NewConfirmUI;
+import ui.appointments.testconfirm;
 import ui.labratories.Labratory;
+import ui.main.Identification;
 import ui.main.SignInUI;
-import Controllers.ExaminationController;
 import Controllers.PatientsController;
 import Controllers.UsersController;
 
@@ -15,21 +17,20 @@ public class TestApp {
 		Application.connect();
 		//UsersManagingUI iden= new UsersManagingUI();
 		//AddPatientUI u = new AddPatientUI();
-		
-		//Examination ex = new Examination();
-	//	ExaminationController.addReferral(ex);
-		
-		
-		
-		new SignInUI();
+	//	new SignInUI();
 		
 		//MonthlyReport r=new MonthlyReport();
-		//PatientsController ctrl= new PatientsController(); 
-		//Patient patient=ctrl.getById("300000002");
-	//Labratorian lab = (Labratorian)UsersController.getUser("400000000");
+		PatientsController ctrl= new PatientsController(); 
+		Patient patient=ctrl.getById("300000002");
+		///S lab = (Labratorian)UsersController.getUser("400000000");
+		
 		//Application.user = lab;
-		//new NewConfirmUI(patient); 
+		new NewConfirmUI(patient); 
+	//	new testconfirm(patient); 
 		//new Labratory();
+		Secretary sec = (Secretary)UsersController.getUser("400000010");
+		Application.user = sec;
+		//new Identification();
 		
 	}
 }
