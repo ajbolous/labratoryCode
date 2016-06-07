@@ -242,8 +242,10 @@ public class TreatmentsInvoiceUI {
 
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
 		System.out.printf(row+"");
-		dm.removeRow(row);
 		trList.remove(row);
+		dm.removeRow(row);
+		
+		
 
 	}
 }

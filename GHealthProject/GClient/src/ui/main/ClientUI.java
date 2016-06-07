@@ -11,6 +11,7 @@ import Client.Config;
 import Client.Resources;
 import models.Dispatcher;
 import models.Doctor;
+import models.Labratorian;
 import models.Manager;
 import models.Secretary;
 import ui.appointments.NewConfirmUI;
@@ -115,7 +116,6 @@ public class ClientUI {
 		button.setIcon(res.getIcon("settings.png"));
 		frame.getContentPane().add(button);
 		button.setToolTipText("Doctors managment form");
-		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Application.user.getClass().equals(Doctor.class)){
@@ -133,7 +133,6 @@ public class ClientUI {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setIcon(res.getIcon("doctors.png"));
 		btnNewButton.setBorder(null);
-		btnTests_1.setEnabled(false);
 		btnTests_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//new Labratory();
@@ -148,7 +147,6 @@ public class ClientUI {
 		btnTests_1.setBounds(57, 475, 191, 68);
 		btnTests_1.setIcon(res.getIcon("lab.png"));
 		frame.getContentPane().add(btnTests_1);
-		btnResults.setEnabled(false);
 		
 		btnResults.setHorizontalAlignment(SwingConstants.LEFT);
 		btnResults.setForeground(Color.BLACK);
@@ -160,7 +158,6 @@ public class ClientUI {
 		frame.getContentPane().add(btnResults);
 		
 		frame.getContentPane().add(btnNewButton);
-		btnLabs.setEnabled(false);
 		btnLabs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -177,7 +174,6 @@ public class ClientUI {
 		btnLabs.setBorder(null);
 
 		frame.getContentPane().add(btnLabs);
-		btnUsers.setEnabled(false);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -196,7 +192,6 @@ public class ClientUI {
 
 		
 		frame.getContentPane().add(btnUsers);
-		btnTests.setEnabled(false);
 		btnTests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
@@ -213,7 +208,6 @@ public class ClientUI {
 		btnTests.setForeground(Color.BLACK);
 		btnTests.setIcon(res.getIcon("tests.png"));
 		btnTests.setBorder(null);
-		btnMonthly.setEnabled(false);
 		btnMonthly.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -241,9 +235,6 @@ public class ClientUI {
 		frame.getContentPane().add(lblNewLabel);
 		lblNewLabel_1.setIcon(res.getIcon("user.png"));
 		frame.getContentPane().add(lblNewLabel_1);
-		
-		
-		btnConformation.setEnabled(false);
 		btnConformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Identification();
@@ -258,9 +249,6 @@ public class ClientUI {
 		btnConformation.setBackground(Color.WHITE);
 		btnConformation.setBounds(54, 209, 181, 65);
 		frame.getContentPane().add(btnConformation);
-		
-		
-		btnCreateInvoice.setEnabled(false);
 		btnCreateInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new TreatmentsInvoiceUI();
@@ -277,15 +265,7 @@ public class ClientUI {
 
 
 		
-		if(Application.user.getClass() == Doctor.class)
-			btnNewButton.setEnabled(true);
-		if(Application.user.getClass() == Dispatcher.class)
-			btnLabs.setEnabled(true);
-		if(Application.user.getClass()== Secretary.class)
-		{
-			btnCreateInvoice.setEnabled(true);
-			btnConformation.setEnabled(true);
-		}
+		
 			
 			
 		
