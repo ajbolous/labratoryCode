@@ -65,6 +65,9 @@ public class DataFiller {
 			p.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			p.setPhone("0" + (548143001 + i));
 			p.setSid("" + (300000000 + i));
+			p.setGender("male");
+			p.setWeight(95);
+			p.setHeight(175);
 			db.patients.create(p);
 
 			MedicalRecord md = new MedicalRecord();

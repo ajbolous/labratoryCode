@@ -8,7 +8,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Visit Entity class
+ * public Visit  class 
+ * extends class Entity 
  * @author maisam marjieh
  *
  */
@@ -16,27 +17,27 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Visit extends Entity{
 	
 	/**
-	 * visit id
+	 * The visit id
 	 */
 	@DatabaseField(generatedId = true)
 	private int vid;
 	
 	/**
-	 * visit date
+	 * The visit date
 	 */
 	
 	@DatabaseField()
 	private Date visitDate;
 	
 	/**
-	 * visit comments 
+	 *The  visit comments 
 	 */
 	
 	@DatabaseField()
 	private String comments;
 	
 	/**
-	 * the treatment that visit belongs to him 
+	 * Instance of the  treatment  that visit belongs to him 
 	 */
 	
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "treatment_id")
@@ -44,7 +45,7 @@ public class Visit extends Entity{
 	
 	/**
 	 * 
-	 * @return visit id
+	 * @return The id value of this visit instance 
 	 */
 	
 	public int getVid() {
@@ -52,7 +53,7 @@ public class Visit extends Entity{
 	}
 	
 	/**
-	 * set visit id
+	 * Sets this Visit's id with the given id.
 	 */
 
 	public void setVid(int vid) {
@@ -60,7 +61,7 @@ public class Visit extends Entity{
 	}
 	/**
 	 * 
-	 * @return visit Date
+	 * @return The date value of this visit instance
 	 */
 
 	public Date getVisitDate() {
@@ -68,7 +69,7 @@ public class Visit extends Entity{
 	}
 	
 	/**
-	 * set visit Date 
+	 * Sets this Visit's date with the given date   
 	 * @param visitDate
 	 */
 
@@ -77,14 +78,14 @@ public class Visit extends Entity{
 	}
 	/**
 	 * 
-	 * @return visit comments
+	 * @return The comments value of this visit instance 
 	 */
 
 	public String getComments() {
 		return comments;
 	}
 	/**
-	 * set visit comments 
+	 * Sets this Visit's comments with the given comments 
 	 * @param comments
 	 */
 
@@ -94,21 +95,24 @@ public class Visit extends Entity{
 	
 	/**
 	 * 
-	 * @return treatment 
+	 * @return The treatment instance of this visit instance (treatment that this visit belongs to him) 
 	 */
 
 	public Treatment getTreatment() {
 		return treatment;
 	}
 	/**
-	 * set the treatment that visit belongs to him  
-	 * @param treatment
+	 * Sets this Visit's treatment with the given treatment instance  
+	 * @param treatment that this visit belongs to him 
 	 */
 
 	public void setTreatment(Treatment treatment) {
 		this.treatment = treatment;
 	}
 	
+	/**
+	 * @return a string representation of this visit.
+	 */
 	
 	public String toString(){
 		return "Visit" +vid+ ": "+DateTime.getDateString(visitDate);

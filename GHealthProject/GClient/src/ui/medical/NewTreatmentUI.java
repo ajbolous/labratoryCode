@@ -61,6 +61,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.DropMode;
 import javax.swing.border.TitledBorder;
 
+/**
+ * public class NewTreatmentUI
+ *  Presentation of the treatment  form to be filled by a doctor
+ * 
+ * @author maisam marjieh
+ *
+ */
 public class NewTreatmentUI extends JPanel {
 
 	private JTextField textField_1;
@@ -72,14 +79,18 @@ public class NewTreatmentUI extends JPanel {
 	private JButton btnOk_1;
 	private JLabel error_lbl;
 	private JTextField textField_4;
+	/**
+	 * The treatment will be added
+	 */
 	private Treatment treatment;
 
+
+
 	/**
-	 * Create the panel.
-	 * 
+	 * construct the panel 
+	 * @param mr - medical record 
 	 * @param doctorMedicalRecordUI
 	 */
-
 	public NewTreatmentUI(MedicalRecord mr,
 			DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
@@ -92,7 +103,7 @@ public class NewTreatmentUI extends JPanel {
 		setLayout(null);
 
 		treatment = new Treatment();
-		treatment.setDoctor((Doctor)Application.user);
+		treatment.setDoctor((Doctor) Application.user);
 
 		try {
 			treatment.setStart(DateTime.currentDate());
@@ -154,6 +165,11 @@ public class NewTreatmentUI extends JPanel {
 		btnCancel.setBounds(246, 211, 89, 23);
 		add(btnCancel);
 
+		/**
+		 *  check if all requirement field is filled .
+		 *  call to saveTreatment method in  MedicalRecordController to save the referral 
+		 *  call to updateTree method in doctorMedicalRecordUI to add the new treatment in tree
+		 */
 		btnOk_1 = new JButton("Save");
 		btnOk_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnOk_1.addActionListener(new ActionListener() {

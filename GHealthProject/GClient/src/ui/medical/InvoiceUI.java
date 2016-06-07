@@ -18,6 +18,7 @@ import javax.swing.JButton;
 
 import Client.Resources;
 import Controllers.InvoiceController;
+import Controllers.MedicalRecordController;
 
 import javax.swing.BoxLayout;
 
@@ -35,7 +36,6 @@ import javax.swing.SwingConstants;
 import models.Examination;
 import models.Invoice;
 import models.Treatment;
-import ui.appointments.SecretaryUI;
 import ui.utils.Messages;
 import ui.utils.UITests;
 
@@ -55,13 +55,20 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.ListModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
+/**
+ * public class InvoiceUI
+ * Displays a form to be filled by a secretary  
+ * option create and send  new invoice for a given treatment 
+ * @author maisam marjieh 
+ *
+ */
 public class InvoiceUI {
 
 	private JFrame Invoice;
@@ -70,19 +77,34 @@ public class InvoiceUI {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JLabel error_lbl;
+	private JList <String> list;
 	private String[] exList;
+	private JScrollPane scrollPane ;
+	/**
+	 * The invoice treatment 
+	 */
+	private Treatment treatment;
 
-	public InvoiceUI(Treatment treatment, SecretaryUI secUI) {
+	/**
+	 * InvoiceUI Constructor initialize a frame and displays it 
+	 * @param treatment 
+	 * @param secUI 
+	 */
+	public InvoiceUI(Treatment treatment, TreatmentsInvoiceUI secUI) {
 		initialize(treatment, secUI );
 
 		Invoice.setLocationRelativeTo(null);
 		Invoice.setVisible(true);
 	}
 
+
 	/**
 	 * Initialize the contents of the frame.
+	 * @param treatment - 
+	 * @param secUI - reference to Secretary GUi to remove treatment from table a
 	 */
-	private void initialize(Treatment treatment, SecretaryUI secUI ) {
+	private void initialize(Treatment treatment, TreatmentsInvoiceUI secUI ) {
+		this.treatment= treatment; 
 		Invoice = new JFrame();
 		Invoice.setTitle("<Invoice> - GHealth");
 		Invoice.setResizable(false);
@@ -123,8 +145,7 @@ public class InvoiceUI {
 		lblTreatmenttype.setBounds(21, 136, 90, 14);
 		Invoice.getContentPane().add(lblTreatmenttype);
 
-		JList list = new JList();
-		list.setEnabled(false);
+		
 
 		ArrayList<String> examinationList = new ArrayList<String>();
 		Iterator<Examination> examination = treatment.getExamination().iterator();
@@ -133,25 +154,13 @@ public class InvoiceUI {
 			examinationList.add(ex.geteType());
 
 		}
-		list.setVisibleRowCount(examinationList.size() + 1);
 		exList = new String[examinationList.size()];
 		exList = examinationList.toArray(exList);
-
-		list.setModel(new AbstractListModel() {
-
-			String[] values = exList;
-
-			public int getSize() {
-				return values.length;
-			}
-
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list.setVisibleRowCount(examinationList.size() + 1);
-		Invoice.getContentPane().add(new JScrollPane(list));
-
+		list = new JList(exList);
+	    scrollPane = new JScrollPane(list);
+	    scrollPane.setBounds(121, 231, 127, 94);
+		Invoice.getContentPane().add(scrollPane);
+	    
 		JLabel lblPayment = new JLabel("Payment :");
 		lblPayment.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPayment.setBounds(21, 347, 90, 22);
@@ -185,6 +194,12 @@ public class InvoiceUI {
 		label.setBounds(269, 352, 27, 14);
 		Invoice.getContentPane().add(label);
 
+		/**
+		 * check if all requirement field is filled 
+		 * call sendInvoice method in InvoiceController to send the new invoice 
+		 * call to removeRaw from secretaryUI to remove the treatment from the table in secretary GUI
+		 *
+		 */
 		JButton btnSend = new JButton("Send ");
 		btnSend.setToolTipText("Send the invoice to HMO  .");
 		btnSend.addActionListener(new ActionListener() {
@@ -198,10 +213,11 @@ public class InvoiceUI {
 					e1.printStackTrace();
 				}
 				String payment = textField_3.getText();
-
+			
 				error_lbl.setText("");
 				if (UITests.notEmpty(payment) == false)
 					error_lbl.setText("* Please enter Payment");
+				
 				else {
 					invoice.setPayment(Double.parseDouble(payment));
 					// send Invoice to HMO
@@ -209,6 +225,8 @@ public class InvoiceUI {
 
 					Messages.successMessage("Invoice was sended successfully ", "Success", Invoice);
 					secUI.removeTreatment();
+					treatment.setHasInvoice(true);
+					MedicalRecordController.updatTreatment(treatment);
 					Invoice.dispose();
 				}
 
@@ -223,6 +241,9 @@ public class InvoiceUI {
 		btnSend.setBounds(121, 426, 89, 23);
 		Invoice.getContentPane().add(btnSend);
 
+		/**
+		 * dispose the invoice frame  and return to main window 
+		 */
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -234,6 +255,8 @@ public class InvoiceUI {
 		});
 		btnCancel.setBounds(220, 426, 89, 23);
 		Invoice.getContentPane().add(btnCancel);
+		
+		
 		Invoice.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		Invoice.setBounds(100, 100, 388, 489);
 		Invoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

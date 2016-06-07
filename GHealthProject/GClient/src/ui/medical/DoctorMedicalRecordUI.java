@@ -59,6 +59,19 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.JTextArea;
 import javax.swing.JSplitPane;
 
+/**
+ * public class DoctorMedicalrecordUI
+ * display the medical record of specific patient :
+ * shows all treatment of the patient which dine  in GHealth clinics
+ * shows information about the patient  
+ * option to add treatment 
+ * option to add visit 
+ * option to add Examinations referral 
+ * option to send request information  from HMO   about the patient
+ * option to view patient information from HMO 
+ * @author maisam marjieh 
+ *
+ */
 public class DoctorMedicalRecordUI {
 
 	public JFrame DoctorMedicalRecord;
@@ -73,6 +86,11 @@ public class DoctorMedicalRecordUI {
 	private DefaultTreeModel treeModel;
 	private DefaultMutableTreeNode rootNode;
 
+	/**
+	 * constructs the DoctorMedicalRecordUI with the specific patient 
+	 * @param p
+	 * @throws ParseException
+	 */
 	public DoctorMedicalRecordUI(Patient p) throws ParseException {
 		initialize(p);
 		doctorMedicalRecordUI = this;
@@ -214,6 +232,9 @@ public class DoctorMedicalRecordUI {
 		panel.add(btnUpdateInformation);
 		btnUpdateInformation.setFont(new Font("Arial", Font.BOLD, 12));
 
+		/**
+		 * send Request information from HMO 
+		 */
 		JButton btnReguestInformationFrom = new JButton(
 				"Reguest Information From HMO");
 		btnReguestInformationFrom.addActionListener(new ActionListener() {
@@ -240,6 +261,10 @@ public class DoctorMedicalRecordUI {
 		panel_1.add(btnNewButton);
 		btnNewButton_1
 				.setToolTipText("You must choose Treatment to add Referral");
+		
+		/**
+		 * shows New Examination Referral form   to add new referral 
+		 */
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// enableAddVisitOrReferral(false);
@@ -247,6 +272,7 @@ public class DoctorMedicalRecordUI {
 				NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(
 						t , doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(exPanel);
+				tree.clearSelection();
 
 			}
 		});
@@ -254,6 +280,9 @@ public class DoctorMedicalRecordUI {
 		btnNewButton_1.setEnabled(false);
 		panel_1.add(btnNewButton_1);
 
+		/**
+		 * shows a form to add a new visit 
+		 */
 		btnNewButton.setBounds(175, 6, 114, 23);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -361,6 +390,9 @@ public class DoctorMedicalRecordUI {
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane_1.setBackground(Color.WHITE);
 
+		/**
+		 * shows  the details of treatment , visit or Examinations accordance  to docotr  selection 
+		 * 	 */
 		tree.setShowsRootHandles(true);
 		tree.getSelectionModel().addTreeSelectionListener(
 				new TreeSelectionListener() {
@@ -415,6 +447,9 @@ public class DoctorMedicalRecordUI {
 
 				});
 
+		/**
+		 * cancel DoctorMedicalRecordUI Frame 
+		 */
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DoctorMedicalRecord.setVisible(false);
@@ -422,6 +457,10 @@ public class DoctorMedicalRecordUI {
 				new ClientUI();
 			}
 		});
+		
+		/**
+		 * open a form to add new treatment 
+		 */
 		btnNewTreatment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -438,16 +477,28 @@ public class DoctorMedicalRecordUI {
 			}
 		});
 	}
+	
 
+	/**
+	 * calculate the age of the patients 
+	 * @param d - birthday of patient 
+	 * @return
+	 */
 	private static double calculateAge2(Date d) {
 		return (new Date().getTime() - d.getTime())
 				/ (1000 * 60 * 60 * 24 * 365.0);
 	}
 
+	/**
+	 * update the treatment tree after all adding a treatment or visits
+	 * @param child - new object will be added to tree 
+	 * @param shouldBeVisible -make sure the user can see the lovely new node. 
+	 */
 	public void updateTree(Object child, boolean shouldBeVisible) {
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
 
 		if (child.getClass() == Visit.class) {
+			tree.clearSelection();
 
 			DefaultMutableTreeNode root = ((DefaultMutableTreeNode) tree
 					.getModel().getRoot());
@@ -466,7 +517,7 @@ public class DoctorMedicalRecordUI {
 								.getModel().getChild(node1, 0);
 						treeModel.insertNodeInto(childNode, parent,
 								parent.getChildCount());
-						// Make sure the user can see the lovely new node.
+						
 						if (shouldBeVisible)
 							tree.scrollPathToVisible(new TreePath(childNode
 									.getPath()));
@@ -568,88 +619,18 @@ public class DoctorMedicalRecordUI {
 			}
 		}
 
-		/*
-		 * if (child.getClass() == Examination.class) { Examination ex =
-		 * (Examination) child;
-		 * 
-		 * DefaultMutableTreeNode rootNode = ((DefaultMutableTreeNode) tree
-		 * .getModel().getRoot()); int count =
-		 * tree.getModel().getChildCount(rootNode); for (int i = 0; i < count;
-		 * i++) { if (((tree.getModel().getChild(rootNode, i)).toString())
-		 * .equals(t.getDoctor().getSpeciality())) { DefaultMutableTreeNode node
-		 * = (DefaultMutableTreeNode) tree .getModel().getChild(rootNode, i);
-		 * int count1 = tree.getModel().getChildCount(node);
-		 * 
-		 * for (int i1 = 0; i1 < count1; i1++) {
-		 * 
-		 * if (((tree.getModel().getChild(node, i1)).toString())
-		 * .equals(t.toString())) { DefaultMutableTreeNode node1 =
-		 * (DefaultMutableTreeNode) tree .getModel().getChild(node, i1);
-		 * DefaultMutableTreeNode parent = (DefaultMutableTreeNode) tree
-		 * .getModel().getChild(node1, 1); parent.add(childNode);
-		 * treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
-		 * // Make sure the user can see the lovely new node. if
-		 * (shouldBeVisible) tree.scrollPathToVisible(new TreePath(childNode
-		 * .getPath()));
-		 * 
-		 * } }
-		 * 
-		 * } } }
-		 */
+		
 	}
 
+	/**
+	 * enabled to add visit or Examination referral 
+	 * @param b 
+	 */
 	public void enableAddVisitOrReferral(boolean b) {
 		btnNewButton.setEnabled(b);
 		btnNewButton_1.setEnabled(b);
 
 	}
-
-	/*
-	 * public void createtree(String id) { Patient p =
-	 * patientController.getById(id); tree.removeAll();
-	 * 
-	 * tree.setModel(new DefaultTreeModel( new
-	 * DefaultMutableTreeNode("Specialisties") { {
-	 * 
-	 * String specialty [] = apctrl.getSpecialties(); for (int
-	 * i=1;i<specialty.length;i++) { DefaultMutableTreeNode node_S= new
-	 * DefaultMutableTreeNode(specialty[i]); DefaultMutableTreeNode node_1;
-	 * Iterator <Treatment> treatment
-	 * =p.getMedicalRecord().getTreatments().iterator(); DefaultMutableTreeNode
-	 * node_2 = new DefaultMutableTreeNode("Visits"); DefaultMutableTreeNode
-	 * node_3 = new DefaultMutableTreeNode("Examinations");
-	 * 
-	 * while ( treatment.hasNext() ) {
-	 * 
-	 * Treatment t =treatment.next();
-	 * 
-	 * if (t.getDoctor().getSpeciality().equals(specialty[i])) {
-	 * 
-	 * node_1 = new DefaultMutableTreeNode(t); //DefaultMutableTreeNode node_2 =
-	 * new DefaultMutableTreeNode("Visits"); Iterator <Visit> visit
-	 * =t.getVisits().iterator(); while(visit.hasNext()) { Visit v =
-	 * visit.next(); node_2.add(new DefaultMutableTreeNode(v));
-	 * 
-	 * }
-	 * 
-	 * //DefaultMutableTreeNode node_3 = new
-	 * DefaultMutableTreeNode("Examinations"); Iterator <Examination>
-	 * examination =t.getExamination().iterator(); while (examination.hasNext())
-	 * { Examination ex =examination.next(); node_3.add(new
-	 * DefaultMutableTreeNode(ex)); }
-	 * 
-	 * node_1.add(node_2); node_1.add(node_3); node_S.add(node_1);
-	 * 
-	 * 
-	 * }
-	 * 
-	 * 
-	 * } add(node_S); }
-	 * 
-	 * 
-	 * } } ));
-	 * 
-	 * 
-	 * }
-	 */
 }
+
+	

@@ -23,7 +23,12 @@ import javax.swing.UIManager;
 
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
-
+/**
+ * public class ExaminationPanel
+ * Displays the Examinations details and the Examination Referral details 
+ * @author maisam marjieh
+ *
+ */
 public class ExaminationPanel {
 
 	private JTextArea textArea_1 = new JTextArea();
@@ -47,7 +52,6 @@ public class ExaminationPanel {
 	private JTextField textField_1;
 	private JTextField textField_3;
 	private JTextField textField_2;
-
 	private JLabel lblDate;
 	private JLabel lblComments;
 	private JLabel lblDoctorname;
@@ -55,6 +59,10 @@ public class ExaminationPanel {
 	private JLabel lblNewLabel;
 	public JPanel mainPanel;
 	private JScrollPane scrollPane;
+	/**
+	 * construct the panel 
+	 * @param ex - the Examination instance should be present 
+	 */
 
 	public ExaminationPanel(Examination ex) {
 
@@ -148,7 +156,7 @@ public class ExaminationPanel {
 		lblExaminationType.setBounds(11, 168, 110, 14);
 		mainPanel.add(lblExaminationType);
 
-		textField = new JTextField();
+		textField = new JTextField(ex.geteType());
 		textField.setBackground(Color.WHITE);
 		textField.setEditable(false);
 		textField.setBounds(131, 165, 197, 20);
@@ -225,6 +233,9 @@ public class ExaminationPanel {
 				+ " " + (ex.getTreatment().getDoctor().getLastName()));
 		textArea.setText(ex.getComments());
 
+		/**
+		 * display the referral of the Examination 
+		 */
 		btnViewReferral = new JButton("View Referral");
 		btnViewReferral.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnViewReferral.addActionListener(new ActionListener() {
@@ -267,6 +278,9 @@ public class ExaminationPanel {
 		btnViewReferral.setBounds(195, 423, 133, 23);
 		mainPanel.add(btnViewReferral);
 
+		/**
+		 * back to show the  Examination details 
+		 */
 		btnBack = new JButton("Back");
 		btnBack.setVisible(false);
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));

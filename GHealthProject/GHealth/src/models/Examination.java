@@ -7,7 +7,8 @@ import Utils.DateTime;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 /**
- * Examination Entity Class 
+ * public class Examination
+ * extends class Entity  
  * @author maisam marjieh
  *
  */
@@ -16,7 +17,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Examination extends Entity {
 	
 	/**
-	 * Examonation id
+	 * Examination id
 	 */
 
 	@DatabaseField(generatedId = true)
@@ -30,7 +31,7 @@ public class Examination extends Entity {
 	private Treatment treatment;
 	
 	/**
-	 * Examination  labratorian ( labratorian performed the Examination)
+	 * Examination  labratorian ( the labratorian which performed the Examination)
 	 */
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "labratorian_id")

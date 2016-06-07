@@ -34,22 +34,40 @@ import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+/**
+ * public class NewExaminationReferralPanel 
+ * Presentation of the referral form to be filled by a doctor 
+ *  
+ * @author maisam marjieh 
+ *
+ */
 public class NewExaminationReferralPanel extends JPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 	private JTextField textField_1;
 	private JLabel error_lbl;
+	/**
+	 * The selected clinic from list of clinics with labratories 
+	 */
 	private Clinic clinic;
+	/**
+	 * Examination instance 
+	 */
 	private Examination examination ; 
 
-	private String exType;
-
 	/**
-	 * Create the panel.
-	 * 
-	 * @param doctorMedicalRecordUI
+	 * The selected  examination type from list of examination type 
+	 */
+	private String exType;
+	
+	/**
+	 * the examination referral comment 
+	 */
+	private String comment ; 
+	
+	/**
+	 * create the panel 
+	 * @param t - treatment instance 
+	 * @param doctorMedicalRecordUI - reference to doctorMedicalRecordUI 
 	 */
 	public NewExaminationReferralPanel(Treatment t , DoctorMedicalRecordUI doctorMedicalRecordUI) {
 		super();
@@ -118,12 +136,17 @@ public class NewExaminationReferralPanel extends JPanel {
 
 		comboBox.setBounds(140, 113, 197, 27);
 		add(comboBox);
+		
+		/**
+		 *  check if all requirement field is filled .
+		 *  call to addReferral method in 	  ExaminationController to save the referral 
+		 */
 
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String comment = textArea.getText();
+				 comment = textArea.getText();
 
 				error_lbl.setText("");
 				if (UITests.notEmpty(comment) == false)
@@ -137,7 +160,7 @@ public class NewExaminationReferralPanel extends JPanel {
 					if (examination.getTreatment().isEndFlag()) {
 
 						Messages.warningMessage(
-								"cannot add visits or Examibations to Treatment"
+								"you cannot add  Examinations to Treatment"
 										+ examination.getTreatment().getTid() + "-"
 										+ examination.getTreatment().gettType(),
 								"warning",
@@ -189,10 +212,7 @@ public class NewExaminationReferralPanel extends JPanel {
 			comboBox_1.addItem(c);
 		clinic = labList.get(0);
 
-		// String[] lab=new String[labList.size()];
-
-		// lab=labList.toArray(lab);
-		// comboBox_1.setModel(new DefaultComboBoxModel(labList));
+		
 		comboBox_1.setBackground(Color.WHITE);
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

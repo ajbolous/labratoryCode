@@ -1,4 +1,4 @@
-package ui.appointments;
+package ui.medical;
 
 import java.awt.EventQueue;
 
@@ -35,7 +35,6 @@ import javax.swing.SwingConstants;
 import models.Appointment;
 import models.Secretary;
 import models.Treatment;
-import ui.medical.InvoiceUI;
 import ui.utils.MyTableModel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -57,59 +56,80 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class SecretaryUI {
+/**
+ * public class TreatmentsInvoiceUI
+ * the window display all treatments which  closed (has a report from doctor )
+ * shows the treatment that performs in the same clinic where the tinvoice works
+ * option to creation invoice to the treatment  
+ * @author maisam marjieh 
+ *
+ */
+public class TreatmentsInvoiceUI {
 
-	private JFrame secretary;
+	private JFrame tinvoice;
+	/**
+	 * The treatments table 
+	 */
 	public JTable table;
-	private InvoiceController invoicectrl = new InvoiceController();
+	/**
+	 * The treatment list 
+	 */
 	private ArrayList<Treatment> trList;
 	private JPanel panel;
 	int row;
 
-	public SecretaryUI() {
+	/**
+	 * Constructor 
+	 *  initialize the Frame by initialize method  and display the frame 
+	 */
+	public TreatmentsInvoiceUI() {
 		initialize(this);
-		secretary.setSize(756, 512);
-		secretary.setLocationRelativeTo(null);
-		secretary.setVisible(true);
+		tinvoice.setSize(756, 523);
+		tinvoice.setLocationRelativeTo(null);
+		tinvoice.setVisible(true);
 
 	}
 
+	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame 
+	 * @param secUI
 	 */
-	private void initialize(SecretaryUI secUI) {
+	private void initialize(TreatmentsInvoiceUI tI) {
 		Resources res = new Resources();
-		secretary = new JFrame();
-		secretary.setTitle("<Frame name> - GHealth");
-		secretary.setResizable(false);
+		tinvoice = new JFrame();
+		tinvoice.setTitle("<Treatments Invoice> - GHealth");
+		tinvoice.setResizable(false);
 		Image icon = new ImageIcon(this.getClass().getResource(
 				"/img/" + "icon.png")).getImage();
-		secretary.setIconImage(icon);
-		secretary.setForeground(Color.BLACK);
-		secretary.setFont(new Font("Dialog", Font.PLAIN, 16));
-		secretary.setBackground(Color.WHITE);
-		secretary.getContentPane().setBackground(Color.WHITE);
-		secretary.getContentPane().setLayout(null);
+		tinvoice.setIconImage(icon);
+		tinvoice.setForeground(Color.BLACK);
+		tinvoice.setFont(new Font("Dialog", Font.PLAIN, 16));
+		tinvoice.setBackground(Color.WHITE);
+		tinvoice.getContentPane().setBackground(Color.WHITE);
+		tinvoice.getContentPane().setLayout(null);
 
-		JLabel logo = new JLabel("GHealth - <Frame Name>");
+		JLabel logo = new JLabel("GHealth - <Treatments Invoice>");
 		logo.setBounds(0, 0, 495, 68);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
-		secretary.getContentPane().add(logo);
+		tinvoice.getContentPane().add(logo);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 143, 751, 318);
-		secretary.getContentPane().add(scrollPane);
+		scrollPane.setBounds(0, 143, 751, 288);
+		tinvoice.getContentPane().add(scrollPane);
 
 		table = new JTable();
 
 		table.setModel(new MyTableModel(new String[] { "TreatmentId",
 				"PatientId", "PatientName", "DocotrName", "startDate",
 				"EndDate", }, new Object[][] {}));
-		trList = (ArrayList) invoicectrl
+		trList = (ArrayList) InvoiceController
 				.getAllopenTreatments((Secretary) Application.user);
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
 		dm.setRowCount(0);
@@ -139,7 +159,7 @@ public class SecretaryUI {
 		panel.setBounds(20, 91, 630, 54);
 		panel.setLayout(null);
 		panel.setBounds(0, 66, 751, 36);
-		secretary.getContentPane().add(panel);
+		tinvoice.getContentPane().add(panel);
 
 		JLabel label = new JLabel("Name:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -174,34 +194,54 @@ public class SecretaryUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		secretary.getContentPane().add(panel);
+		tinvoice.getContentPane().add(panel);
 
 		JLabel lblTreatments = new JLabel("Treatments : ");
 		lblTreatments.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTreatments.setBounds(10, 113, 104, 24);
-		secretary.getContentPane().add(lblTreatments);
+		tinvoice.getContentPane().add(lblTreatments);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tinvoice.setVisible(false);
+				
+			}
+		});
+		btnCancel.setBounds(651, 442, 89, 23);
+		tinvoice.getContentPane().add(btnCancel);
 
+		/**
+		 * open InvoiceUI to create invoice for the  selected treatment 
+		 */
 		table.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
 
 						if (event.getValueIsAdjusting() == true)
 							return;
+						
 						row = table.getSelectedRow();
+						if(row >-1){
 						Treatment treatment = trList.get(row);
-						InvoiceUI in = new InvoiceUI(treatment, secUI);
+						InvoiceUI in = new InvoiceUI(treatment, tI);
+						}
 					}
 
 				});
-		secretary.getContentPane().setFocusTraversalPolicy(
+		tinvoice.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
-		secretary.setBounds(100, 100, 501, 496);
-		secretary.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tinvoice.setBounds(100, 100, 501, 496);
+		tinvoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * remove row from treatment table 
+	 */
 	public void removeTreatment() {
 
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
+		System.out.printf(row+"");
 		dm.removeRow(row);
 		trList.remove(row);
 

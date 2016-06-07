@@ -29,15 +29,27 @@ import java.awt.event.InputMethodListener;
 
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-
+/**
+ * public class NewVisitUI 
+ * Presentation of the visit  form to be filled by a doctor 
+ * @author maisam marjieh 
+ *
+ */
 public class NewVisitUI extends JPanel {
 
 	private JTextField textField_1;
 	private JTextArea textArea = new JTextArea();
 	private JLabel error_lbl;
+	/**
+	 * the new visit will be added
+	 */
 	private Visit v ; 
 
-	// TODO Auto-generated constructor stub
+	/**
+	 * construct the panel 
+	 * @param t - treatment instance 
+	 * @param doctorMedicalRecordUI
+	 */
 	public NewVisitUI(Treatment t, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
@@ -96,6 +108,11 @@ public class NewVisitUI extends JPanel {
 		textArea.setFont(UIManager.getFont("Button.font"));
 		scrollPane.setViewportView(textArea);
 
+		/**
+		 * checks if the all requirement field is filled 
+		 * call to saveVisit method in MedicalRecordController to save the new visit 
+		 * call to updateTree methods in doctorMedicalRecordUI to add the new visit in the treatment tree 
+		 */
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,10 +127,10 @@ public class NewVisitUI extends JPanel {
 
 					if (v.getTreatment().isEndFlag()) {
 						Messages.warningMessage(
-								"canot add Visits or Examibations to Treatment"
+								"you cannot add Visits  to Treatment"
 										+ v.getTreatment().getTid() + "-"
 										+ v.getTreatment().gettType()
-										+ "\nThis treatment is closed",
+										+ "\nThis treatment is closed  " ,
 								"warnning",
 								doctorMedicalRecordUI.DoctorMedicalRecord);
 

@@ -18,10 +18,19 @@ import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
 
+/**
+ *  Database view for visits , have all the visit Queries. 
+ * @author maisam marjieh 
+ *
+ */
 public class Examinations extends View {
 
-	
-
+	/**
+	 * Query  to add a new Examination  to database 
+	 * @param request contains the Examination instance will be added to database 
+	 * @return success message if the Examination added successfully to dataBase ,else return null
+	 * @throws SQLException
+	 */
 	public Object add(Request request) {
 			
 			DbHandler db = Config.getConfig().getHandler();
@@ -50,6 +59,12 @@ public class Examinations extends View {
 		}
 	}
 
+	/**
+	 * Query  to update  Examination  
+	 * @param request contains the examination instance and image which will be added to the examination 
+	 * @return  success message 
+	 * @throws SQLException
+	 */
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
@@ -76,26 +91,7 @@ public class Examinations extends View {
 		return "success";
 	}
 
-	public Object getLastReferral(Request request) {
-		DbHandler db = Config.getConfig().getHandler();
+	
 
-		QueryBuilder<Examination, Integer> q = db.examinations.queryBuilder();
-		List<Examination> examination;
-
-		try {
-			examination = q.orderBy("referralDate", false).limit(1).where()
-					.eq("treatment_id", (Integer) request.getParam("treatment_id")).query();
-			if (examination.size() == 0)
-				return null;
-			else
-				return examination.get(0);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-
-	}
 
 }

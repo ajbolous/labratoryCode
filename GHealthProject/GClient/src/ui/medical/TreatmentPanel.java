@@ -29,6 +29,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JTextArea;
 
+/**
+ * present the treatment details 
+ * option add report to treatment 
+ * @author maisam marjieh 
+ *
+ */
 public class TreatmentPanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -43,9 +49,10 @@ public class TreatmentPanel extends JPanel {
 	private JLabel error_lbl;
 
 	/**
-	 * Create the panel.
+	 * construct  the panel with treatment details  
+	 * @param treatment -should be present 
+	 * @param doctorMedicalRecordUI reference to doctorMedicalRecord GUI 
 	 */
-
 	public TreatmentPanel(Treatment treatment,
 			DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
@@ -121,6 +128,9 @@ public class TreatmentPanel extends JPanel {
 		add(textField_4);
 		textField_4.setColumns(10);
 
+		/**
+		 * close the panel 
+		 */
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel.addActionListener(new ActionListener() {
@@ -132,6 +142,10 @@ public class TreatmentPanel extends JPanel {
 		add(btnCancel);
 		btnCancel.setVisible(!treatment.isEndFlag());
 
+		/**
+		 * Allows to doctor to add result about the treatment and close it 
+		 * 
+		 */
 		btnAddReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnAddReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +178,10 @@ public class TreatmentPanel extends JPanel {
 
 		scrollPane.setViewportView(textArea);
 
+		/**
+		 * checks if result field is filled .
+		 * call to updateTreatment method in MedicalRecordController to update tge treatment  
+		 */
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String str = textArea.getText();
@@ -202,6 +220,9 @@ public class TreatmentPanel extends JPanel {
 		btnSave.setBounds(212, 365, 89, 23);
 		add(btnSave);
 
+		/**
+		 * close the panel 
+		 */
 		JButton btnCancel_1 = new JButton("Cancel");
 		btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel_1.addActionListener(new ActionListener() {

@@ -9,9 +9,12 @@ import javax.swing.JButton;
 import Client.Application;
 import Client.Config;
 import Client.Resources;
+import models.Dispatcher;
 import models.Doctor;
+import models.Manager;
+import models.Secretary;
 import ui.appointments.NewConfirmUI;
-import ui.appointments.SecretaryUI;
+import ui.medical.TreatmentsInvoiceUI;
 import ui.reports.WeeklyReport;
 
 import java.awt.event.ActionListener;
@@ -35,6 +38,8 @@ public class ClientUI {
 	private final JLabel lblNewLabel = new JLabel("GHealth System");
 	private final JLabel lblNewLabel_1 = new JLabel("");
 	private final JButton btnMonthly = new JButton("Monthly reports");
+	private final JButton btnConformation = new JButton("Conformation");
+	private final JButton btnCreateInvoice = new JButton("Create Invoice");
 	private final JLabel lblNewLabel_3 = new JLabel("Connected to server : ");
 	private final JButton btnTests_1 = new JButton("Examinations");
 	private final JButton btnResults = new JButton("Results");
@@ -80,38 +85,7 @@ public class ClientUI {
 		
 		frame.getContentPane().add(lblManagmentAndReports);
 		
-		JButton btnConformation = new JButton("Conformation");
-		btnConformation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Identification();
-				
-			}
-		});
-		btnConformation.setIcon(new ImageIcon(ClientUI.class.getResource("/img/treatment.png")));
-		btnConformation.setHorizontalAlignment(SwingConstants.LEFT);
-		btnConformation.setForeground(Color.BLACK);
-		btnConformation.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnConformation.setBorder(null);
-		btnConformation.setBackground(Color.WHITE);
-		btnConformation.setBounds(54, 209, 181, 65);
-		frame.getContentPane().add(btnConformation);
 		
-		JButton btnCreateInvoice = new JButton("Create Invoice");
-		btnCreateInvoice.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new SecretaryUI();
-			}
-		});
-		btnCreateInvoice.setIcon(new ImageIcon(ClientUI.class.getResource("/img/info.png")));
-		btnCreateInvoice.setHorizontalAlignment(SwingConstants.LEFT);
-		btnCreateInvoice.setForeground(Color.BLACK);
-		btnCreateInvoice.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCreateInvoice.setBorder(null);
-		btnCreateInvoice.setBackground(Color.WHITE);
-		btnCreateInvoice.setBounds(269, 209, 194, 65);
-		frame.getContentPane().add(btnCreateInvoice);
-
-
 	}
 
 	private void initialize(){
@@ -141,6 +115,7 @@ public class ClientUI {
 		button.setIcon(res.getIcon("settings.png"));
 		frame.getContentPane().add(button);
 		button.setToolTipText("Doctors managment form");
+		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Application.user.getClass().equals(Doctor.class)){
@@ -158,6 +133,7 @@ public class ClientUI {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setIcon(res.getIcon("doctors.png"));
 		btnNewButton.setBorder(null);
+		btnTests_1.setEnabled(false);
 		btnTests_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//new Labratory();
@@ -172,6 +148,7 @@ public class ClientUI {
 		btnTests_1.setBounds(57, 475, 191, 68);
 		btnTests_1.setIcon(res.getIcon("lab.png"));
 		frame.getContentPane().add(btnTests_1);
+		btnResults.setEnabled(false);
 		
 		btnResults.setHorizontalAlignment(SwingConstants.LEFT);
 		btnResults.setForeground(Color.BLACK);
@@ -183,6 +160,7 @@ public class ClientUI {
 		frame.getContentPane().add(btnResults);
 		
 		frame.getContentPane().add(btnNewButton);
+		btnLabs.setEnabled(false);
 		btnLabs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -199,6 +177,7 @@ public class ClientUI {
 		btnLabs.setBorder(null);
 
 		frame.getContentPane().add(btnLabs);
+		btnUsers.setEnabled(false);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -217,6 +196,7 @@ public class ClientUI {
 
 		
 		frame.getContentPane().add(btnUsers);
+		btnTests.setEnabled(false);
 		btnTests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
@@ -233,6 +213,7 @@ public class ClientUI {
 		btnTests.setForeground(Color.BLACK);
 		btnTests.setIcon(res.getIcon("tests.png"));
 		btnTests.setBorder(null);
+		btnMonthly.setEnabled(false);
 		btnMonthly.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -252,18 +233,65 @@ public class ClientUI {
 
 		frame.getContentPane().add(btnMonthly);
 		
-		
-		
-		
 		frame.getContentPane().add(btnTests);
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setBounds(165, 0, 308, 60);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setIcon(res.getIcon("logo.png"));
-
 		frame.getContentPane().add(lblNewLabel);
 		lblNewLabel_1.setIcon(res.getIcon("user.png"));
-		
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		
+		btnConformation.setEnabled(false);
+		btnConformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Identification();
+				
+			}
+		});
+		btnConformation.setIcon(new ImageIcon(ClientUI.class.getResource("/img/treatment.png")));
+		btnConformation.setHorizontalAlignment(SwingConstants.LEFT);
+		btnConformation.setForeground(Color.BLACK);
+		btnConformation.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnConformation.setBorder(null);
+		btnConformation.setBackground(Color.WHITE);
+		btnConformation.setBounds(54, 209, 181, 65);
+		frame.getContentPane().add(btnConformation);
+		
+		
+		btnCreateInvoice.setEnabled(false);
+		btnCreateInvoice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new TreatmentsInvoiceUI();
+			}
+		});
+		btnCreateInvoice.setIcon(new ImageIcon(ClientUI.class.getResource("/img/info.png")));
+		btnCreateInvoice.setHorizontalAlignment(SwingConstants.LEFT);
+		btnCreateInvoice.setForeground(Color.BLACK);
+		btnCreateInvoice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCreateInvoice.setBorder(null);
+		btnCreateInvoice.setBackground(Color.WHITE);
+		btnCreateInvoice.setBounds(269, 209, 194, 65);
+		frame.getContentPane().add(btnCreateInvoice);
+
+
+		
+		if(Application.user.getClass() == Doctor.class)
+			btnNewButton.setEnabled(true);
+		if(Application.user.getClass() == Dispatcher.class)
+			btnLabs.setEnabled(true);
+		if(Application.user.getClass()== Secretary.class)
+		{
+			btnCreateInvoice.setEnabled(true);
+			btnConformation.setEnabled(true);
+		}
+			
+			
+		
+		
+		
+		
+		
 	}
 }

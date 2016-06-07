@@ -8,19 +8,24 @@ import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
  
+/**
+ * Database view for invoice , have all the invoice  Queries.
+ * @author maisam marjieh 
+ *
+ */
 public class Invoices extends View{
+	
+
+	/**
+	 * send the invoice to HMO 
+	 * @param request contains the new invoice 
+	 * @return success message 
+	 */
 	public Object send (Request request)
 	{
 		DbHandler db = Config.getConfig().getHandler();
 		Invoice invoice = (Invoice)request.getParam("Invoice");
-		Treatment treatment  = invoice.getTreatment();
-		treatment.setHasInvoice(false);
-		try {
-			db.treatments.update(treatment);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		System.out.println("----------------------------------------");
 		System.out.println();
 	
