@@ -46,16 +46,19 @@ public class TreatmentPanel extends JPanel {
 	 * Create the panel.
 	 */
 
-	public TreatmentPanel(Treatment treatment, DoctorMedicalRecordUI doctorMedicalRecordUI) {
+	public TreatmentPanel(Treatment treatment,
+			DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Treatment", TitledBorder.CENTER,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"Treatment", TitledBorder.CENTER, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
+		textField_1 = new JTextField(DateTime.getDateString(treatment
+				.getStart()));
 		textField_1.setEditable(false);
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setBounds(131, 136, 211, 20);
@@ -98,7 +101,8 @@ public class TreatmentPanel extends JPanel {
 		lblDoctorname.setBounds(9, 86, 119, 27);
 		add(lblDoctorname);
 
-		textField_3 = new JTextField(treatment.getDoctor().getFirstName() + " " + treatment.getDoctor().getLastName());
+		textField_3 = new JTextField(treatment.getDoctor().getFirstName() + " "
+				+ treatment.getDoctor().getLastName());
 		textField_3.setBackground(Color.WHITE);
 		textField_3.setEditable(false);
 		textField_3.setBounds(131, 90, 211, 20);
@@ -175,7 +179,9 @@ public class TreatmentPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					Messages.successMessage("Treatment Report was added successfully ", "Success",
+					Messages.successMessage(
+							"Treatment Report was added successfully ",
+							"Success",
 							doctorMedicalRecordUI.DoctorMedicalRecord);
 
 					setVisible(false);

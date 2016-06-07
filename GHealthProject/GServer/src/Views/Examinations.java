@@ -20,24 +20,28 @@ import Utils.Request;
 
 public class Examinations extends View {
 
-	DbHandler db = Config.getConfig().getHandler();
+	
 
 	public Object add(Request request) {
-		try {
-			Examination ex = (Examination) request.getParam("examination");
-			db.examinations.create(ex);
-			return getLastReferral(request);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "Fail";
-		}
-
+			
+			DbHandler db = Config.getConfig().getHandler();
+			Examination ex = (Examination) request.getParam("exam");
+			try {
+				db.examinations.create(ex);
+				return "success";
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null ;
+			}
+			
+			
+			
 	}
 
 	
 	public Object getById(Request request) {
 		try {
+			DbHandler db = Config.getConfig().getHandler();
 			Examination ex = db.examinations.queryForId((Integer) request.getParam("sid"));
 			return ex;
 		} catch (SQLException e) {
@@ -73,6 +77,7 @@ public class Examinations extends View {
 	}
 
 	public Object getLastReferral(Request request) {
+		DbHandler db = Config.getConfig().getHandler();
 
 		QueryBuilder<Examination, Integer> q = db.examinations.queryBuilder();
 		List<Examination> examination;

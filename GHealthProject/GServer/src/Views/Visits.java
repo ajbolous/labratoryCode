@@ -2,7 +2,10 @@ package Views;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import com.j256.ormlite.stmt.QueryBuilder;
+
+import models.Examination;
 import models.Visit;
 import Database.DbHandler;
 import Server.Config;
@@ -13,7 +16,7 @@ public class Visits extends View{
 	
 	public Object add (Request request) {
 		
-		Visit v =(Visit) request.getParam("visits");
+		Visit v =(Visit) request.getParam("visit");
 		try {
 			
 			db.visits.create(v); 
@@ -47,8 +50,7 @@ public class Visits extends View{
 		}  
 			
 	
-		
-		
+	
 	
 }
 

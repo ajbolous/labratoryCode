@@ -1,13 +1,17 @@
 package ui.main;
 
 import javax.swing.JFrame;
+
 import java.awt.Color;
 
 import javax.swing.JButton;
+
 import Client.Application;
 import Client.Config;
 import Client.Resources;
 import models.Doctor;
+import ui.appointments.NewConfirmUI;
+import ui.appointments.SecretaryUI;
 import ui.reports.WeeklyReport;
 
 import java.awt.event.ActionListener;
@@ -19,10 +23,12 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Window.Type;
 import java.awt.Panel;
+
+import javax.swing.ImageIcon;
 public class ClientUI {
 	
 	private JFrame frame;
-	private final JButton btnNewButton = new JButton("Patients");
+	private final JButton btnNewButton = new JButton("Medical Records");
 	private final JButton btnLabs = new JButton("Appointments");
 	private final JButton btnUsers = new JButton("Users");
 	private final JButton btnTests = new JButton("Weekly reports");
@@ -38,7 +44,7 @@ public class ClientUI {
 
 	public ClientUI() {
 		initialize();
-		frame.setSize(609, 495);
+		frame.setSize(626, 583);
 		frame.setVisible(true);
 		lblNewLabel_1.setBounds(0, 0, 203, 44);
 		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " (" + Application.user.getClass().getSimpleName() + ")");
@@ -60,12 +66,12 @@ public class ClientUI {
 		frame.getContentPane().add(panel);
 		lblMedical.setForeground(new Color(0, 191, 255));
 		lblMedical.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMedical.setBounds(20, 202, 203, 35);
+		lblMedical.setBounds(20, 301, 203, 35);
 		
 		frame.getContentPane().add(lblMedical);
 		lblLabratoriesAndTests.setForeground(new Color(0, 191, 255));
 		lblLabratoriesAndTests.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblLabratoriesAndTests.setBounds(20, 325, 274, 35);
+		lblLabratoriesAndTests.setBounds(20, 424, 274, 35);
 		
 		frame.getContentPane().add(lblLabratoriesAndTests);
 		lblManagmentAndReports.setForeground(new Color(0, 191, 255));
@@ -73,6 +79,37 @@ public class ClientUI {
 		lblManagmentAndReports.setBounds(17, 90, 276, 22);
 		
 		frame.getContentPane().add(lblManagmentAndReports);
+		
+		JButton btnConformation = new JButton("Conformation");
+		btnConformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Identification();
+				
+			}
+		});
+		btnConformation.setIcon(new ImageIcon(ClientUI.class.getResource("/img/treatment.png")));
+		btnConformation.setHorizontalAlignment(SwingConstants.LEFT);
+		btnConformation.setForeground(Color.BLACK);
+		btnConformation.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnConformation.setBorder(null);
+		btnConformation.setBackground(Color.WHITE);
+		btnConformation.setBounds(54, 209, 181, 65);
+		frame.getContentPane().add(btnConformation);
+		
+		JButton btnCreateInvoice = new JButton("Create Invoice");
+		btnCreateInvoice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new SecretaryUI();
+			}
+		});
+		btnCreateInvoice.setIcon(new ImageIcon(ClientUI.class.getResource("/img/info.png")));
+		btnCreateInvoice.setHorizontalAlignment(SwingConstants.LEFT);
+		btnCreateInvoice.setForeground(Color.BLACK);
+		btnCreateInvoice.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCreateInvoice.setBorder(null);
+		btnCreateInvoice.setBackground(Color.WHITE);
+		btnCreateInvoice.setBounds(269, 209, 194, 65);
+		frame.getContentPane().add(btnCreateInvoice);
 
 
 	}
@@ -114,7 +151,7 @@ public class ClientUI {
 		});
 
 		
-		btnNewButton.setBounds(57, 249, 191, 65);
+		btnNewButton.setBounds(44, 351, 191, 65);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
@@ -132,7 +169,7 @@ public class ClientUI {
 		btnTests_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTests_1.setBorder(null);
 		btnTests_1.setBackground(Color.WHITE);
-		btnTests_1.setBounds(57, 376, 191, 68);
+		btnTests_1.setBounds(57, 475, 191, 68);
 		btnTests_1.setIcon(res.getIcon("lab.png"));
 		frame.getContentPane().add(btnTests_1);
 		
@@ -141,7 +178,7 @@ public class ClientUI {
 		btnResults.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnResults.setBorder(null);
 		btnResults.setBackground(Color.WHITE);
-		btnResults.setBounds(259, 380, 181, 60);
+		btnResults.setBounds(259, 479, 181, 60);
 		btnResults.setIcon(res.getIcon("treatment.png"));
 		frame.getContentPane().add(btnResults);
 		
@@ -153,7 +190,7 @@ public class ClientUI {
 			}
 		});
 		btnLabs.setToolTipText("Laboratiries Managment form");
-		btnLabs.setBounds(269, 254, 171, 60);
+		btnLabs.setBounds(259, 353, 171, 60);
 		btnLabs.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLabs.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLabs.setForeground(Color.BLACK);
@@ -189,7 +226,7 @@ public class ClientUI {
 				
 			}
 		});
-		btnTests.setBounds(54, 123, 194, 65);
+		btnTests.setBounds(54, 123, 181, 65);
 		btnTests.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTests.setBackground(Color.WHITE);
 		btnTests.setHorizontalAlignment(SwingConstants.LEFT);

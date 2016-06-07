@@ -36,11 +36,13 @@ public class Treatments extends View {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
 			db.treatments.update((Treatment) request.getParam("treatment"));
+			return "success" ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null; 
 		}
-		return getLastTreatment(request);
+		
 	}
 
 	public Object getLastTreatment(Request request) {

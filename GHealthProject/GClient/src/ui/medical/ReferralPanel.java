@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
 public class ReferralPanel extends JPanel {
+	/*
 	private JTextField textField_1;
 	private JTextField textField_3;
 	private JTextField textField_2;
@@ -35,7 +36,7 @@ public class ReferralPanel extends JPanel {
 	/**
 	 * Create the JScrollPane.
 	 */
-	public ReferralPanel(Examination ex) {
+	/*public ReferralPanel(Examination ex) {
 		super();
 		setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER, TitledBorder.TOP, null,
 				Color.BLACK));
@@ -112,5 +113,5 @@ public class ReferralPanel extends JPanel {
 		add(btnCancel);
 
 	}
-
+*/
 }

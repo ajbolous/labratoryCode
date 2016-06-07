@@ -8,16 +8,28 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
-
+/**
+ * Treatment Entity class
+ * @author maisam marjieh
+ *
+ */
 @DatabaseTable(tableName = "treatments")
 public class Treatment extends Entity{
+ 
 
+	/**
+	 * treatment id 
+	 */
 	@DatabaseField(generatedId = true)
 	private int tid;
 	
+	/**
+	 * treatment end flag 
+	 */
 	@DatabaseField()
 	private boolean endFlag = false;
 	
+
 	@DatabaseField()
 	private boolean hasInvoice = false;
 	
