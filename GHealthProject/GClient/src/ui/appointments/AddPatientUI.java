@@ -336,7 +336,7 @@ public class AddPatientUI {
 			msqlbl_6.setText("*should be only digits");
 			flag = false;
 		}
-		if (UITests.notEmpty(this.email) == false) {
+		if (UITests.notEmpty(EmailField.getText()) == false) {
 			msqlbl_5.setText("*is Empty");
 			flag = false;
 		}
