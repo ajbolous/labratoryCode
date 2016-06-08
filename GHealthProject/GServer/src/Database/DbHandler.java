@@ -35,8 +35,9 @@ public class DbHandler {
 	public DbHandler(String url, String username, String password) {
 		try{
 			connection=new JdbcConnectionSource(url,username,password);
+			//createAllTables();
 			initializeDao();
-		//	createAllTables();
+			//fillDataBase();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -106,7 +107,6 @@ public class DbHandler {
 		TableUtils.createTableIfNotExists(connection, Shift.class);	
 		TableUtils.createTableIfNotExists(connection, Referral.class);
 		TableUtils.createTableIfNotExists(connection, Secretary.class);	
-		TableUtils.createTableIfNotExists(connection, Clinic.class);
-		fillDataBase();
+		TableUtils.createTableIfNotExists(connection, Clinic.class);	
 	}
 }

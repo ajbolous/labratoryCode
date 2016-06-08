@@ -36,7 +36,12 @@ public class DateTime {
 		c.add(Calendar.MONTH,1);
 		return c.getTime();
 	}
-	
+	public static Date MinusMonth(Date d){
+		Calendar c =  Calendar.getInstance();
+		c.setTime(d);
+		c.add(Calendar.MONTH,-1);
+		return c.getTime();
+	}
 	
 	public static List<Date> getMonths(int year){
 		Date d = DateTime.getDate(year, 1, 1);
@@ -117,6 +122,10 @@ public class DateTime {
 	public static Date currentDate() throws ParseException{
 		Date curr = new Date();
 		return getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), curr.getHours(), curr.getMinutes());
+	}
+	public static Date currentMont() throws ParseException{
+		Date curr = new Date();
+		return getDate(curr.getYear()+1900, curr.getMonth()+1, 1);
 	}
 	
 	public static Random rand = new Random();

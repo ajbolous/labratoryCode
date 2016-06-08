@@ -1,16 +1,8 @@
 package Client;
 
-import models.Labratorian;
-import models.Patient;
-import models.Secretary;
-import ui.appointments.NewConfirmUI;
-import ui.appointments.testconfirm;
-import ui.labratories.Labratory;
-import ui.main.Identification;
-import ui.main.SignInUI;
-import Controllers.MedicalRecordController;
-import Controllers.PatientsController;
-import Controllers.UsersController;
+import ui.reports.CeoReport;
+import ui.reports.MonthlyReport;
+
 
 public class TestApp {
 
@@ -19,16 +11,16 @@ public class TestApp {
 		//UsersManagingUI iden= new UsersManagingUI();
 		//AddPatientUI u = new AddPatientUI();
 	//	new SignInUI();
-		//MedicalRecordController.examinationTest();
 		//MonthlyReport r=new MonthlyReport();
+		CeoReport r=new CeoReport();
 		//PatientsController ctrl= new PatientsController(); 
 		//Patient patient=ctrl.getById("300000002");
-		Labratorian lab = (Labratorian)UsersController.getUser("400000000");
+		///S lab = (Labratorian)UsersController.getUser("400000000");
 		
-		Application.user = lab;
-		//new NewConfirmUI(patient); 
-	    //new testconfirm(patient); 
-		new Labratory();
+		//Application.user = lab;
+	//	new NewConfirmUI(patient); 
+	//	new testconfirm(patient); 
+		//new Labratory();
 		//Secretary sec = (Secretary)UsersController.getUser("400000010");
 		//Application.user = sec;
 		//new Identification();
