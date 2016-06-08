@@ -99,7 +99,7 @@ public class DoctorMedicalRecordUI {
 	 *            - patient instance
 	 * @throws ParseException
 	 */
-	public DoctorMedicalRecordUI(Patient p) throws ParseException {
+	public DoctorMedicalRecordUI(Patient p) {
 		initialize(p);
 		doctorMedicalRecordUI = this;
 		DoctorMedicalRecord.setSize(1030, 716);
@@ -114,7 +114,7 @@ public class DoctorMedicalRecordUI {
 	 *            - patient
 	 * @throws ParseException
 	 */
-	private void initialize(Patient p) throws ParseException {
+	private void initialize(Patient p){
 		DoctorMedicalRecord = new JFrame();
 		DoctorMedicalRecord.setTitle("<Doctor Medical Record> - GHealth");
 		DoctorMedicalRecord.setResizable(false);

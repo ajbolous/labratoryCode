@@ -52,10 +52,9 @@ public class Settings {
 		Config cfg = Config.getConfig();
 
 		txtHost.setText(cfg.getHost());
-		txtPort.setText(""+cfg.getPort());
-		
-	}
+		txtPort.setText("" + cfg.getPort());
 
+	}
 
 	private void initialize() {
 		frame = new JFrame();
@@ -89,7 +88,7 @@ public class Settings {
 		lblWelcomeToGhealth.setIcon(res.getIcon("logo.png"));
 		lblWelcomeToGhealth.setBounds(0, 0, 284, 61);
 		frame.getContentPane().add(lblWelcomeToGhealth);
-		
+
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -100,24 +99,25 @@ public class Settings {
 		btnCancel.setBackground(Color.WHITE);
 		btnCancel.setBounds(205, 134, 79, 20);
 		frame.getContentPane().add(btnCancel);
-		
+
 		txtHost = new JTextField();
 		txtHost.setBounds(78, 72, 206, 20);
 		frame.getContentPane().add(txtHost);
 		txtHost.setColumns(10);
-		
+
 		txtPort = new JTextField();
 		txtPort.setColumns(10);
 		txtPort.setBounds(78, 103, 206, 20);
 		frame.getContentPane().add(txtPort);
-		
+
 		JLabel lblNewLabel = new JLabel("Host:");
 		lblNewLabel.setBounds(22, 75, 46, 14);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblPort = new JLabel("Port:");
 		lblPort.setBounds(22, 106, 46, 14);
 		frame.getContentPane().add(lblPort);
-		frame.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnLogin, frame.getContentPane(), lblWelcomeToGhealth}));
+		frame.setFocusTraversalPolicy(
+				new FocusTraversalOnArray(new Component[] { btnLogin, frame.getContentPane(), lblWelcomeToGhealth }));
 	}
 }

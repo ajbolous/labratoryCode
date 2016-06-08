@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import models.Dispatcher;
 import models.Doctor;
 import models.Patient;
 import models.Secretary;
@@ -52,7 +53,7 @@ public class Identification implements FrameInterface {
 	private JButton btnNewButton;
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
-
+	JButton btnAddNewPatient;
 	/**
 	 * Patient Controller instance
 	 */
@@ -99,7 +100,7 @@ public class Identification implements FrameInterface {
 		login_btn.setBorder(null);
 		login_btn.setBackground(Color.WHITE);
 		login_btn.setIcon(loginImg);
-		login_btn.setBounds(245, 127, 64, 35);
+		login_btn.setBounds(245, 127, 89, 35);
 		disID.getContentPane().add(login_btn);
 
 		JLabel logo = new JLabel("Patient Identification");
@@ -122,7 +123,7 @@ public class Identification implements FrameInterface {
 				disID.dispose();
 			}
 		});
-		btnNewButton.setBounds(260, 230, 89, 23);
+		btnNewButton.setBounds(245, 228, 89, 23);
 		disID.getContentPane().add(btnNewButton);
 
 		txtpnEnterPatientId = new JTextPane();
@@ -136,9 +137,17 @@ public class Identification implements FrameInterface {
 		lblNewLabel_1.setIcon(info);
 		lblNewLabel_1.setBounds(26, 113, 44, 70);
 		disID.getContentPane().add(lblNewLabel_1);
+		
+		btnAddNewPatient = new JButton("Add Patient");
+		btnAddNewPatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAddNewPatient.setBounds(80, 228, 165, 23);
+		disID.getContentPane().add(btnAddNewPatient);
 
 		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		disID.setBounds(100, 100, 365, 291);
+		disID.setBounds(100, 100, 349, 288);
 		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		disID.setLocationRelativeTo(null);
@@ -160,24 +169,17 @@ public class Identification implements FrameInterface {
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
 		else if ((patient = PatientsController.getById(id)) == null) {
-
 			error_lbl.setText("*Patient does not exist in the system");
+			if (Application.user.getClass() == Secretary.class)
+				btnAddNewPatient.setVisible(true);
 		} else {
 			disID.setVisible(false);
-			if (Application.user.getClass() == Doctor.class) {
 
-				try {
-					new DoctorMedicalRecordUI(patient);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else if (Application.user.getClass() == Secretary.class) {
-
+			if (Application.user.getClass() == Doctor.class)
+				new DoctorMedicalRecordUI(patient);
+			else if (Application.user.getClass() == Secretary.class)
 				new NewConfirmUI(patient);
-			}
-
-			else
+			else if (Application.user.getClass() == Dispatcher.class)
 				new Appointments(patient).getFrame().setVisible(true);
 		}
 
