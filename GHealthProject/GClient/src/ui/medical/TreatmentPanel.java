@@ -29,6 +29,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JTextArea;
 
+/**
+ * present the treatment details 
+ * option add report to treatment 
+ * @author maisam marjieh 
+ *
+ */
 public class TreatmentPanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -43,19 +49,23 @@ public class TreatmentPanel extends JPanel {
 	private JLabel error_lbl;
 
 	/**
-	 * Create the panel.
+	 * construct  the panel with treatment details  
+	 * @param treatment -should be present 
+	 * @param doctorMedicalRecordUI reference to doctorMedicalRecord GUI 
 	 */
-
-	public TreatmentPanel(Treatment treatment, DoctorMedicalRecordUI doctorMedicalRecordUI) {
+	public TreatmentPanel(Treatment treatment,
+			DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Treatment", TitledBorder.CENTER,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"Treatment", TitledBorder.CENTER, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
+		textField_1 = new JTextField(DateTime.getDateString(treatment
+				.getStart()));
 		textField_1.setEditable(false);
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setBounds(131, 136, 211, 20);
@@ -98,7 +108,8 @@ public class TreatmentPanel extends JPanel {
 		lblDoctorname.setBounds(9, 86, 119, 27);
 		add(lblDoctorname);
 
-		textField_3 = new JTextField(treatment.getDoctor().getFirstName() + " " + treatment.getDoctor().getLastName());
+		textField_3 = new JTextField(treatment.getDoctor().getFirstName() + " "
+				+ treatment.getDoctor().getLastName());
 		textField_3.setBackground(Color.WHITE);
 		textField_3.setEditable(false);
 		textField_3.setBounds(131, 90, 211, 20);
@@ -117,6 +128,9 @@ public class TreatmentPanel extends JPanel {
 		add(textField_4);
 		textField_4.setColumns(10);
 
+		/**
+		 * close the panel 
+		 */
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel.addActionListener(new ActionListener() {
@@ -128,6 +142,10 @@ public class TreatmentPanel extends JPanel {
 		add(btnCancel);
 		btnCancel.setVisible(!treatment.isEndFlag());
 
+		/**
+		 * Allows to doctor to add result about the treatment and close it 
+		 * 
+		 */
 		btnAddReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnAddReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,6 +178,10 @@ public class TreatmentPanel extends JPanel {
 
 		scrollPane.setViewportView(textArea);
 
+		/**
+		 * checks if result field is filled .
+		 * call to updateTreatment method in MedicalRecordController to update tge treatment  
+		 */
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String str = textArea.getText();
@@ -175,7 +197,9 @@ public class TreatmentPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					Messages.successMessage("Treatment Report was added successfully ", "Success",
+					Messages.successMessage(
+							"Treatment Report was added successfully ",
+							"Success",
 							doctorMedicalRecordUI.DoctorMedicalRecord);
 
 					setVisible(false);
@@ -196,6 +220,9 @@ public class TreatmentPanel extends JPanel {
 		btnSave.setBounds(212, 365, 89, 23);
 		add(btnSave);
 
+		/**
+		 * close the panel 
+		 */
 		JButton btnCancel_1 = new JButton("Cancel");
 		btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel_1.addActionListener(new ActionListener() {

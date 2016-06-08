@@ -38,6 +38,8 @@ import models.Referral;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import ui.main.Identification;
+import ui.utils.Messages;
 import ui.utils.MyTableModel;
 import ui.utils.UITests;
 
@@ -47,6 +49,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -76,7 +79,9 @@ public class NewConfirmUI {
 	private JEditorPane editorPane; 
 	private JLabel msqlbl_1; 
 	private JLabel msqlbl_2; 
-	private JLabel msqlbl_3; 
+	private JLabel msqlbl_3;
+	private JLabel note ; 
+	private  boolean flag_lock;
 
 	
 	
@@ -117,6 +122,14 @@ public class NewConfirmUI {
 		
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int result = Messages.confirmMessage("Are you sure you want to cancel?","GHealth" , null);
+				if(result == JOptionPane.YES_OPTION)
+					NewConfirmUI.dispose();
+			}
+		});
 		btnCancel.setBounds(10, 385, 89, 23);
 		NewConfirmUI.getContentPane().add(btnCancel);
 		
@@ -149,8 +162,45 @@ public class NewConfirmUI {
 		speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
 		speciality_cbox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				flag_lock=false; 
+				field_Name.setText("");
+				editorPane.setText("");
+				textField_1.setText("");
+				textField_2.setText("");
+				textField_3.setText("");
+				field_Name.setEditable(true);
+				editorPane.setEditable(true);
+				textField_1.setEditable(true);
+				textField_2.setEditable(true);
+				textField_3.setEditable(true);
+				note.setText(""); 
+				Referral ref;
+
+				if((ref=referalExit())!= null){
+					field_Name.setText(ref.getDoctor_name());
+					editorPane.setText(ref.getDescription()); 
+					textField_1.setText(ref.getConfirmation().getHmo_id());	
+					textField_2.setText(ref.getConfirmation().getApproval_id());
+					textField_3.setText(ref.getConfirmation().getRefferal_id());
+					field_Name.setEditable(false);
+					textField_1.setEditable(false);
+					textField_2.setEditable(false);
+					textField_3.setEditable(false);
+					flag_lock=true; 
+					return;
+				}
+			
 			}
+			private Referral referalExit() {
+			 	for(Referral ref : p.getReferrals()){
+						   if (ref.isActive()== true && 
+								   ref.getSpeciality().compareTo((String) speciality_cbox.getSelectedItem())== 0 ){
+							   note.setText("there is refferal exist to speical and approval ");
+							   return ref ; 
+						   }
+						}
+					return null ; 
+					}
 		});
 		speciality_cbox.setName("");
 		speciality_cbox.setBounds(75, 11, 200, 25);
@@ -164,7 +214,7 @@ public class NewConfirmUI {
 		label_3.setBounds(6, 16, 71, 14);
 		panel.add(label_3);
 		
-		JLabel note = new JLabel("");
+		note = new JLabel("");
 		note.setForeground(Color.RED);
 		note.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		note.setBounds(10, 218, 203, 13);
@@ -244,25 +294,13 @@ public class NewConfirmUI {
 		NewConfirmUI.getContentPane().add(msqlbl_3);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				field_Name.setText("");
-				editorPane.setText(""); 
+			
 				msqlbl_1.setText("");
 				msqlbl_2.setText("");
 				msqlbl_3.setText("");
 				
-				note.setText(""); 
-				field_Name.setEditable(true);
-				editorPane.setEditable(true);	
-				Referral ref;
 			
 
-				if((ref=referalExit())!= null){
-					field_Name.setText(ref.getDoctor_name());
-					editorPane.setText(ref.getDescription()); 
-					field_Name.setEditable(false);
-					editorPane.setEditable(false);	
-					return;
-				}
 			
 					
 				if (!isvalidRef())
@@ -277,16 +315,7 @@ public class NewConfirmUI {
 				
 
 			}
-			private Referral referalExit() {
-			 	for(Referral ref : p.getReferrals()){
-						   if (ref.isActive()== true && 
-								   ref.getSpeciality().compareTo((String) speciality_cbox.getSelectedItem())== 0 ){
-							   note.setText("there is refferal exist to speical and approval ");
-							   return ref ; 
-						   }
-						}
-					return null ; 
-					}
+			
 					
 		});
 		btnFinish.addActionListener(new ActionListener() {
@@ -298,6 +327,7 @@ public class NewConfirmUI {
 			
 				if (!isvalidconf())
 					return ; 
+				if (flag_lock==false){
 				 Referral ref =new Referral(); 
 				ref.setDoctor_name(field_Name.getText());
 				ref.setSpeciality((String) speciality_cbox.getSelectedItem());
@@ -310,6 +340,16 @@ public class NewConfirmUI {
 				ref.setConfirmation(conf);
 				ref.setActive(true); 
 				RefCtrl.addReferralHMO(ref);
+				Messages.successMessage("Confirmation was added successfully to the system", "Success", null);
+				NewConfirmUI.dispose();
+				new Identification();
+				return;
+				}else {
+					NewConfirmUI.dispose();
+					new Identification();
+					return;
+				}
+
 				 
 				/* {
 					 
@@ -373,7 +413,6 @@ public class NewConfirmUI {
 		} 
 		if (UITests.notEmpty(textField_3.getText()) == false) {
 			msqlbl_2.setText("isempty");
-
 			flag=false; 			
 		}
 			

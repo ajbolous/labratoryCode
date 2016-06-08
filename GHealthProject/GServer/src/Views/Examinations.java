@@ -18,26 +18,39 @@ import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
 
+/**
+ *  Database view for visits , have all the visit Queries. 
+ * @author maisam marjieh 
+ *
+ */
 public class Examinations extends View {
 
-	DbHandler db = Config.getConfig().getHandler();
-
+	/**
+	 * Query  to add a new Examination  to database 
+	 * @param request contains the Examination instance will be added to database 
+	 * @return success message if the Examination added successfully to dataBase ,else return null
+	 * @throws SQLException
+	 */
 	public Object add(Request request) {
-		try {
-			Examination ex = (Examination) request.getParam("examination");
-			db.examinations.create(ex);
-			return getLastReferral(request);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "Fail";
-		}
-
+			
+			DbHandler db = Config.getConfig().getHandler();
+			Examination ex = (Examination) request.getParam("exam");
+			try {
+				db.examinations.create(ex);
+				return "success";
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null ;
+			}
+			
+			
+			
 	}
 
 	
 	public Object getById(Request request) {
 		try {
+			DbHandler db = Config.getConfig().getHandler();
 			Examination ex = db.examinations.queryForId((Integer) request.getParam("sid"));
 			return ex;
 		} catch (SQLException e) {
@@ -46,6 +59,12 @@ public class Examinations extends View {
 		}
 	}
 
+	/**
+	 * Query  to update  Examination  
+	 * @param request contains the examination instance and image which will be added to the examination 
+	 * @return  success message 
+	 * @throws SQLException
+	 */
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
@@ -72,25 +91,7 @@ public class Examinations extends View {
 		return "success";
 	}
 
-	public Object getLastReferral(Request request) {
+	
 
-		QueryBuilder<Examination, Integer> q = db.examinations.queryBuilder();
-		List<Examination> examination;
-
-		try {
-			examination = q.orderBy("referralDate", false).limit(1).where()
-					.eq("treatment_id", (Integer) request.getParam("treatment_id")).query();
-			if (examination.size() == 0)
-				return null;
-			else
-				return examination.get(0);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-
-	}
 
 }

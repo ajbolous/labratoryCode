@@ -52,7 +52,6 @@ public class Identification implements FrameInterface {
 	private JTextField IdTxt;
 	private JLabel error_lbl;
 	private JButton btnNewButton;
-	private JButton btnNewButton_1;
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
 	
@@ -70,7 +69,7 @@ public class Identification implements FrameInterface {
 	 */
 	private void initialize() {
 		disID = new JFrame();
-		disID.setTitle("Appointments- GHealth");
+		disID.setTitle("Identification- GHealth");
 		disID.setResizable(false);
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		ImageIcon loginImg = Resources.getIcon("loginRow.png");
@@ -105,8 +104,8 @@ public class Identification implements FrameInterface {
 		login_btn.setBounds(245, 127, 64, 35);
 		disID.getContentPane().add(login_btn);
 
-		JLabel logo = new JLabel("Appointments");
-		logo.setBounds(0, 0, 495, 80);
+		JLabel logo = new JLabel("Patient Identification");
+		logo.setBounds(0, 0, 359, 80);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -128,14 +127,10 @@ public class Identification implements FrameInterface {
 		btnNewButton.setBounds(260, 230, 89, 23);
 		disID.getContentPane().add(btnNewButton);
 
-		btnNewButton_1 = new JButton("Back");
-		btnNewButton_1.setBounds(172, 230, 89, 23);
-		disID.getContentPane().add(btnNewButton_1);
-
 		txtpnEnterPatientId = new JTextPane();
 		txtpnEnterPatientId.setEditable(false);
-		txtpnEnterPatientId.setText("Enter Patient ID to Open Patient's Appointments");
-		txtpnEnterPatientId.setBounds(80, 168, 200, 35);
+		txtpnEnterPatientId.setText("Enter Patient ID ");
+		txtpnEnterPatientId.setBounds(80, 167, 200, 35);
 		disID.getContentPane().add(txtpnEnterPatientId);
 
 		lblNewLabel_1 = new JLabel("");

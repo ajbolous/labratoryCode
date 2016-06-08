@@ -23,7 +23,12 @@ import javax.swing.UIManager;
 
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
-
+/**
+ * public class ExaminationPanel
+ * Displays the Examinations details and the Examination Referral details 
+ * @author maisam marjieh
+ *
+ */
 public class ExaminationPanel {
 
 	private JTextArea textArea_1 = new JTextArea();
@@ -42,12 +47,10 @@ public class ExaminationPanel {
 	private JLabel lblDate_1;
 	private JButton btnViewReferral;
 	private JButton btnBack;
-	private JButton btnCancel_1;
 
 	private JTextField textField_1;
 	private JTextField textField_3;
 	private JTextField textField_2;
-
 	private JLabel lblDate;
 	private JLabel lblComments;
 	private JLabel lblDoctorname;
@@ -55,6 +58,10 @@ public class ExaminationPanel {
 	private JLabel lblNewLabel;
 	public JPanel mainPanel;
 	private JScrollPane scrollPane;
+	/**
+	 * construct the panel 
+	 * @param ex - the Examination instance should be present 
+	 */
 
 	public ExaminationPanel(Examination ex) {
 
@@ -148,7 +155,7 @@ public class ExaminationPanel {
 		lblExaminationType.setBounds(11, 168, 110, 14);
 		mainPanel.add(lblExaminationType);
 
-		textField = new JTextField();
+		textField = new JTextField(ex.geteType());
 		textField.setBackground(Color.WHITE);
 		textField.setEditable(false);
 		textField.setBounds(131, 165, 197, 20);
@@ -225,6 +232,9 @@ public class ExaminationPanel {
 				+ " " + (ex.getTreatment().getDoctor().getLastName()));
 		textArea.setText(ex.getComments());
 
+		/**
+		 * display the referral of the Examination 
+		 */
 		btnViewReferral = new JButton("View Referral");
 		btnViewReferral.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnViewReferral.addActionListener(new ActionListener() {
@@ -237,7 +247,7 @@ public class ExaminationPanel {
 				textField_5.setVisible(false);
 				textField_4.setVisible(false);
 				textField_6.setVisible(false);
-				btnCancel.setVisible(false);
+				
 				lblNewLabel_2.setVisible(false);
 				lblExaminationType.setVisible(false);
 				scrollPane_1.setVisible(false);
@@ -248,7 +258,7 @@ public class ExaminationPanel {
 				btnViewReferral.setVisible(false);
 				textField.setVisible(false);
 
-				btnCancel_1.setVisible(true);
+				
 				btnBack.setVisible(true);
 
 				textField_1.setVisible(true);
@@ -267,6 +277,9 @@ public class ExaminationPanel {
 		btnViewReferral.setBounds(195, 423, 133, 23);
 		mainPanel.add(btnViewReferral);
 
+		/**
+		 * back to shows the  Examination details 
+		 */
 		btnBack = new JButton("Back");
 		btnBack.setVisible(false);
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -279,7 +292,6 @@ public class ExaminationPanel {
 				textField_5.setVisible(true);
 				textField_4.setVisible(true);
 				textField_6.setVisible(true);
-				btnCancel.setVisible(true);
 				lblNewLabel_2.setVisible(true);
 				lblExaminationType.setVisible(true);
 				scrollPane_1.setVisible(true);
@@ -291,8 +303,7 @@ public class ExaminationPanel {
 				textField.setVisible(true);
 
 				btnBack.setVisible(false);
-				btnCancel_1.setVisible(false);
-				btnCancel_1.setVisible(false);
+				
 				btnBack.setVisible(false);
 
 				textField_1.setVisible(false);
@@ -308,21 +319,9 @@ public class ExaminationPanel {
 			}
 		});
 		btnBack.setToolTipText("Return to Examination Result ");
-		btnBack.setBounds(239, 333, 89, 23);
+		btnBack.setBounds(239, 423, 89, 23);
 		mainPanel.add(btnBack);
 		btnBack.setVisible(false);
-
-		btnCancel_1 = new JButton("Cancel");
-		btnCancel_1.setVisible(false);
-		btnCancel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCancel_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainPanel.setVisible(false);
-			}
-		});
-		btnCancel_1.setBounds(338, 333, 89, 23);
-		mainPanel.add(btnCancel_1);
-		btnCancel_1.setVisible(false);
 
 	}
 

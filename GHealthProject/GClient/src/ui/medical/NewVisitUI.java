@@ -16,11 +16,10 @@ import java.awt.Rectangle;
 import javax.swing.JButton;
 
 import Controllers.MedicalRecordController;
-
+import models.Treatment;
 import models.Visit;
 import ui.utils.Messages;
 import ui.utils.UITests;
-
 import Utils.DateTime;
 
 import java.awt.event.ActionListener;
@@ -31,14 +30,31 @@ import java.awt.event.InputMethodListener;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+/**
+ * public class NewVisitUI Presentation of the visit form to be filled by a
+ * doctor
+ * 
+ * @author maisam marjieh
+ *
+ */
 public class NewVisitUI extends JPanel {
 
 	private JTextField textField_1;
 	private JTextArea textArea = new JTextArea();
 	private JLabel error_lbl;
+	/**
+	 * the new visit will be added
+	 */
+	private Visit v;
 
-	// TODO Auto-generated constructor stub
-	public NewVisitUI(Visit visit, DoctorMedicalRecordUI doctorMedicalRecordUI) {
+	/**
+	 * construct the panel
+	 * 
+	 * @param t
+	 *            - treatment instance
+	 * @param doctorMedicalRecordUI
+	 */
+	public NewVisitUI(Treatment t, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
@@ -48,10 +64,18 @@ public class NewVisitUI extends JPanel {
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(DateTime.getDateString(visit
-				.getVisitDate())
-				+ " "
-				+ DateTime.getTimeString(visit.getVisitDate()));
+		v = new Visit();
+		v.setTreatment(t);
+
+		try {
+			v.setVisitDate(DateTime.currentDate());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		textField_1 = new JTextField(DateTime.getDateString(v.getVisitDate())
+				+ " " + DateTime.getTimeString(v.getVisitDate()));
 		textField_1.setBounds(107, 52, 155, 20);
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setEditable(false);
@@ -86,6 +110,13 @@ public class NewVisitUI extends JPanel {
 		textArea.setFont(UIManager.getFont("Button.font"));
 		scrollPane.setViewportView(textArea);
 
+		/**
+		 * checks if the all requirement field is filled . call to saveVisit
+		 * method in MedicalRecordController to save the new visit call to
+		 * updateTree methods in doctorMedicalRecordUI to add the new visit in
+		 * the treatment tree show success message to user or warning message if
+		 * can not add visits to treatment
+		 */
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,28 +127,29 @@ public class NewVisitUI extends JPanel {
 					error_lbl.setText("*Please enter visit description");
 
 				else {
-					visit.setComments(textArea.getText());
+					v.setComments(textArea.getText());
 
-					if (visit.getTreatment().isEndFlag()) {
+					if (v.getTreatment().isEndFlag()) {
 						Messages.warningMessage(
-								"canot add Visits or Examibations to Treatment"
-										+ visit.getTreatment().getTid() + "-"
-										+ visit.getTreatment().gettType()
-										+ "\nThis treatment is closed",
+								"you cannot add Visits  to Treatment"
+										+ v.getTreatment().getTid() + "-"
+										+ v.getTreatment().gettType()
+										+ "\nThis treatment is closed  ",
 								"warnning",
 								doctorMedicalRecordUI.DoctorMedicalRecord);
 
 					} else {
 
 						Visit visitDB = (Visit) MedicalRecordController
-								.saveVisit(visit);
+								.saveVisit(v);
 
 						Messages.successMessage(
 								"Visit was added successfully to Treatment "
-										+ visit.getTreatment().getTid() + "-"
-										+ visit.getTreatment().gettType(),
+										+ v.getTreatment().getTid() + "-"
+										+ v.getTreatment().gettType(),
 								"Success",
 								doctorMedicalRecordUI.DoctorMedicalRecord);
+						System.out.printf(visitDB.getVid() + "");
 
 						doctorMedicalRecordUI.updateTree(visitDB, true);
 
