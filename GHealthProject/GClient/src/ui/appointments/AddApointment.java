@@ -16,6 +16,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import Client.Application;
 import Client.Resources;
 import Controllers.AppointmentsController;
+import Controllers.ReferralController;
 import Utils.DateTime;
 import Utils.DoctorsComparator;
 import Utils.Request;
@@ -93,6 +94,11 @@ public class AddApointment  {
 	 * Appointments Controller instance
 	 */
 	private AppointmentsController app_ctrl = new AppointmentsController();
+	
+	/**
+	 * Referral Controller instance
+	 */
+	private ReferralController ref_ctrl= new ReferralController();
 	
 	/**
 	 * Specialty chooses
@@ -235,6 +241,12 @@ public class AddApointment  {
 		noApps_lbl.setBounds(30, 345, 420, 25);
 		newApp.getContentPane().add(noApps_lbl);
 		
+		JLabel no_confm_lbl = new JLabel("*No Conformation for this client at this speciality");
+		no_confm_lbl.setVisible(false);
+		no_confm_lbl.setForeground(Color.RED);
+		no_confm_lbl.setBounds(120, 135, 247, 25);
+		newApp.getContentPane().add(no_confm_lbl);
+		
 		/**
 		 * Combobox handler to choose specific specialty
 		 * use getDoctorsBySpec to show the doctors in doctors table
@@ -246,19 +258,29 @@ public class AddApointment  {
 				time_scrll_table.setVisible(false);
 				lblTime.setVisible(false);
 				btnSave.setEnabled(false);
-
+				no_confm_lbl.setVisible(false);
 		        JComboBox cb = (JComboBox)e.getSource();
 		        spec = (String)cb.getSelectedItem();
 		        if (!spec.equals("")){
-		        	getDoctorsBySpec(spec);
-		        	doctors_scrll_table.setVisible(true);
-					lblDoctors.setVisible(true);
+		        	if(ref_ctrl.referralActiveForSpec(patient, spec)){
+		        		getDoctorsBySpec(spec);
+			        	doctors_scrll_table.setVisible(true);
+						lblDoctors.setVisible(true);
+		        	}
+		        	else {
+		        		doctors_scrll_table.setVisible(false);
+						lblDoctors.setVisible(false);
+						btnSave.setEnabled(false);
+						noApps_lbl.setVisible(false);
+						no_confm_lbl.setVisible(true);
+		        	}
 		        }
 		        else{
 		        	doctors_scrll_table.setVisible(false);
 					lblDoctors.setVisible(false);
 					btnSave.setEnabled(false);
 					noApps_lbl.setVisible(false);
+					no_confm_lbl.setVisible(false);
 		        }
 				
 			}

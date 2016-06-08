@@ -69,6 +69,7 @@ public class Appointments {
 	 * all future patient's appointments table 
 	 */
 	private JTable apps_table;
+	JButton cancel_btn;
 
 	/**
 	 * the patient to show his information
@@ -153,19 +154,25 @@ public class Appointments {
 		mail_lbl.setBounds(445, 8, 194, 27);
 		panel.add(mail_lbl);
 
-		JButton cancel_btn = new JButton("Cancel Selected Appointment");
+		cancel_btn = new JButton("Cancel Selected Appointment");
 		cancel_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int row = apps_table.getSelectedRow();
-				Date current= new Date();
-				Date appointment_date= apps_list.get(row).getAppointmentTime();
-				Date curr_date = null;
-				Date app_date=null;
-				
-					curr_date= DateTime.getDate(current.getYear(), current.getMonth(), current.getDay());
-					app_date= DateTime.getDate(appointment_date.getYear(), appointment_date.getMonth(), appointment_date.getDay());
-				
-				if(curr_date.equals(app_date)){
+				Date begin_of_day = null;
+				Date end_of_day=null;
+				Date app_date=apps_list.get(row).getAppointmentTime();
+				try {
+					begin_of_day=DateTime.currentDate();
+					begin_of_day.setHours(0);
+					begin_of_day.setMinutes(0);
+					end_of_day=DateTime.currentDate();
+					end_of_day.setHours(23);
+					end_of_day.setMinutes(59);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(app_date.after(begin_of_day) && app_date.before(end_of_day)){
 					JOptionPane.showMessageDialog(cancel_btn, "Cannot cancel appointment of today", "Cancel Appointment", JOptionPane.ERROR_MESSAGE);
 
 				}
@@ -255,10 +262,12 @@ public class Appointments {
 	 * this method get the appointments from  getPatientAppointments in Appointment controller
 	 */
 	public void getAppointments() {
+		cancel_btn.setEnabled(false);
 		ArrayList<Appointment> apps=apctrl.getPatientAppointments(patient);
 		if (apps!=null){
 			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 			dm.setRowCount(0);
+			if(apps_list!=null && apps_list.size()>0) apps_list.clear();
 			for (Appointment a : apps) {
 				dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
 						a.getDoctor().getFirstName() + " "+  a.getDoctor().getLastName(),
