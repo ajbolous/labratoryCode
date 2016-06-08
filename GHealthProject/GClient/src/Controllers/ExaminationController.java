@@ -27,8 +27,11 @@ public class ExaminationController {
 
 	/**
 	 * send request to server to update examination
-	 * @param ex -Examination instance  that will be updated 
-	 * @param ic - ImageIcon that will be added to the examination instance ex
+	 * 
+	 * @param ex
+	 *            -Examination instance that will be updated
+	 * @param ic
+	 *            - ImageIcon that will be added to the examination instance ex
 	 */
 	public static void saveExamination(Examination ex, ImageIcon ic) {
 		Request r = new Request("examinations/update");
@@ -37,17 +40,27 @@ public class ExaminationController {
 		Application.client.sendRequest(r);
 
 	}
-	
-	public static ImageIcon getImage(Examination ex){
+
+
+	/**
+	 * Sends the request and waits for an image for the examination
+	 * @param ex
+	 * @return ImageIcon - image conatining the file
+	 */
+	public static ImageIcon getImage(Examination ex) {
+		if(ex.getFile() == null)
+			return null;
 		Request r = new Request("examinations/getExaminationImage");
-		r.addParam("examination",ex);
-		ImageIcon image = (ImageIcon)Application.client.sendRequest(r);
+		r.addParam("examination", ex);
+		ImageIcon image = (ImageIcon) Application.client.sendRequest(r);
 		return image;
 	}
 
 	/**
 	 * send Request to server to save a new ExaminationReferral in dataBase
-	 * @param e -the new Examination that will be added to database
+	 * 
+	 * @param e
+	 *            -the new Examination that will be added to database
 	 */
 	public static void saveExaminationReferral(Examination e) {
 

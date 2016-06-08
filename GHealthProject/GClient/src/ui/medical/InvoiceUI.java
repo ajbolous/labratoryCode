@@ -62,11 +62,12 @@ import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 /**
- * public class InvoiceUI
- * Displays a form to be filled by a secretary  
- * option create and send  new invoice for a given treatment 
- * @author maisam marjieh 
+ * public class InvoiceUI Displays a form to be filled by a secretary option
+ * create and send new invoice for a given treatment
+ * 
+ * @author maisam marjieh
  *
  */
 public class InvoiceUI {
@@ -80,36 +81,39 @@ public class InvoiceUI {
 	/**
 	 * The Examinations list
 	 */
-	private JList <String> list;
+	private JList<String> list;
 	private String[] exList;
-	private JScrollPane scrollPane ;
+	private JScrollPane scrollPane;
 	/**
-	 * The invoice treatment 
+	 * The invoice treatment
 	 */
 	private Treatment treatment;
-	private TreatmentsInvoiceUI trInUI ;
+	private TreatmentsInvoiceUI trInUI;
 
 	/**
-	 * InvoiceUI Constructor initialize a frame and displays it 
-	 * @param treatment - to add invoice to this treatment 
-	 * @param trInUI - reference to   TreatmentsInvoiceUI for remove row in the table and to back to this window 
+	 * InvoiceUI Constructor initialize a frame and displays it
+	 * 
+	 * @param treatment
+	 *            - to add invoice to this treatment
+	 * @param trInUI
+	 *            - reference to TreatmentsInvoiceUI for remove row in the table
+	 *            and to back to this window
 	 */
 	public InvoiceUI(Treatment treatment, TreatmentsInvoiceUI trInUI) {
-		this.treatment= treatment; 
-		this.trInUI = trInUI ;
-		initialize(  );
+		this.treatment = treatment;
+		this.trInUI = trInUI;
+		initialize();
 
 		Invoice.setLocationRelativeTo(null);
 		Invoice.setVisible(true);
 	}
 
-
 	/**
 	 * Initialize the contents of the frame.
 	 * 
 	 */
-	private void initialize(  ) {
-		
+	private void initialize() {
+
 		Invoice = new JFrame();
 		Invoice.setTitle("<Invoice> - GHealth");
 		Invoice.setResizable(false);
@@ -150,8 +154,6 @@ public class InvoiceUI {
 		lblTreatmenttype.setBounds(21, 136, 90, 14);
 		Invoice.getContentPane().add(lblTreatmenttype);
 
-		
-
 		ArrayList<String> examinationList = new ArrayList<String>();
 		Iterator<Examination> examination = treatment.getExamination().iterator();
 		while (examination.hasNext()) {
@@ -162,10 +164,10 @@ public class InvoiceUI {
 		exList = new String[examinationList.size()];
 		exList = examinationList.toArray(exList);
 		list = new JList(exList);
-	    scrollPane = new JScrollPane(list);
-	    scrollPane.setBounds(121, 231, 127, 94);
+		scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(121, 231, 127, 94);
 		Invoice.getContentPane().add(scrollPane);
-	    
+
 		JLabel lblPayment = new JLabel("Payment :");
 		lblPayment.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblPayment.setBounds(21, 347, 90, 22);
@@ -200,10 +202,12 @@ public class InvoiceUI {
 		Invoice.getContentPane().add(label);
 
 		/**
-		 * check if all requirement field is filled 
-		 * call sendInvoice method in InvoiceController to send the new invoice 
-		 * call to removeRaw from treatmentInvoice to remove the treatment from the table in treatmentInvoice GUI
-		 *@throws ParseException
+		 * check if all requirement field is filled call sendInvoice method in
+		 * InvoiceController to send the new invoice call to removeRaw from
+		 * treatmentInvoice to remove the treatment from the table in
+		 * treatmentInvoice GUI
+		 * 
+		 * @throws ParseException
 		 */
 		JButton btnSend = new JButton("Send ");
 		btnSend.setToolTipText("Send the invoice to HMO  .");
@@ -218,11 +222,11 @@ public class InvoiceUI {
 					e1.printStackTrace();
 				}
 				String payment = textField_3.getText();
-			
+
 				error_lbl.setText("");
 				if (UITests.notEmpty(payment) == false)
 					error_lbl.setText("* Please enter Payment");
-				
+
 				else {
 					invoice.setPayment(Double.parseDouble(payment));
 					// send Invoice to HMO
@@ -247,7 +251,7 @@ public class InvoiceUI {
 		Invoice.getContentPane().add(btnSend);
 
 		/**
-		 * dispose the invoice frame  and return to treatmentInvoice window 
+		 * dispose the invoice frame and return to treatmentInvoice window
 		 */
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -260,8 +264,7 @@ public class InvoiceUI {
 		});
 		btnCancel.setBounds(220, 426, 89, 23);
 		Invoice.getContentPane().add(btnCancel);
-		
-		
+
 		Invoice.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		Invoice.setBounds(100, 100, 388, 489);
 		Invoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

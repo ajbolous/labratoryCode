@@ -60,30 +60,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * public class TreatmentsInvoiceUI
- * the window display all treatments which  closed (has a report from doctor )
- * shows the treatment that performs in the same clinic where the tinvoice works
- * option to creation invoice to the treatment  
- * @author maisam marjieh 
+ * public class TreatmentsInvoiceUI the window display all treatments which
+ * closed (has a report from doctor ) shows the treatment that performs in the
+ * same clinic where the tinvoice works option to creation invoice to the
+ * treatment
+ * 
+ * @author maisam marjieh
  *
  */
 public class TreatmentsInvoiceUI {
 
 	private JFrame tinvoice;
 	/**
-	 * The treatments table 
+	 * The treatments table
 	 */
 	public JTable table;
 	/**
-	 * The treatment list 
+	 * The treatment list
 	 */
 	private ArrayList<Treatment> trList;
 	private JPanel panel;
 	int row;
 
 	/**
-	 * Constructor 
-	 *  initialize the Frame by initialize method  and display the frame 
+	 * Constructor initialize the Frame by initialize method and display the
+	 * frame
 	 */
 	public TreatmentsInvoiceUI() {
 		initialize(this);
@@ -93,9 +94,9 @@ public class TreatmentsInvoiceUI {
 
 	}
 
-	
 	/**
-	 * Initialize the contents of the frame 
+	 * Initialize the contents of the frame
+	 * 
 	 * @param secUI
 	 */
 	private void initialize(TreatmentsInvoiceUI tI) {
@@ -103,8 +104,7 @@ public class TreatmentsInvoiceUI {
 		tinvoice = new JFrame();
 		tinvoice.setTitle("<Treatments Invoice> - GHealth");
 		tinvoice.setResizable(false);
-		Image icon = new ImageIcon(this.getClass().getResource(
-				"/img/" + "icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		tinvoice.setIconImage(icon);
 		tinvoice.setForeground(Color.BLACK);
 		tinvoice.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -126,23 +126,18 @@ public class TreatmentsInvoiceUI {
 
 		table = new JTable();
 
-		table.setModel(new MyTableModel(new String[] { "TreatmentId",
-				"PatientId", "PatientName", "DocotrName", "startDate",
-				"EndDate", }, new Object[][] {}));
-		trList = (ArrayList) InvoiceController
-				.getAllopenTreatments((Secretary) Application.user);
+		table.setModel(new MyTableModel(
+				new String[] { "TreatmentId", "PatientId", "PatientName", "DocotrName", "startDate", "EndDate", },
+				new Object[][] {}));
+		trList = (ArrayList) InvoiceController.getAllopenTreatments((Secretary) Application.user);
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
 		dm.setRowCount(0);
 		for (Treatment t : trList) {
-			dm.addRow(new Object[] {
-					t.getTid(),
-					t.getMedicalRecord().getPatient().getSid(),
+			dm.addRow(new Object[] { t.getTid(), t.getMedicalRecord().getPatient().getSid(),
 					t.getMedicalRecord().getPatient().getFirstName() + " "
 							+ t.getMedicalRecord().getPatient().getLastName(),
-					t.getDoctor().getFirstName() + " "
-							+ t.getDoctor().getLastName(),
-					DateTime.getDateString(t.getStart()),
-					DateTime.getDateString(t.getEnd()) });
+					t.getDoctor().getFirstName() + " " + t.getDoctor().getLastName(),
+					DateTime.getDateString(t.getStart()), DateTime.getDateString(t.getEnd()) });
 		}
 
 		table.setFillsViewportHeight(true);
@@ -171,10 +166,8 @@ public class TreatmentsInvoiceUI {
 		label_1.setBounds(61, 11, 207, 21);
 		panel.add(label_1);
 
-		label_1.setText(new String(((Secretary) Application.user)
-				.getFirstName()
-				+ " "
-				+ ((Secretary) Application.user).getLastName()));
+		label_1.setText(new String(
+				((Secretary) Application.user).getFirstName() + " " + ((Secretary) Application.user).getLastName()));
 
 		JLabel label_3 = new JLabel((String) null);
 		label_3.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -188,8 +181,7 @@ public class TreatmentsInvoiceUI {
 		label_2.setBounds(502, 11, 239, 21);
 		panel.add(label_2);
 		try {
-			label_2.setText(new String("Today:"
-					+ Utils.DateTime.currentDate().toString()));
+			label_2.setText(new String("Today:" + Utils.DateTime.currentDate().toString()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -200,52 +192,48 @@ public class TreatmentsInvoiceUI {
 		lblTreatments.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTreatments.setBounds(10, 113, 104, 24);
 		tinvoice.getContentPane().add(lblTreatments);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tinvoice.setVisible(false);
-				
+
 			}
 		});
 		btnCancel.setBounds(651, 442, 89, 23);
 		tinvoice.getContentPane().add(btnCancel);
 
 		/**
-		 * open InvoiceUI to create invoice for the  selected treatment 
+		 * open InvoiceUI to create invoice for the selected treatment
 		 */
-		table.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent event) {
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
 
-						if (event.getValueIsAdjusting() == true)
-							return;
-						
-						row = table.getSelectedRow();
-						if(row >-1){
-						Treatment treatment = trList.get(row);
-						InvoiceUI in = new InvoiceUI(treatment, tI);
-						}
-					}
+				if (event.getValueIsAdjusting() == true)
+					return;
 
-				});
-		tinvoice.getContentPane().setFocusTraversalPolicy(
-				new FocusTraversalOnArray(new Component[] { logo }));
+				row = table.getSelectedRow();
+				if (row > -1) {
+					Treatment treatment = trList.get(row);
+					InvoiceUI in = new InvoiceUI(treatment, tI);
+				}
+			}
+
+		});
+		tinvoice.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		tinvoice.setBounds(100, 100, 501, 496);
 		tinvoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/**
-	 * remove row from treatment table 
+	 * remove row from treatment table
 	 */
 	public void removeTreatment() {
 
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
-		System.out.printf(row+"");
+		System.out.printf(row + "");
 		trList.remove(row);
 		dm.removeRow(row);
-		
-		
 
 	}
 }
