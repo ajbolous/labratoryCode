@@ -214,6 +214,7 @@ public class AddPatientUI {
 			
 				Messages.successMessage("Patient was added successfully to the system", "Success", null);
 				addPatient.dispose();
+				
 				return;
 			}
 

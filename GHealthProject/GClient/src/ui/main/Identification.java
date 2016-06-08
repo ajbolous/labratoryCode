@@ -14,6 +14,7 @@ import models.Dispatcher;
 import models.Doctor;
 import models.Patient;
 import models.Secretary;
+import ui.appointments.AddPatientUI;
 import ui.appointments.Appointments;
 import ui.appointments.NewConfirmUI;
 import ui.medical.DoctorMedicalRecordUI;
@@ -139,8 +140,13 @@ public class Identification implements FrameInterface {
 		disID.getContentPane().add(lblNewLabel_1);
 		
 		btnAddNewPatient = new JButton("Add Patient");
+		btnAddNewPatient.setVisible(false);
+		if (Application.user.getClass() == Secretary.class){
+			btnAddNewPatient.setVisible(true);
+			}
 		btnAddNewPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				new AddPatientUI(); 
 			}
 		});
 		btnAddNewPatient.setBounds(80, 228, 165, 23);
@@ -164,15 +170,14 @@ public class Identification implements FrameInterface {
 		Patient patient;
 
 		error_lbl.setText("");
+		
 		if (UITests.notEmpty(id) == false)
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
 		else if ((patient = PatientsController.getById(id)) == null) {
 			error_lbl.setText("*Patient does not exist in the system");
-			if (Application.user.getClass() == Secretary.class)
-				btnAddNewPatient.setVisible(true);
-		} else {
+			} else {
 			disID.setVisible(false);
 
 			if (Application.user.getClass() == Doctor.class)
