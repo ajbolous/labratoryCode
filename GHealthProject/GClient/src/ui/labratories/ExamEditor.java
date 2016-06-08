@@ -41,8 +41,8 @@ public class ExamEditor {
 
 	private Examination exam;
 	public ExamEditor(Examination ex) {
-		initialize();
 		exam = ex;
+		initialize();
 		labratoryUI.setVisible(true);
 	}
 
@@ -138,6 +138,12 @@ public class ExamEditor {
 		labratoryUI.getContentPane().add(lblAttachedImage);
 		
 		JButton btnAddImage = new JButton("Add Image");
+		
+		
+		ImageIcon image = (ImageIcon)ExaminationController.getImage(exam);
+		
+		if(image!=null)
+			btnAddImage.setIcon(image);
 		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
