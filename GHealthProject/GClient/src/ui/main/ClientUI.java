@@ -9,12 +9,7 @@ import javax.swing.JButton;
 import Client.Application;
 import Client.Config;
 import Client.Resources;
-import models.Dispatcher;
 import models.Doctor;
-import models.Labratorian;
-import models.Manager;
-import models.Secretary;
-import ui.appointments.NewConfirmUI;
 import ui.medical.TreatmentsInvoiceUI;
 import ui.reports.WeeklyReport;
 
@@ -25,12 +20,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 
 import java.awt.Font;
-import java.awt.Window.Type;
 import java.awt.Panel;
 
 import javax.swing.ImageIcon;
+
 public class ClientUI {
-	
+
 	private JFrame frame;
 	private final JButton btnNewButton = new JButton("Medical Records");
 	private final JButton btnLabs = new JButton("Appointments");
@@ -53,19 +48,20 @@ public class ClientUI {
 		frame.setSize(626, 583);
 		frame.setVisible(true);
 		lblNewLabel_1.setBounds(0, 0, 203, 44);
-		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " (" + Application.user.getClass().getSimpleName() + ")");
-		
-		if(Application.client.isConnected())
-			lblNewLabel_3.setText("Connected to server: " + Config.getConfig().getHost() + ":" + Config.getConfig().getPort());
+		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " ("
+				+ Application.user.getClass().getSimpleName() + ")");
+
+		if (Application.client.isConnected())
+			lblNewLabel_3.setText(
+					"Connected to server: " + Config.getConfig().getHost() + ":" + Config.getConfig().getPort());
 		else
 			lblNewLabel_3.setText("Offline");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
 
-		
 		lblNewLabel_3.setBounds(10, 60, 308, 14);
-		
+
 		frame.getContentPane().add(lblNewLabel_3);
-		
+
 		Panel panel = new Panel();
 		panel.setBackground(Color.GRAY);
 		panel.setBounds(20, 80, 570, 4);
@@ -73,24 +69,23 @@ public class ClientUI {
 		lblMedical.setForeground(new Color(0, 191, 255));
 		lblMedical.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblMedical.setBounds(20, 301, 203, 35);
-		
+
 		frame.getContentPane().add(lblMedical);
 		lblLabratoriesAndTests.setForeground(new Color(0, 191, 255));
 		lblLabratoriesAndTests.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLabratoriesAndTests.setBounds(20, 424, 274, 35);
-		
+
 		frame.getContentPane().add(lblLabratoriesAndTests);
 		lblManagmentAndReports.setForeground(new Color(0, 191, 255));
 		lblManagmentAndReports.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblManagmentAndReports.setBounds(17, 90, 276, 22);
-		
+
 		frame.getContentPane().add(lblManagmentAndReports);
-		
-		
+
 	}
 
-	private void initialize(){
-		
+	private void initialize() {
+
 		Resources res = new Resources();
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -99,7 +94,7 @@ public class ClientUI {
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,14 +113,13 @@ public class ClientUI {
 		button.setToolTipText("Doctors managment form");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(Application.user.getClass().equals(Doctor.class)){
+				if (Application.user.getClass().equals(Doctor.class)) {
 					Identification p = new Identification();
-					 p.getFrame().setVisible(true);
+					p.getFrame().setVisible(true);
 				}
 			}
 		});
 
-		
 		btnNewButton.setBounds(44, 351, 191, 65);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBackground(Color.WHITE);
@@ -135,7 +129,7 @@ public class ClientUI {
 		btnNewButton.setBorder(null);
 		btnTests_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//new Labratory();
+				// new Labratory();
 			}
 		});
 
@@ -147,7 +141,7 @@ public class ClientUI {
 		btnTests_1.setBounds(57, 475, 191, 68);
 		btnTests_1.setIcon(res.getIcon("lab.png"));
 		frame.getContentPane().add(btnTests_1);
-		
+
 		btnResults.setHorizontalAlignment(SwingConstants.LEFT);
 		btnResults.setForeground(Color.BLACK);
 		btnResults.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -156,11 +150,11 @@ public class ClientUI {
 		btnResults.setBounds(259, 479, 181, 60);
 		btnResults.setIcon(res.getIcon("treatment.png"));
 		frame.getContentPane().add(btnResults);
-		
+
 		frame.getContentPane().add(btnNewButton);
 		btnLabs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				new Identification().getFrame().setVisible(true);
 			}
 		});
@@ -176,11 +170,11 @@ public class ClientUI {
 		frame.getContentPane().add(btnLabs);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+
 			}
 		});
 		btnUsers.setToolTipText("Users managment form");
-	
+
 		btnUsers.setBounds(452, 123, 128, 68);
 		btnUsers.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnUsers.setBackground(Color.WHITE);
@@ -190,15 +184,13 @@ public class ClientUI {
 		btnUsers.setIcon(res.getIcon("users.png"));
 		btnUsers.setBorder(null);
 
-		
 		frame.getContentPane().add(btnUsers);
 		btnTests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+
 				WeeklyReport report = new WeeklyReport();
 				report.getFrame().setVisible(true);
-				
-				
+
 			}
 		});
 		btnTests.setBounds(54, 123, 181, 65);
@@ -210,9 +202,9 @@ public class ClientUI {
 		btnTests.setBorder(null);
 		btnMonthly.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				WeeklyReport mReport=new WeeklyReport();
-				
+
+				WeeklyReport mReport = new WeeklyReport();
+
 				mReport.getFrame().setVisible(true);
 			}
 		});
@@ -226,7 +218,7 @@ public class ClientUI {
 		btnMonthly.setIcon(res.getIcon("tests.png"));
 
 		frame.getContentPane().add(btnMonthly);
-		
+
 		frame.getContentPane().add(btnTests);
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setBounds(165, 0, 308, 60);
@@ -238,7 +230,7 @@ public class ClientUI {
 		btnConformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Identification();
-				
+
 			}
 		});
 		btnConformation.setIcon(new ImageIcon(ClientUI.class.getResource("/img/treatment.png")));
@@ -263,15 +255,5 @@ public class ClientUI {
 		btnCreateInvoice.setBounds(269, 209, 194, 65);
 		frame.getContentPane().add(btnCreateInvoice);
 
-
-		
-		
-			
-			
-		
-		
-		
-		
-		
 	}
 }

@@ -24,33 +24,12 @@ import models.Statistic;
 
 public class Reports extends View {
 
-	public Object numOfPatient(Request request) throws Exception {
-		DbHandler db = Config.getConfig().getHandler();
-		Statistic s = new Statistic();
-		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
-
-		try {
-			q.where().between("appointmentTime",
-					Utils.DateTime.getDate(2016, 10, 5, 0, 0),
-					Utils.DateTime.getDate(2016, 10, 7));
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-
-		}
-
-		List<Appointment> lp = q.query();
-		int x = lp.size();
-		s.setNumOfPatients(x);
-		return x;
-	}
-
 	public Object getMonthlyReport(Request request) {
 		Date d = (Date) request.getParam("date");
 		return buildMonthlyReport(d);
 	}
-	
-	public Report buildMonthlyReport(Date d){
+
+	public Report buildMonthlyReport(Date d) {
 		Report r = new Report();
 		r.setStatistic(new ArrayList<Statistic>());
 		int i = 0;
@@ -58,10 +37,8 @@ public class Reports extends View {
 		Statistic stat = new Statistic();
 		for (Statistic s : reportByDate(d, Utils.DateTime.addMonth(d))) {
 			stat.setDate(s.getDate());
-			stat.setNumOfPatients(s.getNumOfPatients()
-					+ stat.getNumOfPatients());
-			stat.setWaitingPeriod(s.getWaitingPeriod()
-					+ stat.getWaitingPeriod());
+			stat.setNumOfPatients(s.getNumOfPatients() + stat.getNumOfPatients());
+			stat.setWaitingPeriod(s.getWaitingPeriod() + stat.getWaitingPeriod());
 			i++;
 
 			if (i % 7 == 0) {
@@ -73,6 +50,7 @@ public class Reports extends View {
 		fillStat(r);
 		return r;
 	}
+
 	public Object getNMonths(Request request) {
 		Date d = null;
 		try {
@@ -80,32 +58,25 @@ public class Reports extends View {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		int n=(int)request.getParam("N");
+		int n = (int) request.getParam("N");
 		Report r = new Report();
 
 		r.setStatistic(new ArrayList<Statistic>());
 		int j;
 		Statistic stat = new Statistic();
-		for(j=0;j<n;j++)
-		{
-			
-			Report rN=buildMonthlyReport(d);	
-		d=Utils.DateTime.MinusMonth(d);
-		for (Statistic s : rN.getStatistic()) {
-			
-			stat.setNumOfPatients(s.getNumOfPatients()
-					+ stat.getNumOfPatients());
-			stat.setWaitingPeriod(s.getWaitingPeriod()
-					+ stat.getWaitingPeriod());
-			
-				
-			
-		}
-		stat.setDate(d);
-		r.getStatistic().add(stat);
-		stat = new Statistic();	
-		}
+		for (j = 0; j < n; j++) {
 
+			Report rN = buildMonthlyReport(d);
+			d = Utils.DateTime.MinusMonth(d);
+			for (Statistic s : rN.getStatistic()) {
+
+				stat.setNumOfPatients(s.getNumOfPatients() + stat.getNumOfPatients());
+				stat.setWaitingPeriod(s.getWaitingPeriod() + stat.getWaitingPeriod());
+			}
+			stat.setDate(d);
+			r.getStatistic().add(stat);
+			stat = new Statistic();
+		}
 		fillStat(r);
 		return r;
 	}
@@ -118,8 +89,7 @@ public class Reports extends View {
 
 	public Report buildWeeklyReport(Date d) {
 		Report r = new Report();
-		ArrayList<Statistic> stat = (ArrayList<Statistic>) reportByDate(d,
-				Utils.DateTime.addDay(d, 7));
+		ArrayList<Statistic> stat = (ArrayList<Statistic>) reportByDate(d, Utils.DateTime.addDay(d, 7));
 		r.setStatistic(stat);
 		r = fillStat(r);
 		return r;
@@ -168,8 +138,7 @@ public class Reports extends View {
 		QueryBuilder<Statistic, Integer> q = db.statistics.queryBuilder();
 
 		try {
-			return q.orderBy("date", false).where().between("date", d1, d2)
-					.query();
+			return q.orderBy("date", false).where().between("date", d1, d2).query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

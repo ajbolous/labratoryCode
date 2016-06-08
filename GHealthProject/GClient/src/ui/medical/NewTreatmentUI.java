@@ -62,8 +62,8 @@ import javax.swing.DropMode;
 import javax.swing.border.TitledBorder;
 
 /**
- * public class NewTreatmentUI
- *  Presentation of the treatment  form to be filled by a doctor
+ * public class NewTreatmentUI Presentation of the treatment form to be filled
+ * by a doctor
  * 
  * @author maisam marjieh
  *
@@ -84,20 +84,18 @@ public class NewTreatmentUI extends JPanel {
 	 */
 	private Treatment treatment;
 
-
-
 	/**
-	 * construct the panel 
-	 * @param mr - medical record 
+	 * construct the panel
+	 * 
+	 * @param mr
+	 *            - medical record
 	 * @param doctorMedicalRecordUI
 	 */
-	public NewTreatmentUI(MedicalRecord mr,
-			DoctorMedicalRecordUI doctorMedicalRecordUI) {
+	public NewTreatmentUI(MedicalRecord mr, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-				"New Treatment", TitledBorder.CENTER, TitledBorder.TOP, null,
-				Color.BLACK));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Treatment", TitledBorder.CENTER,
+				TitledBorder.TOP, null, Color.BLACK));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 571, 300));
 		setLayout(null);
@@ -118,8 +116,7 @@ public class NewTreatmentUI extends JPanel {
 		lblDate.setBounds(9, 109, 101, 20);
 		add(lblDate);
 
-		textField_1 = new JTextField(DateTime.getDateString(treatment
-				.getStart()));
+		textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setEditable(false);
 
@@ -166,9 +163,10 @@ public class NewTreatmentUI extends JPanel {
 		add(btnCancel);
 
 		/**
-		 *  check if all requirement field is filled .
-		 *  call to saveTreatment method in  MedicalRecordController to save the referral 
-		 *  call to updateTree method in doctorMedicalRecordUI to add the new treatment in tree
+		 * check if all requirement field is filled . call to saveTreatment
+		 * method in MedicalRecordController to save the referral call to
+		 * updateTree method in doctorMedicalRecordUI to add the new treatment
+		 * in tree
 		 */
 		btnOk_1 = new JButton("Save");
 		btnOk_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -182,12 +180,10 @@ public class NewTreatmentUI extends JPanel {
 				else {
 					treatment.settType(tType);
 
-					Messages.successMessage(
-							"Treatment was added successfully ", "Success",
+					Messages.successMessage("Treatment was added successfully ", "Success",
 							doctorMedicalRecordUI.DoctorMedicalRecord);
 
-					Treatment treatmentDB = (Treatment) MedicalRecordController
-							.saveTreatment(treatment);
+					Treatment treatmentDB = (Treatment) MedicalRecordController.saveTreatment(treatment);
 					;
 
 					doctorMedicalRecordUI.updateTree(treatmentDB, true);

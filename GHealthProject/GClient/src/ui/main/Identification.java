@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import models.Appointment;
+import models.Dispatcher;
 import models.Doctor;
 import models.Patient;
 import models.Secretary;
@@ -24,7 +24,6 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Application;
 import Client.Resources;
-import Controllers.AppointmentsController;
 import Controllers.PatientsController;
 
 import javax.swing.JTextField;
@@ -34,17 +33,17 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
-import java.util.Date;
-
 
 /**
- * Identification GUI frame , the user enter patient ID and enter to his appropriate frame ,for example:
- * enters to Appointments window of the patient or the Medical record of the patient 
+ * Identification GUI frame , the user enter patient ID and enter to his
+ * appropriate frame ,for example: enters to Appointments window of the patient
+ * or the Medical record of the patient
+ * 
  * @author Muhamad Igbaria
  *
  */
 public class Identification implements FrameInterface {
-	
+
 	/**
 	 * current frame
 	 */
@@ -54,7 +53,7 @@ public class Identification implements FrameInterface {
 	private JButton btnNewButton;
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
-	
+	JButton btnAddNewPatient;
 	/**
 	 * Patient Controller instance
 	 */
@@ -94,14 +93,14 @@ public class Identification implements FrameInterface {
 		JButton login_btn = new JButton("Enter");
 		login_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				identificationHandler();
 			}
 		});
 		login_btn.setBorder(null);
 		login_btn.setBackground(Color.WHITE);
 		login_btn.setIcon(loginImg);
-		login_btn.setBounds(245, 127, 64, 35);
+		login_btn.setBounds(245, 127, 89, 35);
 		disID.getContentPane().add(login_btn);
 
 		JLabel logo = new JLabel("Patient Identification");
@@ -124,7 +123,7 @@ public class Identification implements FrameInterface {
 				disID.dispose();
 			}
 		});
-		btnNewButton.setBounds(260, 230, 89, 23);
+		btnNewButton.setBounds(245, 228, 89, 23);
 		disID.getContentPane().add(btnNewButton);
 
 		txtpnEnterPatientId = new JTextPane();
@@ -138,21 +137,27 @@ public class Identification implements FrameInterface {
 		lblNewLabel_1.setIcon(info);
 		lblNewLabel_1.setBounds(26, 113, 44, 70);
 		disID.getContentPane().add(lblNewLabel_1);
+		
+		btnAddNewPatient = new JButton("Add Patient");
+		btnAddNewPatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAddNewPatient.setBounds(80, 228, 165, 23);
+		disID.getContentPane().add(btnAddNewPatient);
 
 		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		disID.setBounds(100, 100, 365, 291);
+		disID.setBounds(100, 100, 349, 288);
 		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		disID.setLocationRelativeTo(null);
 
-		
-		
 	}
-	
+
 	/**
-	 * This private method implement the identification use case ,and create patient instance if the identification success
-	 * else it will show error messages in the GUI Frame
-	 * used in textField and enter Button handler 
+	 * This private method implement the identification use case ,and create
+	 * patient instance if the identification success else it will show error
+	 * messages in the GUI Frame used in textField and enter Button handler
 	 */
 	private void identificationHandler() {
 		String id = IdTxt.getText();
@@ -163,27 +168,19 @@ public class Identification implements FrameInterface {
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
-		else if ((patient = PatientsController.getById(id)) == null){
-			
+		else if ((patient = PatientsController.getById(id)) == null) {
 			error_lbl.setText("*Patient does not exist in the system");
-		}else {
+			if (Application.user.getClass() == Secretary.class)
+				btnAddNewPatient.setVisible(true);
+		} else {
 			disID.setVisible(false);
-			if(Application.user.getClass() == Doctor.class)
-			{
-		
-				try {
-					new DoctorMedicalRecordUI(patient);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}else if( Application.user.getClass() == Secretary.class){
-				
-						new NewConfirmUI(patient); 
-			}
-				
-			else	
-			new Appointments(patient).getFrame().setVisible(true);
+
+			if (Application.user.getClass() == Doctor.class)
+				new DoctorMedicalRecordUI(patient);
+			else if (Application.user.getClass() == Secretary.class)
+				new NewConfirmUI(patient);
+			else if (Application.user.getClass() == Dispatcher.class)
+				new Appointments(patient).getFrame().setVisible(true);
 		}
 
 	}

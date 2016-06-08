@@ -17,31 +17,29 @@ public class ReferralController {
 		Request r = new Request("referrals/update");
 		r.addParam("con", referal);
 		Application.client.sendRequest(r);
-		
+
 	}
-	public boolean referralActiveForSpec(Patient p , String Spec){
-		for(Referral ref : p.getReferrals()){
-			   if (ref.isActive()== true && 
-					   ref.getSpeciality().compareTo(Spec)== 0 ){
-				   return true ; 
-			   }
-			}
-		return false ; 
-		}
-	
-	public boolean referralFinshed(Patient p , String Spec){
-		Request r = new Request("referrals/update");
-		for(Referral ref : p.getReferrals()){
-			   if (ref.isActive()== true && ref.getSpeciality().compareTo(Spec)== 0 ){
-				   ref.setActive(false);
-				   r.addParam("ref", ref);
-					Application.client.sendRequest(r);
-				   return true ; 
+
+	public boolean referralActiveForSpec(Patient p, String Spec) {
+		for (Referral ref : p.getReferrals()) {
+			if (ref.isActive() == true && ref.getSpeciality().compareTo(Spec) == 0) {
+				return true;
 			}
 		}
 		return false;
 	}
-	
-	
-}
 
+	public boolean referralFinshed(Patient p, String Spec) {
+		Request r = new Request("referrals/update");
+		for (Referral ref : p.getReferrals()) {
+			if (ref.isActive() == true && ref.getSpeciality().compareTo(Spec) == 0) {
+				ref.setActive(false);
+				r.addParam("ref", ref);
+				Application.client.sendRequest(r);
+				return true;
+			}
+		}
+		return false;
+	}
+
+}

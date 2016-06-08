@@ -34,7 +34,7 @@ import ocsf.server.*;
 public class Server extends AbstractServer {
 	private Logger logger;
 	private Router router;
-	
+
 	public Server(int port) {
 		super(port);
 		this.logger = Config.getConfig().getLogger();
@@ -61,15 +61,15 @@ public class Server extends AbstractServer {
 		logger.info("New client connected: " + client.getInetAddress() + ", total : " + this.getNumberOfClients());
 	}
 
-	 synchronized protected void clientException(ConnectionToClient client, Throwable exception)  {
+	synchronized protected void clientException(ConnectionToClient client, Throwable exception) {
 		logger.info("Client disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
 		Users.clientDisconnected(client.getIp());
 	}
-	
-	 synchronized protected void clientDisconnected(ConnectionToClient client){
-			logger.info("Client unexpectedly disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
-			Users.clientDisconnected(client.getIp());
-	 }
+
+	synchronized protected void clientDisconnected(ConnectionToClient client) {
+		logger.info("Client unexpectedly disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
+		Users.clientDisconnected(client.getIp());
+	}
 
 	protected void serverStopped() {
 		logger.error("SERVER STOPPED..");
@@ -77,11 +77,12 @@ public class Server extends AbstractServer {
 	}
 
 	protected void handleMessageFromClient(Object message, ConnectionToClient client) {
-		Request request = (Request)message;
+		Request request = (Request) message;
 		request.addParam("ip", client.getInetAddress().getHostAddress());
-		logger.info("[REQUEST] from " + client.getInetAddress() + " : " + request.getUrl() + " " + request.getParams().toString());
+		logger.info("[REQUEST] from " + client.getInetAddress() + " : " + request.getUrl() + " "
+				+ request.getParams().toString());
 		try {
-			client.sendToClient(router.resolve((Request)request));
+			client.sendToClient(router.resolve((Request) request));
 		} catch (IOException e) {
 			logger.error("Response not sent");
 		}
@@ -89,16 +90,17 @@ public class Server extends AbstractServer {
 
 	public static void main(String[] args) throws IOException, SQLException, ParseException {
 		Config cfg = Config.fromArgs(args);
-		if(!cfg.isDebug())
+		if (!cfg.isDebug())
 			System.setProperty(LocalLog.LOCAL_LOG_LEVEL_PROPERTY, "INFO");
-		cfg.setHandler(new DbHandler(cfg.getDbUrl(),cfg.getUser(), cfg.getDbPassword()));
-		
+		cfg.setHandler(new DbHandler(cfg.getDbUrl(), cfg.getUser(), cfg.getDbPassword()));
+
 		Server server = new Server(cfg.getPort());
-		
-		//Timer for sending messages to all patients that have an appointment tomorrow
+
+		// Timer for sending messages to all patients that have an appointment
+		// tomorrow
 		Timer timer = new Timer();
-	    timer.schedule(new TimeTask(), DateTime.getTime(0, 0),(24*60*60*1000));
-		    
-	    server.listen();		
+		timer.schedule(new TimeTask(), DateTime.getTime(0, 0), (24 * 60 * 60 * 1000));
+
+		server.listen();
 	}
 }

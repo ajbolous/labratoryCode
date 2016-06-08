@@ -57,9 +57,8 @@ public class NewVisitUI extends JPanel {
 	public NewVisitUI(Treatment t, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 
 		super();
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-				"New Visit", TitledBorder.CENTER, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Visit", TitledBorder.CENTER,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
@@ -74,8 +73,8 @@ public class NewVisitUI extends JPanel {
 
 		}
 
-		textField_1 = new JTextField(DateTime.getDateString(v.getVisitDate())
-				+ " " + DateTime.getTimeString(v.getVisitDate()));
+		textField_1 = new JTextField(
+				DateTime.getDateString(v.getVisitDate()) + " " + DateTime.getTimeString(v.getVisitDate()));
 		textField_1.setBounds(107, 52, 155, 20);
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setEditable(false);
@@ -94,8 +93,7 @@ public class NewVisitUI extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(107, 122, 329, 120);
-		scrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane);
 
 		JTextArea textArea = new JTextArea();
@@ -131,24 +129,18 @@ public class NewVisitUI extends JPanel {
 
 					if (v.getTreatment().isEndFlag()) {
 						Messages.warningMessage(
-								"you cannot add Visits  to Treatment"
-										+ v.getTreatment().getTid() + "-"
-										+ v.getTreatment().gettType()
-										+ "\nThis treatment is closed  ",
-								"warnning",
-								doctorMedicalRecordUI.DoctorMedicalRecord);
+								"you cannot add Visits  to Treatment" + v.getTreatment().getTid() + "-"
+										+ v.getTreatment().gettType() + "\nThis treatment is closed  ",
+								"warnning", doctorMedicalRecordUI.DoctorMedicalRecord);
 
 					} else {
 
-						Visit visitDB = (Visit) MedicalRecordController
-								.saveVisit(v);
+						Visit visitDB = (Visit) MedicalRecordController.saveVisit(v);
 
 						Messages.successMessage(
-								"Visit was added successfully to Treatment "
-										+ v.getTreatment().getTid() + "-"
+								"Visit was added successfully to Treatment " + v.getTreatment().getTid() + "-"
 										+ v.getTreatment().gettType(),
-								"Success",
-								doctorMedicalRecordUI.DoctorMedicalRecord);
+								"Success", doctorMedicalRecordUI.DoctorMedicalRecord);
 						System.out.printf(visitDB.getVid() + "");
 
 						doctorMedicalRecordUI.updateTree(visitDB, true);

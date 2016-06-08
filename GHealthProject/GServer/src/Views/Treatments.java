@@ -13,8 +13,10 @@ import Utils.Request;
 import models.Doctor;
 import models.Secretary;
 import models.Treatment;
+
 /**
- * Database view for treatment  , have all the treatment  Queries. 
+ * Database view for treatment , have all the treatment Queries.
+ * 
  * @author maisam marjieh
  *
  */
@@ -22,8 +24,10 @@ import models.Treatment;
 public class Treatments extends View {
 
 	/**
-	 * Query  to add a new treatment  to database 
-	 * @param request contains the treatment which will be added to database 
+	 * Query to add a new treatment to database
+	 * 
+	 * @param request
+	 *            contains the treatment which will be added to database
 	 * @return treatment instance from database
 	 * @throws SQLException
 	 */
@@ -40,44 +44,44 @@ public class Treatments extends View {
 		}
 
 	}
-	
+
 	/**
-	 * Query  to update  treatment  in database 
-	 * @param request contains the treatment which will be updated
-	 * @return success message if the treatment was updated successfully 
+	 * Query to update treatment in database
+	 * 
+	 * @param request
+	 *            contains the treatment which will be updated
+	 * @return success message if the treatment was updated successfully
 	 * @throws SQLException
 	 */
 	public Object updateTreatment(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
 			db.treatments.update((Treatment) request.getParam("treatment"));
-			return "success" ;
+			return "success";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null; 
+			return null;
 		}
-		
+
 	}
 
 	/**
-	 * Query to get the last treatment  which added to specific medical record 
-	 * @param request contains the  id of the specific medical records 
-	 * @return the last treatment in the specific medical record 
-	 *  @throws SQLException
+	 * Query to get the last treatment which added to specific medical record
+	 * 
+	 * @param request
+	 *            contains the id of the specific medical records
+	 * @return the last treatment in the specific medical record
+	 * @throws SQLException
 	 */
 	public Object getLastTreatment(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		QueryBuilder<Treatment, Integer> q = db.treatments.queryBuilder();
-		List <Treatment> treatment;
+		List<Treatment> treatment;
 
 		try {
-			treatment =  q
-					.orderBy((String) request.getParam("date"), false)
-					.limit(1)
-					.where()
-					.eq("medical_id",
-							((Integer) request.getParam("medical_id"))).query();
+			treatment = q.orderBy((String) request.getParam("date"), false).limit(1).where()
+					.eq("medical_id", ((Integer) request.getParam("medical_id"))).query();
 			if (treatment.size() == 0)
 				return null;
 			else
@@ -92,10 +96,13 @@ public class Treatments extends View {
 	}
 
 	/**
-	 * Query to  get all treatment that closed and has not invoice at moment 
-	 * get treatments which performed by doctors that works in the same clinic where specific secretary works 
-	 * @param request contains the specific secretary 
-	 * @return list of treatments 
+	 * Query to get all treatment that closed and has not invoice at moment get
+	 * treatments which performed by doctors that works in the same clinic where
+	 * specific secretary works
+	 * 
+	 * @param request
+	 *            contains the specific secretary
+	 * @return list of treatments
 	 * @throws SQLException
 	 */
 	public Object getTreatment(Request request) {
@@ -108,11 +115,9 @@ public class Treatments extends View {
 		List<Treatment> allTreatment = new ArrayList<Treatment>();
 
 		try {
-			doctor = d.where().eq("clinic_id", secr.getClinic().getCid())
-					.query();
+			doctor = d.where().eq("clinic_id", secr.getClinic().getCid()).query();
 			for (Doctor doc : doctor) {
-				tretmentList = p.where().eq("endFlag", true).and()
-						.eq("hasInvoice", false).and()
+				tretmentList = p.where().eq("endFlag", true).and().eq("hasInvoice", false).and()
 						.eq("doctor_id", doc.getSid()).query();
 				allTreatment.addAll(tretmentList);
 			}
