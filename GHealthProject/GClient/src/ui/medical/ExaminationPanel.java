@@ -329,8 +329,8 @@ public class ExaminationPanel {
 		JButton btnNewButton = new JButton("New button");
 
 		ImageIcon image = ExaminationController.getImage(ex);
-
-		btnNewButton.setIcon(image);
+		if(image != null)
+			btnNewButton.setIcon(image);
 		btnNewButton.setBounds(131, 317, 237, 112);
 		mainPanel.add(btnNewButton);
 		btnBack.setVisible(false);

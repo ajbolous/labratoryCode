@@ -30,11 +30,19 @@ import models.Person;
 import models.Statistic;
 import models.Visit;
 import ocsf.server.*;
-
+/**
+ * Server class extends AbstractServer
+ * The main server point
+ * @author aj_pa
+ *
+ */
 public class Server extends AbstractServer {
 	private Logger logger;
 	private Router router;
-
+	/**
+	 * Server constructor
+	 * @param int port : the port to initialize the server on.
+	 */
 	public Server(int port) {
 		super(port);
 		this.logger = Config.getConfig().getLogger();
@@ -42,7 +50,9 @@ public class Server extends AbstractServer {
 		logger.info("[GHealth project server]");
 		logger.info("Starting local TCP server");
 	}
-
+	/**
+	 * Prints the status of the server.
+	 */
 	protected void printStatus() {
 		logger.info("-----------------------");
 		logger.info("     Server status");
@@ -52,30 +62,48 @@ public class Server extends AbstractServer {
 		logger.info("\t[Clients connected " + this.getNumberOfClients());
 		logger.info("\t[Connected to database : " + Config.getConfig().getDbUrl());
 	}
-
+	/**
+	 * ServerStarted handler
+	 */
 	protected void serverStarted() {
 		printStatus();
 	}
-
+	/**
+	 * clientConnected handler
+	 * @param ConnectionToClient client
+	 */
 	protected void clientConnected(ConnectionToClient client) {
 		logger.info("New client connected: " + client.getInetAddress() + ", total : " + this.getNumberOfClients());
 	}
-
+	/**
+	 * Server exception hook handler
+	 * @param ConnectionToClient client
+	 */
 	synchronized protected void clientException(ConnectionToClient client, Throwable exception) {
 		logger.info("Client disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
 		Users.clientDisconnected(client.getIp());
 	}
-
+	/**
+	 * Client Disconnected hook handler
+	 * @param ConnectionToClient client
+	 */
 	synchronized protected void clientDisconnected(ConnectionToClient client) {
 		logger.info("Client unexpectedly disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
 		Users.clientDisconnected(client.getIp());
 	}
-
+	/**
+	 * Server stopped hook handler
+	 */
 	protected void serverStopped() {
 		logger.error("SERVER STOPPED..");
 		printStatus();
 	}
 
+	/**
+	 * handles the request from clients. and sends them to the router
+	 * @param Object message : the request
+	 * @param ConnectToClient client : the client who sent the request.
+	 */
 	protected void handleMessageFromClient(Object message, ConnectionToClient client) {
 		Request request = (Request) message;
 		request.addParam("ip", client.getInetAddress().getHostAddress());
@@ -88,6 +116,13 @@ public class Server extends AbstractServer {
 		}
 	}
 
+	/**
+	 * Main entry point of the program. it configures the server and start listening
+	 * @param args
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws ParseException
+	 */
 	public static void main(String[] args) throws IOException, SQLException, ParseException {
 		Config cfg = Config.fromArgs(args);
 		if (!cfg.isDebug())
@@ -96,8 +131,6 @@ public class Server extends AbstractServer {
 
 		Server server = new Server(cfg.getPort());
 
-		// Timer for sending messages to all patients that have an appointment
-		// tomorrow
 		Timer timer = new Timer();
 		timer.schedule(new TimeTask(), DateTime.getTime(0, 0), (24 * 60 * 60 * 1000));
 

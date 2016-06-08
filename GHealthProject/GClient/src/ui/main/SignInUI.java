@@ -1,8 +1,5 @@
 package ui.main;
 
-import java.awt.EventQueue;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -10,7 +7,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -20,32 +16,18 @@ import Client.Application;
 import Client.Resources;
 import Controllers.UsersController;
 import models.User;
-import ui.medical.TreatmentsInvoiceUI;
 import ui.utils.UITests;
-
-import javax.swing.BoxLayout;
-
-import java.awt.GridLayout;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import java.awt.FlowLayout;
-
-import javax.swing.SwingConstants;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
-import java.awt.SystemColor;
-
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Window.Type;
 import java.awt.Dialog.ModalExclusionType;
+import javax.swing.SwingConstants;
 
 public class SignInUI {
 
@@ -75,6 +57,22 @@ public class SignInUI {
 		SignInUI.setBackground(Color.WHITE);
 		SignInUI.getContentPane().setBackground(Color.WHITE);
 		SignInUI.getContentPane().setLayout(null);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Settings();
+			}
+		});
+		button.setIcon(new ImageIcon(SignInUI.class.getResource("/img/settings.png")));
+		button.setToolTipText("Doctors managment form");
+		button.setHorizontalAlignment(SwingConstants.LEFT);
+		button.setForeground(Color.BLACK);
+		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		button.setBorder(null);
+		button.setBackground(Color.WHITE);
+		button.setBounds(254, 0, 41, 35);
+		SignInUI.getContentPane().add(button);
 
 		JLabel logo = new JLabel("Sign In");
 		logo.setBounds(0, 0, 295, 50);
@@ -114,6 +112,7 @@ public class SignInUI {
 		SignInUI.getContentPane().add(btnLogIn);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				labelDetails.setVisible(true);
 
 				String pass = new String(passwordField.getPassword());

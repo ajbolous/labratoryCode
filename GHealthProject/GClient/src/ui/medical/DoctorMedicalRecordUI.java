@@ -23,7 +23,6 @@ import models.Examination;
 import models.Patient;
 import models.Treatment;
 import models.Visit;
-import ui.appointments.RequestInformationUI;
 import ui.main.ClientUI;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -243,17 +242,17 @@ public class DoctorMedicalRecordUI {
 		/**
 		 * send Request information from HMO
 		 */
-		JButton btnReguestInformationFrom = new JButton("Reguest Information From HMO");
-		btnReguestInformationFrom.addActionListener(new ActionListener() {
+		JButton btnRequestInformationFrom = new JButton("Request Information From HMO");
+		btnRequestInformationFrom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enableAddVisitOrReferral(false);
 				new RequestInformationUI(p);
 
 			}
 		});
-		btnReguestInformationFrom.setBounds(709, 45, 230, 23);
-		panel.add(btnReguestInformationFrom);
-		btnReguestInformationFrom.setFont(new Font("Arial", Font.BOLD, 12));
+		btnRequestInformationFrom.setBounds(709, 45, 230, 23);
+		panel.add(btnRequestInformationFrom);
+		btnRequestInformationFrom.setFont(new Font("Arial", Font.BOLD, 12));
 
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		DoctorMedicalRecord.getContentPane().add(panel_1);

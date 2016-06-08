@@ -41,6 +41,7 @@ public class Labratory {
 	public Labratory() {
 		initialize();
 		labratoryUI.setVisible(true);
+		labratoryUI.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class Labratory {
 		labratoryUI.setBackground(Color.WHITE);
 		labratoryUI.getContentPane().setBackground(Color.WHITE);
 		labratoryUI.getContentPane().setLayout(null);
-
+	
 		JLabel logo = new JLabel("Examinations");
 		logo.setBounds(0, 0, 645, 60);
 		logo.setForeground(SystemColor.textHighlight);
@@ -118,7 +119,8 @@ public class Labratory {
 		fillExaminations(tblToday);
 		tblToday.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
-
+				if(event.getValueIsAdjusting())
+					return;
 				int row = tblToday.getSelectedRow();
 				ex_id = (int) tblToday.getModel().getValueAt(row, 0);
 
@@ -129,7 +131,7 @@ public class Labratory {
 		});
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		labratoryUI.setBounds(100, 100, 763, 576);
-		labratoryUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		labratoryUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public void fillExaminations(JTable tbl) {

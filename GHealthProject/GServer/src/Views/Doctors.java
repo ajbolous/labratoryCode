@@ -54,6 +54,7 @@ public class Doctors extends View {
 		}
 	}
 
+	
 	/**
 	 * Query to give all available doctors by given specialty .
 	 * 

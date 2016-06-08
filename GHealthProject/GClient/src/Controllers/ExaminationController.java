@@ -41,7 +41,15 @@ public class ExaminationController {
 
 	}
 
+
+	/**
+	 * Sends the request and waits for an image for the examination
+	 * @param ex
+	 * @return ImageIcon - image conatining the file
+	 */
 	public static ImageIcon getImage(Examination ex) {
+		if(ex.getFile() == null)
+			return null;
 		Request r = new Request("examinations/getExaminationImage");
 		r.addParam("examination", ex);
 		ImageIcon image = (ImageIcon) Application.client.sendRequest(r);

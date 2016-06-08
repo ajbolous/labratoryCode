@@ -2,6 +2,8 @@ package Controllers;
 
 import java.text.ParseException;
 
+import javax.swing.ImageIcon;
+
 import Client.Application;
 import Utils.DateTime;
 import Utils.Request;
@@ -77,13 +79,22 @@ public class MedicalRecordController {
 	 *            The patient is requested the information
 	 */
 
-	public static void sendReguestToHMO(Patient p) {
+	public static void sendRequestToHMO(Patient p) {
 		// TODO Auto-generated method stub
 		Request r = new Request("patients/sendRequest");
 		r.addParam("patient", p);
 		Application.client.sendRequest(r);
-
 	}
+	
+	
+	public static ImageIcon getHmoInformation(String file) {
+		// TODO Auto-generated method stub
+		Request r = new Request("patients/getHmoInformation");
+		r.addParam("info", file);
+		return (ImageIcon)Application.client.sendRequest(r);
+	}
+	
+	
 
 	/**
 	 * Sending a request for a list of clinics which has a laboratories

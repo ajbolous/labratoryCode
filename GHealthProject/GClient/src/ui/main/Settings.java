@@ -1,17 +1,9 @@
 package ui.main;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
 import javax.swing.JTextField;
 
 import Client.Application;
-import Client.Client;
 import Client.Config;
 import Client.Resources;
 
@@ -19,11 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 import java.awt.Window.Type;
@@ -32,12 +22,6 @@ import java.awt.Font;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.CompoundBorder;
 
 public class Settings {
 
@@ -60,13 +44,13 @@ public class Settings {
 		frame = new JFrame();
 		frame.setType(Type.UTILITY);
 		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 304, 195);
+		frame.setBounds(100, 100, 276, 196);
 
 		frame.getContentPane().setLayout(null);
 
 		Resources res = new Resources();
 
-		JButton btnLogin = new JButton("Connect");
+		JButton btnLogin = new JButton("Save");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Config cfg = Config.getConfig();
@@ -97,17 +81,17 @@ public class Settings {
 		});
 		btnCancel.setForeground(Color.BLACK);
 		btnCancel.setBackground(Color.WHITE);
-		btnCancel.setBounds(205, 134, 79, 20);
+		btnCancel.setBounds(175, 134, 79, 20);
 		frame.getContentPane().add(btnCancel);
 
 		txtHost = new JTextField();
-		txtHost.setBounds(78, 72, 206, 20);
+		txtHost.setBounds(78, 72, 176, 20);
 		frame.getContentPane().add(txtHost);
 		txtHost.setColumns(10);
 
 		txtPort = new JTextField();
 		txtPort.setColumns(10);
-		txtPort.setBounds(78, 103, 206, 20);
+		txtPort.setBounds(78, 103, 176, 20);
 		frame.getContentPane().add(txtPort);
 
 		JLabel lblNewLabel = new JLabel("Host:");
