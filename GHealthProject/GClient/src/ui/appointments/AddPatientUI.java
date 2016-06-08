@@ -40,11 +40,22 @@ import java.util.Locale;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-
+/**
+ * Add new patient GUI 
+ * @author Ahmad Mnasra , Bolous Abo Jaber
+ *
+ */
 public class AddPatientUI {
 
 	private JFrame addPatient;
+	
+	/**
+	 * Patient Controller instance
+	 */
 	private PatientsController idctrl = new PatientsController();
+	/**
+	 * MedicalRecord Controller instance
+	 */
 	private MedicalRecordController mdctrl= new MedicalRecordController(); 
 
 	private JTextField FieldID;
@@ -54,13 +65,16 @@ public class AddPatientUI {
 	private JTextField EmailField;
 	private JTextField AddressField;
 	private JComboBox comboBox_gender = new JComboBox();
-	private JDateChooser chooser= null;
 	private String id;
 	private String Fname;
 	private String Lname;
 	private String email;
 	private String phone;
 	private String address;
+	/**
+	 * BirthDate chooses 
+	 */
+	private JDateChooser chooser= null;
 
 	private JLabel msqlbl;
 	private JLabel msqlbl_1;
@@ -175,12 +189,6 @@ public class AddPatientUI {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				id = FieldID.getText();
-				Fname = FnameField.getText();
-				Lname = LnameField.getText();
-				phone = PhoneField.getText();
-				email = EmailField.getText();
-				address = AddressField.getText();
 				msqlbl.setText("");
 				msqlbl_1.setText("");
 				msqlbl_2.setText("");
@@ -197,14 +205,14 @@ public class AddPatientUI {
 				addPatient.setBounds(addPatient.getX(), addPatient.getY(), 350, addPatient.getHeight());
 
 				Patient patient = new Patient();
-				patient.setSid(id);
-				patient.setFirstName(Fname);
-				patient.setLastName(Lname);
-				patient.setEmail(email);
-				patient.setPhone(phone);
+				patient.setSid(FieldID.getText());
+				patient.setFirstName(FnameField.getText());
+				patient.setLastName(LnameField.getText());
+				patient.setEmail(EmailField.getText());
+				patient.setPhone(PhoneField.getText());
 				patient.setBirthDate(chooser.getDate());
 				patient.setGender((String) comboBox_gender.getSelectedItem());
-				patient.setAddress(address);
+				patient.setAddress(AddressField.getText());
 			
 			
 				idctrl.AddNewPatient(patient);
@@ -294,46 +302,46 @@ public class AddPatientUI {
 
 	private Boolean isvalid() {
 		boolean flag = true;
-		if (UITests.notEmpty(this.id) == false) {
+		if (UITests.notEmpty(FieldID.getText()) == false) {
 			msqlbl.setText("*Please enter patient ID");
 			flag = false;
-		} else if (UITests.correctId(this.id) == false) {
+		} else if (UITests.correctId(FieldID.getText()) == false) {
 			msqlbl.setText("*ID should be 9 digit");
 			flag = false;
 
-		} else if (idctrl.exists(this.id)) {
+		} else if (idctrl.exists(FieldID.getText())) {
 			msqlbl.setText("*is exist");
 			flag = false;
 
 		}
-		if (UITests.notEmpty(this.Fname) == false) {
+		if (UITests.notEmpty(FnameField.getText()) == false) {
 			msqlbl_1.setText("*is Empty");
 			flag = false;
-		} else if (UITests.checkIsCh(this.Fname) == false) {
-			msqlbl_1.setText("*should be only char");
+		} else if (UITests.checkIsCh(FnameField.getText()) == false) {
+			msqlbl_1.setText("*should be only Letters");
 			flag = false;
 		}
-		if (UITests.notEmpty(this.Lname) == false) {
+		if (UITests.notEmpty(LnameField.getText()) == false) {
 			msqlbl_2.setText("*is Empty");
 			flag = false;
-		} else if (UITests.checkIsCh(this.Lname) == false) {
-			msqlbl_2.setText("*should be only char");
+		} else if (UITests.checkIsCh(LnameField.getText()) == false) {
+			msqlbl_2.setText("*should be only Letters ");
 			flag = false;
 		}
-		if (UITests.notEmpty(this.phone) == false) {
+		if (UITests.notEmpty(PhoneField.getText()) == false) {
 			msqlbl_6.setText("*is Empty");
 			flag = false;
 
-		} else if (UITests.checkIsDigit(this.phone) == false) {
+		} else if (UITests.checkIsDigit(PhoneField.getText()) == false) {
 			msqlbl_6.setText("*should be only digits");
 			flag = false;
 		}
-		if (UITests.notEmpty(this.email) == false) {
+		if (UITests.notEmpty(EmailField.getText()) == false) {
 			msqlbl_5.setText("*is Empty");
 			flag = false;
 		}
 		
-		if (UITests.notEmpty(this.address) == false) {
+		if (UITests.notEmpty(AddressField.getText()) == false) {
 			msqlbl_7.setText("*is Empty");
 			flag = false;
 		}
