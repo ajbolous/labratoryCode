@@ -37,6 +37,13 @@ public class ExaminationController {
 		Application.client.sendRequest(r);
 
 	}
+	
+	public static ImageIcon getImage(Examination ex){
+		Request r = new Request("examinations/getExaminationImage");
+		r.addParam("examination",ex);
+		ImageIcon image = (ImageIcon)Application.client.sendRequest(r);
+		return image;
+	}
 
 	/**
 	 * send Request to server to save a new ExaminationReferral in dataBase
