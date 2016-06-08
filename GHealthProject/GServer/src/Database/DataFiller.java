@@ -1,6 +1,6 @@
 package Database;
 
- import java.sql.SQLException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,11 +51,9 @@ public class DataFiller {
 			db.doctors.create(d);
 		}
 	}
-	
-	
 
 	public void fillPatients() throws Exception {
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 20; i++) {
 			Patient p = new Patient();
 			p.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			p.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -77,20 +75,19 @@ public class DataFiller {
 			db.records.create(md);
 			p.setMedicalRecord(md);
 			db.patients.update(p);
-			Referral ref=new Referral(); 
+			Referral ref = new Referral();
 			ref.setPatient(p);
 			ref.setDoctor_name("ahmad");
 			ref.setSpeciality(specialities[i % specialities.length]);
 			ref.setDate(Utils.DateTime.randomDate());
 			ref.setActive(false);
-			Confirmation conf = new Confirmation(); 
-			conf.setRefferal_id(""+50 + i);
-			conf.setHmo_id(""+100 + i);
-			conf.setApproval_id(""+50 + i);
+			Confirmation conf = new Confirmation();
+			conf.setRefferal_id("" + 50 + i);
+			conf.setHmo_id("" + 100 + i);
+			conf.setApproval_id("" + 50 + i);
 			ref.setConfirmation(conf);
-			db.confirmations.create(conf); 
-			db.refferals.create(ref); 
-			
+			db.confirmations.create(conf);
+			db.refferals.create(ref);
 
 		}
 	}
@@ -130,13 +127,14 @@ public class DataFiller {
 
 	private void fillExaminations(Treatment t, List<Labratorian> labs) throws Exception {
 
-		for (int i = 0; i < rand.nextInt(5); i++) {
+		for (int i = 0; i < rand.nextInt(3); i++) {
 			Examination e = new Examination();
 			e.setComments("This look good");
 			e.seteType(eTypes[rand.nextInt(eTypes.length)]);
 			e.setLabratorian(labs.get(rand.nextInt(labs.size())));
 			e.setExaminationDate(DateTime.randomDate());
-			e.setReferralDate(DateTime.getDate(e.getExaminationDate().getYear()+1900,e.getExaminationDate().getMonth()+1,e.getExaminationDate().getDay()-rand.nextInt(5)));
+			e.setReferralDate(DateTime.getDate(e.getExaminationDate().getYear() + 1900,
+					e.getExaminationDate().getMonth() + 1, e.getExaminationDate().getDay() - rand.nextInt(5)));
 			e.setTreatment(t);
 			e.setResults("good");
 			db.examinations.create(e);
@@ -145,7 +143,7 @@ public class DataFiller {
 
 	private void fillVisits(Treatment t) throws Exception {
 
-		for (int i = 0; i < rand.nextInt(5); i++) {
+		for (int i = 0; i < rand.nextInt(3); i++) {
 			Visit v = new Visit();
 			v.setComments("The patient has a pain ");
 			v.setTreatment(t);
@@ -156,16 +154,15 @@ public class DataFiller {
 
 	public void fillClinics() throws SQLException {
 		for (int i = 0; i < cities.length; i++) {
-			
+
 			Clinic c = new Clinic();
 			c.setAddress(cities[i]);
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
-			
+
 			db.clinics.createIfNotExists(c);
-			
-			
+
 			Labratorian l = new Labratorian();
 			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -177,9 +174,7 @@ public class DataFiller {
 			l.setSid("" + (400000000 + i));
 			l.setClinic(c);
 			db.labratorians.create(l);
-		
-			
-		
+
 			Secretary sec = new Secretary();
 			sec.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			sec.setLastName(lastNames[rand.nextInt(lastNames.length)]);

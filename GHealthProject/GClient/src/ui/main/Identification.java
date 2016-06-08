@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import models.Appointment;
 import models.Doctor;
 import models.Patient;
 import models.Secretary;
@@ -24,7 +23,6 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Application;
 import Client.Resources;
-import Controllers.AppointmentsController;
 import Controllers.PatientsController;
 
 import javax.swing.JTextField;
@@ -34,17 +32,17 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
-import java.util.Date;
-
 
 /**
- * Identification GUI frame , the user enter patient ID and enter to his appropriate frame ,for example:
- * enters to Appointments window of the patient or the Medical record of the patient 
+ * Identification GUI frame , the user enter patient ID and enter to his
+ * appropriate frame ,for example: enters to Appointments window of the patient
+ * or the Medical record of the patient
+ * 
  * @author Muhamad Igbaria
  *
  */
 public class Identification implements FrameInterface {
-	
+
 	/**
 	 * current frame
 	 */
@@ -54,7 +52,7 @@ public class Identification implements FrameInterface {
 	private JButton btnNewButton;
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
-	
+
 	/**
 	 * Patient Controller instance
 	 */
@@ -94,7 +92,7 @@ public class Identification implements FrameInterface {
 		JButton login_btn = new JButton("Enter");
 		login_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				identificationHandler();
 			}
 		});
@@ -142,17 +140,15 @@ public class Identification implements FrameInterface {
 		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		disID.setBounds(100, 100, 365, 291);
 		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		disID.setLocationRelativeTo(null);
 
-		
-		
 	}
-	
+
 	/**
-	 * This private method implement the identification use case ,and create patient instance if the identification success
-	 * else it will show error messages in the GUI Frame
-	 * used in textField and enter Button handler 
+	 * This private method implement the identification use case ,and create
+	 * patient instance if the identification success else it will show error
+	 * messages in the GUI Frame used in textField and enter Button handler
 	 */
 	private void identificationHandler() {
 		String id = IdTxt.getText();
@@ -163,27 +159,26 @@ public class Identification implements FrameInterface {
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
-		else if ((patient = PatientsController.getById(id)) == null){
-			
+		else if ((patient = PatientsController.getById(id)) == null) {
+
 			error_lbl.setText("*Patient does not exist in the system");
-		}else {
+		} else {
 			disID.setVisible(false);
-			if(Application.user.getClass() == Doctor.class)
-			{
-		
+			if (Application.user.getClass() == Doctor.class) {
+
 				try {
 					new DoctorMedicalRecordUI(patient);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}else if( Application.user.getClass() == Secretary.class){
-				
-						new NewConfirmUI(patient); 
+			} else if (Application.user.getClass() == Secretary.class) {
+
+				new NewConfirmUI(patient);
 			}
-				
-			else	
-			new Appointments(patient).getFrame().setVisible(true);
+
+			else
+				new Appointments(patient).getFrame().setVisible(true);
 		}
 
 	}
