@@ -1,6 +1,8 @@
 package Client;
 
 import ui.appointments.AddPatientUI;
+import ui.main.Identification;
+import ui.main.SignInUI;
 import ui.reports.CeoReport;
 import ui.reports.MonthlyReport;
 
@@ -11,7 +13,8 @@ public class TestApp {
 		Application.connect();
 		//UsersManagingUI iden= new UsersManagingUI();
 		AddPatientUI u = new AddPatientUI();
-	//	new SignInUI();
+		new SignInUI();
+		//new Identification();  
 		//MonthlyReport r=new MonthlyReport();
 	//	CeoReport r=new CeoReport();
 		//PatientsController ctrl= new PatientsController(); 
