@@ -65,6 +65,18 @@ public class Examinations extends View {
 	 * @return  success message 
 	 * @throws SQLException
 	 */
+	
+	public Object getExaminationImage(Request request){
+		Examination ex = (Examination)request.getParam("examination");
+		ImageIcon image = new ImageIcon("images/"+ ex.getFile());
+		
+		Config.getConfig().getLogger().debug(ex.getFile());
+		return image;
+	}
+	
+	
+	
+	
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
@@ -73,9 +85,9 @@ public class Examinations extends View {
 			
 			if(image !=null){
 				ex.setFile(ex.getEid() +"-" + ex.getFile());
-				File outputFile = new File(ex.getFile());
+				File outputFile = new File("images/" + ex.getFile());
 				
-				BufferedImage bi = new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_BYTE_INDEXED);
+				BufferedImage bi = new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_RGB);
 
 				Graphics2D g2 = bi.createGraphics();
 				g2.drawImage(image, 0, 0, null);

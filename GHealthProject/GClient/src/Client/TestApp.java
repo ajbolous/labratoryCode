@@ -18,17 +18,17 @@ public class TestApp {
 		Application.connect();
 		//UsersManagingUI iden= new UsersManagingUI();
 		//AddPatientUI u = new AddPatientUI();
-		new SignInUI();
+	//	new SignInUI();
 		//MedicalRecordController.examinationTest();
 		//MonthlyReport r=new MonthlyReport();
 		//PatientsController ctrl= new PatientsController(); 
 		//Patient patient=ctrl.getById("300000002");
-		///S lab = (Labratorian)UsersController.getUser("400000000");
+		Labratorian lab = (Labratorian)UsersController.getUser("400000000");
 		
-		//Application.user = lab;
+		Application.user = lab;
 		//new NewConfirmUI(patient); 
-	//	new testconfirm(patient); 
-		//new Labratory();
+	    //new testconfirm(patient); 
+		new Labratory();
 		//Secretary sec = (Secretary)UsersController.getUser("400000010");
 		//Application.user = sec;
 		//new Identification();

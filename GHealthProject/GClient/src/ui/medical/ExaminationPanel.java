@@ -1,10 +1,12 @@
 package ui.medical;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import models.Clinic;
 import models.Examination;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
@@ -17,10 +19,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
+
 import Controllers.ExaminationController;
 
 import javax.swing.UIManager;
-
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 /**
@@ -47,6 +49,7 @@ public class ExaminationPanel {
 	private JLabel lblDate_1;
 	private JButton btnViewReferral;
 	private JButton btnBack;
+	private JButton btnNewButton ; 
 
 	private JTextField textField_1;
 	private JTextField textField_3;
@@ -70,7 +73,7 @@ public class ExaminationPanel {
 				TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 
 		mainPanel.setBackground(UIManager.getColor("Panel.background"));
-		mainPanel.setBounds(283, 143, 477, 458);
+		mainPanel.setBounds(283, 143, 477, 474);
 		mainPanel.setLayout(null);
 
 		textField_5 = new JTextField();
@@ -132,7 +135,7 @@ public class ExaminationPanel {
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCancel.setBounds(338, 423, 89, 23);
+		btnCancel.setBounds(338, 440, 89, 23);
 		mainPanel.add(btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -258,7 +261,7 @@ public class ExaminationPanel {
 				btnViewReferral.setVisible(false);
 				textField.setVisible(false);
 
-				
+				btnNewButton.setVisible(false);
 				btnBack.setVisible(true);
 
 				textField_1.setVisible(true);
@@ -274,7 +277,7 @@ public class ExaminationPanel {
 
 			}
 		});
-		btnViewReferral.setBounds(195, 423, 133, 23);
+		btnViewReferral.setBounds(195, 440, 133, 23);
 		mainPanel.add(btnViewReferral);
 
 		/**
@@ -301,6 +304,7 @@ public class ExaminationPanel {
 				lblDate_1.setVisible(true);
 				btnViewReferral.setVisible(true);
 				textField.setVisible(true);
+				btnNewButton.setVisible(true);
 
 				btnBack.setVisible(false);
 				
@@ -319,10 +323,18 @@ public class ExaminationPanel {
 			}
 		});
 		btnBack.setToolTipText("Return to Examination Result ");
-		btnBack.setBounds(239, 423, 89, 23);
+		btnBack.setBounds(239, 440, 89, 23);
 		mainPanel.add(btnBack);
+		
+		JButton btnNewButton = new JButton("New button");
+		
+		
+		ImageIcon image = ExaminationController.getImage(ex);
+		
+		btnNewButton.setIcon(image);
+		btnNewButton.setBounds(131, 317, 237, 112);
+		mainPanel.add(btnNewButton);
 		btnBack.setVisible(false);
 
 	}
-
 }
