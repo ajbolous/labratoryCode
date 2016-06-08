@@ -28,7 +28,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.UIManager;
@@ -66,7 +68,7 @@ public class NewExaminationReferralPanel extends JPanel {
 	
 	/**
 	 * create the panel 
-	 * @param t - treatment instance 
+	 * @param t - treatment instance that will be added to him the new Examination
 	 * @param doctorMedicalRecordUI - reference to doctorMedicalRecordUI 
 	 */
 	public NewExaminationReferralPanel(Treatment t , DoctorMedicalRecordUI doctorMedicalRecordUI) {
@@ -75,11 +77,13 @@ public class NewExaminationReferralPanel extends JPanel {
 		examination.setTreatment(t);
 		try {
 			examination.setReferralDate(DateTime.currentDate());
+			examination.setExaminationDate(DateTime.getDate(0, 0, 0, 0, 0));
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
 
 		}
+	
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
 				"New Referral", TitledBorder.CENTER, TitledBorder.TOP, null,
 				new Color(0, 0, 0)));
@@ -139,7 +143,8 @@ public class NewExaminationReferralPanel extends JPanel {
 		
 		/**
 		 *  check if all requirement field is filled .
-		 *  call to addReferral method in 	  ExaminationController to save the referral 
+		 *  call to saveExaminationReferral method in 	  ExaminationController to save the referral 
+		 *  show success message to user or warning message if can not add Examination to treatment 
 		 */
 
 		JButton btnSave = new JButton("Save");
@@ -156,6 +161,7 @@ public class NewExaminationReferralPanel extends JPanel {
 					examination.setComments(comment);
 					examination.seteType(exType);
 					examination.setClinic(clinic);
+					
 
 					if (examination.getTreatment().isEndFlag()) {
 
@@ -168,7 +174,8 @@ public class NewExaminationReferralPanel extends JPanel {
 
 					} else {
 
-						ExaminationController.addReferral(examination);
+						ExaminationController.saveExaminationReferral(examination);
+
 						Messages.successMessage(
 								"Referral was added successfully  ", "Success",
 								doctorMedicalRecordUI.DoctorMedicalRecord);
@@ -210,7 +217,8 @@ public class NewExaminationReferralPanel extends JPanel {
 				.getAllLabratories();
 		for (Clinic c : labList)
 			comboBox_1.addItem(c);
-		clinic = labList.get(0);
+		if(labList.size()!=0 )
+			clinic = labList.get(0);
 
 		
 		comboBox_1.setBackground(Color.WHITE);

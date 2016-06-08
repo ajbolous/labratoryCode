@@ -162,13 +162,10 @@ public class DataFiller {
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
-			boolean hasLab = false ;
-			if (i%2 == 0)
-				hasLab=true;
-			c.setHasLabratory(hasLab);
-			db.clinics.create(c);
 			
-			if (i%2 == 0){
+			db.clinics.createIfNotExists(c);
+			
+			
 			Labratorian l = new Labratorian();
 			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -180,7 +177,7 @@ public class DataFiller {
 			l.setSid("" + (400000000 + i));
 			l.setClinic(c);
 			db.labratorians.create(l);
-			}
+		
 			
 		
 			Secretary sec = new Secretary();

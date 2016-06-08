@@ -18,7 +18,7 @@ import Utils.Request;
 public class InvoiceController {
 
 	/**
-	 * send request for a list of treatments which has a closed and has not
+	 * send request for a list of treatments which has  closed and has not
 	 * invoice
 	 * 
 	 * @param sec
@@ -36,7 +36,7 @@ public class InvoiceController {
 
 	/**
 	 * send request for server to send new invoice to HMO of the patient 
-	 * @param invoice - new invoice 
+	 * @param invoice - the new invoice  that will be send to HMO 
 	 */
 	public static void sendInvoice(Invoice invoice) {
 

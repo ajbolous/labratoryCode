@@ -7,36 +7,37 @@ import models.Treatment;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
- 
+
 /**
- * Database view for invoice , have all the invoice  Queries.
- * @author maisam marjieh 
+ * Database view for invoice , have all the invoice Queries.
+ * 
+ * @author maisam marjieh
  *
  */
-public class Invoices extends View{
-	
+public class Invoices extends View {
 
 	/**
-	 * send the invoice to HMO 
-	 * @param request contains the new invoice 
-	 * @return success message 
+	 * send the invoice to HMO
+	 * 
+	 * @param request
+	 *            contains the new invoice
+	 * @return success message
 	 */
-	public Object send (Request request)
-	{
+	public Object send(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
-		Invoice invoice = (Invoice)request.getParam("Invoice");
+		Invoice invoice = (Invoice) request.getParam("Invoice");
 
 		System.out.println("----------------------------------------");
 		System.out.println();
-	
-				System.out.println("Invoice was send to HMO. \nInvoice Details  : "+"\nInvoice " +invoice.getInvoiceId() +" \nabout\nTreatment"+invoice.getTreatment().getTid() +
-						" \n Payment : "+invoice.getPayment());
-				
-		
-		
+
+		System.out.println("Invoice was send to HMO. \nInvoice Details  : "
+				+ "\nInvoice id : " + invoice.getInvoiceId()
+				+ " \nabout\nTreatment id :" + invoice.getTreatment().getTid()
+				+ "\nTreatment type : " + invoice.getTreatment().gettType()
+				+ " \n Payment : " + invoice.getPayment());
+
 		System.out.println("----------------------------------------");
 		return "success";
 	}
-	
 
 }

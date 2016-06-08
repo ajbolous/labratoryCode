@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.text.ParseException;
+
 import Client.Application;
 import Utils.DateTime;
 import Utils.Request;
@@ -90,5 +91,7 @@ public class MedicalRecordController {
 		return Application.client.sendRequest(r);
 
 	}
+	
+
 
 }

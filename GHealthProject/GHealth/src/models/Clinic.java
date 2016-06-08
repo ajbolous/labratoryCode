@@ -208,6 +208,6 @@ public class Clinic extends Entity{
 	 * a string representation of this clinic .
 	 */
 	public String toString(){
-		return "" + getName();
+		return "" + this.getName();
 	}
 }

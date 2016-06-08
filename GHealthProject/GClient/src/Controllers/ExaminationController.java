@@ -25,6 +25,11 @@ public class ExaminationController {
 		return (Clinic) Application.client.sendRequest(r);
 	}
 
+	/**
+	 * send request to server to update examination
+	 * @param ex -Examination instance  that will be updated 
+	 * @param ic - ImageIcon that will be added to the examination instance ex
+	 */
 	public static void saveExamination(Examination ex, ImageIcon ic) {
 		Request r = new Request("examinations/update");
 		r.addParam("examination", ex);
@@ -33,7 +38,11 @@ public class ExaminationController {
 
 	}
 
-	public static void addReferral(Examination e) {
+	/**
+	 * send Request to server to save a new ExaminationReferral in dataBase
+	 * @param e -the new Examination that will be added to database
+	 */
+	public static void saveExaminationReferral(Examination e) {
 
 		Request r = new Request("examinations/add");
 		r.addParam("exam", e);

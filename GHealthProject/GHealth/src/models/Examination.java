@@ -41,7 +41,7 @@ public class Examination extends Entity {
 	 * Examination clinic (where the Examination will be done ) 
 	 */
 	
-	@DatabaseField(foreign = true, foreignAutoRefresh = false, columnName = "clinic_id")
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "clinic_id")
 	private Clinic clinic;
 	
 	/**
@@ -263,7 +263,8 @@ public class Examination extends Entity {
 	private String file;
 
 	public String toString() {
-		return "Examination" + eid + ": " + DateTime.getDateString(examinationDate);
+		return "Examination" + this.eid + ":"+DateTime.getDateString(this.examinationDate) ;
 	}
+	
 
 }

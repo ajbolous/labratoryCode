@@ -77,6 +77,9 @@ public class InvoiceUI {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JLabel error_lbl;
+	/**
+	 * The Examinations list
+	 */
 	private JList <String> list;
 	private String[] exList;
 	private JScrollPane scrollPane ;
@@ -84,14 +87,17 @@ public class InvoiceUI {
 	 * The invoice treatment 
 	 */
 	private Treatment treatment;
+	private TreatmentsInvoiceUI trInUI ;
 
 	/**
 	 * InvoiceUI Constructor initialize a frame and displays it 
-	 * @param treatment 
-	 * @param secUI 
+	 * @param treatment - to add invoice to this treatment 
+	 * @param trInUI - reference to   TreatmentsInvoiceUI for remove row in the table and to back to this window 
 	 */
-	public InvoiceUI(Treatment treatment, TreatmentsInvoiceUI secUI) {
-		initialize(treatment, secUI );
+	public InvoiceUI(Treatment treatment, TreatmentsInvoiceUI trInUI) {
+		this.treatment= treatment; 
+		this.trInUI = trInUI ;
+		initialize(  );
 
 		Invoice.setLocationRelativeTo(null);
 		Invoice.setVisible(true);
@@ -100,11 +106,10 @@ public class InvoiceUI {
 
 	/**
 	 * Initialize the contents of the frame.
-	 * @param treatment - 
-	 * @param secUI - reference to Secretary GUi to remove treatment from table a
+	 * 
 	 */
-	private void initialize(Treatment treatment, TreatmentsInvoiceUI secUI ) {
-		this.treatment= treatment; 
+	private void initialize(  ) {
+		
 		Invoice = new JFrame();
 		Invoice.setTitle("<Invoice> - GHealth");
 		Invoice.setResizable(false);
@@ -197,8 +202,8 @@ public class InvoiceUI {
 		/**
 		 * check if all requirement field is filled 
 		 * call sendInvoice method in InvoiceController to send the new invoice 
-		 * call to removeRaw from secretaryUI to remove the treatment from the table in secretary GUI
-		 *
+		 * call to removeRaw from treatmentInvoice to remove the treatment from the table in treatmentInvoice GUI
+		 *@throws ParseException
 		 */
 		JButton btnSend = new JButton("Send ");
 		btnSend.setToolTipText("Send the invoice to HMO  .");
@@ -224,7 +229,7 @@ public class InvoiceUI {
 					InvoiceController.sendInvoice(invoice);
 
 					Messages.successMessage("Invoice was sended successfully ", "Success", Invoice);
-					secUI.removeTreatment();
+					trInUI.removeTreatment();
 					treatment.setHasInvoice(true);
 					MedicalRecordController.updatTreatment(treatment);
 					Invoice.dispose();
@@ -242,7 +247,7 @@ public class InvoiceUI {
 		Invoice.getContentPane().add(btnSend);
 
 		/**
-		 * dispose the invoice frame  and return to main window 
+		 * dispose the invoice frame  and return to treatmentInvoice window 
 		 */
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {

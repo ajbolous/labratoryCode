@@ -77,8 +77,17 @@ public class DoctorMedicalRecordUI {
 	public JFrame DoctorMedicalRecord;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	/**
+	 * the tree shows all treatment about specific patient 
+	 */
 	private JTree tree;
+	/**
+	 * the doctor who use this GUI
+	 */
 	private Doctor d;
+	/**
+	 * The treatment  that will be added to him visits or examinations
+	 */
 	private Treatment t;
 	private JScrollPane scrollPane_1;
 	private JPanel panel_1;
@@ -88,20 +97,21 @@ public class DoctorMedicalRecordUI {
 
 	/**
 	 * constructs the DoctorMedicalRecordUI with the specific patient 
-	 * @param p
+	 * @param p - patient instance 
 	 * @throws ParseException
 	 */
 	public DoctorMedicalRecordUI(Patient p) throws ParseException {
 		initialize(p);
 		doctorMedicalRecordUI = this;
-		DoctorMedicalRecord.setSize(1056, 816);
+		DoctorMedicalRecord.setSize(1030, 716);
 		DoctorMedicalRecord.setLocationRelativeTo(null);
 		DoctorMedicalRecord.setVisible(true);
 	}
 
+	
 	/**
 	 * Initialize the contents of the frame.
-	 * 
+	 * @param p - patient 
 	 * @throws ParseException
 	 */
 	private void initialize(Patient p) throws ParseException {
@@ -153,19 +163,19 @@ public class DoctorMedicalRecordUI {
 
 		JLabel lblPhone = new JLabel("Phone:");
 		lblPhone.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPhone.setBounds(520, 11, 52, 21);
+		lblPhone.setBounds(555, 11, 52, 21);
 		panel.add(lblPhone);
 
 		JTextField label_1 = new JTextField(p.getPhone());
 		label_1.setBackground(Color.WHITE);
 		label_1.setEditable(false);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(577, 11, 119, 21);
+		label_1.setBounds(617, 11, 119, 21);
 		panel.add(label_1);
 
 		JLabel lblAge = new JLabel("Age:");
 		lblAge.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAge.setBounds(308, 45, 40, 21);
+		lblAge.setBounds(368, 45, 40, 21);
 		panel.add(lblAge);
 
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -176,19 +186,19 @@ public class DoctorMedicalRecordUI {
 		lblAge_2.setBackground(Color.WHITE);
 		lblAge_2.setEditable(false);
 		lblAge_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAge_2.setBounds(345, 45, 67, 21);
+		lblAge_2.setBounds(418, 45, 67, 21);
 		panel.add(lblAge_2);
 
 		JLabel lblWeight = new JLabel("Gender:");
 		lblWeight.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblWeight.setBounds(714, 11, 62, 21);
+		lblWeight.setBounds(780, 11, 62, 21);
 		panel.add(lblWeight);
 
 		JTextField label = new JTextField(p.getGender());
 		label.setBackground(Color.WHITE);
 		label.setEditable(false);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(786, 10, 72, 23);
+		label.setBounds(867, 10, 72, 23);
 		panel.add(label);
 
 		JLabel lblHeight = new JLabel("Height:");
@@ -205,30 +215,30 @@ public class DoctorMedicalRecordUI {
 
 		JLabel lblId = new JLabel("Id:");
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblId.setBounds(278, 14, 33, 14);
+		lblId.setBounds(286, 14, 33, 14);
 		panel.add(lblId);
 
 		JTextField label_3 = new JTextField(p.getSid());
 		label_3.setBackground(Color.WHITE);
 		label_3.setEditable(false);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_3.setBounds(308, 11, 195, 21);
+		label_3.setBounds(329, 11, 195, 21);
 		panel.add(label_3);
 
 		JLabel lblWeight_1 = new JLabel("Weight:");
 		lblWeight_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblWeight_1.setBounds(146, 43, 67, 21);
+		lblWeight_1.setBounds(171, 43, 67, 21);
 		panel.add(lblWeight_1);
 
 		JTextField label_5 = new JTextField(Float.toString(p.getWeight()));
 		label_5.setBackground(Color.WHITE);
 		label_5.setEditable(false);
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_5.setBounds(206, 45, 83, 21);
+		label_5.setBounds(236, 45, 83, 21);
 		panel.add(label_5);
 
 		JButton btnUpdateInformation = new JButton(" Patient Information");
-		btnUpdateInformation.setBounds(467, 45, 151, 23);
+		btnUpdateInformation.setBounds(548, 43, 151, 23);
 		panel.add(btnUpdateInformation);
 		btnUpdateInformation.setFont(new Font("Arial", Font.BOLD, 12));
 
@@ -244,7 +254,7 @@ public class DoctorMedicalRecordUI {
 
 			}
 		});
-		btnReguestInformationFrom.setBounds(628, 45, 230, 23);
+		btnReguestInformationFrom.setBounds(709, 45, 230, 23);
 		panel.add(btnReguestInformationFrom);
 		btnReguestInformationFrom.setFont(new Font("Arial", Font.BOLD, 12));
 
@@ -252,7 +262,7 @@ public class DoctorMedicalRecordUI {
 				null, null));
 		DoctorMedicalRecord.getContentPane().add(panel_1);
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(232, 156, 571, 32);
+		panel_1.setBounds(287, 145, 571, 32);
 		panel_1.setLayout(null);
 		btnNewButton.setToolTipText("You must choose Treatment to add Visit ");
 
@@ -263,7 +273,7 @@ public class DoctorMedicalRecordUI {
 				.setToolTipText("You must choose Treatment to add Referral");
 		
 		/**
-		 * shows New Examination Referral form   to add new referral 
+		 * open  	NewExaminationReferral Panel
 		 */
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -281,7 +291,7 @@ public class DoctorMedicalRecordUI {
 		panel_1.add(btnNewButton_1);
 
 		/**
-		 * shows a form to add a new visit 
+		 * open NewVisitUI panel  
 		 */
 		btnNewButton.setBounds(175, 6, 114, 23);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -290,6 +300,7 @@ public class DoctorMedicalRecordUI {
 				// enableAddVisitOrReferral(false);
 				NewVisitUI vPanel = new NewVisitUI(t, doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(vPanel);
+				tree.clearSelection();
 			}
 		});
 
@@ -308,7 +319,7 @@ public class DoctorMedicalRecordUI {
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setContinuousLayout(true);
-		splitPane.setBounds(24, 199, 1000, 565);
+		splitPane.setBounds(24, 188, 1000, 488);
 		DoctorMedicalRecord.getContentPane().add(splitPane);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -391,7 +402,7 @@ public class DoctorMedicalRecordUI {
 		scrollPane_1.setBackground(Color.WHITE);
 
 		/**
-		 * shows  the details of treatment , visit or Examinations accordance  to docotr  selection 
+		 * shows  the details of treatment , visit or Examinations accordance  to doctor  selection 
 		 * 	 */
 		tree.setShowsRootHandles(true);
 		tree.getSelectionModel().addTreeSelectionListener(
@@ -441,8 +452,10 @@ public class DoctorMedicalRecordUI {
 									enableAddVisitOrReferral(false);
 							}
 
-						} else
+						} 
+						else
 							enableAddVisitOrReferral(false);
+						tree.clearSelection();
 					}
 
 				});
@@ -460,20 +473,15 @@ public class DoctorMedicalRecordUI {
 		
 		/**
 		 * open a form to add new treatment 
+		 * 
 		 */
 		btnNewTreatment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				try {
 					NewTreatmentUI tPanel = new NewTreatmentUI(p.getMedicalRecord(),
 							doctorMedicalRecordUI);
 					scrollPane_1.setViewportView(tPanel);
 					enableAddVisitOrReferral(true);
 
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		});
 	}
@@ -482,7 +490,7 @@ public class DoctorMedicalRecordUI {
 	/**
 	 * calculate the age of the patients 
 	 * @param d - birthday of patient 
-	 * @return
+	 * @return the age of patient 
 	 */
 	private static double calculateAge2(Date d) {
 		return (new Date().getTime() - d.getTime())
