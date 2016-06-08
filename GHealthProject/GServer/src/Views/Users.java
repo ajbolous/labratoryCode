@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import models.Dispatcher;
 import models.Doctor;
 import models.Labratorian;
 import models.Secretary;
@@ -41,6 +42,10 @@ public class Users extends View {
 		Secretary s = db.secretaries.queryForId(id);
 		if (s != null)
 			return s;
+		Dispatcher dis=db.dispatchers.queryForId(id);
+		if(dis !=null) 
+			return dis;
+		
 		return null;
 	}
 
@@ -77,7 +82,9 @@ public class Users extends View {
 		String cls = user.getClass().getTypeName();
 		switch(cls){
 		case "models.Doctor":db.doctors.update((Doctor)user);break;
-		case "models.Labratorian":db.doctors.update((Doctor)user);break;
+		case "models.Labratorian":db.labratorians.update((Labratorian)user);break;
+		case "models.Dispatcher":db.dispatchers.update((Dispatcher)user);break;
+		case "models.Secretary":db.secretaries.update((Secretary)user);break;
 		}
 	}
 	

@@ -30,14 +30,15 @@ public class DbHandler {
 	public Dao<Confirmation, String> confirmations;
 	public Dao<Clinic, Integer> clinics;
 	public Dao<Secretary, String> secretaries;
+	public Dao<Dispatcher,String> dispatchers;
 
 
 	public DbHandler(String url, String username, String password) {
 		try{
 			connection=new JdbcConnectionSource(url,username,password);
-			//createAllTables();
+			createAllTables();
 			initializeDao();
-			//fillDataBase();
+			fillDataBase();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -52,6 +53,7 @@ public class DbHandler {
 		df.fillAppointments();
 		df.fillStatistics();
 		df.fillShifts();
+		df.fillDispatchers();
 
 	}
 	public void initializeDao() throws Exception{
@@ -71,7 +73,7 @@ public class DbHandler {
 		refferals = DaoManager.createDao(connection, Referral.class);
 		clinics=DaoManager.createDao(connection, Clinic.class);
 		secretaries=DaoManager.createDao(connection, Secretary.class);
-		
+		dispatchers=DaoManager.createDao(connection, Dispatcher.class);
 
 	}
 	
@@ -91,6 +93,7 @@ public class DbHandler {
 		TableUtils.dropTable(connection, Referral.class, true);
 		TableUtils.dropTable(connection, Secretary.class, true);
 		TableUtils.dropTable(connection, Clinic.class, true);
+		TableUtils.dropTable(connection, Dispatcher.class, true);
 
 		TableUtils.createTableIfNotExists(connection, Patient.class);
 		TableUtils.createTableIfNotExists(connection, Doctor.class);
@@ -107,6 +110,8 @@ public class DbHandler {
 		TableUtils.createTableIfNotExists(connection, Shift.class);	
 		TableUtils.createTableIfNotExists(connection, Referral.class);
 		TableUtils.createTableIfNotExists(connection, Secretary.class);	
-		TableUtils.createTableIfNotExists(connection, Clinic.class);	
+		TableUtils.createTableIfNotExists(connection, Clinic.class);
+		TableUtils.createTableIfNotExists(connection, Dispatcher.class);
+
 	}
 }

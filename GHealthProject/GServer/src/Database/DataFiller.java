@@ -194,6 +194,22 @@ public class DataFiller {
 			db.secretaries.createIfNotExists(sec);
 		}
 	}
+	
+	public void fillDispatchers() throws SQLException{
+		
+		for(int i=0;i<3;i++){
+			Dispatcher dis= new Dispatcher();
+			dis.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
+			dis.setLastName(lastNames[rand.nextInt(lastNames.length)]);
+			dis.setPass("123123");
+			dis.setEmail((dis.getFirstName() + "." + dis.getLastName() + i).toLowerCase() + "@crows.com");
+			dis.setBirthDate(Utils.DateTime.getDate(1980 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
+			dis.setSid("" + (500000000 + i));
+			dis.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
+			dis.setPhone("0" + (548103004 + i));
+			db.dispatchers.createIfNotExists(dis);
+		}
+	}
 
 	public void fillAppointments() throws SQLException, ParseException {
 
