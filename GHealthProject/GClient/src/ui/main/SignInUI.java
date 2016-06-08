@@ -20,7 +20,7 @@ import Client.Application;
 import Client.Resources;
 import Controllers.UsersController;
 import models.User;
-import ui.appointments.SecretaryUI;
+import ui.medical.TreatmentsInvoiceUI;
 import ui.utils.UITests;
 
 import javax.swing.BoxLayout;

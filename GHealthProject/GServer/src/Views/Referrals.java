@@ -19,15 +19,27 @@ public class Referrals extends View{
 public Object add (Request request){
 	DbHandler db = Config.getConfig().getHandler();
 	Referral ref = (Referral)request.getParam("ref");
+	Confirmation conf = (Confirmation)ref.getConfirmation(); 
+
+
 	try {
-		ref.setDate(Utils.DateTime.currentDate());
-	} catch (ParseException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		try {
+			ref.setDate(Utils.DateTime.currentDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			db.confirmations.create((Confirmation)ref.getConfirmation());
+			
+
+	} catch (SQLException e) {
+		return "Failed";
 	}
-	try {
-	
+
 		db.refferals.create(ref);
+	
+	
 	} catch (SQLException e) {
 		return "Failed";
 	}
@@ -35,20 +47,13 @@ public Object add (Request request){
 }
 public Object update (Request request){
 	DbHandler db = Config.getConfig().getHandler();
-	Referral ref = (Referral)request.getParam("con");
-	Confirmation conf = (Confirmation)ref.getConfirmation(); 
-	
-
+	Referral ref = (Referral)request.getParam("ref");
 	try {
-		 ref.setConfirmation(conf);
-	     ref.setActive(true);
-		db.refferals.createOrUpdate(ref);
-		db.confirmations.create((Confirmation)ref.getConfirmation());
-
+		db.refferals.update(ref);
 	} catch (SQLException e) {
-		return "Failed";
+		// TODO Auto-generated catch block
+		return "failed"; 
 	}
-	
 	return "success";
 }
 

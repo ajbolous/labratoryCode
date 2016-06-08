@@ -13,13 +13,22 @@ import Utils.Request;
 import models.Doctor;
 import models.Secretary;
 import models.Treatment;
-
+/**
+ * Database view for treatment  , have all the treatment  Queries. 
+ * @author maisam marjieh
+ *
+ */
 
 public class Treatments extends View {
 
-	DbHandler db = Config.getConfig().getHandler();
-
+	/**
+	 * Query  to add a new treatment  to database 
+	 * @param request contains the treatment which will be added to database 
+	 * @return treatment instance from database
+	 * @throws SQLException
+	 */
 	public Object add(Request request) {
+		DbHandler db = Config.getConfig().getHandler();
 
 		try {
 			db.treatments.create((Treatment) request.getParam("treatment"));
@@ -31,33 +40,48 @@ public class Treatments extends View {
 		}
 
 	}
-
+	
+	/**
+	 * Query  to update  treatment  in database 
+	 * @param request contains the treatment which will be updated
+	 * @return success message if the treatment was updated successfully 
+	 * @throws SQLException
+	 */
 	public Object updateTreatment(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
 			db.treatments.update((Treatment) request.getParam("treatment"));
+			return "success" ;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null; 
 		}
-		return getLastTreatment(request);
+		
 	}
 
+	/**
+	 * Query to get the last treatment  which added to specific medical record 
+	 * @param request contains the  id of the specific medical records 
+	 * @return the last treatment in the specific medical record 
+	 *  @throws SQLException
+	 */
 	public Object getLastTreatment(Request request) {
+		DbHandler db = Config.getConfig().getHandler();
 		QueryBuilder<Treatment, Integer> q = db.treatments.queryBuilder();
-		List<Treatment> treatments;
+		List <Treatment> treatment;
 
 		try {
-			treatments = q
+			treatment =  q
 					.orderBy((String) request.getParam("date"), false)
 					.limit(1)
 					.where()
 					.eq("medical_id",
 							((Integer) request.getParam("medical_id"))).query();
-			if (treatments.size() == 0)
+			if (treatment.size() == 0)
 				return null;
 			else
-				return treatments.get(0);
+				return treatment.get(0);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -67,7 +91,15 @@ public class Treatments extends View {
 
 	}
 
+	/**
+	 * Query to  get all treatment that closed and has not invoice at moment 
+	 * get treatments which performed by doctors that works in the same clinic where specific secretary works 
+	 * @param request contains the specific secretary 
+	 * @return list of treatments 
+	 * @throws SQLException
+	 */
 	public Object getTreatment(Request request) {
+		DbHandler db = Config.getConfig().getHandler();
 		QueryBuilder<Doctor, String> d = db.doctors.queryBuilder();
 		QueryBuilder<Treatment, Integer> p = db.treatments.queryBuilder();
 		List<Doctor> doctor;

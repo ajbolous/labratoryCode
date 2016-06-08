@@ -21,14 +21,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
-
+/**
+ * public class VisitPanel
+ * presents the visit details 
+ * @author maisam marjieh 
+ *
+ */
 public class VisitPanel extends JPanel {
 	public JTextField textField_1;
 	public JTextArea textArea = new JTextArea();
 	public JTextField textField;
 
 	/**
-	 * Create the panel.
+	 * construct the panel 
+	 * add to panel the visit details 
+	 * @param visit - visit instance should be presents
 	 */
 	public VisitPanel(Visit visit) {
 		super();

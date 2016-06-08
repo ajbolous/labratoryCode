@@ -47,8 +47,11 @@ public class Reports extends View {
 
 	public Object getMonthlyReport(Request request) {
 		Date d = (Date) request.getParam("date");
+		return buildMonthlyReport(d);
+	}
+	
+	public Report buildMonthlyReport(Date d){
 		Report r = new Report();
-
 		r.setStatistic(new ArrayList<Statistic>());
 		int i = 0;
 
@@ -65,6 +68,42 @@ public class Reports extends View {
 				r.getStatistic().add(stat);
 				stat = new Statistic();
 			}
+		}
+
+		fillStat(r);
+		return r;
+	}
+	public Object getNMonths(Request request) {
+		Date d = null;
+		try {
+			d = (Date) DateTime.currentMont();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		int n=(int)request.getParam("N");
+		Report r = new Report();
+
+		r.setStatistic(new ArrayList<Statistic>());
+		int j;
+		Statistic stat = new Statistic();
+		for(j=0;j<n;j++)
+		{
+			
+			Report rN=buildMonthlyReport(d);	
+		d=Utils.DateTime.MinusMonth(d);
+		for (Statistic s : rN.getStatistic()) {
+			
+			stat.setNumOfPatients(s.getNumOfPatients()
+					+ stat.getNumOfPatients());
+			stat.setWaitingPeriod(s.getWaitingPeriod()
+					+ stat.getWaitingPeriod());
+			
+				
+			
+		}
+		stat.setDate(d);
+		r.getStatistic().add(stat);
+		stat = new Statistic();	
 		}
 
 		fillStat(r);

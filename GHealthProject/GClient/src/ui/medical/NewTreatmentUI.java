@@ -21,6 +21,7 @@ import java.awt.Rectangle;
 
 import javax.swing.JButton;
 
+import Client.Application;
 import Client.Resources;
 import Controllers.AppointmentsController;
 import Controllers.MedicalRecordController;
@@ -36,6 +37,8 @@ import java.awt.FlowLayout;
 
 import javax.swing.SwingConstants;
 
+import models.Doctor;
+import models.MedicalRecord;
 import models.Treatment;
 import models.Visit;
 import ui.utils.Messages;
@@ -58,11 +61,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.DropMode;
 import javax.swing.border.TitledBorder;
 
-public class NewTreatmentUI extends JPanel  {
-	
+/**
+ * public class NewTreatmentUI
+ *  Presentation of the treatment  form to be filled by a doctor
+ * 
+ * @author maisam marjieh
+ *
+ */
+public class NewTreatmentUI extends JPanel {
+
 	private JTextField textField_1;
 	private JTextField textField_2;
-    private JLabel lblDate ;
+	private JLabel lblDate;
 	private JLabel lblEndDate;
 	private JLabel lblType;
 	private JButton btnCancel;
@@ -70,109 +80,130 @@ public class NewTreatmentUI extends JPanel  {
 	private JLabel error_lbl;
 	private JTextField textField_4;
 	/**
-	 * Create the panel.
-	 * @param doctorMedicalRecordUI 
+	 * The treatment will be added
 	 */
-	
-	public NewTreatmentUI(Treatment treatment, DoctorMedicalRecordUI doctorMedicalRecordUI ) {
-		
-		super ();
-		
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Treatment", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+	private Treatment treatment;
+
+
+
+	/**
+	 * construct the panel 
+	 * @param mr - medical record 
+	 * @param doctorMedicalRecordUI
+	 */
+	public NewTreatmentUI(MedicalRecord mr,
+			DoctorMedicalRecordUI doctorMedicalRecordUI) {
+
+		super();
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"New Treatment", TitledBorder.CENTER, TitledBorder.TOP, null,
+				Color.BLACK));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 571, 300));
 		setLayout(null);
-		
-		
-	
-		    lblDate = new JLabel("Start Date :");
-			lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblDate.setBounds(9, 109, 101, 20);
-	    	add(lblDate);
-			
-			textField_1 = new JTextField(DateTime.getDateString(treatment.getStart()));
-			textField_1.setBackground(Color.WHITE);
-			textField_1.setEditable(false);
-			
-			textField_1.setBounds(120, 110, 215, 20);
-			textField_1.setColumns(10);
-			add(textField_1);
-			
-			
-			
-			 lblEndDate = new JLabel("End Date : ");
-			lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblEndDate.setBounds(9, 151, 101, 20);
-			add(lblEndDate);
-			
-			textField_2 = new JTextField();
-			textField_2.setEnabled(false);
-			textField_2.setBackground(Color.WHITE);
-			
-			textField_2.setEditable(false);
-			textField_2.setBounds(120, 152, 215, 20);
-			add(textField_2);
-			textField_2.setColumns(10);
-			
-			 lblType = new JLabel("Treatment Type :");
-			lblType.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblType.setBounds(10, 63, 144, 20);
-			add(lblType);
-			
-			textField_4 = new JTextField();
-			textField_4.setBackground(Color.WHITE);
-			
-			textField_4.setBounds(120, 64, 215, 20);
-			add(textField_4);
-			textField_4.setColumns(10);
-			
-			 btnCancel = new JButton("Cancel");
-			 btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			btnCancel.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0){
-					setVisible(false);
-					
-				}
-	
-			});
-			btnCancel.setBounds(246, 211, 89, 23);
-			add(btnCancel);
-			
-			 btnOk_1 = new JButton("Save");
-			 btnOk_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			btnOk_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String tType=textField_4.getText();
-					error_lbl.setText("");
-					if (UITests.notEmpty(tType) == false)
-						error_lbl.setText("*Please enter treatment Type");
-					
-					else {
-						treatment.settType(tType);
-				
-						Messages.successMessage("Treatment was added successfully ", "Success", doctorMedicalRecordUI.DoctorMedicalRecord);
-						
-						Treatment treatmentDB= (Treatment )MedicalRecordController.saveTreatment(treatment); ;
-						
-						doctorMedicalRecordUI.updateTree(treatmentDB , true);
-						setVisible(false);
-						
-					
-				   }
-				}
-			});
-			btnOk_1.setBounds(160, 211, 76, 23);
-			add(btnOk_1);
-			
-			
-			error_lbl = new JLabel("");
-			error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			error_lbl.setForeground(Color.RED);
-		    error_lbl.setBounds(120, 35, 269, 27);
-			add(error_lbl);
-			
-			
-			
-			
+
+		treatment = new Treatment();
+		treatment.setDoctor((Doctor) Application.user);
+
+		try {
+			treatment.setStart(DateTime.currentDate());
+		} catch (Exception e) {
+			e.printStackTrace();
+
 		}
+		treatment.setMedicalRecord(mr);
+
+		lblDate = new JLabel("Start Date :");
+		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblDate.setBounds(9, 109, 101, 20);
+		add(lblDate);
+
+		textField_1 = new JTextField(DateTime.getDateString(treatment
+				.getStart()));
+		textField_1.setBackground(Color.WHITE);
+		textField_1.setEditable(false);
+
+		textField_1.setBounds(120, 110, 215, 20);
+		textField_1.setColumns(10);
+		add(textField_1);
+
+		lblEndDate = new JLabel("End Date : ");
+		lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblEndDate.setBounds(9, 151, 101, 20);
+		add(lblEndDate);
+
+		textField_2 = new JTextField();
+		textField_2.setEnabled(false);
+		textField_2.setBackground(Color.WHITE);
+
+		textField_2.setEditable(false);
+		textField_2.setBounds(120, 152, 215, 20);
+		add(textField_2);
+		textField_2.setColumns(10);
+
+		lblType = new JLabel("Treatment Type :");
+		lblType.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblType.setBounds(10, 63, 144, 20);
+		add(lblType);
+
+		textField_4 = new JTextField();
+		textField_4.setBackground(Color.WHITE);
+
+		textField_4.setBounds(120, 64, 215, 20);
+		add(textField_4);
+		textField_4.setColumns(10);
+
+		btnCancel = new JButton("Cancel");
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+
+			}
+
+		});
+		btnCancel.setBounds(246, 211, 89, 23);
+		add(btnCancel);
+
+		/**
+		 *  check if all requirement field is filled .
+		 *  call to saveTreatment method in  MedicalRecordController to save the referral 
+		 *  call to updateTree method in doctorMedicalRecordUI to add the new treatment in tree
+		 */
+		btnOk_1 = new JButton("Save");
+		btnOk_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnOk_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tType = textField_4.getText();
+				error_lbl.setText("");
+				if (UITests.notEmpty(tType) == false)
+					error_lbl.setText("*Please enter treatment Type");
+
+				else {
+					treatment.settType(tType);
+
+					Messages.successMessage(
+							"Treatment was added successfully ", "Success",
+							doctorMedicalRecordUI.DoctorMedicalRecord);
+
+					Treatment treatmentDB = (Treatment) MedicalRecordController
+							.saveTreatment(treatment);
+					;
+
+					doctorMedicalRecordUI.updateTree(treatmentDB, true);
+					setVisible(false);
+
+				}
+			}
+		});
+		btnOk_1.setBounds(160, 211, 76, 23);
+		add(btnOk_1);
+
+		error_lbl = new JLabel("");
+		error_lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		error_lbl.setForeground(Color.RED);
+		error_lbl.setBounds(120, 35, 269, 27);
+		add(error_lbl);
+
+	}
 }

@@ -65,6 +65,9 @@ public class DataFiller {
 			p.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
 			p.setPhone("0" + (548143001 + i));
 			p.setSid("" + (300000000 + i));
+			p.setGender("male");
+			p.setWeight(95);
+			p.setHeight(175);
 			db.patients.create(p);
 
 			MedicalRecord md = new MedicalRecord();
@@ -77,7 +80,17 @@ public class DataFiller {
 			Referral ref=new Referral(); 
 			ref.setPatient(p);
 			ref.setDoctor_name("ahmad");
+			ref.setSpeciality(specialities[i % specialities.length]);
+			ref.setDate(Utils.DateTime.randomDate());
+			ref.setActive(false);
+			Confirmation conf = new Confirmation(); 
+			conf.setRefferal_id(""+50 + i);
+			conf.setHmo_id(""+100 + i);
+			conf.setApproval_id(""+50 + i);
+			ref.setConfirmation(conf);
+			db.confirmations.create(conf); 
 			db.refferals.create(ref); 
+			
 
 		}
 	}
@@ -149,13 +162,10 @@ public class DataFiller {
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
-			boolean hasLab = false ;
-			if (i%2 == 0)
-				hasLab=true;
-			c.setHasLabratory(hasLab);
-			db.clinics.create(c);
 			
-			if (i%2 == 0){
+			db.clinics.createIfNotExists(c);
+			
+			
 			Labratorian l = new Labratorian();
 			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			l.setLastName(lastNames[rand.nextInt(lastNames.length)]);
@@ -167,7 +177,7 @@ public class DataFiller {
 			l.setSid("" + (400000000 + i));
 			l.setClinic(c);
 			db.labratorians.create(l);
-			}
+		
 			
 		
 			Secretary sec = new Secretary();
