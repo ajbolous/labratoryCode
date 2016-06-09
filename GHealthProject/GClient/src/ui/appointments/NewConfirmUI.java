@@ -141,12 +141,12 @@ public class NewConfirmUI {
 		panel.setLayout(null);
 
 		JLabel label_1 = new JLabel("Description:");
-		label_1.setBounds(6, 106, 71, 14);
+		label_1.setBounds(10, 106, 71, 14);
 		panel.add(label_1);
 
 		field_Name = new JTextField();
 		field_Name.setColumns(10);
-		field_Name.setBounds(71, 61, 200, 25);
+		field_Name.setBounds(75, 61, 200, 25);
 		panel.add(field_Name);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -154,6 +154,7 @@ public class NewConfirmUI {
 		panel.add(scrollPane);
 
 		editorPane = new JEditorPane();
+		editorPane.setLocation(76, 0);
 		scrollPane.setViewportView(editorPane);
 
 		speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
@@ -205,11 +206,11 @@ public class NewConfirmUI {
 		panel.add(speciality_cbox);
 
 		JLabel label_2 = new JLabel("Doctor Name:");
-		label_2.setBounds(-2, 66, 79, 14);
+		label_2.setBounds(6, 66, 79, 14);
 		panel.add(label_2);
 
 		JLabel label_3 = new JLabel("speciality");
-		label_3.setBounds(6, 16, 71, 14);
+		label_3.setBounds(10, 16, 71, 14);
 		panel.add(label_3);
 
 		note = new JLabel("");
@@ -225,6 +226,10 @@ public class NewConfirmUI {
 		msqlbl_1 = new JLabel("");
 		msqlbl_1.setBounds(71, 41, 127, 14);
 		panel.add(msqlbl_1);
+		
+		JLabel lblNewLabel = new JLabel("(doctor name from HMO)");
+		lblNewLabel.setBounds(75, 91, 181, 14);
+		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Add confirm", null, panel_1, null);
