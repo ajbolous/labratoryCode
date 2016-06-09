@@ -78,7 +78,7 @@ public class DoctorMedicalRecordUI {
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	/**
-	 * the tree shows all treatment about specific patient 
+	 * The tree shows all treatment about specific patient 
 	 */
 	private JTree tree;
 	/**
@@ -136,7 +136,7 @@ public class DoctorMedicalRecordUI {
 		DoctorMedicalRecord.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
 		DoctorMedicalRecord.setBounds(100, 100, 863, 595);
-		DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 56, 1024, 78);
