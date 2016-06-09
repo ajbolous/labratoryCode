@@ -126,7 +126,7 @@ public class MonthlyReport {
 		monthlyReport.getContentPane().add(weekly_scrll_table);
 
 		monthly_table = new JTable();
-		String[] report_rawNames = { "Day", "Number Of Patients","Waiting Period" };
+		String[] report_rawNames = { "Day", "Number Of Patients","Waiting Period","Departing Clients","Canceled Appointments" };
 		monthly_table.setModel(new MyTableModel(report_rawNames,
 				new Object[][] {}));
 		monthly_table.setFillsViewportHeight(true);

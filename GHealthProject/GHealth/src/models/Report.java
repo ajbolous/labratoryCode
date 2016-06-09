@@ -15,7 +15,8 @@ public class Report implements Serializable {
 	private int wMin=Integer.MAX_VALUE;
 	private double wAvg=0;
 	private double wStd=0;
-	
+	private ArrayList<Integer> patientsLeft = new ArrayList<Integer>();
+	private ArrayList<Integer> canceledAppointments = new ArrayList<Integer>();
 	public int getpMax() {
 		return pMax;
 	}
@@ -87,6 +88,24 @@ public class Report implements Serializable {
 	public void setStatistic(ArrayList<Statistic> statistic) {
 		this.statistic = statistic;
 	}
+
+
+	public ArrayList<Integer> getPatientsLeft() {
+		return patientsLeft;
+	}
+
+	public void setPatientsLeft(ArrayList<Integer> patientsLeft) {
+		this.patientsLeft = patientsLeft;
+	}
+
+	public ArrayList<Integer> getCanceledAppointments() {
+		return canceledAppointments;
+	}
+
+	public void setCanceledAppointments(ArrayList<Integer> canceledAppointments) {
+		this.canceledAppointments = canceledAppointments;
+	}
+
 
 	private ArrayList<Statistic> statistic;
     

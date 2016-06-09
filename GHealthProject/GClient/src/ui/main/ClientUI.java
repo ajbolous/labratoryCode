@@ -13,6 +13,7 @@ import Client.Resources;
 import models.*;
 import ui.labratories.Labratory;
 import ui.medical.TreatmentsInvoiceUI;
+import ui.reports.MonthlyReport;
 import ui.reports.WeeklyReport;
 
 import java.awt.event.ActionListener;
@@ -119,6 +120,8 @@ public class ClientUI {
 		else if(Application.user.getClass() == Dispatcher.class){
 			btnAppointments.setEnabled(true);
 		}
+		
+		
 	}
 
 	private void initialize() {
@@ -223,7 +226,7 @@ public class ClientUI {
 		btnMonthlyReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				WeeklyReport mReport = new WeeklyReport();
+				MonthlyReport mReport = new MonthlyReport();
 
 				mReport.getFrame().setVisible(true);
 			}
