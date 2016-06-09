@@ -2,6 +2,8 @@ package Controllers;
 
 import java.text.ParseException;
 
+import javax.swing.ImageIcon;
+
 import Client.Application;
 import Utils.DateTime;
 import Utils.Request;
@@ -21,13 +23,12 @@ import models.Visit;
  */
 public class MedicalRecordController {
 
-
-
-	
 	/**
-	 *  send Request to server to save a new treatment in database
-	 * @param t treatment will be added to database 
-	 * @return the treatment that added to database 
+	 * send Request to server to save a new treatment in database
+	 * 
+	 * @param t
+	 *            treatment will be added to database
+	 * @return the treatment that added to database
 	 */
 
 	public static Object saveTreatment(Treatment t) {
@@ -38,9 +39,12 @@ public class MedicalRecordController {
 		return Application.client.sendRequest(r);
 
 	}
+
 	/**
-	 *  send Request to server to save a new visit in dataBase
-	 * @param v visit will be saved in dataBase
+	 * send Request to server to save a new visit in dataBase
+	 * 
+	 * @param v
+	 *            visit will be saved in dataBase
 	 * @return visit instance from dataBase
 	 */
 
@@ -53,37 +57,49 @@ public class MedicalRecordController {
 
 	}
 
-
-
-	
 	/**
 	 * update treatment ( add to treatment result and End date )
-	 * @param t Treatment will be updated
+	 * 
+	 * @param t
+	 *            Treatment will be updated
 	 *
 	 */
 
 	public static void updatTreatment(Treatment t) {
 		Request r = new Request("treatments/updateTreatment");
 		r.addParam("treatment", t);
-		 Application.client.sendRequest(r);
+		Application.client.sendRequest(r);
 
 	}
+
 	/**
-	 * send Request to HMO to ask about patient information 
-	 * @param p The patient is requested the information
+	 * send Request to HMO to ask about patient information
+	 * 
+	 * @param p
+	 *            The patient is requested the information
 	 */
 
-	public static void sendReguestToHMO(Patient p) {
+	public static void sendRequestToHMO(Patient p) {
 		// TODO Auto-generated method stub
 		Request r = new Request("patients/sendRequest");
 		r.addParam("patient", p);
-		 Application.client.sendRequest(r);
-
+		Application.client.sendRequest(r);
 	}
 	
+	
+	public static ImageIcon getHmoInformation(String file) {
+		// TODO Auto-generated method stub
+		Request r = new Request("patients/getHmoInformation");
+		r.addParam("info", file);
+		return (ImageIcon)Application.client.sendRequest(r);
+	}
+	
+	
+
 	/**
-	 * Sending a request for a list of clinics which has a laboratories 
-	 * @return list of clinics  
+	 * Sending a request for a list of clinics which has a laboratories
+	 * 
+	 * @return list of clinics
 	 */
 
 	public static Object getAllLabratories() {
@@ -91,7 +107,5 @@ public class MedicalRecordController {
 		return Application.client.sendRequest(r);
 
 	}
-	
-
 
 }

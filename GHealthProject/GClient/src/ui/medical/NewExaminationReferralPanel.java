@@ -37,41 +37,45 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 /**
- * public class NewExaminationReferralPanel 
- * Presentation of the referral form to be filled by a doctor 
- *  
- * @author maisam marjieh 
+ * public class NewExaminationReferralPanel Presentation of the referral form to
+ * be filled by a doctor
+ * 
+ * @author maisam marjieh
  *
  */
 public class NewExaminationReferralPanel extends JPanel {
-	
+
 	private JTextField textField_1;
 	private JLabel error_lbl;
 	/**
-	 * The selected clinic from list of clinics with labratories 
+	 * The selected clinic from list of clinics with labratories
 	 */
 	private Clinic clinic;
 	/**
-	 * Examination instance 
+	 * Examination instance
 	 */
-	private Examination examination ; 
+	private Examination examination;
 
 	/**
-	 * The selected  examination type from list of examination type 
+	 * The selected examination type from list of examination type
 	 */
 	private String exType;
-	
+
 	/**
-	 * the examination referral comment 
+	 * the examination referral comment
 	 */
-	private String comment ; 
-	
+	private String comment;
+
 	/**
-	 * create the panel 
-	 * @param t - treatment instance that will be added to him the new Examination
-	 * @param doctorMedicalRecordUI - reference to doctorMedicalRecordUI 
+	 * create the panel
+	 * 
+	 * @param t
+	 *            - treatment instance that will be added to him the new
+	 *            Examination
+	 * @param doctorMedicalRecordUI
+	 *            - reference to doctorMedicalRecordUI
 	 */
-	public NewExaminationReferralPanel(Treatment t , DoctorMedicalRecordUI doctorMedicalRecordUI) {
+	public NewExaminationReferralPanel(Treatment t, DoctorMedicalRecordUI doctorMedicalRecordUI) {
 		super();
 		examination = new Examination();
 		examination.setTreatment(t);
@@ -83,17 +87,14 @@ public class NewExaminationReferralPanel extends JPanel {
 			e1.printStackTrace();
 
 		}
-	
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-				"New Referral", TitledBorder.CENTER, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
+
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "New Referral", TitledBorder.CENTER,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setBackground(UIManager.getColor("Panel.background"));
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(DateTime.getDateString(examination
-				.getReferralDate())
-				+ " "
+		textField_1 = new JTextField(DateTime.getDateString(examination.getReferralDate()) + " "
 				+ DateTime.getTimeString(examination.getReferralDate()));
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setEditable(false);
@@ -112,8 +113,7 @@ public class NewExaminationReferralPanel extends JPanel {
 		add(lblComments);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(140, 247, 308, 68);
 		add(scrollPane);
 
@@ -126,8 +126,8 @@ public class NewExaminationReferralPanel extends JPanel {
 		add(lblNewLabel);
 
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Blood", "Urine", "CT", "ECG", "X-Ray", "Eye", "CAT" }));
+		comboBox.setModel(new DefaultComboBoxModel<String>(
+				new String[] { "Blood", "Urine", "CT", "ECG", "X-Ray", "Eye", "CAT" }));
 		// Default ExType
 		exType = "Blood";
 		comboBox.setBackground(Color.WHITE);
@@ -140,18 +140,19 @@ public class NewExaminationReferralPanel extends JPanel {
 
 		comboBox.setBounds(140, 113, 197, 27);
 		add(comboBox);
-		
+
 		/**
-		 *  check if all requirement field is filled .
-		 *  call to saveExaminationReferral method in 	  ExaminationController to save the referral 
-		 *  show success message to user or warning message if can not add Examination to treatment 
+		 * check if all requirement field is filled . call to
+		 * saveExaminationReferral method in ExaminationController to save the
+		 * referral show success message to user or warning message if can not
+		 * add Examination to treatment
 		 */
 
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				 comment = textArea.getText();
+				comment = textArea.getText();
 
 				error_lbl.setText("");
 				if (UITests.notEmpty(comment) == false)
@@ -161,25 +162,17 @@ public class NewExaminationReferralPanel extends JPanel {
 					examination.setComments(comment);
 					examination.seteType(exType);
 					examination.setClinic(clinic);
-					
 
 					if (examination.getTreatment().isEndFlag()) {
-
 						Messages.warningMessage(
-								"you cannot add  Examinations to Treatment"
-										+ examination.getTreatment().getTid() + "-"
+								"you cannot add  Examinations to Treatment" + examination.getTreatment().getTid() + "-"
 										+ examination.getTreatment().gettType(),
-								"warning",
-								doctorMedicalRecordUI.DoctorMedicalRecord);
-
+								"warning", doctorMedicalRecordUI.DoctorMedicalRecord);
 					} else {
-
 						ExaminationController.saveExaminationReferral(examination);
 
-						Messages.successMessage(
-								"Referral was added successfully  ", "Success",
+						Messages.successMessage("Referral was added successfully  ", "Success",
 								doctorMedicalRecordUI.DoctorMedicalRecord);
-
 					}
 
 					setVisible(false);
@@ -213,14 +206,12 @@ public class NewExaminationReferralPanel extends JPanel {
 
 		JComboBox<Clinic> comboBox_1 = new JComboBox();
 
-		ArrayList<Clinic> labList = (ArrayList<Clinic>) MedicalRecordController
-				.getAllLabratories();
+		ArrayList<Clinic> labList = (ArrayList<Clinic>) MedicalRecordController.getAllLabratories();
 		for (Clinic c : labList)
 			comboBox_1.addItem(c);
-		if(labList.size()!=0 )
+		if (labList.size() != 0)
 			clinic = labList.get(0);
 
-		
 		comboBox_1.setBackground(Color.WHITE);
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

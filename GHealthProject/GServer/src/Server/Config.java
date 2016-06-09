@@ -2,9 +2,13 @@ package Server;
 
 import Database.DbHandler;
 import Utils.Logger;
-
+/**
+ * Class Config, the configuration of the server.
+ * @author aj_pa
+ *
+ */
 public class Config {
-	private boolean isDebug = false;
+	private boolean isDebug = true;
 	public boolean isDebug() {
 		return isDebug;
 	}

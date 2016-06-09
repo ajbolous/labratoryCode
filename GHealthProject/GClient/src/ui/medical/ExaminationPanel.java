@@ -1,10 +1,12 @@
 package ui.medical;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import models.Clinic;
 import models.Examination;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
@@ -17,15 +19,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
+
 import Controllers.ExaminationController;
 
 import javax.swing.UIManager;
-
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
+
 /**
- * public class ExaminationPanel
- * Displays the Examinations details and the Examination Referral details 
+ * public class ExaminationPanel Displays the Examinations details and the
+ * Examination Referral details
+ * 
  * @author maisam marjieh
  *
  */
@@ -47,6 +51,7 @@ public class ExaminationPanel {
 	private JLabel lblDate_1;
 	private JButton btnViewReferral;
 	private JButton btnBack;
+	private JButton btnNewButton;
 
 	private JTextField textField_1;
 	private JTextField textField_3;
@@ -58,19 +63,22 @@ public class ExaminationPanel {
 	private JLabel lblNewLabel;
 	public JPanel mainPanel;
 	private JScrollPane scrollPane;
+
 	/**
-	 * construct the panel 
-	 * @param ex - the Examination instance should be present 
+	 * construct the panel
+	 * 
+	 * @param ex
+	 *            - the Examination instance should be present
 	 */
 
 	public ExaminationPanel(Examination ex) {
 
 		mainPanel = new JPanel();
-		mainPanel.setBorder(new TitledBorder(null, "Examination Result",
-				TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+		mainPanel.setBorder(
+				new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 
 		mainPanel.setBackground(UIManager.getColor("Panel.background"));
-		mainPanel.setBounds(283, 143, 477, 458);
+		mainPanel.setBounds(283, 143, 477, 474);
 		mainPanel.setLayout(null);
 
 		textField_5 = new JTextField();
@@ -88,7 +96,7 @@ public class ExaminationPanel {
 		textArea_1.setEditable(false);
 		scrollPane_1.setViewportView(textArea_1);
 
-		lblPhotolink = new JLabel("PhotoLink :");
+		lblPhotolink = new JLabel("Photo :");
 		lblPhotolink.setBounds(11, 336, 63, 16);
 		mainPanel.add(lblPhotolink);
 		lblPhotolink.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -132,7 +140,7 @@ public class ExaminationPanel {
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCancel.setBounds(338, 423, 89, 23);
+		btnCancel.setBounds(338, 440, 89, 23);
 		mainPanel.add(btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,15 +148,13 @@ public class ExaminationPanel {
 			}
 		});
 
-		Clinic clinic = ExaminationController.getClinic(ex.getLabratorian()
-				.getClinic().getCid());
+		Clinic clinic = ExaminationController.getClinic(ex.getLabratorian().getClinic().getCid());
 		textArea_1.setText("" + ex.getResults());
-		textField_6.setText(DateTime.getDateString(ex.getExaminationDate())
-				+ " " + DateTime.getTimeString(ex.getExaminationDate()));
+		textField_6.setText(DateTime.getDateString(ex.getExaminationDate()) + " "
+				+ DateTime.getTimeString(ex.getExaminationDate()));
 
 		textField_5.setText("" + clinic.toString());
-		textField_4.setText(ex.getLabratorian().getFirstName() + " "
-				+ ex.getLabratorian().getLastName());
+		textField_4.setText(ex.getLabratorian().getFirstName() + " " + ex.getLabratorian().getLastName());
 
 		lblExaminationType = new JLabel("Examination Type : ");
 		lblExaminationType.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -175,8 +181,7 @@ public class ExaminationPanel {
 		mainPanel.add(lblComments);
 
 		scrollPane = new JScrollPane();
-		scrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(130, 164, 328, 108);
 		mainPanel.add(scrollPane);
 
@@ -224,30 +229,29 @@ public class ExaminationPanel {
 		textField_1.setColumns(10);
 		mainPanel.add(textField_1);
 
-		textField_1.setText(DateTime.getDateString(ex.getReferralDate()) + " "
-				+ DateTime.getTimeString(ex.getReferralDate()));
+		textField_1.setText(
+				DateTime.getDateString(ex.getReferralDate()) + " " + DateTime.getTimeString(ex.getReferralDate()));
 
 		textField_2.setText(ex.geteType());
-		textField_3.setText("" + ex.getTreatment().getDoctor().getFirstName()
-				+ " " + (ex.getTreatment().getDoctor().getLastName()));
+		textField_3.setText("" + ex.getTreatment().getDoctor().getFirstName() + " "
+				+ (ex.getTreatment().getDoctor().getLastName()));
 		textArea.setText(ex.getComments());
 
 		/**
-		 * display the referral of the Examination 
+		 * display the referral of the Examination
 		 */
 		btnViewReferral = new JButton("View Referral");
 		btnViewReferral.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnViewReferral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mainPanel.setBorder(new TitledBorder(null,
-						"Referral Information", TitledBorder.CENTER,
+				mainPanel.setBorder(new TitledBorder(null, "Referral Information", TitledBorder.CENTER,
 						TitledBorder.TOP, null, Color.BLACK));
 
 				textArea_1.setVisible(false);
 				textField_5.setVisible(false);
 				textField_4.setVisible(false);
 				textField_6.setVisible(false);
-				
+
 				lblNewLabel_2.setVisible(false);
 				lblExaminationType.setVisible(false);
 				scrollPane_1.setVisible(false);
@@ -258,7 +262,7 @@ public class ExaminationPanel {
 				btnViewReferral.setVisible(false);
 				textField.setVisible(false);
 
-				
+				btnNewButton.setVisible(false);
 				btnBack.setVisible(true);
 
 				textField_1.setVisible(true);
@@ -274,20 +278,19 @@ public class ExaminationPanel {
 
 			}
 		});
-		btnViewReferral.setBounds(195, 423, 133, 23);
+		btnViewReferral.setBounds(195, 440, 133, 23);
 		mainPanel.add(btnViewReferral);
 
 		/**
-		 * back to shows the  Examination details 
+		 * back to shows the Examination details
 		 */
 		btnBack = new JButton("Back");
 		btnBack.setVisible(false);
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mainPanel.setBorder(new TitledBorder(null,
-						"Examination Result", TitledBorder.CENTER,
-						TitledBorder.TOP, null, Color.BLACK));
+				mainPanel.setBorder(new TitledBorder(null, "Examination Result", TitledBorder.CENTER, TitledBorder.TOP,
+						null, Color.BLACK));
 				textArea_1.setVisible(true);
 				textField_5.setVisible(true);
 				textField_4.setVisible(true);
@@ -301,9 +304,10 @@ public class ExaminationPanel {
 				lblDate_1.setVisible(true);
 				btnViewReferral.setVisible(true);
 				textField.setVisible(true);
+				btnNewButton.setVisible(true);
 
 				btnBack.setVisible(false);
-				
+
 				btnBack.setVisible(false);
 
 				textField_1.setVisible(false);
@@ -319,10 +323,17 @@ public class ExaminationPanel {
 			}
 		});
 		btnBack.setToolTipText("Return to Examination Result ");
-		btnBack.setBounds(239, 423, 89, 23);
+		btnBack.setBounds(239, 440, 89, 23);
 		mainPanel.add(btnBack);
+
+		 btnNewButton = new JButton("");
+
+		ImageIcon image = ExaminationController.getImage(ex);
+		if(image != null)
+			btnNewButton.setIcon(image);
+		btnNewButton.setBounds(131, 317, 237, 112);
+		mainPanel.add(btnNewButton);
 		btnBack.setVisible(false);
 
 	}
-
 }
