@@ -19,35 +19,35 @@ import Server.Config;
 import Utils.Request;
 
 /**
- *  Database view for visits , have all the visit Queries. 
- * @author maisam marjieh 
+ * Database view for visits , have all the visit Queries.
+ * 
+ * @author maisam marjieh
  *
  */
 public class Examinations extends View {
 
 	/**
-	 * Query  to add a new Examination  to database 
-	 * @param request contains the Examination instance will be added to database 
-	 * @return success message if the Examination added successfully to dataBase ,else return null
+	 * Query to add a new Examination to database
+	 * 
+	 * @param request
+	 *            contains the Examination instance will be added to database
+	 * @return success message if the Examination added successfully to dataBase
+	 *         ,else return null
 	 * @throws SQLException
 	 */
 	public Object add(Request request) {
-			
-			DbHandler db = Config.getConfig().getHandler();
-			Examination ex = (Examination) request.getParam("exam");
-			try {
-				db.examinations.create(ex);
-				return "success";
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null ;
-			}
-			
-			
-			
+		DbHandler db = Config.getConfig().getHandler();
+		Examination ex = (Examination) request.getParam("exam");
+		try {
+			db.examinations.create(ex);
+			return "success";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
-	
 	public Object getById(Request request) {
 		try {
 			DbHandler db = Config.getConfig().getHandler();
@@ -60,41 +60,40 @@ public class Examinations extends View {
 	}
 
 	/**
-	 * Query  to update  Examination  
-	 * @param request contains the examination instance and image which will be added to the examination 
-	 * @return  success message 
+	 * Query to update Examination
+	 * 
+	 * @param request
+	 *            contains the examination instance and image which will be
+	 *            added to the examination
+	 * @return success message
 	 * @throws SQLException
 	 */
-	
-	public Object getExaminationImage(Request request){
-		Examination ex = (Examination)request.getParam("examination");
-		ImageIcon image = new ImageIcon("images/"+ ex.getFile());
-		
-		Config.getConfig().getLogger().debug(ex.getFile());
+
+	public Object getExaminationImage(Request request) {
+		Examination ex = (Examination) request.getParam("examination");
+		ImageIcon image = new ImageIcon("files/examinations/" + ex.getFile());
 		return image;
 	}
-	
-	
-	
-	
+
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
 			Image image = ((ImageIcon) request.getParam("image")).getImage();
 			Examination ex = (Examination) request.getParam("examination");
-			
-			if(image !=null){
-				ex.setFile(ex.getEid() +"-" + ex.getFile());
-				File outputFile = new File("images/" + ex.getFile());
-				
-				BufferedImage bi = new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_RGB);
+
+			if (image != null) {
+				ex.setFile(ex.getEid() + "-" + ex.getFile());
+				File outputFile = new File("files/examinations/" + ex.getFile());
+
+				BufferedImage bi = new BufferedImage(image.getWidth(null), image.getHeight(null),
+						BufferedImage.TYPE_INT_RGB);
 
 				Graphics2D g2 = bi.createGraphics();
 				g2.drawImage(image, 0, 0, null);
 				g2.dispose();
 				ImageIO.write(bi, "jpg", outputFile);
 			}
-				
+
 			db.examinations.update(ex);
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
@@ -102,8 +101,5 @@ public class Examinations extends View {
 		}
 		return "success";
 	}
-
-	
-
 
 }

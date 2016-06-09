@@ -265,6 +265,5 @@ public class Examination extends Entity {
 	public String toString() {
 		return "Examination" + this.eid + ":"+DateTime.getDateString(this.examinationDate) ;
 	}
-	
 
 }

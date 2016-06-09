@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import models.Dispatcher;
 import models.Doctor;
 import models.Labratorian;
 import models.Secretary;
@@ -41,6 +42,10 @@ public class Users extends View {
 		Secretary s = db.secretaries.queryForId(id);
 		if (s != null)
 			return s;
+		Dispatcher dis=db.dispatchers.queryForId(id);
+		if(dis !=null) 
+			return dis;
+		
 		return null;
 	}
 
@@ -53,7 +58,7 @@ public class Users extends View {
 
 	public Object getLockedUsers(Request request) throws SQLException {
 		DbHandler db = Config.getConfig().getHandler();
-		HashMap<String,Object> values = new HashMap<String,Object>();
+		HashMap<String, Object> values = new HashMap<String, Object>();
 		values.put("isLocked", 1);
 
 		List<User> users = new ArrayList<User>();
@@ -64,23 +69,25 @@ public class Users extends View {
 		return users;
 	}
 
-	public Object setLocked(Request request) throws SQLException{
+	public Object setLocked(Request request) throws SQLException {
 		User u = (User) request.getParam("user");
 		updateUser(u);
 		Config.getConfig().getLogger().debug("Account " + u.getSid() + " " + u.getFirstName() + " is Locked");
-		
+
 		return true;
 	}
-	
-	private void updateUser(User user) throws SQLException{
+
+	private void updateUser(User user) throws SQLException {
 		DbHandler db = Config.getConfig().getHandler();
 		String cls = user.getClass().getTypeName();
-		switch(cls){
-		case "models.Doctor":db.doctors.update((Doctor)user);break;
-		case "models.Labratorian":db.doctors.update((Doctor)user);break;
+		switch (cls) {
+		case "models.Doctor":
+		case "models.Labratorian":db.labratorians.update((Labratorian)user);break;
+		case "models.Dispatcher":db.dispatchers.update((Dispatcher)user);break;
+		case "models.Secretary":db.secretaries.update((Secretary)user);break;
 		}
 	}
-	
+
 	public Object setOnline(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 
