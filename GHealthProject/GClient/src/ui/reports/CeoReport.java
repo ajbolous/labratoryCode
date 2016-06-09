@@ -61,14 +61,13 @@ public class CeoReport {
 	 * @wbp.parser.entryPoint
 	 */
 
-
 	public CeoReport() {
 		initialize();
 		ceoReport.setVisible(true);
 	}
 
 	private void initialize() {
-		
+		Date date1=null;
 		int weekNum;
 		Report r = new Report();
 		Resources res = new Resources();
@@ -94,30 +93,7 @@ public class CeoReport {
 		logo.setIcon(res.getIcon("logo.png"));
 		ceoReport.getContentPane().add(logo);
 
-		JComboBox<String> months = new JComboBox<String>();
-		for (Date d : DateTime.getMonths(2016)){
-			months.addItem(DateTime.getDateString(d));
-		}
-		months.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Date date1 = new Date();
-				try {
-					date1 = Utils.DateTime.getReportDate((String)months.getSelectedItem());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-
-				
-			}
-		});
 		
-		months.setForeground(new Color(0, 0, 0));
-		months.setBackground(new Color(192, 192, 192));
-		months.setBounds(183, 106, 107, 22);
-
-		ceoReport.getContentPane().add(months);
-		ceoReport.setBounds(100, 100, 499, 567);
-		months.setVisible(false);
 		JScrollPane weekly_scrll_table = new JScrollPane();
 		weekly_scrll_table.setBounds(9, 141, 430, 240);
 		ceoReport.getContentPane().add(weekly_scrll_table);
@@ -199,7 +175,32 @@ public class CeoReport {
 		txtWstd.setColumns(10);
 		txtWstd.setBounds(344, 491, 93, 20);
 		ceoReport.getContentPane().add(txtWstd);
-		
+		JComboBox<String> months = new JComboBox<String>();
+		for (Date d : DateTime.getMonths(2016)){
+			months.addItem(DateTime.getDateString(d));
+		}
+		months.addActionListener(new ActionListener() {
+			/**
+			 * this function set the source date into variable date1
+			 */
+			public void actionPerformed(ActionEvent arg0) {
+				Date date1 = new Date();
+				try {
+					date1 = Utils.DateTime.getReportDate((String)months.getSelectedItem());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+
+				
+			}
+		});
+		months.setForeground(new Color(0, 0, 0));
+		months.setBackground(new Color(192, 192, 192));
+		months.setBounds(183, 106, 107, 22);
+
+		ceoReport.getContentPane().add(months);
+		ceoReport.setBounds(100, 100, 499, 567);
+		months.setVisible(false);
 		
 		JLabel lblTo = new JLabel("To :");
 		lblTo.setForeground(Color.BLACK);
@@ -212,15 +213,18 @@ public class CeoReport {
 			comboBox.addItem(DateTime.getDateString(d));
 		}
 		months.addActionListener(new ActionListener() {
+			/**
+			 * this function set the target date into the variable date2
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				Date date2 = new Date();
 				try {
-					date2 = Utils.DateTime.getReportDate((String)months.getSelectedItem());
+					date2 = Utils.DateTime.getReportDate((String)comboBox.getSelectedItem());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
 
-				
+				fillPeriodReports(date1,date2);
 			}
 		});
 		comboBox.setForeground(Color.BLACK);
@@ -234,6 +238,9 @@ public class CeoReport {
 			comboBox_1.addItem(i);;
 		}
 		comboBox_1.addActionListener(new ActionListener() {
+			/**
+			 * this function set the value of the n requested months into the variable n
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				Date currDate=new Date();
 				int n=(int) comboBox_1.getSelectedItem();
@@ -289,13 +296,16 @@ public class CeoReport {
 		
 	}
 	
-
-	public void fillNReports(Date curr,int n) { ///this function takes n months and return the statistic from the curr date to n
+/**
+ * this function takes n months and return  statistics from the current date to date n
+ * @param curr
+ * @param n
+ */
+	public void fillNReports(Date curr,int n) { 
 		Report report;
 		Request r = new Request("reports/getNMonths");
 		r.addParam("N", n);
 		report = (Report) Application.client.sendRequest(r);
-		int x=0;
 		DefaultTableModel dm = (DefaultTableModel) ceo_table.getModel();
 		dm.setNumRows(0);
 		for (Statistic s : report.getStatistic())
@@ -314,10 +324,15 @@ public class CeoReport {
 		txtWstd.setText(String.format("StdDev: %.2f",report.getwStd()));
 
 	}
+/**
+ * this function gets two dates and fill a statistics for report between those two dates	
+ * @param date1
+ * @param date2
+ */
 	public void fillPeriodReports(Date date1,Date date2)
 	{
 		Report report;
-		Request r = new Request("reports/getNMonths");
+		Request r = new Request("reports/getPeriodReport");
 		r.addParam("date1", date1);
 		r.addParam("date2", date2);
 		report = (Report) Application.client.sendRequest(r);

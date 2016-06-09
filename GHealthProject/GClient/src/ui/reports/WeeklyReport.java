@@ -105,6 +105,9 @@ public class WeeklyReport {
 		
 		}
 		dates.addActionListener(new ActionListener() {
+			/**
+			 * this function set the selected date from the comboBox into the variable cDate
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				Date cDate = new Date();
 				try {
@@ -213,7 +216,10 @@ public class WeeklyReport {
 		weeklyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-
+/**
+ * this function gets date and fills the Statistics of weekly report 
+ * @param d
+ */
 	public void fillWeeklyReport(Date d) {
 		Report report;
 		Request r = new Request("reports/getWeeklyReport");
@@ -238,30 +244,6 @@ public class WeeklyReport {
 		txtWstd.setText("StdDev: " + report.getwStd());
 
 	}
-	/*public void fillMonthlylyReport(Date d) {
-		Report report;
-		Request r = new Request("reports/getWeeklyReport");
-		r.addParam("date", d);
-		report = (Report) Application.client.sendRequest(r);
-
-		DefaultTableModel dm = (DefaultTableModel) weekly_table.getModel();
-		dm.setNumRows(0);
-		for (Statistic s : report.getStatistic())
-			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
-					s.getWaitingPeriod() });
-		txtPavg.setText("Average: " + report.getpAvg());
-		txtWavg.setText("Average: " + report.getwAvg());
-		
-		txtPmax.setText("Max: " + report.getpMax());
-		txtWmax.setText("Max: " + report.getwMax());
-		
-		txtPmin.setText("Min: " + report.getpMin());
-		txtWmin.setText("Min: " + report.getwMin());
-		
-		txtPstd.setText("StdDev: " + report.getpStd());
-		txtWstd.setText("StdDev: " + report.getwStd());
-
-	}*/
 	
 	public JFrame getFrame() {
 		return weeklyReport;

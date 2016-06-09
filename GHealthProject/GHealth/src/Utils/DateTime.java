@@ -42,7 +42,19 @@ public class DateTime {
 		c.add(Calendar.MONTH,-1);
 		return c.getTime();
 	}
-	
+	public static int MinusTwoMonths(Date d1,Date d2)
+	{
+		int n=0;
+		Calendar c =  Calendar.getInstance();
+		c.setTime(d1);
+		while(c.getTime().getMonth()!=d2.getMonth())
+		{
+		c.add(Calendar.MONTH,1);
+		n++;
+		}
+		return n;
+		
+	}
 	public static List<Date> getMonths(int year){
 		Date d = DateTime.getDate(year, 1, 1);
 		
@@ -139,6 +151,7 @@ public class DateTime {
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		return format.format(d);
 	}
+	
 
 	public static String getDateString(Date d){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
