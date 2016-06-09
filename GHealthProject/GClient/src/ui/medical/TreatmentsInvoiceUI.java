@@ -222,7 +222,7 @@ public class TreatmentsInvoiceUI {
 		});
 		tinvoice.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		tinvoice.setBounds(100, 100, 501, 496);
-		tinvoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 
 	/**
@@ -231,7 +231,6 @@ public class TreatmentsInvoiceUI {
 	public void removeTreatment() {
 
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
-		System.out.printf(row + "");
 		trList.remove(row);
 		dm.removeRow(row);
 

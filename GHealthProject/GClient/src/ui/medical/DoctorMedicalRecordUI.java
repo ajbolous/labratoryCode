@@ -135,7 +135,7 @@ public class DoctorMedicalRecordUI {
 		DoctorMedicalRecord.getContentPane()
 				.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		DoctorMedicalRecord.setBounds(100, 100, 863, 595);
-		DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 56, 1024, 78);
@@ -275,7 +275,7 @@ public class DoctorMedicalRecordUI {
 
 				NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(t, doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(exPanel);
-				tree.clearSelection();
+				
 
 			}
 		});
@@ -290,10 +290,10 @@ public class DoctorMedicalRecordUI {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// enableAddVisitOrReferral(false);
+				
 				NewVisitUI vPanel = new NewVisitUI(t, doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(vPanel);
-				tree.clearSelection();
+				
 			}
 		});
 
@@ -434,7 +434,7 @@ public class DoctorMedicalRecordUI {
 
 				} else
 					enableAddVisitOrReferral(false);
-				tree.clearSelection();
+				
 			}
 
 		});

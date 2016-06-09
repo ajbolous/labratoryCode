@@ -267,6 +267,6 @@ public class InvoiceUI {
 
 		Invoice.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		Invoice.setBounds(100, 100, 388, 489);
-		Invoice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 }

@@ -96,7 +96,7 @@ public class ExaminationPanel {
 		textArea_1.setEditable(false);
 		scrollPane_1.setViewportView(textArea_1);
 
-		lblPhotolink = new JLabel("PhotoLink :");
+		lblPhotolink = new JLabel("Photo :");
 		lblPhotolink.setBounds(11, 336, 63, 16);
 		mainPanel.add(lblPhotolink);
 		lblPhotolink.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -326,7 +326,7 @@ public class ExaminationPanel {
 		btnBack.setBounds(239, 440, 89, 23);
 		mainPanel.add(btnBack);
 
-		JButton btnNewButton = new JButton("New button");
+		 btnNewButton = new JButton("");
 
 		ImageIcon image = ExaminationController.getImage(ex);
 		if(image != null)
