@@ -71,8 +71,8 @@ import javax.swing.JSplitPane;
 public class DoctorMedicalRecordUI {
 
 	public JFrame DoctorMedicalRecord;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JButton btnNewVisit;
+	private JButton btnNewReferral;
 	/**
 	 * the tree shows all treatment about specific patient
 	 */
@@ -113,7 +113,7 @@ public class DoctorMedicalRecordUI {
 	 *            - patient
 	 * @throws ParseException
 	 */
-	private void initialize(Patient p){
+	private void initialize(Patient p) {
 		DoctorMedicalRecord = new JFrame();
 		DoctorMedicalRecord.setTitle("<Doctor Medical Record> - GHealth");
 		DoctorMedicalRecord.setResizable(false);
@@ -135,15 +135,15 @@ public class DoctorMedicalRecordUI {
 		DoctorMedicalRecord.getContentPane()
 				.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		DoctorMedicalRecord.setBounds(100, 100, 863, 595);
-		//DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// DoctorMedicalRecord.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 56, 1024, 78);
 		DoctorMedicalRecord.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		btnNewButton_1 = new JButton("Add Referral");
-		btnNewButton = new JButton("Add Visit");
+		btnNewReferral = new JButton("Add Referral");
+		btnNewVisit = new JButton("Add Visit");
 		scrollPane_1 = new JScrollPane();
 		panel_1 = new JPanel();
 
@@ -234,11 +234,6 @@ public class DoctorMedicalRecordUI {
 		label_5.setBounds(236, 45, 83, 21);
 		panel.add(label_5);
 
-		JButton btnUpdateInformation = new JButton(" Patient Information");
-		btnUpdateInformation.setBounds(548, 43, 151, 23);
-		panel.add(btnUpdateInformation);
-		btnUpdateInformation.setFont(new Font("Arial", Font.BOLD, 12));
-
 		/**
 		 * send Request information from HMO
 		 */
@@ -257,58 +252,52 @@ public class DoctorMedicalRecordUI {
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		DoctorMedicalRecord.getContentPane().add(panel_1);
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(287, 145, 571, 32);
+		panel_1.setBounds(24, 145, 388, 32);
 		panel_1.setLayout(null);
-		btnNewButton.setToolTipText("You must choose Treatment to add Visit ");
+		btnNewVisit.setToolTipText("You must choose Treatment to add Visit ");
 
-		btnNewButton.setEnabled(false);
+		btnNewVisit.setEnabled(false);
 
-		panel_1.add(btnNewButton);
-		btnNewButton_1.setToolTipText("You must choose Treatment to add Referral");
+		panel_1.add(btnNewVisit);
+		btnNewReferral.setToolTipText("You must choose Treatment to add Referral");
 
 		/**
 		 * open NewExaminationReferral Panel
 		 */
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnNewReferral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// enableAddVisitOrReferral(false);
 
 				NewExaminationReferralPanel exPanel = new NewExaminationReferralPanel(t, doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(exPanel);
-				
 
 			}
 		});
 
-		btnNewButton_1.setEnabled(false);
-		panel_1.add(btnNewButton_1);
+		btnNewReferral.setEnabled(false);
+		panel_1.add(btnNewReferral);
 
 		/**
 		 * open NewVisitUI panel
 		 */
-		btnNewButton.setBounds(175, 6, 114, 23);
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewVisit.setBounds(152, 6, 114, 23);
+		btnNewVisit.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnNewVisit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				NewVisitUI vPanel = new NewVisitUI(t, doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(vPanel);
-				
+
 			}
 		});
 
-		btnNewButton_1.setBounds(323, 6, 104, 23);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnNewReferral.setBounds(276, 6, 104, 23);
+		btnNewReferral.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
 		JButton btnNewTreatment = new JButton("New Treatment");
 		btnNewTreatment.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewTreatment.setBounds(8, 7, 134, 22);
 		panel_1.add(btnNewTreatment);
-
-		JButton btnCancel = new JButton("cancel");
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCancel.setBounds(461, 7, 89, 22);
-		panel_1.add(btnCancel);
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setContinuousLayout(true);
@@ -401,9 +390,11 @@ public class DoctorMedicalRecordUI {
 					if (obj.getClass() == Visit.class) {
 						Visit v = (Visit) obj;
 						t = v.getTreatment();
+						enableAddVisitOrReferral(!t.isEndFlag());
+
 						VisitPanel vi = new VisitPanel(v);
 						scrollPane_1.setViewportView(vi);
-						if (t.getDoctor().getSid().equals(Application.user.getSid()))
+						if (t.getDoctor().getSid().equals(Application.user.getSid()) && !t.isEndFlag())
 							enableAddVisitOrReferral(true);
 						else
 							enableAddVisitOrReferral(false);
@@ -411,9 +402,11 @@ public class DoctorMedicalRecordUI {
 					}
 					if (obj.getClass() == Treatment.class) {
 						t = (Treatment) obj;
+						enableAddVisitOrReferral(!t.isEndFlag());
+
 						TreatmentPanel tPanel = new TreatmentPanel((Treatment) obj, doctorMedicalRecordUI);
 						scrollPane_1.setViewportView(tPanel);
-						if (t.getDoctor().getSid().equals(Application.user.getSid()))
+						if (t.getDoctor().getSid().equals(Application.user.getSid()) && !t.isEndFlag())
 							enableAddVisitOrReferral(true);
 						else
 							enableAddVisitOrReferral(false);
@@ -426,7 +419,7 @@ public class DoctorMedicalRecordUI {
 						ep = new ExaminationPanel(ex);
 
 						scrollPane_1.setViewportView(ep.mainPanel);
-						if (t.getDoctor().getSid().equals(Application.user.getSid()))
+						if (t.getDoctor().getSid().equals(Application.user.getSid()) && !t.isEndFlag())
 							enableAddVisitOrReferral(true);
 						else
 							enableAddVisitOrReferral(false);
@@ -434,20 +427,9 @@ public class DoctorMedicalRecordUI {
 
 				} else
 					enableAddVisitOrReferral(false);
-				
+
 			}
 
-		});
-
-		/**
-		 * cancel DoctorMedicalRecordUI Frame
-		 */
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DoctorMedicalRecord.setVisible(false);
-				DoctorMedicalRecord.dispose();
-				new ClientUI();
-			}
 		});
 
 		/**
@@ -594,8 +576,8 @@ public class DoctorMedicalRecordUI {
 	 * @param b
 	 */
 	public void enableAddVisitOrReferral(boolean b) {
-		btnNewButton.setEnabled(b);
-		btnNewButton_1.setEnabled(b);
+		btnNewVisit.setEnabled(b);
+		btnNewReferral.setEnabled(b);
 
 	}
 }

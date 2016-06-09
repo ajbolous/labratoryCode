@@ -119,6 +119,12 @@ public class DateTime {
 	public static Date getDate(int y,int m,int d,int h,int min) throws ParseException{
 		return formatter.parse(String.format("%d-%d-%d-%d:%d:%d", y,m,d,h,min,0));
 	}
+	
+	public static Date currentDay() throws ParseException{
+		Date curr = new Date();
+		return getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), 0, 0);
+	}
+	
 	public static Date currentDate() throws ParseException{
 		Date curr = new Date();
 		return getDate(curr.getYear()+1900, curr.getMonth()+1, curr.getDate(), curr.getHours(), curr.getMinutes());

@@ -15,6 +15,7 @@ import javax.swing.ListSelectionModel;
 import models.Appointment;
 import models.Patient;
 import ui.main.Identification;
+import ui.utils.Messages;
 import ui.utils.MyTableModel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -184,7 +185,7 @@ public class Appointments {
 						apps_list.remove(row);
 						DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 						dm.removeRow(row);
-						JOptionPane.showMessageDialog(cancel_btn, "Appointment Canceled", "Cancel Appointment", JOptionPane.INFORMATION_MESSAGE);
+						Messages.successMessage("Appointment Canceled", "Cancel Appointment", null);
 
 					}
 				}

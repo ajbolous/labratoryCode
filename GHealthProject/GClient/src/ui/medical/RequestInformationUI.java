@@ -35,6 +35,7 @@ import javax.swing.WindowConstants;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.SwingConstants;
 
 public class RequestInformationUI {
 	private JFrame requestInfo;
@@ -44,7 +45,7 @@ public class RequestInformationUI {
 	private JRadioButton radioComplete;
 	private JLabel lblPleaseChooseType;
 	MedicalRecordController mrctrl = new MedicalRecordController();
-	private JButton btnImage;
+	private JLabel btnImage;
 	private JRadioButton radioPartial;
 
 	public RequestInformationUI(Patient patient) {
@@ -162,7 +163,8 @@ public class RequestInformationUI {
 		lblPleaseChooseType.setBounds(16, 106, 197, 14);
 		requestInfo.getContentPane().add(lblPleaseChooseType);
 
-		btnImage = new JButton("");
+		btnImage = new JLabel("");
+		btnImage.setHorizontalAlignment(SwingConstants.CENTER);
 		btnImage.setIcon(new ImageIcon(RequestInformationUI.class.getResource("/img/loading.gif")));
 		btnImage.setBounds(10, 223, 638, 644);
 		requestInfo.getContentPane().add(btnImage);

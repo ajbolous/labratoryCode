@@ -2,7 +2,11 @@ package Server;
 
 import Utils.Request;
 import Views.*;
-
+/**
+ * Server router, routes the requests to the the relevant views
+ * @author aj_pa
+ *
+ */
 public class Router {
 	Doctors doctors = new Doctors();
 	Patients patients = new Patients();
@@ -16,9 +20,16 @@ public class Router {
 	Invoices invoices = new Invoices();
 	Referrals referrals = new Referrals();
 
+	/**
+	 * Router constructor.
+	 */
 	public Router() {
 	}
-
+	/**
+	 * resolve handles the request and invokes the relevant view.
+	 * @param request
+	 * @return Object 
+	 */
 	public Object resolve(Request request) {
 		switch (request.getView()) {
 		case "doctors":

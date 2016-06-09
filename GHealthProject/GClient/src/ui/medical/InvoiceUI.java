@@ -126,7 +126,7 @@ public class InvoiceUI {
 		Invoice.setLocale(null);
 		Invoice.setSize(388, 491);
 
-		JLabel logo = new JLabel("GHealth - <Invoice>");
+		JLabel logo = new JLabel("GHealth - Invoice");
 		logo.setBounds(0, 0, 365, 71);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));

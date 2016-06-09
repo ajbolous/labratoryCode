@@ -112,7 +112,7 @@ public class TreatmentsInvoiceUI {
 		tinvoice.getContentPane().setBackground(Color.WHITE);
 		tinvoice.getContentPane().setLayout(null);
 
-		JLabel logo = new JLabel("GHealth - <Treatments Invoice>");
+		JLabel logo = new JLabel("GHealth - Treatments Invoice");
 		logo.setBounds(0, 0, 495, 68);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
@@ -121,7 +121,7 @@ public class TreatmentsInvoiceUI {
 		tinvoice.getContentPane().add(logo);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 143, 751, 288);
+		scrollPane.setBounds(0, 143, 751, 340);
 		tinvoice.getContentPane().add(scrollPane);
 
 		table = new JTable();
@@ -192,16 +192,6 @@ public class TreatmentsInvoiceUI {
 		lblTreatments.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTreatments.setBounds(10, 113, 104, 24);
 		tinvoice.getContentPane().add(lblTreatments);
-
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tinvoice.setVisible(false);
-
-			}
-		});
-		btnCancel.setBounds(651, 442, 89, 23);
-		tinvoice.getContentPane().add(btnCancel);
 
 		/**
 		 * open InvoiceUI to create invoice for the selected treatment

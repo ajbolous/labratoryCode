@@ -49,6 +49,7 @@ public class ClientUI {
 		initialize();
 		frame.setSize(601, 684);
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 		lblNewLabel_1.setBounds(331, 21, 279, 44);
 		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " ("
 				+ Application.user.getClass().getSimpleName() + ")");

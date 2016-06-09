@@ -104,7 +104,7 @@ public class testconfirm {
 		lblPatientId.setBounds(24, 69, 66, 14);
 		testconfirm.getContentPane().add(lblPatientId);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 98, 741, 409);
+		scrollPane.setBounds(10, 98, 618, 365);
 		testconfirm.getContentPane().add(scrollPane);
 		
 		tblToday = new JTable();
@@ -127,7 +127,7 @@ public class testconfirm {
 		label_id.setBounds(85, 64, 200, 25);
 		testconfirm.getContentPane().add(label_id);
 		testconfirm.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
-		testconfirm.setBounds(100, 100, 576, 420);
+		testconfirm.setBounds(100, 100, 644, 503);
 		testconfirm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	

@@ -35,6 +35,8 @@ import java.util.Date;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ExamEditor {
 
@@ -46,7 +48,7 @@ public class ExamEditor {
 		exam = ex;
 		initialize();
 		labratoryUI.setVisible(true);
-	
+
 	}
 
 	/**
@@ -60,19 +62,18 @@ public class ExamEditor {
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		labratoryUI.setIconImage(icon);
 		labratoryUI.setForeground(Color.BLACK);
-		labratoryUI.setFont(new Font("Dialog", Font.PLAIN, 16));
+		labratoryUI.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		labratoryUI.setBackground(Color.WHITE);
 		labratoryUI.getContentPane().setBackground(Color.WHITE);
 		labratoryUI.getContentPane().setLayout(null);
 
 		JLabel label_2 = new JLabel("<dynamic> <dynamic>");
-		label_2.setBounds(278, 44, 240, 21);
+		label_2.setBounds(232, 39, 214, 21);
 		labratoryUI.getContentPane().add(label_2);
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		try {
 			creationDate = Utils.DateTime.currentDate();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		label_2.setText(creationDate.toString());
@@ -87,7 +88,7 @@ public class ExamEditor {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBounds(0, 66, 518, 157);
+		panel.setBounds(0, 65, 447, 94);
 		labratoryUI.getContentPane().add(panel);
 
 		JLabel lblPatient = new JLabel("Patient:");
@@ -97,7 +98,7 @@ public class ExamEditor {
 
 		JLabel label_1 = new JLabel("<dynamic> <dynamic>");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(106, 11, 207, 21);
+		label_1.setBounds(68, 11, 207, 21);
 		panel.add(label_1);
 
 		label_1.setText(new String(labratorian.getFirstName() + " " + labratorian.getLastName()));
@@ -111,49 +112,45 @@ public class ExamEditor {
 
 		JLabel lblExaminationType = new JLabel("Examination Type:" + exam.geteType());
 		lblExaminationType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblExaminationType.setBounds(10, 43, 498, 21);
+		lblExaminationType.setBounds(223, 11, 215, 21);
 		panel.add(lblExaminationType);
 
 		JLabel lblComments = new JLabel("Doctor comments: ");
 		lblComments.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblComments.setBounds(10, 75, 168, 21);
+		lblComments.setBounds(10, 43, 132, 21);
 		panel.add(lblComments);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane_1.setBounds(143, 75, 319, 67);
+		scrollPane_1.setBounds(148, 43, 290, 47);
 		panel.add(scrollPane_1);
-		
+
 		JTextPane txtDoctor = new JTextPane();
 		txtDoctor.setEditable(false);
 		scrollPane_1.setViewportView(txtDoctor);
 		txtDoctor.setText(exam.getComments());
-		
+
 		JLabel lblResults = new JLabel("Result comments:");
-		lblResults.setBounds(54, 226, 128, 14);
+		lblResults.setBounds(10, 163, 128, 14);
 		labratoryUI.getContentPane().add(lblResults);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(78, 251, 385, 75);
+		scrollPane.setBounds(20, 178, 418, 75);
 		labratoryUI.getContentPane().add(scrollPane);
 
 		JTextPane txtResult = new JTextPane();
 		scrollPane.setViewportView(txtResult);
 		txtResult.setText(exam.getResults());
-		
+
 		JLabel lblAttachedImage = new JLabel("Attached Image");
-		lblAttachedImage.setBounds(54, 337, 128, 14);
+		lblAttachedImage.setBounds(10, 268, 89, 14);
 		labratoryUI.getContentPane().add(lblAttachedImage);
 
-		JButton btnAddImage = new JButton("Add Image");
-
-		ImageIcon image = (ImageIcon) ExaminationController.getImage(exam);
-		if (image != null)
-			btnAddImage.setIcon(image);
-
-		btnAddImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JLabel btnAddImage = new JLabel("Attached Image");
+		btnAddImage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				int result = fileChooser.showOpenDialog(labratoryUI);
@@ -165,30 +162,44 @@ public class ExamEditor {
 				}
 			}
 		});
-		btnAddImage.setBounds(78, 352, 385, 170);
+		btnAddImage.setHorizontalAlignment(SwingConstants.CENTER);
+		btnAddImage.setForeground(Color.LIGHT_GRAY);
+		btnAddImage.setBackground(Color.LIGHT_GRAY);
+
+		ImageIcon image = (ImageIcon) ExaminationController.getImage(exam);
+		if (image != null){
+			btnAddImage.setIcon(image);
+			btnAddImage.setText("");
+		}
+		btnAddImage.setBounds(20, 293, 418, 271);
 		labratoryUI.getContentPane().add(btnAddImage);
 
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				exam.setResults(txtResult.getText());
 				exam.setExaminationDate(creationDate);
-				ExaminationController.saveExamination(exam, (ImageIcon)btnAddImage.getIcon());
+				ExaminationController.saveExamination(exam, (ImageIcon) btnAddImage.getIcon());
 				Messages.successMessage("Examination results added", "Examinations", null);
-				
+
 				labratoryUI.dispose();
 			}
 		});
-		btnSave.setBounds(78, 533, 169, 23);
+		btnSave.setBounds(43, 575, 169, 23);
 		labratoryUI.getContentPane().add(btnSave);
 
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(294, 533, 169, 23);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				labratoryUI.dispose();
+			}
+		});
+		btnCancel.setBounds(222, 575, 200, 23);
 		labratoryUI.getContentPane().add(btnCancel);
 
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		labratoryUI.setBounds(100, 100, 523, 596);
+		labratoryUI.setBounds(100, 100, 453, 638);
 		labratoryUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

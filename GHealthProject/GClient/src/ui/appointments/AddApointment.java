@@ -23,6 +23,7 @@ import Utils.Request;
 import models.Appointment;
 import models.Doctor;
 import models.Patient;
+import ui.utils.Messages;
 import ui.utils.MyTableModel;
 
 import javax.swing.JComboBox;
@@ -364,12 +365,12 @@ public class AddApointment  {
 				int row= time_table.getSelectedRow();
 				Date timeToSet= times.get(row).getAppointmentTime();
 				if(AppointmentsController.addNewAppointment(doctor_id, patient.getSid(), timeToSet)){
-					JOptionPane.showMessageDialog(null, "Appointment saved successfully", "Add new appointment", JOptionPane.INFORMATION_MESSAGE);
+					Messages.successMessage("Appointment saved successfully", "Add new appointment", null);
 					newApp.setVisible(false);
 					appointments_class.getAppointments();
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "Cannot complete the request,some thing goes wrong ,maybe the appointment choosed by another system , please choose another one", "Add new appointment", JOptionPane.ERROR_MESSAGE);
+					Messages.errorMessage("Cannot complete the request,some thing goes wrong ,maybe the appointment choosed by another system , please choose another one", "Add new appointment", null);
 				}
 				
 			}

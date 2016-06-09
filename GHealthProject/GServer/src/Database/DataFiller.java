@@ -34,6 +34,25 @@ public class DataFiller {
 
 	}
 
+	public void fillManagers() throws SQLException {
+		for (int i = 0; i < cities.length; i++) {
+			Manager d = new Manager();
+			d.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
+			d.setLastName(lastNames[rand.nextInt(lastNames.length)]);
+
+			d.setEmail((d.getFirstName() + "." + d.getLastName() + i).toLowerCase() + "@crows.com");
+			d.setBirthDate(Utils.DateTime.getDate(1960 + rand.nextInt(20), rand.nextInt(12), rand.nextInt(29)));
+			d.setAddress(cities[rand.nextInt(cities.length)] + ", St. " + i);
+			d.setPhone("0" + (548143001 + i));
+			d.setClinic(db.clinics.queryForId(i % cities.length + 1));
+			d.setPass("123123");
+			d.setSid("" + (600000000 + i));
+			d.setCeo(i == 0);
+			db.managers.create(d);
+		}
+
+	}
+
 	public void fillDoctors() throws SQLException {
 		for (int i = 0; i < 15; i++) {
 			Doctor d = new Doctor();
@@ -160,7 +179,7 @@ public class DataFiller {
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
-
+			c.setHasLabratory((i % 2 == 0));
 			db.clinics.createIfNotExists(c);
 
 			Labratorian l = new Labratorian();
@@ -189,11 +208,11 @@ public class DataFiller {
 			db.secretaries.createIfNotExists(sec);
 		}
 	}
-	
-	public void fillDispatchers() throws SQLException{
-		
-		for(int i=0;i<3;i++){
-			Dispatcher dis= new Dispatcher();
+
+	public void fillDispatchers() throws SQLException {
+
+		for (int i = 0; i < 3; i++) {
+			Dispatcher dis = new Dispatcher();
 			dis.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
 			dis.setLastName(lastNames[rand.nextInt(lastNames.length)]);
 			dis.setPass("123123");
@@ -212,9 +231,8 @@ public class DataFiller {
 			for (int i = 0; i < 5; i++) {
 				Doctor d = db.doctors.queryForId("20000000" + i);
 				Patient p = db.patients.queryForId("30000000" + (i + j));
-
 				Appointment a = new Appointment(d, p, DateTime.getDate(2016, 4 + j, 5 + i, 9 + i, 00));
-
+				a.setDone(false);
 				db.appointments.create(a);
 			}
 		}
@@ -229,7 +247,6 @@ public class DataFiller {
 			for (Shift a : doc_shifts) {
 				db.shifts.create(a);
 			}
-
 		}
 	}
 

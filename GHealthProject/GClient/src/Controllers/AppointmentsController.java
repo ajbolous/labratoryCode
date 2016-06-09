@@ -57,6 +57,13 @@ public class AppointmentsController {
 
 	}
 
+	
+	public static void setAppointmentDone(String doctor_id, String patient_id){
+		Request r = new Request("appointments/setAppointmentDone");
+		r.addParam("doctor_id", doctor_id);
+		r.addParam("patient_id", patient_id);
+		Application.client.sendRequest(r);
+	}
 	/**
 	 * send request to database to return all available doctors by given
 	 * specialty .

@@ -40,6 +40,8 @@ public class SignInUI {
 	public SignInUI() {
 		initialize();
 		SignInUI.setVisible(true);
+		SignInUI.setLocationRelativeTo(null);
+
 	}
 
 	/**

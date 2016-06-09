@@ -25,6 +25,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Client.Application;
 import Client.Resources;
+import Controllers.AppointmentsController;
 import Controllers.PatientsController;
 
 import javax.swing.JTextField;
@@ -154,7 +155,7 @@ public class Identification implements FrameInterface {
 
 		disID.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		disID.setBounds(100, 100, 349, 288);
-		disID.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		disID.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		disID.setLocationRelativeTo(null);
 
@@ -180,8 +181,11 @@ public class Identification implements FrameInterface {
 			} else {
 			disID.setVisible(false);
 
-			if (Application.user.getClass() == Doctor.class)
+			if (Application.user.getClass() == Doctor.class){
+				AppointmentsController.setAppointmentDone(Application.user.getSid(), patient.getSid());
 				new DoctorMedicalRecordUI(patient);
+				
+			}
 			else if (Application.user.getClass() == Secretary.class)
 				new NewConfirmUI(patient);
 			else if (Application.user.getClass() == Dispatcher.class)
