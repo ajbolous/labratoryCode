@@ -8,6 +8,7 @@ import java.util.List;
 import models.Dispatcher;
 import models.Doctor;
 import models.Labratorian;
+import models.Manager;
 import models.Secretary;
 import models.User;
 import Database.DbHandler;
@@ -42,10 +43,12 @@ public class Users extends View {
 		Secretary s = db.secretaries.queryForId(id);
 		if (s != null)
 			return s;
-		Dispatcher dis=db.dispatchers.queryForId(id);
-		if(dis !=null) 
+		Dispatcher dis = db.dispatchers.queryForId(id);
+		if (dis != null)
 			return dis;
-		
+		Manager man = db.managers.queryForId(id);
+		if (man != null)
+			return man;
 		return null;
 	}
 
@@ -82,9 +85,19 @@ public class Users extends View {
 		String cls = user.getClass().getTypeName();
 		switch (cls) {
 		case "models.Doctor":
-		case "models.Labratorian":db.labratorians.update((Labratorian)user);break;
-		case "models.Dispatcher":db.dispatchers.update((Dispatcher)user);break;
-		case "models.Secretary":db.secretaries.update((Secretary)user);break;
+			db.doctors.update((Doctor) user);
+		case "models.Labratorian":
+			db.labratorians.update((Labratorian) user);
+			break;
+		case "models.Dispatcher":
+			db.dispatchers.update((Dispatcher) user);
+			break;
+		case "models.Secretary":
+			db.secretaries.update((Secretary) user);
+			break;
+		case "models.Manager":
+			db.managers.update((Manager) user);
+			break;
 		}
 	}
 
