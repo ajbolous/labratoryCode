@@ -21,15 +21,53 @@ import Server.Config;
 import Utils.DateTime;
 import Utils.Request;
 import models.Statistic;
-
+/**
+ * 
+ * @author Ahdab Serhan
+ *
+ */
 public class Reports extends View {
+/**
+ * this function return the number of patient in specific period and sets this value in statistic 
+ * @param request
+ * @return x
+ * @throws Exception
+ */
+	public Object numOfPatient(Request request) throws Exception {
+		DbHandler db = Config.getConfig().getHandler();
+		Statistic s = new Statistic();
+		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
 
+		try {
+			q.where().between("appointmentTime",
+					Utils.DateTime.getDate(2016, 10, 5, 0, 0),
+					Utils.DateTime.getDate(2016, 10, 7));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		}
+
+		List<Appointment> lp = q.query();
+		int x = lp.size();
+		s.setNumOfPatients(x);
+		return x;
+	}
+/**
+ * this function get request (date) and return monthly report for specific date
+ * @param request
+ * @return report
+ */
 	public Object getMonthlyReport(Request request) {
 		Date d = (Date) request.getParam("date");
 		return buildMonthlyReport(d);
 	}
-
-	public Report buildMonthlyReport(Date d) {
+/**
+ * this function get date and build and return monthly report by filling it's statistics
+ * @param d
+ * @return report
+ */
+	public Report buildMonthlyReport(Date d){
 		Report r = new Report();
 		r.setStatistic(new ArrayList<Statistic>());
 		int i = 0;
@@ -37,8 +75,10 @@ public class Reports extends View {
 		Statistic stat = new Statistic();
 		for (Statistic s : reportByDate(d, Utils.DateTime.addMonth(d))) {
 			stat.setDate(s.getDate());
-			stat.setNumOfPatients(s.getNumOfPatients() + stat.getNumOfPatients());
-			stat.setWaitingPeriod(s.getWaitingPeriod() + stat.getWaitingPeriod());
+			stat.setNumOfPatients(s.getNumOfPatients()
+					+ stat.getNumOfPatients());
+			stat.setWaitingPeriod(s.getWaitingPeriod()
+					+ stat.getWaitingPeriod());
 			i++;
 
 			if (i % 7 == 0) {
@@ -50,7 +90,12 @@ public class Reports extends View {
 		fillStat(r);
 		return r;
 	}
-
+/**
+ * this function get a request (date) and return report that contain statistics for n months that the CEO request
+ * 
+ * @param request
+ * @return report
+ */
 	public Object getNMonths(Request request) {
 		Date d = null;
 		try {
@@ -58,43 +103,103 @@ public class Reports extends View {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		int n = (int) request.getParam("N");
+		int n=(int)request.getParam("N");
 		Report r = new Report();
 
 		r.setStatistic(new ArrayList<Statistic>());
 		int j;
 		Statistic stat = new Statistic();
-		for (j = 0; j < n; j++) {
-
-			Report rN = buildMonthlyReport(d);
-			d = Utils.DateTime.MinusMonth(d);
-			for (Statistic s : rN.getStatistic()) {
-
-				stat.setNumOfPatients(s.getNumOfPatients() + stat.getNumOfPatients());
-				stat.setWaitingPeriod(s.getWaitingPeriod() + stat.getWaitingPeriod());
-			}
-			stat.setDate(d);
-			r.getStatistic().add(stat);
-			stat = new Statistic();
+		for(j=0;j<n;j++)
+		{
+			
+			Report rN=buildMonthlyReport(d);	
+		d=Utils.DateTime.MinusMonth(d);
+		for (Statistic s : rN.getStatistic()) {
+			
+			stat.setNumOfPatients(s.getNumOfPatients()
+					+ stat.getNumOfPatients());
+			stat.setWaitingPeriod(s.getWaitingPeriod()
+					+ stat.getWaitingPeriod());
+			
+				
+			
 		}
+		stat.setDate(d);
+		r.getStatistic().add(stat);
+		stat = new Statistic();	
+		}
+
 		fillStat(r);
 		return r;
 	}
+	public Object getPeriodReport(Request request)
+	{
+		int i=0;
+		int n;
+		Date d1=(Date)request.getParam("date1");
+		Date d2=(Date)request.getParam("date2");
+		Report r = new Report();
+		r.setStatistic(new ArrayList<Statistic>());
+		Statistic stat = new Statistic();
+		n=Utils.DateTime.MinusTwoMonths(d1, d2);
+		
+		for(i=0;i<n;i++)
+		{
+			
+			Report rN=buildMonthlyReport(d1);	
+		d1=Utils.DateTime.MinusMonth(d1);
+		for (Statistic s : rN.getStatistic()) {
+			
+			stat.setNumOfPatients(s.getNumOfPatients()
+					+ stat.getNumOfPatients());
+			stat.setWaitingPeriod(s.getWaitingPeriod()
+					+ stat.getWaitingPeriod());
+			
+				
+			
+		}
+		stat.setDate(d1);
+		r.getStatistic().add(stat);
+		stat = new Statistic();	
+		}
 
+		fillStat(r);
+		return r;
+	}
+		
+		
+		
+		
+	
+/**
+ * this function get request (date) and return weekly report by filling it's statistics
+ * @param request
+ * @return report 
+ */
 	public Object getWeeklyReport(Request request) {
 		Date d = (Date) request.getParam("date");
 
 		return buildWeeklyReport(d);
 	}
-
+/**
+ * this function gets date of the week, build a weekly report by filling  statistic of specific day in specific week
+ * @param d
+ * @return report
+ */
 	public Report buildWeeklyReport(Date d) {
 		Report r = new Report();
-		ArrayList<Statistic> stat = (ArrayList<Statistic>) reportByDate(d, Utils.DateTime.addDay(d, 7));
+		ArrayList<Statistic> stat = (ArrayList<Statistic>) reportByDate(d,
+				Utils.DateTime.addDay(d, 7));
 		r.setStatistic(stat);
 		r = fillStat(r);
 		return r;
 	}
-
+/**
+ * this function gets report and fills it's statistics (avg,max,min) for the parameters :number of patient and 
+ * for waiting period
+ * @param r
+ * @return report
+ */
 	private Report fillStat(Report r) {
 		int size = r.getStatistic().size();
 		for (Statistic s : r.getStatistic()) {
@@ -114,7 +219,12 @@ public class Reports extends View {
 		r.setwAvg(r.getwAvg() / size);
 		return fillStd(r);
 	}
-
+/**
+ * this function get report and calculate the standard division for parameters :number of patient and waiting 
+ * period 
+ * @param r
+ * @return report
+ */
 	private Report fillStd(Report r) {
 		double pStd = 0;
 		double wStd = 0;
@@ -132,13 +242,19 @@ public class Reports extends View {
 		r.setwStd(wStd);
 		return r;
 	}
-
+/**
+ * this function get start date and end date and return List of statistics between those two dates
+ * @param d1
+ * @param d2
+ * @return List
+ */
 	public static List<Statistic> reportByDate(Date d1, Date d2) {
 		DbHandler db = Config.getConfig().getHandler();
 		QueryBuilder<Statistic, Integer> q = db.statistics.queryBuilder();
 
 		try {
-			return q.orderBy("date", false).where().between("date", d1, d2).query();
+			return q.orderBy("date", false).where().between("date", d1, d2)
+					.query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

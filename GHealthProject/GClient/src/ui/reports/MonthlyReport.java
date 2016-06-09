@@ -39,7 +39,11 @@ import Utils.Request;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
+/**
+ * 
+ * @author Ahdab Serhan
+ *
+ */
 public class MonthlyReport {
 	private JFrame monthlyReport;
 	private JTable monthly_table;
@@ -205,7 +209,10 @@ public class MonthlyReport {
 		monthlyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-
+/**
+ * this function gets date and fill monthly report for specific date 
+ * @param d
+ */
 	public void fillMonthlyReport(Date d) {
 		Report report;
 		Request r = new Request("reports/getMonthlyReport");
@@ -230,7 +237,7 @@ public class MonthlyReport {
 		txtWstd.setText(String.format("StdDev: %.2f",report.getwStd()));
 
 	}
-	
+
 	public JFrame getFrame() {
 		return monthlyReport;
 	}
