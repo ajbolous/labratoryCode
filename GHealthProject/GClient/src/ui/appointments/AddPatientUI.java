@@ -184,7 +184,6 @@ public class AddPatientUI {
 		 * check if all requirement field is filled . call to
 		 * AddNewPatient method in PatientController to add the
 		 * patient show success message to user or warning message if patient is exist 
-		 * add Examination to treatment
 		 */
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setForeground(Color.BLUE);
