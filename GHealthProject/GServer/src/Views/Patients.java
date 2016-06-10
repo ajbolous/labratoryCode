@@ -92,18 +92,6 @@ public class Patients extends View {
 	 * @param request
 	 * @return success message  
 	 */
-			Config.getConfig().getLogger().exception(e);
-		}
-		try {
-			db.patients.update(patient);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
-
-		return null;
-
-	}
-
 	public Object sendRequest(Request request) {
 		Patient patient = (Patient) request.getParam("patient");
 		System.out.println("----------------------------------------");
