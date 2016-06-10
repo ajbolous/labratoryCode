@@ -53,10 +53,6 @@ public class AddPatientUI {
 	 * Patient Controller instance
 	 */
 	private PatientsController idctrl = new PatientsController();
-	/**
-	 * MedicalRecord Controller instance
-	 */
-	private MedicalRecordController mdctrl= new MedicalRecordController(); 
 
 	private JTextField FieldID;
 	private JTextField FnameField;
@@ -101,6 +97,13 @@ public class AddPatientUI {
 		addPatient.getContentPane().setLayout(null);
 
 		JTextField textField = new JTextField(15);
+
+		/**
+		*JCalendar is a Java date chooser bean for graphically picking a date. 
+		*JCalendar is composed of several other Java beans, a JDayChooser,
+ 		*a JMonthChooser and a JYearChooser. All these beans have a locale property,
+ 		*Also part of the package is a JDateChooser	
+ 		*/
 		chooser = new JDateChooser();
 
 		
@@ -177,7 +180,12 @@ public class AddPatientUI {
 		EmailField.setColumns(10);
 		EmailField.setBounds(83, 225, 252, 26);
 		addPatient.getContentPane().add(EmailField);
-
+		/**
+		 * check if all requirement field is filled . call to
+		 * AddNewPatient method in PatientController to add the
+		 * patient show success message to user or warning message if patient is exist 
+		 * add Examination to treatment
+		 */
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.setForeground(Color.BLUE);
 		btnNewButton.setBounds(83, 348, 110, 23);
@@ -196,7 +204,6 @@ public class AddPatientUI {
 					addPatient.setBounds(addPatient.getX(), addPatient.getY(), 500, addPatient.getHeight());
 					return;
 				}
-
 				addPatient.setBounds(addPatient.getX(), addPatient.getY(), 350, addPatient.getHeight());
 
 				Patient patient = new Patient();
@@ -208,9 +215,10 @@ public class AddPatientUI {
 				patient.setBirthDate(chooser.getDate());
 				patient.setGender((String) comboBox_gender.getSelectedItem());
 				patient.setAddress(AddressField.getText());
-			
-			
-				idctrl.AddNewPatient(patient);
+				/**
+				 * Patient Controller 
+				 */		
+				PatientsController.AddNewPatient(patient);
 			
 				Messages.successMessage("Patient was added successfully to the system", "Success", null);
 				addPatient.dispose();
@@ -245,6 +253,9 @@ public class AddPatientUI {
 		JLabel lblGender = new JLabel("Gender:");
 		lblGender.setBounds(22, 191, 64, 35);
 		addPatient.getContentPane().add(lblGender);
+		/**
+		 * Combobox  to choose gender : male or female 
+		 */	
 		comboBox_gender.setModel(new DefaultComboBoxModel(new String[] { "Male", "Female" }));
 
 		comboBox_gender.setBounds(83, 195, 252, 26);
@@ -295,7 +306,10 @@ public class AddPatientUI {
 		addPatient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
-
+	/**
+	 *This private method , checks if all requirement field is filled correct . return true 
+	 * if all fields is valid , else  if one of fields is incorrect input or empty 
+	 */
 	private Boolean isvalid() {
 		boolean flag = true;
 		if (UITests.notEmpty(FieldID.getText()) == false) {
@@ -343,4 +357,5 @@ public class AddPatientUI {
 		}
 		return flag;
 	}
+	
 }
