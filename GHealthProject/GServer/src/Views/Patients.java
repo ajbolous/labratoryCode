@@ -36,7 +36,7 @@ public class Patients extends View {
 	}
 
 	public Object getHmoInformation(Request request) {
-		return new ImageIcon("files/information/" + request.getParam("info"));
+		return new ImageIcon("/information/" + request.getParam("info"));
 	}
 
 	public Object all(Request request) {

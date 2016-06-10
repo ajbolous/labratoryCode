@@ -71,7 +71,7 @@ public class Examinations extends View {
 
 	public Object getExaminationImage(Request request) {
 		Examination ex = (Examination) request.getParam("examination");
-		ImageIcon image = new ImageIcon("files/examinations/" + ex.getFile());
+		ImageIcon image = new ImageIcon("/examinations/" + ex.getFile());
 		return image;
 	}
 
@@ -83,7 +83,7 @@ public class Examinations extends View {
 
 			if (image != null) {
 				ex.setFile(ex.getEid() + "-" + ex.getFile());
-				File outputFile = new File("files/examinations/" + ex.getFile());
+				File outputFile = new File("/examinations/" + ex.getFile());
 
 				BufferedImage bi = new BufferedImage(image.getWidth(null), image.getHeight(null),
 						BufferedImage.TYPE_INT_RGB);
