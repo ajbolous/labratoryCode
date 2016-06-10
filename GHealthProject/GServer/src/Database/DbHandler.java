@@ -10,6 +10,13 @@ import Server.Config;
 import Utils.Logger;
 import models.*;
 
+/**
+ * Database Handler, the main class that intializes, fills and controls the
+ * database using DAO objects.
+ * 
+ * @author aj_pa
+ *
+ */
 public class DbHandler {
 
 	private ConnectionSource connection;
@@ -33,6 +40,13 @@ public class DbHandler {
 	public Dao<Dispatcher, String> dispatchers;
 	public Dao<Manager, String> managers;
 
+	/**
+	 * need to provide url , user ,pass to conenct to database
+	 * 
+	 * @param url
+	 * @param username
+	 * @param password
+	 */
 	public DbHandler(String url, String username, String password) {
 		try {
 			connection = new JdbcConnectionSource(url, username, password);
@@ -44,6 +58,11 @@ public class DbHandler {
 		}
 	}
 
+	/**
+	 * fills the database with random data.
+	 * 
+	 * @throws Exception
+	 */
 	public void fillDataBase() throws Exception {
 		DataFiller df = new DataFiller(this);
 		df.fillClinics();
@@ -57,6 +76,11 @@ public class DbHandler {
 		df.fillManagers();
 	}
 
+	/**
+	 * initializes all the DAO for ORM usage
+	 * 
+	 * @throws Exception
+	 */
 	public void initializeDao() throws Exception {
 		patients = DaoManager.createDao(connection, Patient.class);
 		doctors = DaoManager.createDao(connection, Doctor.class);
@@ -78,6 +102,11 @@ public class DbHandler {
 		managers = DaoManager.createDao(connection, Manager.class);
 	}
 
+	/**
+	 * creates all the tables using ORM, it also drops the tables first
+	 * 
+	 * @throws Exception
+	 */
 	public void createAllTables() throws Exception {
 		TableUtils.dropTable(connection, Manager.class, true);
 		TableUtils.dropTable(connection, Patient.class, true);

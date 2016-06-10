@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 import models.Appointment;
+import models.Doctor;
 import models.Patient;
 import ui.main.Identification;
+import ui.medical.DoctorMedicalRecordUI;
 import ui.utils.Messages;
 import ui.utils.MyTableModel;
 
@@ -29,6 +31,7 @@ import Client.Application;
 import Client.Config;
 import Client.Resources;
 import Controllers.AppointmentsController;
+import Controllers.PatientsController;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -61,7 +64,7 @@ import java.awt.Frame;
  * @author Muhamad Igbaria
  *
  */
-public class Appointments {
+public class DoctorAppointments {
 
 	/**
 	 * appointments frame
@@ -71,27 +74,25 @@ public class Appointments {
 	 * all future patient's appointments table
 	 */
 	private JTable apps_table;
-	JButton cancel_btn;
 
 	/**
 	 * the patient to show his information
 	 */
-	private Patient patient;
-
+	private Doctor doctor;
 	private ArrayList<Appointment> apps_list = new ArrayList<Appointment>();
-
 	private AppointmentsController apctrl = new AppointmentsController();
-
-	private Appointments thisRef = this;
+	private DoctorAppointments thisRef = this;
 
 	/**
 	 * 
 	 * @param patient
 	 *            : Models Patient instance
 	 */
-	public Appointments(Patient patient) {
-		this.patient = patient;
+	public DoctorAppointments(Doctor doctor) {
+		this.doctor = doctor;
 		initialize();
+		app.setVisible(true);
+		app.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -99,14 +100,13 @@ public class Appointments {
 	 */
 
 	private void initialize() {
-		Resources res = new Resources();
 		app = new JFrame();
 		app.setTitle("Client Appointments - GHealth");
 		app.setResizable(false);
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		app.setIconImage(icon);
 		app.setForeground(Color.BLACK);
-		app.setFont(new Font("Dialog", Font.PLAIN, 16));
+		app.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		app.setBackground(Color.WHITE);
 		app.getContentPane().setBackground(Color.WHITE);
 		app.getContentPane().setLayout(null);
@@ -116,11 +116,11 @@ public class Appointments {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		app.getContentPane().add(logo);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 91, 621, 45);
+		panel.setBounds(0, 91, 544, 45);
 		app.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -129,7 +129,7 @@ public class Appointments {
 		lblNewLabel.setBounds(10, 11, 46, 21);
 		panel.add(lblNewLabel);
 
-		JLabel name_lbl = new JLabel(patient.getFirstName() + " " + patient.getLastName());
+		JLabel name_lbl = new JLabel(doctor.getFirstName() + " " + doctor.getLastName());
 		name_lbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		name_lbl.setBounds(61, 11, 140, 21);
 		panel.add(name_lbl);
@@ -139,68 +139,26 @@ public class Appointments {
 		lblPhone.setBounds(211, 11, 67, 21);
 		panel.add(lblPhone);
 
-		JLabel phone_lbl = new JLabel(patient.getPhone());
+		JLabel phone_lbl = new JLabel(doctor.getPhone());
 		phone_lbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		phone_lbl.setBounds(264, 11, 85, 21);
 		panel.add(phone_lbl);
 
 		JLabel lblEmail = new JLabel("E-Mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmail.setBounds(387, 11, 46, 21);
+		lblEmail.setBounds(349, 11, 46, 21);
 		panel.add(lblEmail);
 
-		JLabel mail_lbl = new JLabel(patient.getEmail());
+		JLabel mail_lbl = new JLabel(doctor.getEmail());
 		mail_lbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mail_lbl.setBounds(445, 8, 194, 27);
+		mail_lbl.setBounds(405, 8, 107, 27);
 		panel.add(mail_lbl);
 
-		cancel_btn = new JButton("Cancel Selected Appointment");
-		cancel_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int row = apps_table.getSelectedRow();
-				Date begin_of_day = null;
-				Date end_of_day = null;
-				Date app_date = apps_list.get(row).getAppointmentTime();
-				try {
-					begin_of_day = DateTime.currentDate();
-					begin_of_day.setHours(0);
-					begin_of_day.setMinutes(0);
-					end_of_day = DateTime.currentDate();
-					end_of_day.setHours(23);
-					end_of_day.setMinutes(59);
-				} catch (ParseException e) {
-					Config.getConfig().getLogger().exception(e);
-				}
-				if (app_date.after(begin_of_day) && app_date.before(end_of_day)) {
-					JOptionPane.showMessageDialog(cancel_btn, "Cannot cancel appointment of today",
-							"Cancel Appointment", JOptionPane.ERROR_MESSAGE);
-
-				} else {
-					if (apctrl.deleteAppointment(apps_list.get(row)) == false) {
-						JOptionPane.showMessageDialog(cancel_btn, "Cannot complete the request", "Cancel Appointment",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						apps_list.remove(row);
-						DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
-						dm.removeRow(row);
-						Messages.successMessage("Appointment Canceled", "Cancel Appointment", null);
-
-					}
-				}
-
-				cancel_btn.setEnabled(false);
-			}
-		});
-		cancel_btn.setEnabled(false);
-
-		cancel_btn.setBounds(183, 140, 230, 30);
-		app.getContentPane().add(cancel_btn);
-
 		JScrollPane apps_scrollPane = new JScrollPane();
-		apps_scrollPane.setBounds(10, 170, 603, 208);
+		apps_scrollPane.setBounds(10, 147, 534, 419);
 		app.getContentPane().add(apps_scrollPane);
 
-		String[] doc_columnNames = { "Speciality", "Doctor", "Clinic", "Date", "Hour" };
+		String[] doc_columnNames = { "ID", "Name", "Time" };
 		Object[][] doc_data = {};
 		apps_table = new JTable();
 		apps_table.setModel(new MyTableModel(doc_columnNames, doc_data));
@@ -214,33 +172,21 @@ public class Appointments {
 		apps_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		apps_table.setBackground(Color.WHITE);
 
-		apps_table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent event) {
-				cancel_btn.setEnabled(true);
-			}
-		});
-		JButton btnBack = new JButton("Exit Account");
-		btnBack.addActionListener(new ActionListener() {
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.setVisible(false);
-				new Identification().getFrame().setVisible(true);
+				int index = apps_table.getSelectedRow();
+
+				String sid = (String) apps_table.getModel().getValueAt(index, 0);
+				Patient p = PatientsController.getById(sid);
+				new DoctorMedicalRecordUI(p);
 			}
 		});
-		btnBack.setBounds(501, 389, 112, 23);
-		app.getContentPane().add(btnBack);
+		btnNewButton.setBounds(10, 577, 535, 45);
+		app.getContentPane().add(btnNewButton);
 
-		JButton newApp_btn = new JButton("Add New Appointment");
-		newApp_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new AddApointment(patient, thisRef).getFrame().setVisible(true);
-			}
-		});
-		newApp_btn.setBounds(10, 140, 174, 30);
-		app.getContentPane().add(newApp_btn);
-
-		// ---------------------------------
 		app.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		app.setBounds(100, 100, 629, 448);
+		app.setBounds(100, 100, 561, 670);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		app.setLocationRelativeTo(null);
 	}
@@ -258,21 +204,13 @@ public class Appointments {
 	 * the appointments from getPatientAppointments in Appointment controller
 	 */
 	public void getAppointments() {
-		cancel_btn.setEnabled(false);
-		ArrayList<Appointment> apps = apctrl.getPatientAppointments(patient);
-		if (apps != null) {
-			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
-			dm.setRowCount(0);
-			if (apps_list != null && apps_list.size() > 0)
-				apps_list.clear();
-			for (Appointment a : apps) {
-				dm.addRow(new Object[] { a.getDoctor().getSpeciality(),
-						a.getDoctor().getFirstName() + " " + a.getDoctor().getLastName(),
-						a.getDoctor().getClinic().getName(), DateTime.getDateString(a.getAppointmentTime()),
-						DateTime.getTimeString(a.getAppointmentTime()) });
+		DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
+		dm.setRowCount(0);
 
-				apps_list.add(a);
-			}
+		for (Appointment a : doctor.getAppointments()) {
+			dm.addRow(new Object[] { a.getPatient().getSid(),
+					a.getPatient().getFirstName() + " " + a.getPatient().getLastName(),
+					DateTime.getTimeString(a.getAppointmentTime()) });
 		}
 	}
 }

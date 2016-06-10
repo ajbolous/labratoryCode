@@ -13,6 +13,7 @@ import java.awt.Rectangle;
 import javax.swing.JButton;
 
 import Client.Application;
+import Client.Config;
 import Controllers.MedicalRecordController;
 
 import models.Treatment;
@@ -192,9 +193,8 @@ public class TreatmentPanel extends JPanel {
 					treatment.setEndFlag(true);
 					try {
 						treatment.setEnd((DateTime.currentDate()));
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (ParseException ex) {
+						Config.getConfig().getLogger().exception(ex);
 					}
 					Messages.successMessage("Treatment Report was added successfully ", "Success",
 							doctorMedicalRecordUI.DoctorMedicalRecord);

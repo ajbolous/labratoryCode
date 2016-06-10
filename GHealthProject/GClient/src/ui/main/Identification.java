@@ -56,6 +56,7 @@ public class Identification implements FrameInterface {
 	private JTextPane txtpnEnterPatientId;
 	private JLabel lblNewLabel_1;
 	JButton btnAddNewPatient;
+
 	/**
 	 * Patient Controller instance
 	 */
@@ -139,15 +140,15 @@ public class Identification implements FrameInterface {
 		lblNewLabel_1.setIcon(info);
 		lblNewLabel_1.setBounds(26, 113, 44, 70);
 		disID.getContentPane().add(lblNewLabel_1);
-		
+
 		btnAddNewPatient = new JButton("Add Patient");
 		btnAddNewPatient.setVisible(false);
-		if (Application.user.getClass() == Secretary.class){
+		if (Application.user.getClass() == Secretary.class) {
 			btnAddNewPatient.setVisible(true);
-			}
+		}
 		btnAddNewPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AddPatientUI(); 
+				new AddPatientUI();
 			}
 		});
 		btnAddNewPatient.setBounds(80, 228, 165, 23);
@@ -171,22 +172,21 @@ public class Identification implements FrameInterface {
 		Patient patient;
 
 		error_lbl.setText("");
-		
+
 		if (UITests.notEmpty(id) == false)
 			error_lbl.setText("*Please enter patient ID");
 		else if (UITests.correctId(id) == false)
 			error_lbl.setText("*Please enter 9 digits ID");
 		else if ((patient = PatientsController.getById(id)) == null) {
 			error_lbl.setText("*Patient does not exist in the system");
-			} else {
+		} else {
 			disID.setVisible(false);
 
-			if (Application.user.getClass() == Doctor.class){
+			if (Application.user.getClass() == Doctor.class) {
 				AppointmentsController.setAppointmentDone(Application.user.getSid(), patient.getSid());
 				new DoctorMedicalRecordUI(patient);
-				
-			}
-			else if (Application.user.getClass() == Secretary.class)
+
+			} else if (Application.user.getClass() == Secretary.class)
 				new NewConfirmUI(patient);
 			else if (Application.user.getClass() == Dispatcher.class)
 				new Appointments(patient).getFrame().setVisible(true);

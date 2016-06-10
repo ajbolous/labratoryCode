@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import Client.Application;
 import Client.Client;
+import Client.Config;
 import Client.Resources;
 
 import javax.swing.JLabel;
@@ -113,7 +114,7 @@ public class WeeklyReport {
 				try {
 					cDate = Utils.DateTime.getReportDate((String)dates.getSelectedItem());
 				} catch (ParseException e) {
-					e.printStackTrace();
+					Config.getConfig().getLogger().exception(e);
 				}
 
 				fillWeeklyReport(cDate);
@@ -213,7 +214,7 @@ public class WeeklyReport {
 		weeklyReport.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
 
-		weeklyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		weeklyReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 /**

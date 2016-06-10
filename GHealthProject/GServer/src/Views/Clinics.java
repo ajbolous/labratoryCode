@@ -35,7 +35,7 @@ public class Clinics extends View {
 			clinic = d.where().eq("hasLabratory", true).query();
 			return clinic;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return "fail";
 		}
 	}
@@ -53,7 +53,7 @@ public class Clinics extends View {
 		try {
 			return db.clinics.queryForId((int) request.getParam("cid"));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}

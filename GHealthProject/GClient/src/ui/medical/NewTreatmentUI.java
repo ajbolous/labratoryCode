@@ -22,6 +22,7 @@ import java.awt.Rectangle;
 import javax.swing.JButton;
 
 import Client.Application;
+import Client.Config;
 import Client.Resources;
 import Controllers.AppointmentsController;
 import Controllers.MedicalRecordController;
@@ -106,8 +107,7 @@ public class NewTreatmentUI extends JPanel {
 		try {
 			treatment.setStart(DateTime.currentDate());
 		} catch (Exception e) {
-			e.printStackTrace();
-
+			Config.getConfig().getLogger().exception(e);
 		}
 		treatment.setMedicalRecord(mr);
 

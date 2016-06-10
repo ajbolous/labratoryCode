@@ -17,6 +17,7 @@ import java.awt.Image;
 import javax.swing.JButton;
 
 import Client.Application;
+import Client.Config;
 import Client.Resources;
 import Controllers.InvoiceController;
 import Controllers.MedicalRecordController;
@@ -183,8 +184,7 @@ public class TreatmentsInvoiceUI {
 		try {
 			label_2.setText(new String("Today:" + Utils.DateTime.currentDate().toString()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		tinvoice.getContentPane().add(panel);
 

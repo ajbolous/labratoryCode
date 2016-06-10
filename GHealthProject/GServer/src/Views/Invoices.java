@@ -24,17 +24,11 @@ public class Invoices extends View {
 	 * @return success message
 	 */
 	public Object send(Request request) {
-		DbHandler db = Config.getConfig().getHandler();
 		Invoice invoice = (Invoice) request.getParam("Invoice");
-
 		System.out.println("----------------------------------------");
-		System.out.println();
-
-		System.out.println("Invoice was send to HMO. \nInvoice Details  : "
-				+ "\nInvoice id : " + invoice.getInvoiceId()
-				+ " \nabout\nTreatment id :" + invoice.getTreatment().getTid()
-				+ "\nTreatment type : " + invoice.getTreatment().gettType()
-				+ " \n Payment : " + invoice.getPayment());
+		System.out.println("Invoice was sent to HMO. \nDetails: " + "\nID : " + invoice.getInvoiceId()
+				+ "\nTreatment id :" + invoice.getTreatment().getTid() + "\nTreatment type : "
+				+ invoice.getTreatment().gettType() + "\nPayment : " + invoice.getPayment());
 
 		System.out.println("----------------------------------------");
 		return "success";

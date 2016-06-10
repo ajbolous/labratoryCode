@@ -16,6 +16,7 @@ import java.awt.Image;
 
 import javax.swing.JButton;
 
+import Client.Config;
 import Client.Resources;
 import Controllers.InvoiceController;
 import Controllers.MedicalRecordController;
@@ -217,9 +218,8 @@ public class InvoiceUI {
 				invoice.setTreatment(treatment);
 				try {
 					invoice.setDate(DateTime.currentDate());
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (ParseException ex) {
+					Config.getConfig().getLogger().exception(ex);
 				}
 				String payment = textField_3.getText();
 

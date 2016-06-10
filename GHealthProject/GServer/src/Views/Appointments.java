@@ -51,7 +51,7 @@ public class Appointments extends View {
 
 			return app;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}
@@ -73,9 +73,9 @@ public class Appointments extends View {
 		Date d1 = DateTime.currentDay();
 		Date d2 = DateTime.addDay(d1, 1);
 		DbHandler db = Config.getConfig().getHandler();
-		List<Appointment> app = db.appointments.queryBuilder().orderBy("appointmentTime",false).where().between("appointmentTime", d1, d2).and()
-				.eq("patient_id", request.getParam("patient_id")).and().eq("doctor_id", request.getParam("doctor_id"))
-				.query();
+		List<Appointment> app = db.appointments.queryBuilder().orderBy("appointmentTime", false).where()
+				.between("appointmentTime", d1, d2).and().eq("patient_id", request.getParam("patient_id")).and()
+				.eq("doctor_id", request.getParam("doctor_id")).query();
 
 		if (app.size() <= 0)
 			return "failed";
@@ -104,7 +104,7 @@ public class Appointments extends View {
 			return true;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return false;
 
 		}
@@ -134,8 +134,7 @@ public class Appointments extends View {
 			patient = db.patients.queryForId((String) request.getParam("patient_id"));
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return false;
 		}
 
@@ -145,13 +144,12 @@ public class Appointments extends View {
 				try {
 					app.setCreationTime(DateTime.currentDate());
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Config.getConfig().getLogger().exception(e);
 				}
 				db.appointments.create(app);
 				return true;
 			} catch (SQLException e) {
-				e.printStackTrace();
+				Config.getConfig().getLogger().exception(e);
 				return false;
 			}
 		}
@@ -179,7 +177,7 @@ public class Appointments extends View {
 			app = (ArrayList<Appointment>) q.where().eq("doctor_id", (String) doctor_id).and()
 					.eq("patient_id", (String) patient_id).and().eq("appointmentTime", (Date) app_time).query();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return false;
 		}
 		if (app == null || app.size() == 0)
@@ -212,7 +210,7 @@ public class Appointments extends View {
 			curr_date = DateTime.currentDate();
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Config.getConfig().getLogger().exception(e1);
 		}
 
 		try {
@@ -224,7 +222,7 @@ public class Appointments extends View {
 			else
 				return DateTime.getDateString(app.get(0).getAppointmentTime());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}
@@ -278,7 +276,7 @@ public class Appointments extends View {
 					.ge("startDate", (Date) curr_time).query();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}

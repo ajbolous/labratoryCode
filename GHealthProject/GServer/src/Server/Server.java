@@ -129,6 +129,10 @@ public class Server extends AbstractServer {
 			System.setProperty(LocalLog.LOCAL_LOG_LEVEL_PROPERTY, "INFO");
 		cfg.setHandler(new DbHandler(cfg.getDbUrl(), cfg.getUser(), cfg.getDbPassword()));
 
+		Config.getConfig().getFileManager().createHomeDirectory();
+		Config.getConfig().getFileManager().createSubDirectory("/information");
+		Config.getConfig().getFileManager().createSubDirectory("/examinations");
+
 		Server server = new Server(cfg.getPort());
 
 		Timer timer = new Timer();
