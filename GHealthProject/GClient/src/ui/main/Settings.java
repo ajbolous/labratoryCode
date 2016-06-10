@@ -88,7 +88,7 @@ public class Settings {
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				frame.dispose();
 			}
 		});
 		btnCancel.setForeground(Color.BLACK);
