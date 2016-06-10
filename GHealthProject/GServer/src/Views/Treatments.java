@@ -9,7 +9,6 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
-
 import models.Doctor;
 import models.Secretary;
 import models.Treatment;
@@ -27,7 +26,8 @@ public class Treatments extends View {
 	 * Query to add a new treatment to database
 	 * 
 	 * @param request
-	 *            contains the treatment which will be added to database
+	 *             : "treatments/add" ,HashMap params:
+	 *            (treatment).
 	 * @return treatment instance from database
 	 * @throws SQLException
 	 */
@@ -38,7 +38,6 @@ public class Treatments extends View {
 			db.treatments.create((Treatment) request.getParam("treatment"));
 			return getLastTreatment(request);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -46,20 +45,46 @@ public class Treatments extends View {
 	}
 
 	/**
+	 * call updateTreatment method to update the treatment (add result and end date )
+	 * send a report about treatment to the HMO of the  patient 
+	 * @param request : "treatments/sendReport" ,HashMap params:
+	 *            (treatment).
+	 * @return success message 
+	 */
+	public Object sendReport(Request request) {
+		DbHandler db = Config.getConfig().getHandler();
+		Treatment tr = (Treatment) request.getParam("treatment");
+		updateTreatment(tr);
+		System.out.printf("\n\nsending  report about treatment \n");
+		System.out.println("----------------------------------------");
+		System.out.println();
+		System.out.println("treatment Deails : \n\n" + "Treatment id : "
+				+ tr.getTid() + "\nTreatment name : " + tr.gettType());
+		System.out.println("The treatment doctor : "
+				+ tr.getDoctor().getFirstName() + " "
+				+ tr.getDoctor().getLastName());
+		System.out.println("Patient : "
+				+ tr.getMedicalRecord().getPatient().getFirstName() + " "
+				+ tr.getMedicalRecord().getPatient().getLastName());
+		System.out.println();
+		System.out.println("----------------------------------------");
+		System.out.println();
+		return "success";
+	}
+
+	/**
 	 * Query to update treatment in database
 	 * 
-	 * @param request
-	 *            contains the treatment which will be updated
+	 * @param treatment instance will be updated 
 	 * @return success message if the treatment was updated successfully
 	 * @throws SQLException
 	 */
-	public Object updateTreatment(Request request) {
+	public Object updateTreatment(Treatment treatment ) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
-			db.treatments.update((Treatment) request.getParam("treatment"));
+			db.treatments.update(treatment);
 			return "success";
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -70,7 +95,7 @@ public class Treatments extends View {
 	 * Query to get the last treatment which added to specific medical record
 	 * 
 	 * @param request
-	 *            contains the id of the specific medical records
+	 *           "treatments/getLastTreatment" ,HashMap params:  (medical_id , ).
 	 * @return the last treatment in the specific medical record
 	 * @throws SQLException
 	 */
@@ -80,15 +105,18 @@ public class Treatments extends View {
 		List<Treatment> treatment;
 
 		try {
-			treatment = q.orderBy((String) request.getParam("date"), false).limit(1).where()
-					.eq("medical_id", ((Integer) request.getParam("medical_id"))).query();
+			treatment = q
+					.orderBy("start", false)
+					.limit(1)
+					.where()
+					.eq("medical_id",
+							((Integer) request.getParam("medical_id"))).query();
 			if (treatment.size() == 0)
 				return null;
 			else
 				return treatment.get(0);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -100,12 +128,12 @@ public class Treatments extends View {
 	 * treatments which performed by doctors that works in the same clinic where
 	 * specific secretary works
 	 * 
-	 * @param request
-	 *            contains the specific secretary
+	 * @param request :
+	 *            "treatments/getTreatments" ,HashMap params:  (Secretary , ).
 	 * @return list of treatments
 	 * @throws SQLException
 	 */
-	public Object getTreatment(Request request) {
+	public Object getTreatments(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		QueryBuilder<Doctor, String> d = db.doctors.queryBuilder();
 		QueryBuilder<Treatment, Integer> p = db.treatments.queryBuilder();
@@ -115,9 +143,11 @@ public class Treatments extends View {
 		List<Treatment> allTreatment = new ArrayList<Treatment>();
 
 		try {
-			doctor = d.where().eq("clinic_id", secr.getClinic().getCid()).query();
+			doctor = d.where().eq("clinic_id", secr.getClinic().getCid())
+					.query();
 			for (Doctor doc : doctor) {
-				tretmentList = p.where().eq("endFlag", true).and().eq("hasInvoice", false).and()
+				tretmentList = p.where().eq("endFlag", true).and()
+						.eq("hasInvoice", false).and()
 						.eq("doctor_id", doc.getSid()).query();
 				allTreatment.addAll(tretmentList);
 			}
@@ -125,7 +155,6 @@ public class Treatments extends View {
 		}
 
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 

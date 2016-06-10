@@ -13,6 +13,13 @@ import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
 
+/**
+ * 
+ * Database view for Patients , have all the Patients Queries 
+ * 
+ * @author maisam marjieh
+ *
+ */
 public class Patients extends View {
 
 	/**
@@ -35,14 +42,22 @@ public class Patients extends View {
 		}
 	}
 
+	/**
+	 * get HMO information 
+	 * @param request  : "patients/getHmoInformation" params: (file) 
+	 * @return image of HMO information 
+	 */
 	public Object getHmoInformation(Request request) {
 		return new ImageIcon("/information/" + request.getParam("info"));
 	}
-
-	public Object all(Request request) {
-		DbHandler db = Config.getConfig().getHandler();
-		return null;
-	}
+	
+	
+	/**
+	 * Query to add new patient and creation medical record to him  and save it in database 
+	 * @param request "patients/add " params: (patient)
+	 * @return success message if the patient was added successfully else return null 
+	 *  @throws SQLException
+	 */
 
 	public Object add(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -71,40 +86,20 @@ public class Patients extends View {
 		}
 	}
 
-	public Object remove(Request request) {
-		return null;
-	}
-
-	public Object update(Request request) {
-		return null;
-	}
-
-	public Object createMedicalRecord(Request request) {
-		DbHandler db = Config.getConfig().getHandler();
-		Patient patient = (Patient) request.getParam("patient");
-		MedicalRecord md = (MedicalRecord) request.getParam("medicalRecord");
-		try {
-			db.records.createIfNotExists(md);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			db.patients.update(patient);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-
-	}
+	
+	/**
+	 * sending Request to HMO of the patient
+	 * @param request
+	 * @return success message  
+	 */
 
 	public Object sendRequest(Request request) {
 		Patient patient = (Patient) request.getParam("patient");
 		System.out.println("----------------------------------------");
 		System.out.println();
 
-		System.out.println("Request Information about Patient : " + patient.getFirstName() + " " + patient.getLastName()
-				+ " sended to HMo :");
+		System.out.println("Request Information about Patient  " + patient.getFirstName() + " " + patient.getLastName()
+				+ " sended to HMo ");
 
 		System.out.println("----------------------------------------");
 		return "success";

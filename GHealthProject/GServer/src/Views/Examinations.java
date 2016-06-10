@@ -30,7 +30,8 @@ public class Examinations extends View {
 	 * Query to add a new Examination to database
 	 * 
 	 * @param request
-	 *            contains the Examination instance will be added to database
+	 *            : "examinations/add" ,HashMap params: (examination).
+	 * 
 	 * @return success message if the Examination added successfully to dataBase
 	 *         ,else return null
 	 * @throws SQLException
@@ -48,10 +49,12 @@ public class Examinations extends View {
 
 	}
 
+
 	public Object getById(Request request) {
 		try {
 			DbHandler db = Config.getConfig().getHandler();
-			Examination ex = db.examinations.queryForId((Integer) request.getParam("sid"));
+			Examination ex = db.examinations.queryForId((Integer) request
+					.getParam("sid"));
 			return ex;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,13 +63,11 @@ public class Examinations extends View {
 	}
 
 	/**
-	 * Query to update Examination
-	 * 
+	 *
+	 * get the  image of examination
 	 * @param request
-	 *            contains the examination instance and image which will be
-	 *            added to the examination
-	 * @return success message
-	 * @throws SQLException
+	 *           : "examinations/getExaminationImage" ,HashMap params: (examination).
+	 * @return image 
 	 */
 
 	public Object getExaminationImage(Request request) {
@@ -75,6 +76,12 @@ public class Examinations extends View {
 		return image;
 	}
 
+	/**
+	 * Query to update Examination
+	 * add image and result of examination to database
+	 * @param request   : "examinations/update" ,HashMap params: (examination , image).
+	 * @return success message if the examination was updated successfully 
+	 */
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
@@ -85,8 +92,8 @@ public class Examinations extends View {
 				ex.setFile(ex.getEid() + "-" + ex.getFile());
 				File outputFile = new File("/examinations/" + ex.getFile());
 
-				BufferedImage bi = new BufferedImage(image.getWidth(null), image.getHeight(null),
-						BufferedImage.TYPE_INT_RGB);
+				BufferedImage bi = new BufferedImage(image.getWidth(null),
+						image.getHeight(null), BufferedImage.TYPE_INT_RGB);
 
 				Graphics2D g2 = bi.createGraphics();
 				g2.drawImage(image, 0, 0, null);
@@ -96,7 +103,6 @@ public class Examinations extends View {
 
 			db.examinations.update(ex);
 		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "success";

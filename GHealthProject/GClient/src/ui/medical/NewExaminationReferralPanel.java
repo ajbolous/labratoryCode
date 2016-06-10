@@ -81,7 +81,7 @@ public class NewExaminationReferralPanel extends JPanel {
 		examination.setTreatment(t);
 		try {
 			examination.setReferralDate(DateTime.currentDate());
-			examination.setExaminationDate(DateTime.getDate(0, 0, 0, 0, 0));
+			examination.setExaminationDate(DateTime.getDate(0, 0, 0));
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -94,8 +94,7 @@ public class NewExaminationReferralPanel extends JPanel {
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(DateTime.getDateString(examination.getReferralDate()) + " "
-				+ DateTime.getTimeString(examination.getReferralDate()));
+		textField_1 = new JTextField(DateTime.getDateString(examination.getReferralDate()) );
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setEditable(false);
 		textField_1.setBounds(140, 59, 197, 20);
@@ -179,17 +178,17 @@ public class NewExaminationReferralPanel extends JPanel {
 				}
 			}
 		});
-		btnSave.setBounds(248, 365, 89, 23);
+		btnSave.setBounds(164, 374, 89, 23);
 		add(btnSave);
 
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Close");
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 			}
 		});
-		btnCancel.setBounds(359, 365, 89, 23);
+		btnCancel.setBounds(295, 374, 89, 23);
 		add(btnCancel);
 
 		error_lbl = new JLabel("");

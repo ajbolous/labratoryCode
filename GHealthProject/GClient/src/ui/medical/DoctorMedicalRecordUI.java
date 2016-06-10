@@ -390,8 +390,6 @@ public class DoctorMedicalRecordUI {
 					if (obj.getClass() == Visit.class) {
 						Visit v = (Visit) obj;
 						t = v.getTreatment();
-						enableAddVisitOrReferral(!t.isEndFlag());
-
 						VisitPanel vi = new VisitPanel(v);
 						scrollPane_1.setViewportView(vi);
 						if (t.getDoctor().getSid().equals(Application.user.getSid()) && !t.isEndFlag())
@@ -440,7 +438,7 @@ public class DoctorMedicalRecordUI {
 			public void actionPerformed(ActionEvent arg0) {
 				NewTreatmentUI tPanel = new NewTreatmentUI(p.getMedicalRecord(), doctorMedicalRecordUI);
 				scrollPane_1.setViewportView(tPanel);
-				enableAddVisitOrReferral(true);
+				enableAddVisitOrReferral(false);
 
 			}
 		});
@@ -523,7 +521,7 @@ public class DoctorMedicalRecordUI {
 		}
 		if (child.getClass() == Treatment.class) {
 			t = (Treatment) child;
-			tree.clearSelection();
+			
 
 			DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
 			if (((Treatment) child).getDoctor().getSid().equals(d.getSid())) {
@@ -535,9 +533,8 @@ public class DoctorMedicalRecordUI {
 				childNode.add(node_2);
 				childNode.add(node_3);
 
-				// tree.revalidate();
 				treeModel.insertNodeInto(childNode, rootNode, rootNode.getChildCount());
-				// Make sure the user can see the lovely new node.
+				
 				if (shouldBeVisible) {
 					tree.scrollPathToVisible(new TreePath(childNode.getPath()));
 				}

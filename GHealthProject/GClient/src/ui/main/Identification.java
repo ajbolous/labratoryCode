@@ -179,17 +179,32 @@ public class Identification implements FrameInterface {
 		else if ((patient = PatientsController.getById(id)) == null) {
 			error_lbl.setText("*Patient does not exist in the system");
 			} else {
-			disID.setVisible(false);
-
+				
+				
 			if (Application.user.getClass() == Doctor.class){
-				AppointmentsController.setAppointmentDone(Application.user.getSid(), patient.getSid());
-				new DoctorMedicalRecordUI(patient);
+				String result = (String)AppointmentsController.setAppointmentDone(Application.user.getSid(), patient.getSid());
+				if(result.equals("failed"))
+					error_lbl.setText("*Patient does not have appoientments");
+				else
+				{
+					new DoctorMedicalRecordUI(patient);
+					disID.setVisible(false);}
 				
 			}
+			
 			else if (Application.user.getClass() == Secretary.class)
+			{
 				new NewConfirmUI(patient);
+				disID.setVisible(false);
+			}
 			else if (Application.user.getClass() == Dispatcher.class)
+			{
+			
 				new Appointments(patient).getFrame().setVisible(true);
+				disID.setVisible(false);
+			}
+		
+			
 		}
 
 	}

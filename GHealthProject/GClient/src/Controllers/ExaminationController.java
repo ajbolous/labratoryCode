@@ -19,6 +19,11 @@ public class ExaminationController {
 		return (Examination) Application.client.sendRequest(r);
 	}
 
+	/**
+	 * send Request to server to get the requested  clinic 
+	 * @param cid - the id of the requested clinic 
+	 * @return the requested clinic 
+	 */
 	public static Clinic getClinic(int cid) {
 		Request r = new Request("clinics/getById");
 		r.addParam("cid", cid);
@@ -44,8 +49,8 @@ public class ExaminationController {
 
 	/**
 	 * Sends the request and waits for an image for the examination
-	 * @param ex
-	 * @return ImageIcon - image conatining the file
+	 * @param ex - examination instance 
+	 * @return ImageIcon - image containing the file
 	 */
 	public static ImageIcon getImage(Examination ex) {
 		if(ex.getFile() == null)

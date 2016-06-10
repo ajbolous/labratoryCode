@@ -22,8 +22,9 @@ public class Clinics extends View {
 	/**
 	 * Query to get all clinics that have labs .
 	 * 
-	 * @param request
-	 * @return list of clinics
+	 * @param request   : "clinics/getClinics" ,HashMap params:
+	 *            ().
+	 * @return list of clinics 
 	 * @throws SQLException
 	 */
 	public Object getClinics(Request request) {
@@ -41,10 +42,11 @@ public class Clinics extends View {
 	}
 
 	/**
-	 * get specific clinic from dataBase
+	 * get specific clinic from dataBase and send to client 
 	 * 
 	 * @param request
-	 *            contains the id of the clinic requested.
+	 *           : "clinics/getById" ,HashMap params:
+	 *            (cid,).
 	 * @return clinic
 	 * @throws SQLException
 	 */

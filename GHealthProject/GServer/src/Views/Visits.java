@@ -20,7 +20,8 @@ public class Visits extends View{
 	
 	/**
 	 * Query  to add a new visit to database 
-	 * @param request: contains  the visit which will be saved 
+	 * @param request:  : "visits/add" ,HashMap params:
+	 *            (visit).
 	 * @return visit  
 	 * @throws SQLException
 	 */
@@ -32,7 +33,6 @@ public class Visits extends View{
 			db.visits.create(v); 
 			return getVisit(request) ;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -41,7 +41,8 @@ public class Visits extends View{
 	
 	/**
 	 *  Query to get the last visit which added to specific treatment 
-	 * @param request contains the treatment_id of the treatment 
+	 * @param request : "visits/getVisit" ,HashMap params:
+	 *            (treatment_id  ).
 	 * @return visit instance 
 	 * @throws SQLException
 	 */
@@ -59,7 +60,6 @@ public class Visits extends View{
 					else return visit.get(0);
 				
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					return null;
 				}					

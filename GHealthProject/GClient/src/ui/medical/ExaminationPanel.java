@@ -40,7 +40,6 @@ public class ExaminationPanel {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JButton btnCancel;
 	private JLabel lblNewLabel_2;
 	private JTextField textField;
 	private JLabel lblExaminationType;
@@ -51,7 +50,7 @@ public class ExaminationPanel {
 	private JLabel lblDate_1;
 	private JButton btnViewReferral;
 	private JButton btnBack;
-	private JButton btnNewButton;
+	private JLabel btnNewButton;
 
 	private JTextField textField_1;
 	private JTextField textField_3;
@@ -138,20 +137,9 @@ public class ExaminationPanel {
 		textField_6.setEditable(false);
 		textField_6.setColumns(10);
 
-		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnCancel.setBounds(338, 440, 89, 23);
-		mainPanel.add(btnCancel);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainPanel.setVisible(false);
-			}
-		});
-
 		Clinic clinic = ExaminationController.getClinic(ex.getLabratorian().getClinic().getCid());
 		textArea_1.setText("" + ex.getResults());
-		textField_6.setText(DateTime.getDateString(ex.getExaminationDate()) + " "
-				+ DateTime.getTimeString(ex.getExaminationDate()));
+		textField_6.setText(DateTime.getDateString(ex.getExaminationDate()) );
 
 		textField_5.setText("" + clinic.toString());
 		textField_4.setText(ex.getLabratorian().getFirstName() + " " + ex.getLabratorian().getLastName());
@@ -230,7 +218,7 @@ public class ExaminationPanel {
 		mainPanel.add(textField_1);
 
 		textField_1.setText(
-				DateTime.getDateString(ex.getReferralDate()) + " " + DateTime.getTimeString(ex.getReferralDate()));
+				DateTime.getDateString(ex.getReferralDate()) );
 
 		textField_2.setText(ex.geteType());
 		textField_3.setText("" + ex.getTreatment().getDoctor().getFirstName() + " "
@@ -323,10 +311,10 @@ public class ExaminationPanel {
 			}
 		});
 		btnBack.setToolTipText("Return to Examination Result ");
-		btnBack.setBounds(239, 440, 89, 23);
+		btnBack.setBounds(216, 314, 89, 23);
 		mainPanel.add(btnBack);
 
-		 btnNewButton = new JButton("");
+		 btnNewButton = new JLabel("");
 
 		ImageIcon image = ExaminationController.getImage(ex);
 		if(image != null)
