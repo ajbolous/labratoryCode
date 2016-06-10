@@ -28,7 +28,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dialog.ModalExclusionType;
 import javax.swing.SwingConstants;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
+/**
+ * Sign in form, allows user to sign in to the system by giving a Social id and
+ * password
+ * 
+ * @author aj_pa
+ *
+ */
 public class SignInUI {
 
 	private JFrame SignInUI;
@@ -37,18 +46,37 @@ public class SignInUI {
 	private int attempts = 0;
 	private JButton btnLogIn = new JButton("Sign in ");
 
+	JButton btnConnected;
+
 	public SignInUI() {
 		initialize();
 		SignInUI.setVisible(true);
 		SignInUI.setLocationRelativeTo(null);
-
+		updateStatus();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	public void updateStatus() {
+		if (Application.client.isConnected()) {
+			btnConnected.setText("Connected, ready to signIn");
+			btnLogIn.setEnabled(true);
+		} else {
+			btnConnected.setText("Unable to connect, click to configure server");
+			btnLogIn.setEnabled(false);
+		}
+	}
+
 	private void initialize() {
+		SignInUI self = this;
 		SignInUI = new JFrame();
+		SignInUI.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+
+			}
+		});
 		SignInUI.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		SignInUI.setTitle("Sign In - GHealth");
 		SignInUI.setResizable(false);
@@ -59,25 +87,26 @@ public class SignInUI {
 		SignInUI.setBackground(Color.WHITE);
 		SignInUI.getContentPane().setBackground(Color.WHITE);
 		SignInUI.getContentPane().setLayout(null);
-		
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
+
+		btnConnected = new JButton("Connecting......");
+
+		btnConnected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Settings();
+				new Settings(self);
 			}
 		});
-		button.setIcon(new ImageIcon(SignInUI.class.getResource("/img/settings.png")));
-		button.setToolTipText("Doctors managment form");
-		button.setHorizontalAlignment(SwingConstants.LEFT);
-		button.setForeground(Color.BLACK);
-		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button.setBorder(null);
-		button.setBackground(Color.WHITE);
-		button.setBounds(254, 0, 41, 35);
-		SignInUI.getContentPane().add(button);
+		btnConnected.setIcon(new ImageIcon(SignInUI.class.getResource("/img/settings.png")));
+		btnConnected.setToolTipText("Doctors managment form");
+		btnConnected.setHorizontalAlignment(SwingConstants.LEFT);
+		btnConnected.setForeground(Color.BLACK);
+		btnConnected.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnConnected.setBorder(null);
+		btnConnected.setBackground(Color.WHITE);
+		btnConnected.setBounds(0, 178, 311, 35);
+		SignInUI.getContentPane().add(btnConnected);
 
-		JLabel logo = new JLabel("Sign In");
-		logo.setBounds(0, 0, 295, 50);
+		JLabel logo = new JLabel("GHealth");
+		logo.setBounds(0, 14, 311, 50);
 		logo.setForeground(new Color(0, 0, 0));
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
@@ -107,7 +136,7 @@ public class SignInUI {
 		SignInUI.getContentPane().add(labelDetails);
 		labelDetails.setVisible(false);
 		SignInUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		SignInUI.setBounds(100, 100, 301, 202);
+		SignInUI.setBounds(100, 100, 317, 242);
 		SignInUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		btnLogIn.setBounds(69, 147, 212, 23);

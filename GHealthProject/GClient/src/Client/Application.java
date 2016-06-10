@@ -1,6 +1,5 @@
 package Client;
 
-import Utils.Logger;
 import models.User;
 import ui.main.SignInUI;
 
@@ -16,13 +15,15 @@ public class Application {
 			client = null;
 		}
 		client = new Client(cfg.getHost(), cfg.getPort());
+		Config.getConfig().writeTextConfig();
 		client.open();
+
 	}
 
 	public static void main(String[] args) {
-		Logger log = Config.getConfig().getLogger();
-		SignInUI sin;
+		Config.getConfig().readTextConfig();
 		connect();
+		
 		new SignInUI();
 	}
 }

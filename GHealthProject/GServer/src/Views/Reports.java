@@ -46,7 +46,7 @@ public class Reports extends View {
 			q.where().between("appointmentTime", Utils.DateTime.getDate(2016, 10, 5, 0, 0),
 					Utils.DateTime.getDate(2016, 10, 7));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 
 		}
@@ -110,7 +110,7 @@ public class Reports extends View {
 			return app.size();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		return 0;
 	}
@@ -126,7 +126,7 @@ public class Reports extends View {
 			return app.size();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		return 0;
 	}
@@ -143,7 +143,7 @@ public class Reports extends View {
 		try {
 			d = (Date) DateTime.currentMont();
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		int n = (int) request.getParam("N");
 		Report r = new Report();
@@ -210,7 +210,6 @@ public class Reports extends View {
 	 */
 	public Object getWeeklyReport(Request request) {
 		Date d = (Date) request.getParam("date");
-
 		return buildWeeklyReport(d);
 	}
 
@@ -296,7 +295,7 @@ public class Reports extends View {
 		try {
 			return q.orderBy("date", false).where().between("date", d1, d2).query();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}

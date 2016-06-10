@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import Client.Application;
 import Client.Client;
+import Client.Config;
 import Client.Resources;
 
 import javax.swing.JLabel;
@@ -40,6 +41,7 @@ import Utils.Request;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
+
 public class CeoReport {
 
 	private JFrame ceoReport;
@@ -67,7 +69,7 @@ public class CeoReport {
 	}
 
 	private void initialize() {
-		Date date1=null;
+		Date date1 = null;
 		int weekNum;
 		Report r = new Report();
 		Resources res = new Resources();
@@ -76,8 +78,7 @@ public class CeoReport {
 		ceoReport.setResizable(true);
 		ceoReport.getContentPane().setLayout(null);
 		ceoReport.setTitle("CEO Report");
-		Image icon = new ImageIcon(this.getClass().getResource(
-				"/img/" + "icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		ceoReport.setIconImage(icon);
 		JLabel lblChooseDate = new JLabel("From :");
 		lblChooseDate.setForeground(new Color(0, 0, 0));
@@ -93,15 +94,13 @@ public class CeoReport {
 		logo.setIcon(res.getIcon("logo.png"));
 		ceoReport.getContentPane().add(logo);
 
-		
 		JScrollPane weekly_scrll_table = new JScrollPane();
 		weekly_scrll_table.setBounds(9, 141, 430, 240);
 		ceoReport.getContentPane().add(weekly_scrll_table);
 
 		ceo_table = new JTable();
-		String[] report_rawNames = { "Day", "Number Of Patients","Waiting Period" };
-		ceo_table.setModel(new MyTableModel(report_rawNames,
-				new Object[][] {}));
+		String[] report_rawNames = { "Day", "Number Of Patients", "Waiting Period" };
+		ceo_table.setModel(new MyTableModel(report_rawNames, new Object[][] {}));
 		ceo_table.setFillsViewportHeight(true);
 		ceo_table.setSurrendersFocusOnKeystroke(true);
 		ceo_table.setShowVerticalLines(false);
@@ -110,73 +109,73 @@ public class CeoReport {
 		weekly_scrll_table.setViewportView(ceo_table);
 		ceo_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ceo_table.setBackground(Color.WHITE);
-		
+
 		txtPavg = new JTextField();
 		txtPavg.setEditable(false);
 		txtPavg.setBounds(29, 435, 95, 20);
 		ceoReport.getContentPane().add(txtPavg);
 		txtPavg.setColumns(10);
-		
+
 		txtPmax = new JTextField();
 		txtPmax.setEditable(false);
 		txtPmax.setColumns(10);
 		txtPmax.setBounds(134, 435, 95, 20);
 		ceoReport.getContentPane().add(txtPmax);
-		
+
 		txtPmin = new JTextField();
 		txtPmin.setEditable(false);
 		txtPmin.setColumns(10);
 		txtPmin.setBounds(239, 435, 95, 20);
 		ceoReport.getContentPane().add(txtPmin);
-		
+
 		txtPstd = new JTextField();
 		txtPstd.setEditable(false);
 		txtPstd.setColumns(10);
 		txtPstd.setBounds(344, 435, 95, 20);
 		ceoReport.getContentPane().add(txtPstd);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Statistics");
 		lblNewLabel_1.setForeground(new Color(30, 144, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_1.setBounds(9, 388, 84, 14);
 		ceoReport.getContentPane().add(lblNewLabel_1);
-		
+
 		JLabel lblPatientsStatistics = new JLabel("Number of patients");
 		lblPatientsStatistics.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPatientsStatistics.setBounds(19, 410, 130, 14);
 		ceoReport.getContentPane().add(lblPatientsStatistics);
-		
+
 		JLabel lblWaitingPeriodStatistics = new JLabel("Waiting period");
 		lblWaitingPeriodStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWaitingPeriodStatistics.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblWaitingPeriodStatistics.setBounds(9, 466, 107, 14);
 		ceoReport.getContentPane().add(lblWaitingPeriodStatistics);
-		
+
 		txtWavg = new JTextField();
 		txtWavg.setEditable(false);
 		txtWavg.setColumns(10);
 		txtWavg.setBounds(29, 491, 93, 20);
 		ceoReport.getContentPane().add(txtWavg);
-		
+
 		txtWmax = new JTextField();
 		txtWmax.setEditable(false);
 		txtWmax.setColumns(10);
 		txtWmax.setBounds(134, 491, 93, 20);
 		ceoReport.getContentPane().add(txtWmax);
-		
+
 		txtWmin = new JTextField();
 		txtWmin.setEditable(false);
 		txtWmin.setColumns(10);
 		txtWmin.setBounds(239, 491, 93, 20);
 		ceoReport.getContentPane().add(txtWmin);
-		
+
 		txtWstd = new JTextField();
 		txtWstd.setEditable(false);
 		txtWstd.setColumns(10);
 		txtWstd.setBounds(344, 491, 93, 20);
 		ceoReport.getContentPane().add(txtWstd);
 		JComboBox<String> months = new JComboBox<String>();
-		for (Date d : DateTime.getMonths(2016)){
+		for (Date d : DateTime.getMonths(2016)) {
 			months.addItem(DateTime.getDateString(d));
 		}
 		months.addActionListener(new ActionListener() {
@@ -186,12 +185,11 @@ public class CeoReport {
 			public void actionPerformed(ActionEvent arg0) {
 				Date date1 = new Date();
 				try {
-					date1 = Utils.DateTime.getReportDate((String)months.getSelectedItem());
+					date1 = Utils.DateTime.getReportDate((String) months.getSelectedItem());
 				} catch (ParseException e) {
-					e.printStackTrace();
+					Config.getConfig().getLogger().exception(e);
 				}
 
-				
 			}
 		});
 		months.setForeground(new Color(0, 0, 0));
@@ -201,7 +199,7 @@ public class CeoReport {
 		ceoReport.getContentPane().add(months);
 		ceoReport.setBounds(100, 100, 499, 567);
 		months.setVisible(false);
-		
+
 		JLabel lblTo = new JLabel("To :");
 		lblTo.setForeground(Color.BLACK);
 		lblTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -209,7 +207,7 @@ public class CeoReport {
 		ceoReport.getContentPane().add(lblTo);
 		lblTo.setVisible(false);
 		JComboBox<String> comboBox = new JComboBox<String>();
-		for (Date d : DateTime.getMonths(2016)){
+		for (Date d : DateTime.getMonths(2016)) {
 			comboBox.addItem(DateTime.getDateString(d));
 		}
 		months.addActionListener(new ActionListener() {
@@ -219,12 +217,12 @@ public class CeoReport {
 			public void actionPerformed(ActionEvent arg0) {
 				Date date2 = new Date();
 				try {
-					date2 = Utils.DateTime.getReportDate((String)comboBox.getSelectedItem());
+					date2 = Utils.DateTime.getReportDate((String) comboBox.getSelectedItem());
 				} catch (ParseException e) {
-					e.printStackTrace();
+					Config.getConfig().getLogger().exception(e);
 				}
 
-				fillPeriodReports(date1,date2);
+				fillPeriodReports(date1, date2);
 			}
 		});
 		comboBox.setForeground(Color.BLACK);
@@ -232,26 +230,28 @@ public class CeoReport {
 		comboBox.setBounds(339, 106, 107, 22);
 		ceoReport.getContentPane().add(comboBox);
 		comboBox.setVisible(false);
-		
+
 		JComboBox<Integer> comboBox_1 = new JComboBox<Integer>();
-		for (int i=1;i<=12;i++){
-			comboBox_1.addItem(i);;
+		for (int i = 1; i <= 12; i++) {
+			comboBox_1.addItem(i);
+			;
 		}
 		comboBox_1.addActionListener(new ActionListener() {
 			/**
-			 * this function set the value of the n requested months into the variable n
+			 * this function set the value of the n requested months into the
+			 * variable n
 			 */
 			public void actionPerformed(ActionEvent arg0) {
-				Date currDate=new Date();
-				int n=(int) comboBox_1.getSelectedItem();
+				Date currDate = new Date();
+				int n = (int) comboBox_1.getSelectedItem();
 				try {
 					currDate = Utils.DateTime.currentDate();
-				
+
 				} catch (ParseException e) {
-					e.printStackTrace();
+					Config.getConfig().getLogger().exception(e);
 				}
 
-				fillNReports(currDate,n);
+				fillNReports(currDate, n);
 
 			}
 		});
@@ -275,7 +275,7 @@ public class CeoReport {
 		});
 		rdbtnNewRadioButton.setBounds(1, 71, 123, 25);
 		ceoReport.getContentPane().add(rdbtnNewRadioButton);
-		
+
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Specific Period");
 		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -283,25 +283,26 @@ public class CeoReport {
 				comboBox.setVisible(true);
 				lblChooseDate.setVisible(true);
 				lblTo.setVisible(true);
-				
+
 			}
 		});
 		rdbtnNewRadioButton_1.setBounds(1, 105, 123, 25);
 		ceoReport.getContentPane().add(rdbtnNewRadioButton_1);
 		ceo_table.setVisible(true);
-		ceoReport.getContentPane().setFocusTraversalPolicy(
-				new FocusTraversalOnArray(new Component[] { logo }));
+		ceoReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 
 		ceoReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 	}
-	
-/**
- * this function takes n months and return  statistics from the current date to date n
- * @param curr
- * @param n
- */
-	public void fillNReports(Date curr,int n) { 
+
+	/**
+	 * this function takes n months and return statistics from the current date
+	 * to date n
+	 * 
+	 * @param curr
+	 * @param n
+	 */
+	public void fillNReports(Date curr, int n) {
 		Report report;
 		Request r = new Request("reports/getNMonths");
 		r.addParam("N", n);
@@ -313,24 +314,26 @@ public class CeoReport {
 					s.getWaitingPeriod() });
 		txtPavg.setText("Average: " + report.getpAvg());
 		txtWavg.setText("Average: " + report.getwAvg());
-		
+
 		txtPmax.setText("Max: " + report.getpMax());
 		txtWmax.setText("Max: " + report.getwMax());
-		
+
 		txtPmin.setText("Min: " + report.getpMin());
 		txtWmin.setText("Min: " + report.getwMin());
-		
-		txtPstd.setText(String.format("StdDev: %.2f",report.getpStd()));
-		txtWstd.setText(String.format("StdDev: %.2f",report.getwStd()));
+
+		txtPstd.setText(String.format("StdDev: %.2f", report.getpStd()));
+		txtWstd.setText(String.format("StdDev: %.2f", report.getwStd()));
 
 	}
-/**
- * this function gets two dates and fill a statistics for report between those two dates	
- * @param date1
- * @param date2
- */
-	public void fillPeriodReports(Date date1,Date date2)
-	{
+
+	/**
+	 * this function gets two dates and fill a statistics for report between
+	 * those two dates
+	 * 
+	 * @param date1
+	 * @param date2
+	 */
+	public void fillPeriodReports(Date date1, Date date2) {
 		Report report;
 		Request r = new Request("reports/getPeriodReport");
 		r.addParam("date1", date1);
@@ -344,17 +347,17 @@ public class CeoReport {
 					s.getWaitingPeriod() });
 		txtPavg.setText("Average: " + report.getpAvg());
 		txtWavg.setText("Average: " + report.getwAvg());
-		
+
 		txtPmax.setText("Max: " + report.getpMax());
 		txtWmax.setText("Max: " + report.getwMax());
-		
+
 		txtPmin.setText("Min: " + report.getpMin());
 		txtWmin.setText("Min: " + report.getwMin());
-		
-		txtPstd.setText(String.format("StdDev: %.2f",report.getpStd()));
-		txtWstd.setText(String.format("StdDev: %.2f",report.getwStd()));
+
+		txtPstd.setText(String.format("StdDev: %.2f", report.getpStd()));
+		txtWstd.setText(String.format("StdDev: %.2f", report.getwStd()));
 	}
-	
+
 	public JFrame getFrame() {
 		return ceoReport;
 	}

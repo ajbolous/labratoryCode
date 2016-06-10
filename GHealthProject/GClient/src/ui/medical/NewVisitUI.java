@@ -30,6 +30,8 @@ import java.awt.event.InputMethodListener;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import Client.Config;
+
 /**
  * public class NewVisitUI Presentation of the visit form to be filled by a
  * doctor
@@ -69,8 +71,7 @@ public class NewVisitUI extends JPanel {
 		try {
 			v.setVisitDate(DateTime.currentDate());
 		} catch (Exception e) {
-			e.printStackTrace();
-
+			Config.getConfig().getLogger().exception(e);
 		}
 
 		textField_1 = new JTextField(

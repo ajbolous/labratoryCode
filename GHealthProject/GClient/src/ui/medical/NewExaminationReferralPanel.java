@@ -36,6 +36,8 @@ import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import Client.Config;
+
 /**
  * public class NewExaminationReferralPanel Presentation of the referral form to
  * be filled by a doctor
@@ -83,8 +85,8 @@ public class NewExaminationReferralPanel extends JPanel {
 			examination.setReferralDate(DateTime.currentDate());
 			examination.setExaminationDate(DateTime.getDate(0, 0, 0));
 
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception ex) {
+			Config.getConfig().getLogger().exception(ex);
 
 		}
 

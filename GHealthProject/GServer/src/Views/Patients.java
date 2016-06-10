@@ -37,7 +37,7 @@ public class Patients extends View {
 			Patient p = db.patients.queryForId((String) request.getParam("sid"));
 			return p;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}
@@ -48,7 +48,7 @@ public class Patients extends View {
 	 * @return image of HMO information 
 	 */
 	public Object getHmoInformation(Request request) {
-		return new ImageIcon("/information/" + request.getParam("info"));
+		return new ImageIcon(Config.getConfig().getHomeDirectory() + "/information/" + request.getParam("info"));
 	}
 	
 	
@@ -67,13 +67,13 @@ public class Patients extends View {
 		md.setPatient(patient);
 		try {
 			md.setCreationDate(Utils.DateTime.currentDate());
-		} catch (ParseException e1) {
-			e1.printStackTrace();
+		} catch (ParseException ex) {
+			Config.getConfig().getLogger().exception(ex);
 		}
 		try {
 			db.records.createIfNotExists(md);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 
 		try {
@@ -81,7 +81,7 @@ public class Patients extends View {
 			db.patients.createIfNotExists(patient);
 			return "success";
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}
@@ -92,15 +92,23 @@ public class Patients extends View {
 	 * @param request
 	 * @return success message  
 	 */
+			Config.getConfig().getLogger().exception(e);
+		}
+		try {
+			db.patients.update(patient);
+		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
+		}
+
+		return null;
+
+	}
 
 	public Object sendRequest(Request request) {
 		Patient patient = (Patient) request.getParam("patient");
 		System.out.println("----------------------------------------");
-		System.out.println();
-
-		System.out.println("Request Information about Patient  " + patient.getFirstName() + " " + patient.getLastName()
-				+ " sended to HMo ");
-
+		System.out.println("Request Information Patient : " + patient.getFirstName() + " " + patient.getLastName()
+				+ " sended to HMO :");
 		System.out.println("----------------------------------------");
 		return "success";
 	}

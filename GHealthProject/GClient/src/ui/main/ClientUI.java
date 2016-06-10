@@ -11,6 +11,7 @@ import Client.Application;
 import Client.Config;
 import Client.Resources;
 import models.*;
+import ui.appointments.DoctorAppointments;
 import ui.labratories.Labratory;
 import ui.medical.TreatmentsInvoiceUI;
 import ui.reports.MonthlyReport;
@@ -87,7 +88,8 @@ public class ClientUI {
 		frame.getContentPane().add(lblManagmentAndReports);
 		setPermissions();
 	}
-	private void disableAllButtons(){
+
+	private void disableAllButtons() {
 		btnWeeklyReport.setEnabled(false);
 		btnMonthlyReport.setEnabled(false);
 		btnUsers.setEnabled(false);
@@ -98,30 +100,26 @@ public class ClientUI {
 		btnMedicalRecords.setEnabled(false);
 		btnAppointments.setEnabled(false);
 	}
-	private void setPermissions(){
+
+	private void setPermissions() {
 		disableAllButtons();
-		if(Application.user.getClass() == Doctor.class){
+		if (Application.user.getClass() == Doctor.class) {
 			btnMedicalRecords.setEnabled(true);
 			btnAppointments.setEnabled(true);
-		}
-		else if(Application.user.getClass() == Labratorian.class){
+		} else if (Application.user.getClass() == Labratorian.class) {
 			btnExaminations.setEnabled(true);
 			btnResults.setEnabled(true);
-		}
-		else if(Application.user.getClass() == Secretary.class){
+		} else if (Application.user.getClass() == Secretary.class) {
 			btnCreateInvoice.setEnabled(true);
 			btnConformation.setEnabled(true);
-		}
-		else if(Application.user.getClass() == Manager.class){
+		} else if (Application.user.getClass() == Manager.class) {
 			btnWeeklyReport.setEnabled(true);
 			btnMonthlyReport.setEnabled(true);
 			btnUsers.setEnabled(true);
-		}
-		else if(Application.user.getClass() == Dispatcher.class){
+		} else if (Application.user.getClass() == Dispatcher.class) {
 			btnAppointments.setEnabled(true);
 		}
-		
-		
+
 	}
 
 	private void initialize() {
@@ -148,7 +146,7 @@ public class ClientUI {
 		btnMedicalRecords.setBackground(Color.WHITE);
 		btnMedicalRecords.setHorizontalAlignment(SwingConstants.LEFT);
 		btnMedicalRecords.setForeground(Color.BLACK);
-		btnMedicalRecords.setIcon(res.getIcon("doctors.png"));
+		btnMedicalRecords.setIcon(Resources.getIcon("doctors.png"));
 		btnMedicalRecords.setBorder(null);
 		btnExaminations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -162,7 +160,7 @@ public class ClientUI {
 		btnExaminations.setBorder(null);
 		btnExaminations.setBackground(Color.WHITE);
 		btnExaminations.setBounds(95, 289, 191, 68);
-		btnExaminations.setIcon(res.getIcon("lab.png"));
+		btnExaminations.setIcon(Resources.getIcon("lab.png"));
 		frame.getContentPane().add(btnExaminations);
 
 		btnResults.setHorizontalAlignment(SwingConstants.LEFT);
@@ -171,12 +169,16 @@ public class ClientUI {
 		btnResults.setBorder(null);
 		btnResults.setBackground(Color.WHITE);
 		btnResults.setBounds(342, 285, 181, 68);
-		btnResults.setIcon(res.getIcon("treatment.png"));
+		btnResults.setIcon(Resources.getIcon("treatment.png"));
 		frame.getContentPane().add(btnResults);
 
 		frame.getContentPane().add(btnMedicalRecords);
 		btnAppointments.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (Application.user.getClass().equals(Doctor.class)) {
+					new DoctorAppointments((Doctor) Application.user);
+					return;
+				}
 
 				new Identification().getFrame().setVisible(true);
 			}
@@ -187,13 +189,13 @@ public class ClientUI {
 		btnAppointments.setHorizontalAlignment(SwingConstants.LEFT);
 		btnAppointments.setForeground(Color.BLACK);
 		btnAppointments.setBackground(Color.WHITE);
-		btnAppointments.setIcon(res.getIcon("appoitment.png"));
+		btnAppointments.setIcon(Resources.getIcon("appoitment.png"));
 		btnAppointments.setBorder(null);
 
 		frame.getContentPane().add(btnAppointments);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				new UsersManagingUI();
 			}
 		});
 		btnUsers.setToolTipText("Users managment form");
@@ -204,7 +206,7 @@ public class ClientUI {
 		btnUsers.setHorizontalAlignment(SwingConstants.LEFT);
 		btnUsers.setForeground(Color.BLACK);
 		btnUsers.setBorder(null);
-		btnUsers.setIcon(res.getIcon("users.png"));
+		btnUsers.setIcon(Resources.getIcon("users.png"));
 		btnUsers.setBorder(null);
 
 		frame.getContentPane().add(btnUsers);
@@ -221,7 +223,7 @@ public class ClientUI {
 		btnWeeklyReport.setBackground(Color.WHITE);
 		btnWeeklyReport.setHorizontalAlignment(SwingConstants.LEFT);
 		btnWeeklyReport.setForeground(Color.BLACK);
-		btnWeeklyReport.setIcon(res.getIcon("tests.png"));
+		btnWeeklyReport.setIcon(Resources.getIcon("tests.png"));
 		btnWeeklyReport.setBorder(null);
 		btnMonthlyReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -238,7 +240,7 @@ public class ClientUI {
 		btnMonthlyReport.setBorder(null);
 		btnMonthlyReport.setBackground(Color.WHITE);
 		btnMonthlyReport.setBounds(335, 393, 181, 68);
-		btnMonthlyReport.setIcon(res.getIcon("tests.png"));
+		btnMonthlyReport.setIcon(Resources.getIcon("tests.png"));
 
 		frame.getContentPane().add(btnMonthlyReport);
 
@@ -246,9 +248,9 @@ public class ClientUI {
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setBounds(10, 11, 284, 60);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel.setIcon(res.getIcon("logo.png"));
+		lblNewLabel.setIcon(Resources.getIcon("logo.png"));
 		frame.getContentPane().add(lblNewLabel);
-		lblNewLabel_1.setIcon(res.getIcon("user.png"));
+		lblNewLabel_1.setIcon(Resources.getIcon("user.png"));
 		frame.getContentPane().add(lblNewLabel_1);
 		btnConformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

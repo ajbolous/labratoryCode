@@ -38,10 +38,9 @@ public class Treatments extends View {
 			db.treatments.create((Treatment) request.getParam("treatment"));
 			return getLastTreatment(request);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
-
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class Treatments extends View {
 			db.treatments.update(treatment);
 			return "success";
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 
@@ -117,7 +116,7 @@ public class Treatments extends View {
 				return treatment.get(0);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 
@@ -155,11 +154,8 @@ public class Treatments extends View {
 		}
 
 		catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
-
 		}
-
 	}
-
 }
