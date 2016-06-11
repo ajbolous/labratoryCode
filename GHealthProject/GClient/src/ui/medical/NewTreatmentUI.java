@@ -162,7 +162,7 @@ public class NewTreatmentUI extends JPanel {
 				if (UITests.notEmpty(tType) == false)
 					error_lbl.setText("*Please enter treatment name");
 				else if(!UITests.checkIsCh(tType))
-					error_lbl.setText("*Please enter  valid  name(only character)");
+					error_lbl.setText("*Treatment name should be only letters");
 					
 				else {
 					treatment.settType(tType);

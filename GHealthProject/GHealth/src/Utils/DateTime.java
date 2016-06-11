@@ -352,7 +352,7 @@ public class DateTime {
 	 * @param d1_end : Date1 end
 	 * @param d2_start Date2 start
 	 * @param d2_end Date2 end
-	 * @return true if the Date1 and Date2 Overlaps , false else ,Overlap if (StartA < EndB) and (EndA > StartB)
+	 * @return true if the Date1 and Date2 Overlaps , false else ,Overlap if (StartA small than EndB) and (EndA bigger than StartB)
 	 */
 
 	public static boolean isOverlap(Date d1_start, Date d1_end, Date d2_start, Date d2_end) {

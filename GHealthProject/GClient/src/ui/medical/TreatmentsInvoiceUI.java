@@ -98,8 +98,9 @@ public class TreatmentsInvoiceUI {
 	/**
 	 * Initialize the contents of the frame
 	 * 
-	 * @param secUI
+	 * @param tI
 	 */
+	
 	private void initialize(TreatmentsInvoiceUI tI) {
 		Resources res = new Resources();
 		tinvoice = new JFrame();

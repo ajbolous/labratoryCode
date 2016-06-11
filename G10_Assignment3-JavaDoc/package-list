@@ -1,0 +1,14 @@
+Client
+Controllers
+Database
+Server
+Utils
+Views
+models
+org.eclipse.wb.swing
+ui.appointments
+ui.labratories
+ui.main
+ui.medical
+ui.reports
+ui.utils
