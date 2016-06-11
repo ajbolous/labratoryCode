@@ -19,7 +19,7 @@ public class Treatment extends Entity{
  
 
 	/**
-	 * The treatment id 
+	 * The treatment id  generate automatic 
 	 */
 	@DatabaseField(generatedId = true)
 	private int tid;

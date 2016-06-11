@@ -64,8 +64,16 @@ import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 import javax.swing.JEditorPane;
 
+/**
+ * Add new Confirmation GUI for patient to specific specialty 
+ * 
+ * @author Ahmad Mnasra
+ *
+ */
 public class NewConfirmUI {
-
+	/**
+	 * current frame
+	 */
 	private JFrame NewConfirmUI;
 	private AppointmentsController app_ctrl = new AppointmentsController();
 	private ReferralController RefCtrl = new ReferralController();
@@ -75,12 +83,16 @@ public class NewConfirmUI {
 	private JTextField textField_3;
 	private JButton btnNext;
 	private JTable tblToday;
+	/**
+	 * shows all specialty 
+	 */
 	private JComboBox speciality_cbox;
 	private JEditorPane editorPane;
 	private JLabel msqlbl_1;
 	private JLabel msqlbl_2;
 	private JLabel msqlbl_3;
 	private JLabel note;
+	
 	private boolean flag_lock;
 
 	public NewConfirmUI(Patient p) {
@@ -141,21 +153,26 @@ public class NewConfirmUI {
 		panel.setLayout(null);
 
 		JLabel label_1 = new JLabel("Description:");
-		label_1.setBounds(6, 106, 71, 14);
+		label_1.setBounds(2, 111, 71, 14);
 		panel.add(label_1);
 
 		field_Name = new JTextField();
 		field_Name.setColumns(10);
-		field_Name.setBounds(71, 61, 200, 25);
+		field_Name.setBounds(75, 61, 200, 25);
 		panel.add(field_Name);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(75, 106, 200, 141);
+		scrollPane.setBounds(75, 111, 200, 141);
 		panel.add(scrollPane);
-
-		editorPane = new JEditorPane();
-		scrollPane.setViewportView(editorPane);
-
+		
+				editorPane = new JEditorPane();
+				scrollPane.setViewportView(editorPane);
+			/**
+			 * Combobox handler to choose specific specialty use getDoctorsBySpec to
+			 * add confirmation to  specialty(Selected) for  patient 
+			 * and checks if confirmation is active show message and fields is locked 
+			 * else, permit for user to add new confirmation 
+			 */
 		speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
 		speciality_cbox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,7 +205,10 @@ public class NewConfirmUI {
 				}
 
 			}
-
+			/**
+			 *This private method search for active Referral to
+			 * selected specialty 
+			 */
 			private Referral referalExit() {
 				for (Referral ref : p.getReferrals()) {
 					if (ref.isActive() == true
@@ -208,9 +228,9 @@ public class NewConfirmUI {
 		label_2.setBounds(-2, 66, 79, 14);
 		panel.add(label_2);
 
-		JLabel label_3 = new JLabel("speciality");
-		label_3.setBounds(6, 16, 71, 14);
-		panel.add(label_3);
+		JLabel lblSpeciality = new JLabel("speciality:");
+		lblSpeciality.setBounds(2, 16, 71, 14);
+		panel.add(lblSpeciality);
 
 		note = new JLabel("");
 		note.setForeground(Color.RED);
@@ -219,12 +239,21 @@ public class NewConfirmUI {
 		panel.add(note);
 
 		msqlbl_2 = new JLabel("");
-		msqlbl_2.setBounds(78, 91, 127, 14);
+		msqlbl_2.setForeground(Color.RED);
+		msqlbl_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		msqlbl_2.setBounds(75, 89, 127, 14);
 		panel.add(msqlbl_2);
 
 		msqlbl_1 = new JLabel("");
-		msqlbl_1.setBounds(71, 41, 127, 14);
+		msqlbl_1.setForeground(Color.RED);
+		msqlbl_1.setBounds(75, 41, 102, 14);
 		panel.add(msqlbl_1);
+		
+		JLabel lblNewLabel = new JLabel("(Doctor from HMO)");
+		lblNewLabel.setForeground(Color.DARK_GRAY);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel.setBounds(198, 80, 91, 32);
+		panel.add(lblNewLabel);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Add confirm", null, panel_1, null);
@@ -304,6 +333,11 @@ public class NewConfirmUI {
 			}
 
 		});
+		/**
+		 * check if all requirement field is filled . call to
+		 * addReferralHMO method in ReferralController to add the
+		 * Referral and approval from HMO show success message to user or warning message if patient is exist 
+		 */
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				msqlbl_1.setText("");
@@ -358,7 +392,10 @@ public class NewConfirmUI {
 		NewConfirmUI.setBounds(100, 100, 376, 496);
 		NewConfirmUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
+	/**
+	 *This private method , checks if all requirement field of confirmation is filled correct . return true 
+	 * if all fields is valid , else  if one of fields is incorrect input or empty 
+	 */
 	private Boolean isvalidRef() {
 		boolean flag = true;
 
@@ -377,7 +414,10 @@ public class NewConfirmUI {
 
 		return flag;
 	}
-
+	/**
+	 *This private method , checks if all requirement field of confirmation is filled correct . return true 
+	 * if all fields is valid , else  if one of fields is incorrect input or empty 
+	 */
 	private Boolean isvalidconf() {
 		boolean flag = true;
 

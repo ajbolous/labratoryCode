@@ -10,6 +10,7 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.stmt.DeleteBuilder;
 
 import Client.Application;
+import Client.Config;
 import Utils.DateTime;
 import Utils.Request;
 import models.Appointment;
@@ -58,11 +59,11 @@ public class AppointmentsController {
 	}
 
 	
-	public static void setAppointmentDone(String doctor_id, String patient_id){
+	public static Object setAppointmentDone(String doctor_id, String patient_id){
 		Request r = new Request("appointments/setAppointmentDone");
 		r.addParam("doctor_id", doctor_id);
 		r.addParam("patient_id", patient_id);
-		Application.client.sendRequest(r);
+		return Application.client.sendRequest(r);
 	}
 	/**
 	 * send request to database to return all available doctors by given
@@ -104,8 +105,7 @@ public class AppointmentsController {
 			r.addParam("curr_date", DateTime.getDate(curr.getYear() + 1900, curr.getMonth() + 1, curr.getDate(),
 					curr.getHours(), curr.getMinutes()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		return (ArrayList<Appointment>) Application.client.sendRequest(r);
 
@@ -128,8 +128,7 @@ public class AppointmentsController {
 		try {
 			r.addParam("curr_time", DateTime.currentDate());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		r.addParam("doctor_id", doctor_id);
 

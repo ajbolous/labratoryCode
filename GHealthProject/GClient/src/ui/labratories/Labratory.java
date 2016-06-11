@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.Image;
 
 import Client.Application;
+import Client.Config;
 import Client.Resources;
 import Controllers.ExaminationController;
 import models.Examination;
@@ -99,8 +100,7 @@ public class Labratory {
 		try {
 			label_2.setText(new String("Tody:" + Utils.DateTime.currentDate().toString()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 
 		JScrollPane scrollPane = new JScrollPane();

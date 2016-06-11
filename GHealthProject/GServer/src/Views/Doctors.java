@@ -24,7 +24,7 @@ public class Doctors extends View {
 		try {
 			return db.doctors.queryForAll();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 
 		}
@@ -49,7 +49,7 @@ public class Doctors extends View {
 				}
 			}).getResults();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 	}
@@ -79,7 +79,7 @@ public class Doctors extends View {
 		try {
 			doctors = (ArrayList<Doctor>) db.doctors.queryForFieldValues(map);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 			return null;
 		}
 		Appointments app_view = new Appointments();
@@ -99,22 +99,10 @@ public class Doctors extends View {
 		try {
 			db.doctors.create(d);
 		} catch (SQLException e) {
+			Config.getConfig().getLogger().exception(e);
 			return "Failed";
 		}
 
 		return "success";
 	}
-
-	public Object remove(Request request) {
-		DbHandler db = Config.getConfig().getHandler();
-		Doctor d = (Doctor) request.getParam("doctor");
-		return "success";
-	}
-
-	public Object update(Request request) {
-		DbHandler db = Config.getConfig().getHandler();
-		Doctor d = (Doctor) request.getParam("doctor");
-		return "success";
-	}
-
 }

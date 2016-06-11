@@ -48,7 +48,7 @@ public class VisitPanel extends JPanel {
 		setLayout(null);
 
 		textField_1 = new JTextField(
-				DateTime.getDateString(visit.getVisitDate()) + " " + DateTime.getTimeString(visit.getVisitDate()));
+				DateTime.getDateString(visit.getVisitDate()) );
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
 		textField_1.setBounds(112, 28, 158, 20);
@@ -76,16 +76,6 @@ public class VisitPanel extends JPanel {
 		textArea.setText(visit.getComments());
 
 		scrollPane.setViewportView(textArea);
-
-		JButton btnNewButton = new JButton("Cancel ");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
-		btnNewButton.setBounds(318, 317, 89, 23);
-		add(btnNewButton);
 
 		JLabel lblDoctorName = new JLabel("Doctor Name : ");
 		lblDoctorName.setFont(new Font("Tahoma", Font.PLAIN, 12));

@@ -13,6 +13,7 @@ import java.awt.Image;
 import javax.swing.JFileChooser;
 
 import Client.Application;
+import Client.Config;
 import Client.Resources;
 import Controllers.ExaminationController;
 import models.Examination;
@@ -74,7 +75,7 @@ public class ExamEditor {
 		try {
 			creationDate = Utils.DateTime.currentDate();
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Config.getConfig().getLogger().exception(e);
 		}
 		label_2.setText(creationDate.toString());
 

@@ -63,6 +63,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.UIManager;
+
 /**
  * public class InvoiceUI Displays a form to be filled by a secretary option
  * create and send new invoice for a given treatment
@@ -149,7 +151,7 @@ public class InvoiceUI {
 		lblExaminations.setBounds(21, 231, 90, 22);
 		Invoice.getContentPane().add(lblExaminations);
 
-		JLabel lblTreatmenttype = new JLabel("TreatmentType");
+		JLabel lblTreatmenttype = new JLabel("TreatmentName");
 		lblTreatmenttype.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTreatmenttype.setBounds(21, 136, 90, 14);
 		Invoice.getContentPane().add(lblTreatmenttype);
@@ -164,6 +166,8 @@ public class InvoiceUI {
 		exList = new String[examinationList.size()];
 		exList = examinationList.toArray(exList);
 		list = new JList(exList);
+		list.setBackground(UIManager.getColor("CheckBox.light"));
+		list.setVisibleRowCount(2);
 		scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(121, 231, 127, 94);
 		Invoice.getContentPane().add(scrollPane);
@@ -218,7 +222,6 @@ public class InvoiceUI {
 				try {
 					invoice.setDate(DateTime.currentDate());
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				String payment = textField_3.getText();
@@ -228,14 +231,20 @@ public class InvoiceUI {
 					error_lbl.setText("* Please enter Payment");
 
 				else {
+					try
+					{
 					invoice.setPayment(Double.parseDouble(payment));
-					// send Invoice to HMO
-					InvoiceController.sendInvoice(invoice);
-
+					}
+					catch(Exception e1){
+						error_lbl.setText("please Enter valid payment." );
+						textField_3.setText("");
+						return; 
+						
+					}
 					Messages.successMessage("Invoice was sended successfully ", "Success", Invoice);
 					trInUI.removeTreatment();
 					treatment.setHasInvoice(true);
-					MedicalRecordController.updatTreatment(treatment);
+					InvoiceController.sendInvoice(invoice);
 					Invoice.dispose();
 				}
 

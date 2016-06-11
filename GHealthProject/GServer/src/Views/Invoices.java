@@ -26,15 +26,14 @@ public class Invoices extends View {
 	public Object send(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		Invoice invoice = (Invoice) request.getParam("Invoice");
-
+		 new Treatments().updateTreatment((Treatment)invoice.getTreatment());
 		System.out.println("----------------------------------------");
 		System.out.println();
 
 		System.out.println("Invoice was send to HMO. \nInvoice Details  : "
-				+ "\nInvoice id : " + invoice.getInvoiceId()
-				+ " \nabout\nTreatment id :" + invoice.getTreatment().getTid()
+				+ " \nTreatment id :" + invoice.getTreatment().getTid()
 				+ "\nTreatment type : " + invoice.getTreatment().gettType()
-				+ " \n Payment : " + invoice.getPayment());
+				+ " \nPayment : " + invoice.getPayment());
 
 		System.out.println("----------------------------------------");
 		return "success";

@@ -1,8 +1,5 @@
 package ui.main;
 
-import java.awt.EventQueue;
-
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -10,7 +7,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -20,20 +16,20 @@ import Client.Resources;
 import Controllers.UsersController;
 import models.User;
 
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.SystemColor;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
+/**
+ * Form for managing the online users and locked ones. only for ceo usage
+ * @author aj_pa
+ *
+ */
 public class UsersManagingUI {
 
 	private JFrame ui;
@@ -110,11 +106,15 @@ public class UsersManagingUI {
 		ui.getContentPane().add(lblLockedUserAccounts);
 
 		JButton btnUnlock = new JButton("Unlock");
+		btnUnlock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnUnlock.setBounds(10, 470, 157, 20);
 		ui.getContentPane().add(btnUnlock);
 		ui.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		ui.setBounds(100, 100, 466, 524);
-		ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		ui.setVisible(true);
 		fillUsers();

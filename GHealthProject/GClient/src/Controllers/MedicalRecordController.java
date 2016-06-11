@@ -35,7 +35,6 @@ public class MedicalRecordController {
 		Request r = new Request("treatments/add");
 		r.addParam("treatment", t);
 		r.addParam("medical_id", t.getMedicalRecord().getMid());
-		r.addParam("date", "start");
 		return Application.client.sendRequest(r);
 
 	}
@@ -58,15 +57,15 @@ public class MedicalRecordController {
 	}
 
 	/**
-	 * update treatment ( add to treatment result and End date )
+	 * sending Request to server  to update treatment in database, creation and send report to HMO doctor
 	 * 
 	 * @param t
-	 *            Treatment will be updated
+	 *            Treatment will be updated 
 	 *
 	 */
 
-	public static void updatTreatment(Treatment t) {
-		Request r = new Request("treatments/updateTreatment");
+	public static void sendTreatmentReport(Treatment t) {
+		Request r = new Request("treatments/sendReport");
 		r.addParam("treatment", t);
 		Application.client.sendRequest(r);
 
@@ -80,15 +79,18 @@ public class MedicalRecordController {
 	 */
 
 	public static void sendRequestToHMO(Patient p) {
-		// TODO Auto-generated method stub
 		Request r = new Request("patients/sendRequest");
 		r.addParam("patient", p);
 		Application.client.sendRequest(r);
 	}
 	
+	/**
+	 * send request to server  to get the  HMO information about patient 
+	 * @param file 
+	 * @return the HMO information  (image of information) 
+	 */
 	
 	public static ImageIcon getHmoInformation(String file) {
-		// TODO Auto-generated method stub
 		Request r = new Request("patients/getHmoInformation");
 		r.addParam("info", file);
 		return (ImageIcon)Application.client.sendRequest(r);

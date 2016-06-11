@@ -35,7 +35,6 @@ public class Template {
 
 	private JFrame template;
 
-	
 	public Template() {
 		initialize();
 	}
@@ -48,14 +47,14 @@ public class Template {
 		template = new JFrame();
 		template.setTitle("<Frame name> - GHealth");
 		template.setResizable(false);
-		Image icon= new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
 		template.setIconImage(icon);
 		template.setForeground(Color.BLACK);
 		template.setFont(new Font("Dialog", Font.PLAIN, 16));
 		template.setBackground(Color.WHITE);
 		template.getContentPane().setBackground(Color.WHITE);
 		template.getContentPane().setLayout(null);
-		
+
 		JLabel logo = new JLabel("GHealth - <Frame Name>");
 		logo.setBounds(0, 0, 495, 80);
 		logo.setForeground(SystemColor.textHighlight);
@@ -63,7 +62,7 @@ public class Template {
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(res.getIcon("logo.png"));
 		template.getContentPane().add(logo);
-		template.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{logo}));
+		template.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		template.setBounds(100, 100, 501, 496);
 		template.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

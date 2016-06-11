@@ -156,6 +156,8 @@ public class DataFiller {
 					e.getExaminationDate().getMonth() + 1, e.getExaminationDate().getDay() - rand.nextInt(5)));
 			e.setTreatment(t);
 			e.setResults("good");
+			Clinic clinic = db.clinics.queryForId(i+1);
+			e.setClinic(clinic);
 			db.examinations.create(e);
 		}
 	}

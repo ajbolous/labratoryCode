@@ -28,14 +28,14 @@ public class InvoiceController {
 	public static ArrayList<Treatment> getAllopenTreatments(Secretary sec)
 
 	{
-		Request r = new Request("treatments/getTreatment");
+		Request r = new Request("treatments/getTreatments");
 		r.addParam("Secretary", sec);
 		return (ArrayList<Treatment>) Application.client.sendRequest(r);
 
 	}
 
 	/**
-	 * send request for server to send new invoice to HMO of the patient
+	 * send request for server to send new invoice to HMO of the patient 
 	 * 
 	 * @param invoice
 	 *            - the new invoice that will be send to HMO

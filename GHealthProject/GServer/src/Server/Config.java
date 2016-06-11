@@ -1,6 +1,7 @@
 package Server;
 
 import Database.DbHandler;
+import Utils.FileManager;
 import Utils.Logger;
 /**
  * Class Config, the configuration of the server.
@@ -8,7 +9,7 @@ import Utils.Logger;
  *
  */
 public class Config {
-	private boolean isDebug = true;
+	private boolean isDebug = false;
 	public boolean isDebug() {
 		return isDebug;
 	}
@@ -20,9 +21,10 @@ public class Config {
 	private int port = 5000;
 	private String dbUrl = "jdbc:mysql://localhost/test";
 	private String dbUser = "root";
-	private String dbPassword = "123123";
+	private String dbPassword = "2222";
 	private Logger logger = new Logger(isDebug);
-
+	private String homeDirectory = "c:/GHealth";
+	private FileManager fileManager = new FileManager(homeDirectory);
 	private DbHandler handler;
 
 
@@ -53,6 +55,7 @@ public class Config {
 			cfg.setDbPassword(args[3]);
 
 		cfg.printConfig();
+		
 		return cfg;
 	}
 
@@ -111,6 +114,22 @@ public class Config {
 
 	public void setHandler(DbHandler handler) {
 		this.handler = handler;
+	}
+
+	public String getHomeDirectory() {
+		return homeDirectory;
+	}
+
+	public void setHomeDirectory(String homeDirectory) {
+		this.homeDirectory = homeDirectory;
+	}
+
+	public FileManager getFileManager() {
+		return fileManager;
+	}
+
+	public void setFileManager(FileManager fileManager) {
+		this.fileManager = fileManager;
 	}
 
 }

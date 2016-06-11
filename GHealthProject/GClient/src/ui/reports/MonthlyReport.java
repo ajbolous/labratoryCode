@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import Client.Application;
 import Client.Client;
+import Client.Config;
 import Client.Resources;
 
 import javax.swing.JLabel;
@@ -106,7 +107,7 @@ public class MonthlyReport {
 				try {
 					cDate = Utils.DateTime.getReportDate((String)months.getSelectedItem());
 				} catch (ParseException e) {
-					e.printStackTrace();
+					Config.getConfig().getLogger().exception(e);
 				}
 
 				fillMonthlyReport(cDate);
@@ -206,7 +207,7 @@ public class MonthlyReport {
 		monthlyReport.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
 
-		monthlyReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		monthlyReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 /**

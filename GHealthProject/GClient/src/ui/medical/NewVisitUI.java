@@ -30,6 +30,8 @@ import java.awt.event.InputMethodListener;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import Client.Config;
+
 /**
  * public class NewVisitUI Presentation of the visit form to be filled by a
  * doctor
@@ -69,12 +71,11 @@ public class NewVisitUI extends JPanel {
 		try {
 			v.setVisitDate(DateTime.currentDate());
 		} catch (Exception e) {
-			e.printStackTrace();
-
+			Config.getConfig().getLogger().exception(e);
 		}
 
 		textField_1 = new JTextField(
-				DateTime.getDateString(v.getVisitDate()) + " " + DateTime.getTimeString(v.getVisitDate()));
+				DateTime.getDateString(v.getVisitDate()) );
 		textField_1.setBounds(107, 52, 155, 20);
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setEditable(false);
@@ -154,10 +155,10 @@ public class NewVisitUI extends JPanel {
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnSave.setBounds(220, 322, 89, 23);
+		btnSave.setBounds(179, 322, 89, 23);
 		add(btnSave);
 
-		JButton btnNewButton = new JButton("Cancel");
+		JButton btnNewButton = new JButton("Close");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,7 +166,7 @@ public class NewVisitUI extends JPanel {
 
 			}
 		});
-		btnNewButton.setBounds(319, 322, 89, 23);
+		btnNewButton.setBounds(278, 322, 89, 23);
 		add(btnNewButton);
 
 		error_lbl = new JLabel("");
