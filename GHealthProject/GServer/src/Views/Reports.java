@@ -162,9 +162,9 @@ public class Reports extends View {
 
 			}
 			stat.setDate(d);
-			r.getStatistic().add(stat);
 			r.getCanceledAppointments().add(getCanceledAppointments(d));
 			r.getPatientsLeft().add(getLeavingClients(d));
+			r.getStatistic().add(stat);
 			stat = new Statistic();
 		}
 
@@ -173,28 +173,25 @@ public class Reports extends View {
 	}
 
 	public Object getPeriodReport(Request request) {
-		int i = 0;
-		int n;
 		Date d1 = (Date) request.getParam("date1");
 		Date d2 = (Date) request.getParam("date2");
 		Report r = new Report();
 		r.setStatistic(new ArrayList<Statistic>());
 		Statistic stat = new Statistic();
-		n = Utils.DateTime.MinusTwoMonths(d1, d2);
 
-		for (i = 0; i < n; i++) {
-
+		while (d1.before(d2)) {
 			Report rN = buildMonthlyReport(d1);
-			d1 = Utils.DateTime.MinusMonth(d1);
 			for (Statistic s : rN.getStatistic()) {
-
 				stat.setNumOfPatients(s.getNumOfPatients() + stat.getNumOfPatients());
 				stat.setWaitingPeriod(s.getWaitingPeriod() + stat.getWaitingPeriod());
-
 			}
 			stat.setDate(d1);
+			r.getCanceledAppointments().add(getCanceledAppointments(d1));
+			r.getPatientsLeft().add(getLeavingClients(d1));
 			r.getStatistic().add(stat);
+
 			stat = new Statistic();
+			d1 = Utils.DateTime.addMonth(d1);
 		}
 
 		fillStat(r);

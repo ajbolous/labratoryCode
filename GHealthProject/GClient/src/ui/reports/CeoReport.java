@@ -58,6 +58,7 @@ public class CeoReport {
 	private JTextField txtWmax;
 	private JTextField txtWmin;
 	private JTextField txtWstd;
+	JRadioButton rdbPeriodReport;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -83,7 +84,7 @@ public class CeoReport {
 		JLabel lblChooseDate = new JLabel("From :");
 		lblChooseDate.setForeground(new Color(0, 0, 0));
 		lblChooseDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblChooseDate.setBounds(140, 107, 84, 20);
+		lblChooseDate.setBounds(140, 107, 37, 20);
 		ceoReport.getContentPane().add(lblChooseDate);
 		lblChooseDate.setVisible(false);
 		JLabel logo = new JLabel("CEO Report");
@@ -91,11 +92,11 @@ public class CeoReport {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		ceoReport.getContentPane().add(logo);
 
 		JScrollPane weekly_scrll_table = new JScrollPane();
-		weekly_scrll_table.setBounds(9, 141, 430, 240);
+		weekly_scrll_table.setBounds(9, 141, 535, 240);
 		ceoReport.getContentPane().add(weekly_scrll_table);
 
 		ceo_table = new JTable();
@@ -112,26 +113,26 @@ public class CeoReport {
 
 		txtPavg = new JTextField();
 		txtPavg.setEditable(false);
-		txtPavg.setBounds(29, 435, 95, 20);
+		txtPavg.setBounds(29, 435, 101, 20);
 		ceoReport.getContentPane().add(txtPavg);
 		txtPavg.setColumns(10);
 
 		txtPmax = new JTextField();
 		txtPmax.setEditable(false);
 		txtPmax.setColumns(10);
-		txtPmax.setBounds(134, 435, 95, 20);
+		txtPmax.setBounds(140, 435, 119, 20);
 		ceoReport.getContentPane().add(txtPmax);
 
 		txtPmin = new JTextField();
 		txtPmin.setEditable(false);
 		txtPmin.setColumns(10);
-		txtPmin.setBounds(239, 435, 95, 20);
+		txtPmin.setBounds(269, 435, 126, 20);
 		ceoReport.getContentPane().add(txtPmin);
 
 		txtPstd = new JTextField();
 		txtPstd.setEditable(false);
 		txtPstd.setColumns(10);
-		txtPstd.setBounds(344, 435, 95, 20);
+		txtPstd.setBounds(405, 435, 139, 20);
 		ceoReport.getContentPane().add(txtPstd);
 
 		JLabel lblNewLabel_1 = new JLabel("Statistics");
@@ -154,144 +155,132 @@ public class CeoReport {
 		txtWavg = new JTextField();
 		txtWavg.setEditable(false);
 		txtWavg.setColumns(10);
-		txtWavg.setBounds(29, 491, 93, 20);
+		txtWavg.setBounds(29, 491, 101, 20);
 		ceoReport.getContentPane().add(txtWavg);
 
 		txtWmax = new JTextField();
 		txtWmax.setEditable(false);
 		txtWmax.setColumns(10);
-		txtWmax.setBounds(134, 491, 93, 20);
+		txtWmax.setBounds(140, 491, 119, 20);
 		ceoReport.getContentPane().add(txtWmax);
 
 		txtWmin = new JTextField();
 		txtWmin.setEditable(false);
 		txtWmin.setColumns(10);
-		txtWmin.setBounds(239, 491, 93, 20);
+		txtWmin.setBounds(269, 491, 126, 20);
 		ceoReport.getContentPane().add(txtWmin);
 
 		txtWstd = new JTextField();
 		txtWstd.setEditable(false);
 		txtWstd.setColumns(10);
-		txtWstd.setBounds(344, 491, 93, 20);
+		txtWstd.setBounds(405, 491, 139, 20);
 		ceoReport.getContentPane().add(txtWstd);
-		JComboBox<String> months = new JComboBox<String>();
+		JComboBox<String> cmbFromMonth = new JComboBox<String>();
 		for (Date d : DateTime.getMonths(2016)) {
-			months.addItem(DateTime.getDateString(d));
+			cmbFromMonth.addItem(DateTime.getDateString(d));
 		}
-		months.addActionListener(new ActionListener() {
-			/**
-			 * this function set the source date into variable date1
-			 */
-			public void actionPerformed(ActionEvent arg0) {
-				Date date1 = new Date();
-				try {
-					date1 = Utils.DateTime.getReportDate((String) months.getSelectedItem());
-				} catch (ParseException e) {
-					Config.getConfig().getLogger().exception(e);
-				}
 
-			}
-		});
-		months.setForeground(new Color(0, 0, 0));
-		months.setBackground(new Color(192, 192, 192));
-		months.setBounds(183, 106, 107, 22);
+		cmbFromMonth.setForeground(new Color(0, 0, 0));
+		cmbFromMonth.setBackground(new Color(192, 192, 192));
+		cmbFromMonth.setBounds(183, 106, 107, 22);
 
-		ceoReport.getContentPane().add(months);
-		ceoReport.setBounds(100, 100, 499, 567);
-		months.setVisible(false);
+		ceoReport.getContentPane().add(cmbFromMonth);
+		ceoReport.setBounds(100, 100, 570, 567);
+		cmbFromMonth.setVisible(false);
 
 		JLabel lblTo = new JLabel("To :");
 		lblTo.setForeground(Color.BLACK);
 		lblTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTo.setBounds(313, 107, 84, 20);
+		lblTo.setBounds(300, 107, 37, 20);
 		ceoReport.getContentPane().add(lblTo);
 		lblTo.setVisible(false);
-		JComboBox<String> comboBox = new JComboBox<String>();
+		JComboBox<String> cmbToMonth = new JComboBox<String>();
 		for (Date d : DateTime.getMonths(2016)) {
-			comboBox.addItem(DateTime.getDateString(d));
+			cmbToMonth.addItem(DateTime.getDateString(d));
 		}
-		months.addActionListener(new ActionListener() {
-			/**
-			 * this function set the target date into the variable date2
-			 */
-			public void actionPerformed(ActionEvent arg0) {
-				Date date2 = new Date();
-				try {
-					date2 = Utils.DateTime.getReportDate((String) comboBox.getSelectedItem());
-				} catch (ParseException e) {
-					Config.getConfig().getLogger().exception(e);
-				}
 
-				fillPeriodReports(date1, date2);
-			}
-		});
-		comboBox.setForeground(Color.BLACK);
-		comboBox.setBackground(Color.LIGHT_GRAY);
-		comboBox.setBounds(339, 106, 107, 22);
-		ceoReport.getContentPane().add(comboBox);
-		comboBox.setVisible(false);
+		cmbToMonth.setForeground(Color.BLACK);
+		cmbToMonth.setBackground(Color.LIGHT_GRAY);
+		cmbToMonth.setBounds(329, 107, 98, 22);
+		ceoReport.getContentPane().add(cmbToMonth);
+		cmbToMonth.setVisible(false);
 
-		JComboBox<Integer> comboBox_1 = new JComboBox<Integer>();
+		JComboBox<Integer> cmbNMonths = new JComboBox<Integer>();
 		for (int i = 1; i <= 12; i++) {
-			comboBox_1.addItem(i);
+			cmbNMonths.addItem(i);
 			;
 		}
-		comboBox_1.addActionListener(new ActionListener() {
-			/**
-			 * this function set the value of the n requested months into the
-			 * variable n
-			 */
-			public void actionPerformed(ActionEvent arg0) {
-				Date currDate = new Date();
-				int n = (int) comboBox_1.getSelectedItem();
-				try {
-					currDate = Utils.DateTime.currentDate();
 
-				} catch (ParseException e) {
-					Config.getConfig().getLogger().exception(e);
-				}
-
-				fillNReports(currDate, n);
-
-			}
-		});
-		comboBox_1.setForeground(Color.BLACK);
-		comboBox_1.setBackground(Color.LIGHT_GRAY);
-		comboBox_1.setBounds(183, 72, 107, 22);
-		ceoReport.getContentPane().add(comboBox_1);
-		comboBox_1.setVisible(false);
+		cmbNMonths.setForeground(Color.BLACK);
+		cmbNMonths.setBackground(Color.LIGHT_GRAY);
+		cmbNMonths.setBounds(183, 72, 107, 22);
+		ceoReport.getContentPane().add(cmbNMonths);
+		cmbNMonths.setVisible(false);
 		JLabel lblN = new JLabel("N :");
 		lblN.setForeground(Color.BLACK);
 		lblN.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblN.setBounds(148, 74, 37, 20);
 		ceoReport.getContentPane().add(lblN);
 		lblN.setVisible(false);
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Last N Months");
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+		JRadioButton rdbNReports = new JRadioButton("Last N Months");
+		rdbNReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comboBox_1.setVisible(true);
+				cmbNMonths.setVisible(true);
 				lblN.setVisible(true);
+
+				rdbPeriodReport.setSelected(false);
+				cmbFromMonth.setVisible(false);
+				cmbToMonth.setVisible(false);
+				lblChooseDate.setVisible(false);
+				lblTo.setVisible(false);
 			}
 		});
-		rdbtnNewRadioButton.setBounds(1, 71, 123, 25);
-		ceoReport.getContentPane().add(rdbtnNewRadioButton);
+		rdbNReports.setBounds(9, 71, 123, 25);
+		ceoReport.getContentPane().add(rdbNReports);
 
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Specific Period");
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+		rdbPeriodReport = new JRadioButton("Specific Period");
+		rdbPeriodReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				months.setVisible(true);
-				comboBox.setVisible(true);
+
+				rdbNReports.setSelected(false);
+				cmbNMonths.setVisible(false);
+				lblN.setVisible(false);
+
+				cmbFromMonth.setVisible(true);
+				cmbToMonth.setVisible(true);
 				lblChooseDate.setVisible(true);
 				lblTo.setVisible(true);
 
 			}
 		});
-		rdbtnNewRadioButton_1.setBounds(1, 105, 123, 25);
-		ceoReport.getContentPane().add(rdbtnNewRadioButton_1);
+		rdbPeriodReport.setBounds(11, 106, 123, 25);
+		ceoReport.getContentPane().add(rdbPeriodReport);
+
+		JButton btnShowReport = new JButton("Show Report");
+		btnShowReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (rdbNReports.isSelected())
+					fillNReports((int) cmbNMonths.getSelectedItem());
+
+				if (rdbPeriodReport.isSelected()) {
+					try {
+						Date date1 = Utils.DateTime.getReportDate((String) cmbFromMonth.getSelectedItem());
+						Date date2 = Utils.DateTime.getReportDate((String) cmbToMonth.getSelectedItem());
+						fillPeriodReports(date1, date2);
+
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnShowReport.setBounds(437, 72, 107, 55);
+		ceoReport.getContentPane().add(btnShowReport);
 		ceo_table.setVisible(true);
 		ceoReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 
-		ceoReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ceoReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
 
@@ -302,7 +291,7 @@ public class CeoReport {
 	 * @param curr
 	 * @param n
 	 */
-	public void fillNReports(Date curr, int n) {
+	public void fillNReports(int n) {
 		Report report;
 		Request r = new Request("reports/getNMonths");
 		r.addParam("N", n);
@@ -312,14 +301,20 @@ public class CeoReport {
 		for (Statistic s : report.getStatistic())
 			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
 					s.getWaitingPeriod() });
-		txtPavg.setText("Average: " + report.getpAvg());
-		txtWavg.setText("Average: " + report.getwAvg());
 
-		txtPmax.setText("Max: " + report.getpMax());
-		txtWmax.setText("Max: " + report.getwMax());
+		fillTexts(report);
 
-		txtPmin.setText("Min: " + report.getpMin());
-		txtWmin.setText("Min: " + report.getwMin());
+	}
+
+	private void fillTexts(Report report) {
+		txtPavg.setText(String.format("Average: %.2f", report.getpAvg()));
+		txtWavg.setText(String.format("Average: %.2f", report.getwAvg()));
+
+		txtPmax.setText(String.format("Max: %d", report.getpMax()));
+		txtWmax.setText(String.format("Max: %d", report.getwMax()));
+
+		txtPmin.setText(String.format("Min: %d", report.getpMin()));
+		txtWmin.setText(String.format("Min: %d", report.getwMin()));
 
 		txtPstd.setText(String.format("StdDev: %.2f", report.getpStd()));
 		txtWstd.setText(String.format("StdDev: %.2f", report.getwStd()));
@@ -345,17 +340,8 @@ public class CeoReport {
 		for (Statistic s : report.getStatistic())
 			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
 					s.getWaitingPeriod() });
-		txtPavg.setText("Average: " + report.getpAvg());
-		txtWavg.setText("Average: " + report.getwAvg());
 
-		txtPmax.setText("Max: " + report.getpMax());
-		txtWmax.setText("Max: " + report.getwMax());
-
-		txtPmin.setText("Min: " + report.getpMin());
-		txtWmin.setText("Min: " + report.getwMin());
-
-		txtPstd.setText(String.format("StdDev: %.2f", report.getpStd()));
-		txtWstd.setText(String.format("StdDev: %.2f", report.getwStd()));
+		fillTexts(report);
 	}
 
 	public JFrame getFrame() {
