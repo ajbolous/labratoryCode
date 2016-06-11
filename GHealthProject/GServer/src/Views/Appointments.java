@@ -39,7 +39,6 @@ public class Appointments extends View {
 	 * 
 	 * @return Array list of all future patient's appointment.
 	 * 
-	 * @throws SQLException
 	 */
 	public Object getPatientAppointments(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -60,7 +59,7 @@ public class Appointments extends View {
 	 * Query to delete an appointment.
 	 * 
 	 * @param request
-	 *            : "appointments/delete" ,HashMap params: ("appointment" =>
+	 *            : "appointments/delete" ,HashMap params: ("appointment" 
 	 *            Appointment instance).
 	 * 
 	 * @return boolean value , id delete success return true , else return
@@ -89,13 +88,12 @@ public class Appointments extends View {
 	 * Query to delete an appointment.
 	 * 
 	 * @param request
-	 *            : "appointments/delete" ,HashMap params: ("appointment" =>
+	 *            : "appointments/delete" ,HashMap params: ("appointment" 
 	 *            Appointment instance).
 	 * 
 	 * @return boolean value , id delete success return true , else return
 	 *         false.
 	 * 
-	 * @throws SQLException
 	 */
 	public Object delete(Request request) {
 
@@ -121,8 +119,6 @@ public class Appointments extends View {
 	 * @return true id adding success , and false if occur any error like the
 	 *         appointment exist
 	 * 
-	 * @throws SQLException
-	 *             ,ParseException
 	 */
 	public Object add(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -166,7 +162,6 @@ public class Appointments extends View {
 	 *            : appointment time
 	 * @return true if the appointment is exist , return false else .
 	 * 
-	 * @throws SQLException
 	 */
 	private boolean isExist(Object doctor_id, Object patient_id, Object app_time) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -196,8 +191,6 @@ public class Appointments extends View {
 	 *            him
 	 * @return String date of the last visit if exist such last visit , return
 	 *         empty string if no last visit , return null if exception occured.
-	 * @throws ParseException
-	 *             ,SQLException
 	 */
 	public Object lastVisit(Request request, String doctor_id) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -264,7 +257,6 @@ public class Appointments extends View {
 	 * @param doctor_id
 	 * @param curr_time
 	 * @return Shift array list of all future all doctor's shifts.
-	 * @throws SQLException
 	 */
 	private List<Shift> getDoctorShifts(Object doctor_id, Object curr_time) {
 
@@ -290,7 +282,6 @@ public class Appointments extends View {
 	 * @param curr_time
 	 * @return Appointment array list of unavailable times of patient and
 	 *         doctor.
-	 * @throws SQLException
 	 */
 	private List<Appointment> unAvailableApps(Object doctor_id, Object patient_id, Object curr_time) {
 		DbHandler db = Config.getConfig().getHandler();

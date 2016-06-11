@@ -56,9 +56,7 @@ public class WeeklyReport {
 	private JTextField txtWmin;
 	private JTextField txtWstd;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 
 	public WeeklyReport() {
 		initialize();

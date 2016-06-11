@@ -180,8 +180,8 @@ public class Appointment extends Entity {
 	}
 
 	/**
-	 * two appointment equals if they overlap in times Overlap <==> (StartA <
-	 * EndB) and (EndA > StartB)
+	 * two appointment equals if they overlap in times Overlap  (StartA small than 
+	 * EndB) and (EndA bigger than  StartB)
 	 */
 	@Override
 	public boolean equals(Object obj) {

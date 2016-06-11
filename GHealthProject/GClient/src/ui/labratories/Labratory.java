@@ -31,7 +31,11 @@ import java.text.ParseException;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-
+/**
+ * public class Laboratory, shows examinations to laboratory in order to check and document test result 
+ * @author Bolous Abo Jaber , Ahmad Mnasra 
+ *
+ */
 public class Labratory {
 
 	private JFrame labratoryUI;
@@ -133,7 +137,10 @@ public class Labratory {
 		labratoryUI.setBounds(100, 100, 763, 576);
 		labratoryUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-
+/**
+ * fill examination of  laboratory to this table 
+ * @param tbl : table of examination today 
+ */
 	public void fillExaminations(JTable tbl) {
 		DefaultTableModel model = (DefaultTableModel) tbl.getModel();
 		Labratorian lab = (Labratorian) Application.user;

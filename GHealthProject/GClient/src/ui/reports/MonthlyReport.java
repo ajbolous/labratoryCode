@@ -61,9 +61,6 @@ public class MonthlyReport {
 	private JTextField txtWmin;
 	private JTextField txtWstd;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 
 	public MonthlyReport() {
 		initialize();

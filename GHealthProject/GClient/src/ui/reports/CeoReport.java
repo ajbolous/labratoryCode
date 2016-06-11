@@ -59,9 +59,7 @@ public class CeoReport {
 	private JTextField txtWmin;
 	private JTextField txtWstd;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+	
 
 	public CeoReport() {
 		initialize();

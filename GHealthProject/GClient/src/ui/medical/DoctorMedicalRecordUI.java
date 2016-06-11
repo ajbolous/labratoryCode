@@ -96,7 +96,6 @@ public class DoctorMedicalRecordUI {
 	 * 
 	 * @param p
 	 *            - patient instance
-	 * @throws ParseException
 	 */
 	public DoctorMedicalRecordUI(Patient p) {
 		initialize(p);
@@ -111,7 +110,6 @@ public class DoctorMedicalRecordUI {
 	 * 
 	 * @param p
 	 *            - patient
-	 * @throws ParseException
 	 */
 	private void initialize(Patient p) {
 		DoctorMedicalRecord = new JFrame();
