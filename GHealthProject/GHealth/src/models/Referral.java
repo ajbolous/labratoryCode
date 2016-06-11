@@ -4,35 +4,61 @@ import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
+/**
+ * public class Referral 
+ *  extends class Entity  
+ * @author Ahmad Mnasra 
+ *
+ */
 @DatabaseTable(tableName = "referrals")
 public class Referral extends Entity{
 	
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * The Referral id  generate automatic 
+	 */
 	@DatabaseField(generatedId = true)
 	private int rid ; 
 	
+	/**
+	 * Referral for this patient 
+	 */
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
 	private Patient patient ; 
-	
+	/**
+	 * Name of doctor from HMO who write referral's patient
+	 */
 	@DatabaseField()
 	private String doctor_name ; 
 	
+	/**
+	 * Date of creation this referral 
+	 */
 	@DatabaseField()
 	private Date date ; 
 	
+	/**
+	 * Description  of Referral 
+	 */
 	@DatabaseField()
 	private String description; 
 	
-	
+	/**
+	 * Specialty of referral   
+	 */
 	@DatabaseField()
 	private String speciality; 
 	
-	
+	/**
+	 * Confirmation  of this Referral  
+	 */
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "confirm_id")
 	private Confirmation confirmation;
 	
+	/**
+	 *The flag which tell if this  Referral has a confirmation  .
+	 *(true if confirmation exist or treatment is closed ) .
+	 */
 	@DatabaseField()
 	private boolean active;
 	

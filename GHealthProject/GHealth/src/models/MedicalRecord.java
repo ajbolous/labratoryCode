@@ -23,7 +23,7 @@ public class MedicalRecord extends Entity{
 	private int mid;
 	
 	/**
-	 * The medical record patient 
+	 * The medical record  of patient 
 	 */
 	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "patient_id")
 	private Patient patient;
