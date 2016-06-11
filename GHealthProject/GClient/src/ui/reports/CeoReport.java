@@ -285,10 +285,9 @@ public class CeoReport {
 	/**
 	 * this function takes n months and return statistics from the current date
 	 * to date n
-	 * 
-	 * @param curr
 	 * @param n
 	 */
+
 	public void fillNReports(int n) {
 		Report report;
 		Request r = new Request("reports/getNMonths");
