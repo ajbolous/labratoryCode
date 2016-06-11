@@ -42,6 +42,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import java.awt.Insets;
 import java.awt.Point;
@@ -158,6 +159,10 @@ public class Appointments {
 		cancel_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int row = apps_table.getSelectedRow();
+				if(row<0){
+					Messages.errorMessage("Please select appointment from the table below to cancel", "No appointment selected", null);
+					return;
+				}
 				Date begin_of_day = null;
 				Date end_of_day = null;
 				Date app_date = apps_list.get(row).getAppointmentTime();
@@ -197,7 +202,7 @@ public class Appointments {
 		app.getContentPane().add(cancel_btn);
 
 		JScrollPane apps_scrollPane = new JScrollPane();
-		apps_scrollPane.setBounds(10, 170, 603, 208);
+		apps_scrollPane.setBounds(10, 170, 600, 208);
 		app.getContentPane().add(apps_scrollPane);
 
 		String[] doc_columnNames = { "Speciality", "Doctor", "Clinic", "Date", "Hour" };
@@ -213,7 +218,24 @@ public class Appointments {
 		apps_scrollPane.setViewportView(apps_table);
 		apps_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		apps_table.setBackground(Color.WHITE);
-
+		
+		TableColumn spec = apps_table.getColumn("Speciality");
+		spec.setMinWidth(120);
+		spec.setPreferredWidth(120);
+		TableColumn doctor = apps_table.getColumn("Doctor");
+		doctor.setMinWidth(150);
+		doctor.setPreferredWidth(150);
+		TableColumn clinic = apps_table.getColumn("Clinic");
+		clinic.setMinWidth(160);
+		clinic.setPreferredWidth(160);
+		TableColumn date = apps_table.getColumn("Date");
+		date.setMinWidth(100);
+		date.setPreferredWidth(100);
+		TableColumn hour = apps_table.getColumn("Hour");
+		hour.setMinWidth(70);
+		hour.setPreferredWidth(70);
+		
+		
 		apps_table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				cancel_btn.setEnabled(true);
