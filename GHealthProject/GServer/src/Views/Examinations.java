@@ -48,7 +48,11 @@ public class Examinations extends View {
 		}
 
 	}
-
+	/**
+	 * get  requested examinations from database and sent it to client 
+	 * @param request  : "examinations/getById" ,HashMap params: (examination).
+	 * @return the examinations instance 
+	 */
 
 	public Object getById(Request request) {
 		try {
