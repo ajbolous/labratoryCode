@@ -292,7 +292,7 @@ public class CeoReport {
 		ceoReport.getContentPane().setFocusTraversalPolicy(
 				new FocusTraversalOnArray(new Component[] { logo }));
 
-		ceoReport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ceoReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 	}
 	
