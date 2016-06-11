@@ -10,8 +10,19 @@ import javax.swing.ImageIcon;
 import Client.Application;
 import Utils.Request;
 
+/**
+ *  public class ExaminationController have all the methods that connect the client
+ * GUI to the database.and manage all operations for examinations
+ * @author maisam marjieh
+ *
+ */
 public class ExaminationController {
 
+	/**
+	 * get specific examination
+	 * @param id of specific examination
+	 * @return examination instance 
+	 */
 	public static Examination getById(int id) {
 
 		Request r = new Request("examinations/getById");

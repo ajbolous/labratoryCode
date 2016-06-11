@@ -16,7 +16,8 @@ import models.Visit;
 
 /**
  * The medicalRecordController contains all the methods necessary to create new
- * visit , treatment , and Examination and to save them in database
+ * visit , treatment , and Examination and to save them in database,this class
+ * connect the GUI to server and the database
  * 
  * @author maisam marjieh
  *
@@ -57,10 +58,11 @@ public class MedicalRecordController {
 	}
 
 	/**
-	 * sending Request to server  to update treatment in database, creation and send report to HMO doctor
+	 * sending Request to server to update treatment in database, creation and
+	 * send report to HMO doctor
 	 * 
 	 * @param t
-	 *            Treatment will be updated 
+	 *            Treatment will be updated
 	 *
 	 */
 
@@ -83,20 +85,19 @@ public class MedicalRecordController {
 		r.addParam("patient", p);
 		Application.client.sendRequest(r);
 	}
-	
+
 	/**
-	 * send request to server  to get the  HMO information about patient 
-	 * @param file 
-	 * @return the HMO information  (image of information) 
+	 * send request to server to get the HMO information about patient
+	 * 
+	 * @param file
+	 * @return the HMO information (image of information)
 	 */
-	
+
 	public static ImageIcon getHmoInformation(String file) {
 		Request r = new Request("patients/getHmoInformation");
 		r.addParam("info", file);
-		return (ImageIcon)Application.client.sendRequest(r);
+		return (ImageIcon) Application.client.sendRequest(r);
 	}
-	
-	
 
 	/**
 	 * Sending a request for a list of clinics which has a laboratories

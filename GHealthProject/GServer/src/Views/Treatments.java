@@ -29,7 +29,6 @@ public class Treatments extends View {
 	 *             : "treatments/add" ,HashMap params:
 	 *            (treatment).
 	 * @return treatment instance from database
-	 * @throws SQLException
 	 */
 	public Object add(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -76,7 +75,6 @@ public class Treatments extends View {
 	 * 
 	 * @param treatment instance will be updated 
 	 * @return success message if the treatment was updated successfully
-	 * @throws SQLException
 	 */
 	public Object updateTreatment(Treatment treatment ) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -96,7 +94,6 @@ public class Treatments extends View {
 	 * @param request
 	 *           "treatments/getLastTreatment" ,HashMap params:  (medical_id , ).
 	 * @return the last treatment in the specific medical record
-	 * @throws SQLException
 	 */
 	public Object getLastTreatment(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -130,7 +127,6 @@ public class Treatments extends View {
 	 * @param request :
 	 *            "treatments/getTreatments" ,HashMap params:  (Secretary , ).
 	 * @return list of treatments
-	 * @throws SQLException
 	 */
 	public Object getTreatments(Request request) {
 		DbHandler db = Config.getConfig().getHandler();

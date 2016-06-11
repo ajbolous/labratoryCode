@@ -34,7 +34,6 @@ public class Examinations extends View {
 	 * 
 	 * @return success message if the Examination added successfully to dataBase
 	 *         ,else return null
-	 * @throws SQLException
 	 */
 	public Object add(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -48,7 +47,11 @@ public class Examinations extends View {
 		}
 
 	}
-
+	/**
+	 * get  requested examinations from database and sent it to client 
+	 * @param request  : "examinations/getById" ,HashMap params: (examination).
+	 * @return the examinations instance 
+	 */
 
 	public Object getById(Request request) {
 		try {

@@ -96,7 +96,6 @@ public class DoctorMedicalRecordUI {
 	 * 
 	 * @param p
 	 *            - patient instance
-	 * @throws ParseException
 	 */
 	public DoctorMedicalRecordUI(Patient p) {
 		initialize(p);
@@ -111,7 +110,6 @@ public class DoctorMedicalRecordUI {
 	 * 
 	 * @param p
 	 *            - patient
-	 * @throws ParseException
 	 */
 	private void initialize(Patient p) {
 		DoctorMedicalRecord = new JFrame();
@@ -348,7 +346,8 @@ public class DoctorMedicalRecordUI {
 						Iterator<Examination> examination = t.getExamination().iterator();
 						while (examination.hasNext()) {
 							Examination ex = examination.next();
-							node_3.add(new DefaultMutableTreeNode(ex));
+							if((ex.getResults() != null)& ex.getLabratorian() !=null)
+								node_3.add(new DefaultMutableTreeNode(ex));
 						}
 
 						node_t.add(node_2);

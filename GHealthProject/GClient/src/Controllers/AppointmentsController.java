@@ -95,7 +95,6 @@ public class AppointmentsController {
 	 * @param patient
 	 *            instance
 	 * @return Arraylist of patient's future Appointments
-	 * @throws ParseException
 	 */
 	public static ArrayList<Appointment> getPatientAppointments(Patient patient) {
 		Request r = new Request("appointments/getPatientAppointments");
@@ -121,7 +120,6 @@ public class AppointmentsController {
 	 * @param patient_id:
 	 *            patient to set appointment fro him
 	 * @return all available times for set appointment
-	 * @throws ParseException
 	 */
 	public static ArrayList<Appointment> getTimes(String doctor_id, String patient_id) {
 		Request r = new Request("appointments/availableTimes");

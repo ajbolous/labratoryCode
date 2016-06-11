@@ -41,8 +41,9 @@ public class Server extends AbstractServer {
 	private Router router;
 	/**
 	 * Server constructor
-	 * @param int port : the port to initialize the server on.
+	 * @param  port : the port to initialize the server on.
 	 */
+
 	public Server(int port) {
 		super(port);
 		this.logger = Config.getConfig().getLogger();
@@ -70,14 +71,14 @@ public class Server extends AbstractServer {
 	}
 	/**
 	 * clientConnected handler
-	 * @param ConnectionToClient client
+	 * @param client
 	 */
 	protected void clientConnected(ConnectionToClient client) {
 		logger.info("New client connected: " + client.getInetAddress() + ", total : " + this.getNumberOfClients());
 	}
 	/**
 	 * Server exception hook handler
-	 * @param ConnectionToClient client
+	 * @param  client
 	 */
 	synchronized protected void clientException(ConnectionToClient client, Throwable exception) {
 		logger.info("Client disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
@@ -85,7 +86,7 @@ public class Server extends AbstractServer {
 	}
 	/**
 	 * Client Disconnected hook handler
-	 * @param ConnectionToClient client
+	 * @param client
 	 */
 	synchronized protected void clientDisconnected(ConnectionToClient client) {
 		logger.info("Client unexpectedly disconnected: " + client.getIp() + ", total : " + this.getNumberOfClients());
@@ -101,9 +102,10 @@ public class Server extends AbstractServer {
 
 	/**
 	 * handles the request from clients. and sends them to the router
-	 * @param Object message : the request
-	 * @param ConnectToClient client : the client who sent the request.
+	 * @param  message : the request
+	 * @param  client : the client who sent the request.
 	 */
+	
 	protected void handleMessageFromClient(Object message, ConnectionToClient client) {
 		Request request = (Request) message;
 		request.addParam("ip", client.getInetAddress().getHostAddress());
