@@ -158,9 +158,12 @@ public class NewTreatmentUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String tType = textField_4.getText();
 				error_lbl.setText("");
+				
 				if (UITests.notEmpty(tType) == false)
 					error_lbl.setText("*Please enter treatment name");
-
+				else if(!UITests.checkIsCh(tType))
+					error_lbl.setText("*Treatment name should be only letters");
+					
 				else {
 					treatment.settType(tType);
 
