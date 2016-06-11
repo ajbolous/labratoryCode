@@ -2,21 +2,32 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
+/**
+ * public class Confirmation
+ * @author Ahmad Mnasra
+ *
+ */
 @DatabaseTable(tableName = "confirmations")
 public class Confirmation  extends Entity {
-	
+	/**
+	 * Confirmation id , auto generate in database.
+	 */
 	@DatabaseField(generatedId = true)
 	private int cid ; 
+	/**
+	 * Referral ID from HMO 
+	 */
 	@DatabaseField()
 	private String refferal_id ; 
-	
+	/**
+	 * Approval ID from HMO 
+	 */
 	@DatabaseField()
 	private String approval_id ; 
 	
-	@DatabaseField()
-	private String details; 
-	
+	/**
+	 * HMO ID 
+	 */
 	@DatabaseField()
 	private String hmo_id ; 
 	
@@ -54,12 +65,5 @@ public class Confirmation  extends Entity {
 		this.approval_id = approval_id;
 	}
 
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
     
 }
