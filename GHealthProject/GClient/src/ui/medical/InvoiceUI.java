@@ -236,8 +236,9 @@ public class InvoiceUI {
 					invoice.setPayment(Double.parseDouble(payment));
 					}
 					catch(Exception e1){
-						Messages.errorMessage("please Enter valid payment.(format 00.00)", "Error",Invoice );
+						error_lbl.setText("please Enter valid payment." );
 						textField_3.setText("");
+						return; 
 						
 					}
 					Messages.successMessage("Invoice was sended successfully ", "Success", Invoice);

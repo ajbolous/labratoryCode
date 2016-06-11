@@ -47,7 +47,8 @@ public class TreatmentPanel extends JPanel {
 	private JTextArea textArea_Result;
 	private JLabel error_lbl;
 	private JLabel lblEndDate ;
-	private JButton btnCancel;
+	private JButton btnClose ; 
+
 
 	/**
 	 * construct the panel with treatment details
@@ -91,8 +92,7 @@ public class TreatmentPanel extends JPanel {
 		lblResult = new JLabel("Result : ");
 		btnAddResult = new JButton("Add Result");
 		btnAddResult.setToolTipText("add result to treatment and closing it");
-		btnCancel = new JButton("Close");
-		add(btnCancel);
+		
 		btnSave = new JButton("Save");
 		btnSave.setToolTipText("Save result , close the treatment and send report to doctor (in HMO)");
 		if (treatment.isEndFlag()) {
@@ -100,7 +100,7 @@ public class TreatmentPanel extends JPanel {
 			textField_endDate.setVisible(true);
 			lblEndDate.setVisible(true);
 			textArea_Result.setText(treatment.getStatus());
-			btnCancel.setVisible(false);
+			
 
 		}
 
@@ -146,7 +146,7 @@ public class TreatmentPanel extends JPanel {
 				scrollPane.setVisible(true);
 				lblResult.setVisible(true);
 				btnAddResult.setVisible(false);
-				btnCancel.setVisible(true);
+				btnClose.setVisible(true);
 				lblEndDate.setVisible(true);
 				textField_endDate.setVisible(true);
 				try {
@@ -216,6 +216,17 @@ public class TreatmentPanel extends JPanel {
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSave.setBounds(173, 366, 89, 23);
 		add(btnSave);
+		
+		 btnClose = new JButton("Close");
+		 btnClose.setVisible(false);
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+		btnClose.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnClose.setBounds(272, 367, 89, 23);
+		add(btnClose);
 		btnSave.setVisible(false);
 
 	}
