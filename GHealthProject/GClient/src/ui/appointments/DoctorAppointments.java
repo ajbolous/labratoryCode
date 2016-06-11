@@ -103,7 +103,8 @@ public class DoctorAppointments {
 		app = new JFrame();
 		app.setTitle("Client Appointments - GHealth");
 		app.setResizable(false);
-		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource(
+				"/img/" + "icon.png")).getImage();
 		app.setIconImage(icon);
 		app.setForeground(Color.BLACK);
 		app.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -120,7 +121,7 @@ public class DoctorAppointments {
 		app.getContentPane().add(logo);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 91, 544, 45);
+		panel.setBounds(0, 91, 609, 45);
 		app.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -129,33 +130,34 @@ public class DoctorAppointments {
 		lblNewLabel.setBounds(10, 11, 46, 21);
 		panel.add(lblNewLabel);
 
-		JLabel name_lbl = new JLabel(doctor.getFirstName() + " " + doctor.getLastName());
+		JLabel name_lbl = new JLabel(doctor.getFirstName() + " "
+				+ doctor.getLastName());
 		name_lbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		name_lbl.setBounds(61, 11, 140, 21);
+		name_lbl.setBounds(61, 11, 148, 21);
 		panel.add(name_lbl);
 
 		JLabel lblPhone = new JLabel("Phone:");
 		lblPhone.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPhone.setBounds(211, 11, 67, 21);
+		lblPhone.setBounds(205, 11, 67, 21);
 		panel.add(lblPhone);
 
 		JLabel phone_lbl = new JLabel(doctor.getPhone());
 		phone_lbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		phone_lbl.setBounds(264, 11, 85, 21);
+		phone_lbl.setBounds(257, 11, 107, 21);
 		panel.add(phone_lbl);
 
 		JLabel lblEmail = new JLabel("E-Mail:");
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEmail.setBounds(349, 11, 46, 21);
+		lblEmail.setBounds(374, 11, 46, 21);
 		panel.add(lblEmail);
 
 		JLabel mail_lbl = new JLabel(doctor.getEmail());
 		mail_lbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		mail_lbl.setBounds(405, 8, 107, 27);
+		mail_lbl.setBounds(430, 8, 169, 27);
 		panel.add(mail_lbl);
 
 		JScrollPane apps_scrollPane = new JScrollPane();
-		apps_scrollPane.setBounds(10, 147, 534, 419);
+		apps_scrollPane.setBounds(10, 147, 599, 419);
 		app.getContentPane().add(apps_scrollPane);
 
 		String[] doc_columnNames = { "ID", "Name", "Time" };
@@ -172,25 +174,31 @@ public class DoctorAppointments {
 		apps_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		apps_table.setBackground(Color.WHITE);
 
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		
+		apps_table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+
+				if (event.getValueIsAdjusting() == true)
+					return;
 				int index = apps_table.getSelectedRow();
 
-				String sid = (String) apps_table.getModel().getValueAt(index, 0);
+				String sid = (String) apps_table.getModel()
+						.getValueAt(index, 0);
 				Patient p = PatientsController.getById(sid);
+				AppointmentsController.setAppointmentDone(Application.user.getSid(), p.getSid());
 				new DoctorMedicalRecordUI(p);
-			}
-		});
-		btnNewButton.setBounds(10, 577, 535, 45);
-		app.getContentPane().add(btnNewButton);
+			}});
+				
 
-		app.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		app.setBounds(100, 100, 561, 670);
+	
+
+		app.getContentPane().setFocusTraversalPolicy(
+				new FocusTraversalOnArray(new Component[] { logo }));
+		app.setBounds(100, 100, 625, 694);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		app.setLocationRelativeTo(null);
 	}
-
+		
 	/**
 	 * 
 	 * @return current JFrame
@@ -206,11 +214,22 @@ public class DoctorAppointments {
 	public void getAppointments() {
 		DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 		dm.setRowCount(0);
+		String currentDate = null;
+		try {
+			currentDate = DateTime.getDateString(DateTime.currentDay());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		for (Appointment a : doctor.getAppointments()) {
-			dm.addRow(new Object[] { a.getPatient().getSid(),
-					a.getPatient().getFirstName() + " " + a.getPatient().getLastName(),
-					DateTime.getTimeString(a.getAppointmentTime()) });
+			if (DateTime.getDateString(a.getAppointmentTime()).equals(
+					currentDate))
+				dm.addRow(new Object[] {
+						a.getPatient().getSid(),
+						a.getPatient().getFirstName() + " "
+								+ a.getPatient().getLastName(),
+						DateTime.getTimeString(a.getAppointmentTime()) });
 		}
 	}
 }
+	
