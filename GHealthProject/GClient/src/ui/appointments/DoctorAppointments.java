@@ -75,9 +75,7 @@ public class DoctorAppointments {
 	 */
 	private JTable apps_table;
 
-	/**
-	 * the patient to show his information
-	 */
+	
 	private Doctor doctor;
 	private ArrayList<Appointment> apps_list = new ArrayList<Appointment>();
 	private AppointmentsController apctrl = new AppointmentsController();
