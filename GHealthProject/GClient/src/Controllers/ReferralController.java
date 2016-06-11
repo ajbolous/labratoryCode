@@ -16,9 +16,7 @@ public class ReferralController {
 
 	/**
 	 * send request to database to add new Referral and confirmation 
-	 * 
-	 * @param ref
-	 *            : Referral instance
+	 * @param ref : : Referral instance
 	 */
 	public void addReferralHMO(Referral ref) {
 		Request r = new Request("referrals/add");
@@ -26,14 +24,13 @@ public class ReferralController {
 		Application.client.sendRequest(r);
 	}
 
+
 	/**
 	 * 
-	 * @param id
-	 *            : patient p
-	 * @param Spec
-	 *  		  :String Spec 
+	 * @param p : patient instance 
+	 * @param Spec : specialty's referral 
 	 * @return boolean value , if Referral exists and active in database return true ,
-	 *         else false.
+	 *     else false.
 	 */
 	public boolean referralActiveForSpec(Patient p, String Spec) {
 		for (Referral ref : p.getReferrals()) {
@@ -43,12 +40,11 @@ public class ReferralController {
 		}
 		return false;
 	}
+
 	/**
 	 * 
-	 * @param id
-	 *            : patient p
-	 * @param Spec
-	 *  		  :String Spec 
+	 * @param p : patient instance 
+	 * @param Spec : specialty's referral 
 	 * @return boolean value , set inactive referral's treatment is finished  
 	 * 		   
 	 * update in the database return true if success,

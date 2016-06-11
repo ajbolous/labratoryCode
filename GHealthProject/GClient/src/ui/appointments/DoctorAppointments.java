@@ -81,10 +81,10 @@ public class DoctorAppointments {
 	private AppointmentsController apctrl = new AppointmentsController();
 	private DoctorAppointments thisRef = this;
 
+
 	/**
 	 * 
-	 * @param patient
-	 *            : Models Patient instance
+	 * @param doctor : : Models Doctor instance
 	 */
 	public DoctorAppointments(Doctor doctor) {
 		this.doctor = doctor;

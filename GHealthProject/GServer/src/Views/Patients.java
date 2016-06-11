@@ -28,7 +28,6 @@ public class Patients extends View {
 	 * @param request
 	 *            : "patients/getById" params: "sid" (patient id)
 	 * @return Patient instance
-	 * @throws SQLException
 	 */
 	public Object getById(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -56,7 +55,6 @@ public class Patients extends View {
 	 * Query to add new patient and creation medical record to him  and save it in database 
 	 * @param request "patients/add " params: (patient)
 	 * @return success message if the patient was added successfully else return null 
-	 *  @throws SQLException
 	 */
 
 	public Object add(Request request) {

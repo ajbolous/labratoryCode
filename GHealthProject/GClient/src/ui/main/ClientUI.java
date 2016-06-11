@@ -27,7 +27,11 @@ import java.awt.Font;
 import java.awt.Panel;
 
 import javax.swing.ImageIcon;
-
+/**
+ * public class ClientUI ,the menu window of Ghealth 
+ * @author Bolous Abo Jaber 
+ *
+ */
 public class ClientUI {
 
 	private JFrame frmGhealth;

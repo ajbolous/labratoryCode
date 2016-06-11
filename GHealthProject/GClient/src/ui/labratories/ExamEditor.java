@@ -38,7 +38,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * public class ExamEditor , shows examination details and insert test result In addition ,
+ *  labratory can insert photo if test need 
+ * @author Bolous Abo Jaber
+ *
+ */
 public class ExamEditor {
 
 	private JFrame labratoryUI;

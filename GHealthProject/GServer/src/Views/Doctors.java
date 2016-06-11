@@ -18,7 +18,14 @@ import Utils.DoctorsComparator;
 import Utils.Request;
 
 public class Doctors extends View {
-
+	/**
+	 * Query to get all available doctors  .
+	 * 
+	 * @param request
+	 *            :Request instance that has all the information the query need
+	 *            - no parameters.
+	 * @return all Doctors.
+	 */
 	public Object all(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
@@ -26,7 +33,6 @@ public class Doctors extends View {
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
 			return null;
-
 		}
 	}
 
@@ -37,7 +43,6 @@ public class Doctors extends View {
 	 *            :Request instance that has all the information the query need
 	 *            - no parameters.
 	 * @return all specialities.
-	 * @throws SQLException
 	 */
 	public Object getSpecialities(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -65,7 +70,6 @@ public class Doctors extends View {
 	 * @return doctor name , clinic name, last visit (when was the last time
 	 *         this patient visit this doctor)
 	 * @return the list sorted In descending order by last visit
-	 * @throws SQLException
 	 */
 	public Object bySpeciality(Request request) {
 		DbHandler db = Config.getConfig().getHandler();

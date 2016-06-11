@@ -25,7 +25,6 @@ public class Clinics extends View {
 	 * @param request   : "clinics/getClinics" ,HashMap params:
 	 *            ().
 	 * @return list of clinics 
-	 * @throws SQLException
 	 */
 	public Object getClinics(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -48,7 +47,6 @@ public class Clinics extends View {
 	 *           : "clinics/getById" ,HashMap params:
 	 *            (cid,).
 	 * @return clinic
-	 * @throws SQLException
 	 */
 	public Object getById(Request request) {
 		DbHandler db = Config.getConfig().getHandler();

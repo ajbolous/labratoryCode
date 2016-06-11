@@ -34,7 +34,6 @@ public class Examinations extends View {
 	 * 
 	 * @return success message if the Examination added successfully to dataBase
 	 *         ,else return null
-	 * @throws SQLException
 	 */
 	public Object add(Request request) {
 		DbHandler db = Config.getConfig().getHandler();

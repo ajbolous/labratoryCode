@@ -306,8 +306,11 @@ public class AddPatientUI {
 
 	}
 	/**
-	 *This private method , checks if all requirement field is filled correct . return true 
-	 * if all fields is valid , else  if one of fields is incorrect input or empty 
+
+	 */
+	/**
+	 * 
+	 * @return
 	 */
 	private Boolean isvalid() {
 		boolean flag = true;

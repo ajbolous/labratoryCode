@@ -24,7 +24,6 @@ public class Referrals extends View {
 	 *             : "Referrals/add" ,HashMap params:
 	 *            (referral).
 	 * @return referral instance from database
-	 * @throws SQLException
 	 */
 
 	public Object add(Request request) {
@@ -62,7 +61,6 @@ public class Referrals extends View {
 	 *             : "Referrals/update" ,HashMap params:
 	 *            (referral).
 	 * @return referral instance from database
-	 * @throws SQLException
 	 */
 
 	public Object update(Request request) {

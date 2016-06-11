@@ -23,7 +23,6 @@ public class Visits extends View{
 	 * @param request:  : "visits/add" ,HashMap params:
 	 *            (visit).
 	 * @return visit  
-	 * @throws SQLException
 	 */
 	public Object add (Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -44,7 +43,6 @@ public class Visits extends View{
 	 * @param request : "visits/getVisit" ,HashMap params:
 	 *            (treatment_id  ).
 	 * @return visit instance 
-	 * @throws SQLException
 	 */
 	public Object getVisit (Request request)
 	{

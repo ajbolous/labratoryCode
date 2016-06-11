@@ -4,8 +4,21 @@ import java.text.ParseException;
 import java.util.Comparator;
 import java.util.Date;
 
+
+/**
+ * Compare two Doctors from doctors table in Add new appointment GUI - for sort the doctors by patient last visit
+ * @author Muhamad Igbaria
+ *
+ */
 public class DoctorsComparator implements Comparator<Object[]>{
 
+	/**
+	 * Compare two doctors by the last visit ,
+	 *  the method get patient last visit in two doctors and return the doctor that have the bigger date.
+	 *  the Object[] include : 
+	 *  					Doctor id,Doctor name,Doctor clinic,Last visit Date
+	 *  the Objects compared by Last visit Date. 
+	 */
 	@Override
 	public int compare(Object[] rec1, Object[] rec2) {
 		String date1= (String) rec1[3];
