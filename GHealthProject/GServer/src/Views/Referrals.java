@@ -10,8 +10,22 @@ import models.Referral;
 import Database.DbHandler;
 import Server.Config;
 import Utils.Request;
-
+/**
+ * Database view for referral .
+ * 
+ * @author Ahmad Mnasra
+ *
+ */
 public class Referrals extends View {
+	/**
+	 * Query to add a new referral and confirmation to database
+	 * 
+	 * @param request
+	 *             : "Referrals/add" ,HashMap params:
+	 *            (referral).
+	 * @return referral instance from database
+	 * @throws SQLException
+	 */
 
 	public Object add(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
@@ -41,6 +55,15 @@ public class Referrals extends View {
 		}
 		return "success";
 	}
+	/**
+	 * Query to update  a  referral  to database
+	 * 
+	 * @param request
+	 *             : "Referrals/update" ,HashMap params:
+	 *            (referral).
+	 * @return referral instance from database
+	 * @throws SQLException
+	 */
 
 	public Object update(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
