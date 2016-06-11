@@ -45,6 +45,7 @@ public class SignInUI {
 	private JTextField textField;
 	private int attempts = 0;
 	private JButton btnLogIn = new JButton("Sign in ");
+	private JLabel labelDetails;
 
 	JButton btnConnected;
 
@@ -102,7 +103,7 @@ public class SignInUI {
 		btnConnected.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConnected.setBorder(null);
 		btnConnected.setBackground(Color.WHITE);
-		btnConnected.setBounds(0, 178, 311, 35);
+		btnConnected.setBounds(0, 214, 311, 35);
 		SignInUI.getContentPane().add(btnConnected);
 
 		JLabel logo = new JLabel("GHealth");
@@ -114,85 +115,97 @@ public class SignInUI {
 		SignInUI.getContentPane().add(logo);
 
 		JLabel lblNewLabel = new JLabel("ID:");
-		lblNewLabel.setBounds(10, 75, 46, 14);
+		lblNewLabel.setBounds(20, 100, 46, 14);
 		SignInUI.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Password:");
-		lblNewLabel_1.setBounds(10, 107, 76, 14);
+		lblNewLabel_1.setBounds(20, 132, 76, 14);
 		SignInUI.getContentPane().add(lblNewLabel_1);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(69, 104, 212, 21);
+		
+		passwordField.setBounds(85, 129, 200, 25);
 		SignInUI.getContentPane().add(passwordField);
 
 		textField = new JTextField();
-		textField.setBounds(69, 71, 212, 23);
+		textField.setBounds(85, 96, 200, 25);
 		SignInUI.getContentPane().add(textField);
 		textField.setColumns(10);
 
-		JLabel labelDetails = new JLabel("Please enter user Id and Password");
+		labelDetails = new JLabel("Please enter user Id and Password");
 		labelDetails.setForeground(Color.RED);
-		labelDetails.setBounds(10, 132, 271, 14);
+		labelDetails.setBounds(86, 155, 271, 14);
 		SignInUI.getContentPane().add(labelDetails);
 		labelDetails.setVisible(false);
 		SignInUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
-		SignInUI.setBounds(100, 100, 317, 242);
+		SignInUI.setBounds(100, 100, 344, 282);
 		SignInUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		btnLogIn.setBounds(69, 147, 212, 23);
+		btnLogIn.setBounds(85, 180, 200, 23);
 		SignInUI.getContentPane().add(btnLogIn);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				labelDetails.setVisible(true);
-
-				String pass = new String(passwordField.getPassword());
-
-				if (UITests.notEmpty(textField.getText()) == false && UITests.notEmpty(pass) == false) {
-					labelDetails.setText("*Please enter ID and password");
-					return;
-				} else if (UITests.notEmpty(textField.getText()) == false) {
-					labelDetails.setText("*Please enter an ID");
-					return;
-				} else if (UITests.notEmpty(pass) == false) {
-					labelDetails.setText("*Please enter a password");
-					return;
-				} else if (UITests.correctId(textField.getText()) == false) {
-					labelDetails.setText("*Please enter 9 digits ID");
-					return;
-				}
-
-				User u = UsersController.getUser(textField.getText());
-				if (u == null) {
-					labelDetails.setText("*User does not exist");
-					return;
-				}
-				if (u.isLocked()) {
-					labelDetails.setText("*Your account is locked, contact admin");
-					btnLogIn.setEnabled(false);
-					return;
-				}
-				if (!UsersController.authinticateUser(u, pass)) {
-					labelDetails.setText("*Wrong password or username");
-					attempts++;
-					if (attempts > 3) {
-						UsersController.setLocked(u, true);
-						labelDetails.setText("*Your account has been locked, contact admin");
-						btnLogIn.setEnabled(false);
-					}
-					return;
-				}
-
-				if (!UsersController.setOnline(u)) {
-					labelDetails.setText("*Unable to connect multiple users");
-					return;
-				}
-				Application.user = u;
-				ClientUI cui = new ClientUI();
-				// SecretaryUI sec = new SecretaryUI();
-				SignInUI.hide();
+				signInHandler();
 			}
 		});
+		
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				signInHandler();
+				
+			}
+		});
+	}
+	
+	private void signInHandler(){
+		labelDetails.setVisible(true);
+
+		String pass = new String(passwordField.getPassword());
+
+		if (UITests.notEmpty(textField.getText()) == false && UITests.notEmpty(pass) == false) {
+			labelDetails.setText("*Please enter ID and password");
+			return;
+		} else if (UITests.notEmpty(textField.getText()) == false) {
+			labelDetails.setText("*Please enter an ID");
+			return;
+		} else if (UITests.notEmpty(pass) == false) {
+			labelDetails.setText("*Please enter a password");
+			return;
+		} else if (UITests.correctId(textField.getText()) == false) {
+			labelDetails.setText("*Please enter 9 digits ID");
+			return;
+		}
+
+		User u = UsersController.getUser(textField.getText());
+		if (u == null) {
+			labelDetails.setText("*User does not exist");
+			return;
+		}
+		if (u.isLocked()) {
+			labelDetails.setText("*Your account is locked, contact admin");
+			btnLogIn.setEnabled(false);
+			return;
+		}
+		if (!UsersController.authinticateUser(u, pass)) {
+			labelDetails.setText("*Wrong password or username");
+			attempts++;
+			if (attempts > 3) {
+				UsersController.setLocked(u, true);
+				labelDetails.setText("*Your account has been locked, contact admin");
+				btnLogIn.setEnabled(false);
+			}
+			return;
+		}
+
+		if (!UsersController.setOnline(u)) {
+			labelDetails.setText("*Unable to connect multiple users");
+			return;
+		}
+		Application.user = u;
+		ClientUI cui = new ClientUI();
+		// SecretaryUI sec = new SecretaryUI();
+		SignInUI.hide();
 	}
 
 	public JFrame getFrame() {
