@@ -33,7 +33,6 @@ public class Doctors extends View {
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
 			return null;
-
 		}
 	}
 

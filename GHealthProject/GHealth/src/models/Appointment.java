@@ -72,7 +72,11 @@ public class Appointment extends Entity {
 	 */
 	@DatabaseField()
 	private Date appointmentTime;
-
+	
+	/**
+	 * flag if the patient come to the appointment
+	 */
+	
 	@DatabaseField()
 	private boolean isDone;
 

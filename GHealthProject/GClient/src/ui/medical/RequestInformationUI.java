@@ -37,6 +37,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.SwingConstants;
 
+/**
+ * public class RequestInformationUI display form to send Request information to
+ * HMO and displays the informations files that recieved from HMO
+ * the doctor can send request and  receive  Partial information or complete informations
+ * @author maisam marjieh
+ *
+ */
 public class RequestInformationUI {
 	private JFrame requestInfo;
 	private JLabel lblComments;
@@ -65,7 +72,8 @@ public class RequestInformationUI {
 		requestInfo = new JFrame();
 		requestInfo.setTitle("<Request Information> - GHealth");
 		requestInfo.setResizable(false);
-		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource(
+				"/img/" + "icon.png")).getImage();
 		requestInfo.setIconImage(icon);
 		requestInfo.setForeground(Color.BLACK);
 		requestInfo.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -80,25 +88,33 @@ public class RequestInformationUI {
 		logo.setBackground(Color.WHITE);
 		logo.setIcon(Resources.getIcon("logo.png"));
 		requestInfo.getContentPane().add(logo);
-		requestInfo.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
+		requestInfo.getContentPane().setFocusTraversalPolicy(
+				new FocusTraversalOnArray(new Component[] { logo }));
 		requestInfo.setBounds(100, 100, 501, 496);
 		requestInfo.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		JButton btnSend = new JButton("Send");
 		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSend.setEnabled(false);
+		/**
+		 * send the  request information and receive it .displays the information file (image)
+		 */
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String str = textArea.getText();
 
 				MedicalRecordController.sendRequestToHMO(p);
-				Messages.successMessage("Request was sent successfully..wait for result", "success", requestInfo);
-				
-				ImageIcon image =null;
-					if(radioComplete.isSelected())
-						image = (ImageIcon) MedicalRecordController.getHmoInformation("s1.jpg");
-					else if(radioPartial.isSelected())
-						image = (ImageIcon) MedicalRecordController.getHmoInformation("s3.jpg");
+				Messages.successMessage(
+						"Request was sent successfully..wait for result",
+						"success", requestInfo);
+
+				ImageIcon image = null;
+				if (radioComplete.isSelected())
+					image = (ImageIcon) MedicalRecordController
+							.getHmoInformation("s1.jpg");
+				else if (radioPartial.isSelected())
+					image = (ImageIcon) MedicalRecordController
+							.getHmoInformation("s3.jpg");
 
 				btnImage.setIcon(image);
 			}
@@ -110,7 +126,8 @@ public class RequestInformationUI {
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int result = Messages.confirmMessage("Are you sure you want to cancel?", "GHealth", null);
+				int result = Messages.confirmMessage(
+						"Are you sure you want to cancel?", "GHealth", null);
 				if (result == JOptionPane.YES_OPTION)
 					requestInfo.dispose();
 			}
@@ -120,7 +137,8 @@ public class RequestInformationUI {
 
 		radioPartial = new JRadioButton("partial information");
 		radioPartial.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		radioPartial.setToolTipText("partial information request according to the doctor's specialty type");
+		radioPartial
+				.setToolTipText("partial information request according to the doctor's specialty type");
 		radioPartial.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				btnSend.setEnabled(true);
@@ -165,7 +183,8 @@ public class RequestInformationUI {
 
 		btnImage = new JLabel("");
 		btnImage.setHorizontalAlignment(SwingConstants.CENTER);
-		btnImage.setIcon(new ImageIcon(RequestInformationUI.class.getResource("/img/loading.gif")));
+		btnImage.setIcon(new ImageIcon(RequestInformationUI.class
+				.getResource("/img/loading.gif")));
 		btnImage.setBounds(10, 223, 638, 644);
 		requestInfo.getContentPane().add(btnImage);
 		lblComments.setVisible(true);

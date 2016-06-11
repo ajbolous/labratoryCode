@@ -346,7 +346,8 @@ public class DoctorMedicalRecordUI {
 						Iterator<Examination> examination = t.getExamination().iterator();
 						while (examination.hasNext()) {
 							Examination ex = examination.next();
-							node_3.add(new DefaultMutableTreeNode(ex));
+							if((ex.getResults() != null)& ex.getLabratorian() !=null)
+								node_3.add(new DefaultMutableTreeNode(ex));
 						}
 
 						node_t.add(node_2);

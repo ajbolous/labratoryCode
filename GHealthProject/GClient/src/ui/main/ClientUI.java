@@ -34,7 +34,7 @@ import javax.swing.ImageIcon;
  */
 public class ClientUI {
 
-	private JFrame frame;
+	private JFrame frmGhealth;
 	private final JButton btnMedicalRecords = new JButton("Medical Records");
 	private final JButton btnAppointments = new JButton("Appointments");
 	private final JButton btnUsers = new JButton("Users");
@@ -53,9 +53,9 @@ public class ClientUI {
 
 	public ClientUI() {
 		initialize();
-		frame.setSize(601, 684);
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
+		frmGhealth.setSize(601, 684);
+		frmGhealth.setVisible(true);
+		frmGhealth.setLocationRelativeTo(null);
 		lblNewLabel_1.setBounds(331, 21, 279, 44);
 		lblNewLabel_1.setText(Application.user.getFirstName() + " " + Application.user.getLastName() + " ("
 				+ Application.user.getClass().getSimpleName() + ")");
@@ -69,27 +69,27 @@ public class ClientUI {
 
 		lblNewLabel_3.setBounds(20, 634, 308, 14);
 
-		frame.getContentPane().add(lblNewLabel_3);
+		frmGhealth.getContentPane().add(lblNewLabel_3);
 
 		Panel panel = new Panel();
 		panel.setBackground(Color.GRAY);
 		panel.setBounds(20, 80, 570, 4);
-		frame.getContentPane().add(panel);
+		frmGhealth.getContentPane().add(panel);
 		lblMedical.setForeground(new Color(0, 191, 255));
 		lblMedical.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblMedical.setBounds(37, 107, 203, 35);
 
-		frame.getContentPane().add(lblMedical);
+		frmGhealth.getContentPane().add(lblMedical);
 		lblLabratoriesAndTests.setForeground(new Color(0, 191, 255));
 		lblLabratoriesAndTests.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblLabratoriesAndTests.setBounds(37, 230, 274, 35);
 
-		frame.getContentPane().add(lblLabratoriesAndTests);
+		frmGhealth.getContentPane().add(lblLabratoriesAndTests);
 		lblManagmentAndReports.setForeground(new Color(0, 191, 255));
 		lblManagmentAndReports.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblManagmentAndReports.setBounds(27, 360, 276, 22);
 
-		frame.getContentPane().add(lblManagmentAndReports);
+		frmGhealth.getContentPane().add(lblManagmentAndReports);
 		setPermissions();
 	}
 
@@ -129,13 +129,14 @@ public class ClientUI {
 	private void initialize() {
 
 		Resources res = new Resources();
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setIconImage(Resources.getImage("icon.png"));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBackground(Color.WHITE);
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(null);
+		frmGhealth = new JFrame();
+		frmGhealth.setTitle("GHealth");
+		frmGhealth.setResizable(false);
+		frmGhealth.setIconImage(Resources.getImage("icon.png"));
+		frmGhealth.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGhealth.setBackground(Color.WHITE);
+		frmGhealth.getContentPane().setBackground(Color.WHITE);
+		frmGhealth.getContentPane().setLayout(null);
 		btnMedicalRecords.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (Application.user.getClass().equals(Doctor.class)) {
@@ -165,7 +166,7 @@ public class ClientUI {
 		btnExaminations.setBackground(Color.WHITE);
 		btnExaminations.setBounds(95, 289, 191, 68);
 		btnExaminations.setIcon(Resources.getIcon("lab.png"));
-		frame.getContentPane().add(btnExaminations);
+		frmGhealth.getContentPane().add(btnExaminations);
 
 		btnResults.setHorizontalAlignment(SwingConstants.LEFT);
 		btnResults.setForeground(Color.BLACK);
@@ -174,9 +175,9 @@ public class ClientUI {
 		btnResults.setBackground(Color.WHITE);
 		btnResults.setBounds(342, 285, 181, 68);
 		btnResults.setIcon(Resources.getIcon("treatment.png"));
-		frame.getContentPane().add(btnResults);
+		frmGhealth.getContentPane().add(btnResults);
 
-		frame.getContentPane().add(btnMedicalRecords);
+		frmGhealth.getContentPane().add(btnMedicalRecords);
 		btnAppointments.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Application.user.getClass().equals(Doctor.class)) {
@@ -196,7 +197,7 @@ public class ClientUI {
 		btnAppointments.setIcon(Resources.getIcon("appoitment.png"));
 		btnAppointments.setBorder(null);
 
-		frame.getContentPane().add(btnAppointments);
+		frmGhealth.getContentPane().add(btnAppointments);
 		btnUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new UsersManagingUI();
@@ -213,7 +214,7 @@ public class ClientUI {
 		btnUsers.setIcon(Resources.getIcon("users.png"));
 		btnUsers.setBorder(null);
 
-		frame.getContentPane().add(btnUsers);
+		frmGhealth.getContentPane().add(btnUsers);
 		btnWeeklyReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -246,16 +247,16 @@ public class ClientUI {
 		btnMonthlyReport.setBounds(335, 393, 181, 68);
 		btnMonthlyReport.setIcon(Resources.getIcon("tests.png"));
 
-		frame.getContentPane().add(btnMonthlyReport);
+		frmGhealth.getContentPane().add(btnMonthlyReport);
 
-		frame.getContentPane().add(btnWeeklyReport);
+		frmGhealth.getContentPane().add(btnWeeklyReport);
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setBounds(10, 11, 284, 60);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setIcon(Resources.getIcon("logo.png"));
-		frame.getContentPane().add(lblNewLabel);
+		frmGhealth.getContentPane().add(lblNewLabel);
 		lblNewLabel_1.setIcon(Resources.getIcon("user.png"));
-		frame.getContentPane().add(lblNewLabel_1);
+		frmGhealth.getContentPane().add(lblNewLabel_1);
 		btnConformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Identification();
@@ -269,7 +270,7 @@ public class ClientUI {
 		btnConformation.setBorder(null);
 		btnConformation.setBackground(Color.WHITE);
 		btnConformation.setBounds(98, 479, 181, 68);
-		frame.getContentPane().add(btnConformation);
+		frmGhealth.getContentPane().add(btnConformation);
 		btnCreateInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new TreatmentsInvoiceUI();
@@ -282,7 +283,7 @@ public class ClientUI {
 		btnCreateInvoice.setBorder(null);
 		btnCreateInvoice.setBackground(Color.WHITE);
 		btnCreateInvoice.setBounds(335, 479, 181, 68);
-		frame.getContentPane().add(btnCreateInvoice);
+		frmGhealth.getContentPane().add(btnCreateInvoice);
 
 	}
 }
