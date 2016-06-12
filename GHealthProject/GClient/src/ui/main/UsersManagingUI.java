@@ -108,6 +108,16 @@ public class UsersManagingUI {
 		JButton btnUnlock = new JButton("Unlock");
 		btnUnlock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+			int row= tblLocked.getSelectedRow();
+			String id = (String) tblLocked.getModel().getValueAt(row, 1);
+			User u =(User) UsersController.getUser(id);
+				UsersController.setLocked(u,false);
+					tblLocked.remove(row);
+					DefaultTableModel dm = (DefaultTableModel) tblLocked.getModel();
+					dm.removeRow(row);
+				
+				
 			}
 		});
 		btnUnlock.setBounds(10, 470, 157, 20);

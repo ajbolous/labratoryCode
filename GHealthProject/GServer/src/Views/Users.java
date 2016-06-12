@@ -116,6 +116,13 @@ public class Users extends View {
 
 		return true;
 	}
+	/**
+	 * Sets an account as unlocked
+	 * @param request
+	 * @return
+	 * @throws SQLException
+	 */
+
 
 	/**
 	 * Updates the user object in the database

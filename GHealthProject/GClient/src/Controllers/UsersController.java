@@ -61,7 +61,7 @@ public class UsersController {
 		r.addParam("user", u);
 		return (boolean) Application.client.sendRequest(r);
 	}
-
+	
 	/**
 	 * returns all the locked accounts
 	 * 
