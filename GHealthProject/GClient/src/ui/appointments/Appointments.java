@@ -219,19 +219,18 @@ public class Appointments {
 		apps_table.setBackground(Color.WHITE);
 		
 		TableColumn spec = apps_table.getColumn("Speciality");
-		spec.setMinWidth(120);
-		spec.setPreferredWidth(120);
+		spec.setPreferredWidth(100);
+		
 		TableColumn doctor = apps_table.getColumn("Doctor");
-		doctor.setMinWidth(150);
 		doctor.setPreferredWidth(150);
+		
 		TableColumn clinic = apps_table.getColumn("Clinic");
-		clinic.setMinWidth(160);
-		clinic.setPreferredWidth(160);
+		clinic.setPreferredWidth(180);
+		
 		TableColumn date = apps_table.getColumn("Date");
-		date.setMinWidth(100);
 		date.setPreferredWidth(100);
+		
 		TableColumn hour = apps_table.getColumn("Hour");
-		hour.setMinWidth(70);
 		hour.setPreferredWidth(70);
 		
 		

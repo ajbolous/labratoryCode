@@ -222,6 +222,16 @@ public class AddApointment {
 		doctorId.setMaxWidth(0);
 		doctorId.setMinWidth(0);
 		doctorId.setPreferredWidth(0);
+		
+		TableColumn doc = doctors_table.getColumn("Doctor");
+		doc.setPreferredWidth(140);
+		
+		TableColumn clinic = doctors_table.getColumn("Clinic");
+		clinic.setPreferredWidth(180);
+		
+		TableColumn lVisit = doctors_table.getColumn("Last Visit");
+		lVisit.setPreferredWidth(100);
+		
 
 		JScrollPane time_scrll_table = new JScrollPane();
 		time_scrll_table.setVisible(false);

@@ -243,9 +243,11 @@ public class DataFiller {
 
 	public void fillShifts() throws SQLException, ParseException {
 
-		for (int j = 0; j < 8; j++) {
-			Doctor d = db.doctors.queryForId("20000000" + j);
-			ArrayList<Shift> doc_shifts = doctorShiftsGenerator(4, d);
+		
+		ArrayList<Doctor> allDoctors= (ArrayList<Doctor>) db.doctors.queryForAll();
+		if(allDoctors==null || allDoctors.size()==0) return;
+		for(Doctor d : allDoctors){
+			ArrayList<Shift> doc_shifts = doctorShiftsGenerator(2, d);
 			for (Shift a : doc_shifts) {
 				db.shifts.create(a);
 			}
