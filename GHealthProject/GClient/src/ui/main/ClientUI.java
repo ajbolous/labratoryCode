@@ -13,6 +13,7 @@ import Client.Resources;
 import models.*;
 import ui.appointments.DoctorAppointments;
 import ui.labratories.Labratory;
+import ui.labratories.LabratoryArchive;
 import ui.medical.TreatmentsInvoiceUI;
 import ui.reports.MonthlyReport;
 import ui.reports.WeeklyReport;
@@ -100,6 +101,11 @@ public class ClientUI {
 		btnCreateInvoice.setEnabled(false);
 		btnConformation.setEnabled(false);
 		btnExaminations.setEnabled(false);
+		btnResults.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new LabratoryArchive();
+			}
+		});
 		btnResults.setEnabled(false);
 		btnMedicalRecords.setEnabled(false);
 		btnAppointments.setEnabled(false);

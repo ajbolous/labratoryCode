@@ -15,7 +15,7 @@ import Utils.Request;
 
 /**
  * 
- * Database view for Patients , have all the Patients Queries 
+ * Database view for Patients , have all the Patients Queries
  * 
  * @author maisam marjieh
  *
@@ -31,7 +31,6 @@ public class Patients extends View {
 	 */
 	public Object getById(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
-
 		try {
 			Patient p = db.patients.queryForId((String) request.getParam("sid"));
 			return p;
@@ -42,19 +41,24 @@ public class Patients extends View {
 	}
 
 	/**
-	 * get HMO information 
-	 * @param request  : "patients/getHmoInformation" params: (file) 
-	 * @return image of HMO information 
+	 * get HMO information
+	 * 
+	 * @param request
+	 *            : "patients/getHmoInformation" params: (file)
+	 * @return image of HMO information
 	 */
 	public Object getHmoInformation(Request request) {
 		return new ImageIcon(Config.getConfig().getHomeDirectory() + "/information/" + request.getParam("info"));
 	}
-	
-	
+
 	/**
-	 * Query to add new patient and creation medical record to him  and save it in database 
-	 * @param request "patients/add " params: (patient)
-	 * @return success message if the patient was added successfully else return null 
+	 * Query to add new patient and creation medical record to him and save it
+	 * in database
+	 * 
+	 * @param request
+	 *            "patients/add " params: (patient)
+	 * @return success message if the patient was added successfully else return
+	 *         null
 	 */
 
 	public Object add(Request request) {
@@ -84,11 +88,11 @@ public class Patients extends View {
 		}
 	}
 
-	
 	/**
 	 * sending Request to HMO of the patient
+	 * 
 	 * @param request
-	 * @return success message  
+	 * @return success message
 	 */
 	public Object sendRequest(Request request) {
 		Patient patient = (Patient) request.getParam("patient");

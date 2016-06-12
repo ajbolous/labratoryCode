@@ -2,8 +2,10 @@ package Controllers;
 
 import models.Clinic;
 import models.Examination;
+import models.Labratorian;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -11,8 +13,9 @@ import Client.Application;
 import Utils.Request;
 
 /**
- *  public class ExaminationController have all the methods that connect the client
- * GUI to the database.and manage all operations for examinations
+ * public class ExaminationController have all the methods that connect the
+ * client GUI to the database.and manage all operations for examinations
+ * 
  * @author maisam marjieh
  *
  */
@@ -20,8 +23,10 @@ public class ExaminationController {
 
 	/**
 	 * get specific examination
-	 * @param id of specific examination
-	 * @return examination instance 
+	 * 
+	 * @param id
+	 *            of specific examination
+	 * @return examination instance
 	 */
 	public static Examination getById(int id) {
 
@@ -31,9 +36,11 @@ public class ExaminationController {
 	}
 
 	/**
-	 * send Request to server to get the requested  clinic 
-	 * @param cid - the id of the requested clinic 
-	 * @return the requested clinic 
+	 * send Request to server to get the requested clinic
+	 * 
+	 * @param cid
+	 *            - the id of the requested clinic
+	 * @return the requested clinic
 	 */
 	public static Clinic getClinic(int cid) {
 		Request r = new Request("clinics/getById");
@@ -52,19 +59,29 @@ public class ExaminationController {
 	public static void saveExamination(Examination ex, ImageIcon ic) {
 		Request r = new Request("examinations/update");
 		r.addParam("examination", ex);
-		r.addParam("image", ic);
+		if (ic != null)
+			r.addParam("image", ic);
 		Application.client.sendRequest(r);
 
 	}
 
+	public static ArrayList<Examination> getExaminations(Labratorian lab) {
+		Request r = new Request("examinations/getExaminations");
+		r.addParam("labratorian", lab);
+
+		return (ArrayList<Examination>) Application.client.sendRequest(r);
+
+	}
 
 	/**
 	 * Sends the request and waits for an image for the examination
-	 * @param ex - examination instance 
+	 * 
+	 * @param ex
+	 *            - examination instance
 	 * @return ImageIcon - image containing the file
 	 */
 	public static ImageIcon getImage(Examination ex) {
-		if(ex.getFile() == null)
+		if (ex.getFile() == null)
 			return null;
 		Request r = new Request("examinations/getExaminationImage");
 		r.addParam("examination", ex);

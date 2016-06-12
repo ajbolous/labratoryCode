@@ -39,14 +39,14 @@ import javax.swing.JScrollPane;
  * @author Bolous Abo Jaber , Ahmad Mnasra
  *
  */
-public class Labratory {
+public class LabratoryArchive {
 
 	private JFrame labratoryUI;
 	private JTable tblToday;
 	private int ex_id;
 	private ExaminationController ex_ctrl = new ExaminationController();
 
-	public Labratory() {
+	public LabratoryArchive() {
 		initialize();
 		labratoryUI.setVisible(true);
 		labratoryUI.setLocationRelativeTo(null);
@@ -56,7 +56,6 @@ public class Labratory {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Labratory self = this;
 		Labratorian labratorian = (Labratorian) Application.user;
 		labratoryUI = new JFrame();
 		labratoryUI.setTitle("<Frame name> - GHealth");
@@ -69,7 +68,7 @@ public class Labratory {
 		labratoryUI.getContentPane().setBackground(Color.WHITE);
 		labratoryUI.getContentPane().setLayout(null);
 
-		JLabel logo = new JLabel("Examinations");
+		JLabel logo = new JLabel("Examinations Archive");
 		logo.setBounds(0, 0, 645, 60);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -120,35 +119,30 @@ public class Labratory {
 		tblToday.setModel(
 				new MyTableModel(new String[] { "id", "Doctor", "Patient", "Type", "Status" }, new Object[][] {}));
 
-		JLabel lblTodaysExaminations = new JLabel("Examinations");
-		lblTodaysExaminations.setBounds(0, 108, 170, 14);
-		labratoryUI.getContentPane().add(lblTodaysExaminations);
-
-		fillExaminations(tblToday);
 		tblToday.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				if (event.getValueIsAdjusting())
 					return;
 				int row = tblToday.getSelectedRow();
-				if(row<0)
-					return;
 				ex_id = (int) tblToday.getModel().getValueAt(row, 0);
 
 				Examination ex = ExaminationController.getById(ex_id);
-				ExamEditor edit = new ExamEditor(ex,row,true,self);
+				ExamEditor edit = new ExamEditor(ex,row, false,null);
 
 			}
 		});
+
+		JLabel lblTodaysExaminations = new JLabel("Examinations");
+		lblTodaysExaminations.setBounds(0, 108, 170, 14);
+		labratoryUI.getContentPane().add(lblTodaysExaminations);
+
+		fillExaminations(tblToday);
+
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		labratoryUI.setBounds(100, 100, 763, 576);
 		labratoryUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-
-	public void removeRow(int index){
-		((DefaultTableModel)tblToday.getModel()).removeRow(index);
-	}
-	
 	/**
 	 * fill examination of laboratory to this table
 	 * 
@@ -159,9 +153,9 @@ public class Labratory {
 		DefaultTableModel model = (DefaultTableModel) tbl.getModel();
 		Labratorian lab = (Labratorian) Application.user;
 		for (Examination e : ExaminationController.getExaminations(lab)) {
-			if (e.getResults()== null) {
+			if (e.getResults() != null) {
 				model.addRow(new Object[] { e.getEid(), e.getTreatment().getDoctor().getFirstName(),
-						e.getTreatment().getMedicalRecord().getPatient().getSid(), e.geteType(), "Opened" });
+						e.getTreatment().getMedicalRecord().getPatient().getSid(), e.geteType(), "Closed" });
 			}
 		}
 	}
