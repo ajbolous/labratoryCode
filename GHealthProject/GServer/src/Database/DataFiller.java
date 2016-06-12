@@ -117,7 +117,7 @@ public class DataFiller {
 			ref1.setActive(true);
 			Confirmation conf = new Confirmation();
 			conf.setRefferal_id("" + 50 + j);
-			conf.setHmo_id("" + 100 + j);
+			conf.setHmo_id("" + 100 + i);
 			conf.setApproval_id("" + 50 + j);
 			ref1.setConfirmation(conf);
 			db.confirmations.create(conf);
@@ -132,7 +132,7 @@ public class DataFiller {
 			ref2.setActive(true);
 			Confirmation conf2 = new Confirmation();
 			conf2.setRefferal_id("" + 50 + j);
-			conf2.setHmo_id("" + 100 + j);
+			conf2.setHmo_id("" + 100 + i);
 			conf2.setApproval_id("" + 50 + j);
 			ref2.setConfirmation(conf2);
 			db.confirmations.create(conf2);
@@ -148,7 +148,7 @@ public class DataFiller {
 			ref3.setActive(true);
 			Confirmation conf3 = new Confirmation();
 			conf3.setRefferal_id("" + 50 + j);
-			conf3.setHmo_id("" + 100 + j);
+			conf3.setHmo_id("" + 100 + i);
 			conf3.setApproval_id("" + 50 + j);
 			ref3.setConfirmation(conf3);
 			db.confirmations.create(conf3);
