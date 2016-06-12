@@ -121,18 +121,15 @@ public class UsersManagingUI {
 					
 
 			if(row<0){
-				Messages.errorMessage("Please select user to unlock", "No user selected", null);
+				Messages.errorMessage("Please select a user to unlock", "No user selected", null);
 				return;
 			}
 			String id = (String) tblLocked.getModel().getValueAt(row, 0);
 			User u =(User) UsersController.getUser(id);
 			UsersController.setLocked(u,false);
 		
-			
 			DefaultTableModel dm = (DefaultTableModel) tblLocked.getModel();
 			dm.removeRow(row);
-				
-				
 			}
 		});
 		btnUnlock.setBounds(10, 470, 157, 20);

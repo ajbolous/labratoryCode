@@ -60,8 +60,6 @@ public class CeoReport {
 	private JTextField txtWstd;
 	JRadioButton rdbPeriodReport;
 
-	
-
 	public CeoReport() {
 		initialize();
 		ceoReport.setVisible(true);
@@ -71,7 +69,6 @@ public class CeoReport {
 		Date date1 = null;
 		int weekNum;
 		Report r = new Report();
-		Resources res = new Resources();
 		ceoReport = new JFrame();
 		ceoReport.getContentPane().setBackground(Color.WHITE);
 		ceoReport.setResizable(true);
@@ -94,11 +91,11 @@ public class CeoReport {
 		ceoReport.getContentPane().add(logo);
 
 		JScrollPane weekly_scrll_table = new JScrollPane();
-		weekly_scrll_table.setBounds(9, 141, 535, 240);
+		weekly_scrll_table.setBounds(9, 141, 702, 174);
 		ceoReport.getContentPane().add(weekly_scrll_table);
 
 		ceo_table = new JTable();
-		String[] report_rawNames = { "Day", "Number Of Patients", "Waiting Period" };
+		String[] report_rawNames = { "Day", "Total patients", "Waiting period", "Canceled App.", "Departing patients" };
 		ceo_table.setModel(new MyTableModel(report_rawNames, new Object[][] {}));
 		ceo_table.setFillsViewportHeight(true);
 		ceo_table.setSurrendersFocusOnKeystroke(true);
@@ -111,67 +108,67 @@ public class CeoReport {
 
 		txtPavg = new JTextField();
 		txtPavg.setEditable(false);
-		txtPavg.setBounds(29, 435, 101, 20);
+		txtPavg.setBounds(134, 373, 101, 20);
 		ceoReport.getContentPane().add(txtPavg);
 		txtPavg.setColumns(10);
 
 		txtPmax = new JTextField();
 		txtPmax.setEditable(false);
 		txtPmax.setColumns(10);
-		txtPmax.setBounds(140, 435, 119, 20);
+		txtPmax.setBounds(245, 373, 119, 20);
 		ceoReport.getContentPane().add(txtPmax);
 
 		txtPmin = new JTextField();
 		txtPmin.setEditable(false);
 		txtPmin.setColumns(10);
-		txtPmin.setBounds(269, 435, 126, 20);
+		txtPmin.setBounds(374, 373, 126, 20);
 		ceoReport.getContentPane().add(txtPmin);
 
 		txtPstd = new JTextField();
 		txtPstd.setEditable(false);
 		txtPstd.setColumns(10);
-		txtPstd.setBounds(405, 435, 139, 20);
+		txtPstd.setBounds(510, 373, 139, 20);
 		ceoReport.getContentPane().add(txtPstd);
 
 		JLabel lblNewLabel_1 = new JLabel("Statistics");
 		lblNewLabel_1.setForeground(new Color(30, 144, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(9, 388, 84, 14);
+		lblNewLabel_1.setBounds(114, 326, 84, 14);
 		ceoReport.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblPatientsStatistics = new JLabel("Number of patients");
 		lblPatientsStatistics.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPatientsStatistics.setBounds(19, 410, 130, 14);
+		lblPatientsStatistics.setBounds(124, 348, 130, 14);
 		ceoReport.getContentPane().add(lblPatientsStatistics);
 
 		JLabel lblWaitingPeriodStatistics = new JLabel("Waiting period");
 		lblWaitingPeriodStatistics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWaitingPeriodStatistics.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblWaitingPeriodStatistics.setBounds(9, 466, 107, 14);
+		lblWaitingPeriodStatistics.setBounds(114, 404, 107, 14);
 		ceoReport.getContentPane().add(lblWaitingPeriodStatistics);
 
 		txtWavg = new JTextField();
 		txtWavg.setEditable(false);
 		txtWavg.setColumns(10);
-		txtWavg.setBounds(29, 491, 101, 20);
+		txtWavg.setBounds(134, 429, 101, 20);
 		ceoReport.getContentPane().add(txtWavg);
 
 		txtWmax = new JTextField();
 		txtWmax.setEditable(false);
 		txtWmax.setColumns(10);
-		txtWmax.setBounds(140, 491, 119, 20);
+		txtWmax.setBounds(245, 429, 119, 20);
 		ceoReport.getContentPane().add(txtWmax);
 
 		txtWmin = new JTextField();
 		txtWmin.setEditable(false);
 		txtWmin.setColumns(10);
-		txtWmin.setBounds(269, 491, 126, 20);
+		txtWmin.setBounds(374, 429, 126, 20);
 		ceoReport.getContentPane().add(txtWmin);
 
 		txtWstd = new JTextField();
 		txtWstd.setEditable(false);
 		txtWstd.setColumns(10);
-		txtWstd.setBounds(405, 491, 139, 20);
+		txtWstd.setBounds(510, 429, 139, 20);
 		ceoReport.getContentPane().add(txtWstd);
 		JComboBox<String> cmbFromMonth = new JComboBox<String>();
 		for (Date d : DateTime.getMonths(2016)) {
@@ -183,7 +180,7 @@ public class CeoReport {
 		cmbFromMonth.setBounds(183, 106, 107, 22);
 
 		ceoReport.getContentPane().add(cmbFromMonth);
-		ceoReport.setBounds(100, 100, 570, 567);
+		ceoReport.setBounds(100, 100, 729, 499);
 		cmbFromMonth.setVisible(false);
 
 		JLabel lblTo = new JLabel("To :");
@@ -273,7 +270,7 @@ public class CeoReport {
 				}
 			}
 		});
-		btnShowReport.setBounds(437, 72, 107, 55);
+		btnShowReport.setBounds(464, 106, 107, 25);
 		ceoReport.getContentPane().add(btnShowReport);
 		ceo_table.setVisible(true);
 		ceoReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
@@ -285,6 +282,7 @@ public class CeoReport {
 	/**
 	 * this function takes n months and return statistics from the current date
 	 * to date n
+	 * 
 	 * @param n
 	 */
 
@@ -295,9 +293,12 @@ public class CeoReport {
 		report = (Report) Application.client.sendRequest(r);
 		DefaultTableModel dm = (DefaultTableModel) ceo_table.getModel();
 		dm.setNumRows(0);
+		int i = 0;
 		for (Statistic s : report.getStatistic())
 			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
-					s.getWaitingPeriod() });
+					s.getWaitingPeriod(), report.getCanceledAppointments().get(i), report.getPatientsLeft().get(i++)
+
+			});
 
 		fillTexts(report);
 
@@ -334,9 +335,10 @@ public class CeoReport {
 
 		DefaultTableModel dm = (DefaultTableModel) ceo_table.getModel();
 		dm.setNumRows(0);
+		int i = 0;
 		for (Statistic s : report.getStatistic())
 			dm.addRow(new Object[] { Utils.DateTime.getDateString(s.getDate()), s.getNumOfPatients(),
-					s.getWaitingPeriod() });
+					s.getWaitingPeriod(), report.getCanceledAppointments().get(i), report.getPatientsLeft().get(i++) });
 
 		fillTexts(report);
 	}
