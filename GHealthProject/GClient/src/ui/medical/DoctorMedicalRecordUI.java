@@ -252,12 +252,12 @@ public class DoctorMedicalRecordUI {
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(24, 145, 388, 32);
 		panel_1.setLayout(null);
-		btnNewVisit.setToolTipText("You must choose Treatment to add Visit ");
+		btnNewVisit.setToolTipText("You must choose a Treatment to add a Visit ");
 
 		btnNewVisit.setEnabled(false);
 
 		panel_1.add(btnNewVisit);
-		btnNewReferral.setToolTipText("You must choose Treatment to add Referral");
+		btnNewReferral.setToolTipText("You must choose a Treatment to add a Referral");
 
 		/**
 		 * open NewExaminationReferral Panel
@@ -346,7 +346,7 @@ public class DoctorMedicalRecordUI {
 						Iterator<Examination> examination = t.getExamination().iterator();
 						while (examination.hasNext()) {
 							Examination ex = examination.next();
-							if((ex.getResults() != null)& ex.getLabratorian() !=null)
+							if ((ex.getResults() != null) & ex.getLabratorian() != null)
 								node_3.add(new DefaultMutableTreeNode(ex));
 						}
 
@@ -520,7 +520,6 @@ public class DoctorMedicalRecordUI {
 		}
 		if (child.getClass() == Treatment.class) {
 			t = (Treatment) child;
-			
 
 			DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
 			if (((Treatment) child).getDoctor().getSid().equals(d.getSid())) {
@@ -533,7 +532,7 @@ public class DoctorMedicalRecordUI {
 				childNode.add(node_3);
 
 				treeModel.insertNodeInto(childNode, rootNode, rootNode.getChildCount());
-				
+
 				if (shouldBeVisible) {
 					tree.scrollPathToVisible(new TreePath(childNode.getPath()));
 				}

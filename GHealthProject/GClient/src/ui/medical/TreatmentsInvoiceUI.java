@@ -102,7 +102,6 @@ public class TreatmentsInvoiceUI {
 	 */
 	
 	private void initialize(TreatmentsInvoiceUI tI) {
-		Resources res = new Resources();
 		tinvoice = new JFrame();
 		tinvoice.setTitle("<Treatments Invoice> - GHealth");
 		tinvoice.setResizable(false);
@@ -114,12 +113,12 @@ public class TreatmentsInvoiceUI {
 		tinvoice.getContentPane().setBackground(Color.WHITE);
 		tinvoice.getContentPane().setLayout(null);
 
-		JLabel logo = new JLabel("GHealth - Treatments Invoice");
+		JLabel logo = new JLabel("Treatment Invoices");
 		logo.setBounds(0, 0, 495, 68);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		tinvoice.getContentPane().add(logo);
 
 		JScrollPane scrollPane = new JScrollPane();

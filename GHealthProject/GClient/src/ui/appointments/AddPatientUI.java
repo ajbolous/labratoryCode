@@ -84,7 +84,6 @@ public class AddPatientUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		Resources res = new Resources();
 		addPatient = new JFrame();
 		addPatient.setTitle("Add New Patient- GHealth");
 		addPatient.setResizable(false);
@@ -133,7 +132,7 @@ public class AddPatientUI {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		addPatient.getContentPane().add(logo);
 
 		JLabel lblNewLabel = new JLabel("ID:");
@@ -219,7 +218,7 @@ public class AddPatientUI {
 				 */		
 				PatientsController.AddNewPatient(patient);
 			
-				Messages.successMessage("Patient was added successfully to the system", "Success", null);
+				Messages.successMessage("Patient was added successfully", "Success", null);
 				addPatient.dispose();
 				
 				return;
@@ -321,7 +320,7 @@ public class AddPatientUI {
 			msqlbl.setText("*ID should be 9 digit");
 			flag = false;
 
-		} else if (idctrl.exists(FieldID.getText())) {
+		} else if (PatientsController.exists(FieldID.getText())) {
 			msqlbl.setText("*is exist");
 			flag = false;
 
@@ -337,7 +336,7 @@ public class AddPatientUI {
 			msqlbl_2.setText("*is Empty");
 			flag = false;
 		} else if (UITests.checkIsCh(LnameField.getText()) == false) {
-			msqlbl_2.setText("*should be only Letters ");
+			msqlbl_2.setText("*should only be Letters ");
 			flag = false;
 		}
 		if (UITests.notEmpty(PhoneField.getText()) == false) {
@@ -345,7 +344,7 @@ public class AddPatientUI {
 			flag = false;
 
 		} else if (UITests.checkIsDigit(PhoneField.getText()) == false) {
-			msqlbl_6.setText("*should be only digits");
+			msqlbl_6.setText("*should only be digits");
 			flag = false;
 		}
 		if (UITests.notEmpty(EmailField.getText()) == false) {

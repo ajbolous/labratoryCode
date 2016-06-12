@@ -112,7 +112,8 @@ public class Users extends View {
 	public Object setLocked(Request request) throws SQLException {
 		User u = (User) request.getParam("user");
 		updateUser(u);
-		Config.getConfig().getLogger().debug("Account " + u.getSid() + " " + u.getFirstName() + " is Locked");
+		Config.getConfig().getLogger()
+				.debug("Account " + u.getSid() + " was " + (u.isLocked() ? "Locked" : "Unlocked"));
 
 		return true;
 	}
@@ -129,6 +130,7 @@ public class Users extends View {
 		switch (cls) {
 		case "models.Doctor":
 			db.doctors.update((Doctor) user);
+			break;
 		case "models.Labratorian":
 			db.labratorians.update((Labratorian) user);
 			break;
@@ -143,7 +145,7 @@ public class Users extends View {
 			break;
 		}
 	}
-
+	
 	/**
 	 * Sets the user online in the server.
 	 * 

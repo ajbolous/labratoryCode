@@ -138,7 +138,7 @@ public class RequestInformationUI {
 		radioPartial = new JRadioButton("partial information");
 		radioPartial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		radioPartial
-				.setToolTipText("partial information request according to the doctor's specialty type");
+				.setToolTipText("Partial medical information");
 		radioPartial.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				btnSend.setEnabled(true);
