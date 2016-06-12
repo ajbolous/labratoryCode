@@ -68,6 +68,7 @@ public class DbHandler {
 		df.fillClinics();
 		df.fillDoctors();
 		df.fillPatients();
+		df.fillconfirmation();
 		df.fillMedicalRecords();
 		df.fillAppointments();
 		df.fillStatistics();

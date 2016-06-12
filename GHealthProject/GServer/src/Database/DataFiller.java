@@ -94,23 +94,76 @@ public class DataFiller {
 			db.records.create(md);
 			p.setMedicalRecord(md);
 			db.patients.update(p);
-			Referral ref = new Referral();
-			ref.setPatient(p);
-			ref.setDoctor_name("ahmad");
-			ref.setSpeciality(specialities[i % specialities.length]);
-			ref.setDate(Utils.DateTime.randomDate());
-			ref.setActive(false);
-			Confirmation conf = new Confirmation();
-			conf.setRefferal_id("" + 50 + i);
-			conf.setHmo_id("" + 100 + i);
-			conf.setApproval_id("" + 50 + i);
-			ref.setConfirmation(conf);
-			db.confirmations.create(conf);
-			db.refferals.create(ref);
+	
 
 		}
 	}
+	public void fillconfirmation() throws Exception {
+		 int count=0; 
+		 int j=0; 
+		ArrayList <Patient> patients=  new ArrayList <Patient> (); 
+		
+		patients=(ArrayList<Patient>) db.patients.queryForAll();
 
+		for (int i=0 ; i < patients.size(); i++ ){
+			
+			Patient p = patients.get(i);
+			/// referral 1 
+			Referral ref1 = new Referral();
+			ref1.setPatient(p);
+			ref1.setDoctor_name("ahmad");
+			ref1.setSpeciality(specialities[count % specialities.length]);
+			ref1.setDate(Utils.DateTime.currentDay());
+			ref1.setActive(true);
+			Confirmation conf = new Confirmation();
+			conf.setRefferal_id("" + 50 + j);
+			conf.setHmo_id("" + 100 + i);
+			conf.setApproval_id("" + 50 + j);
+			ref1.setConfirmation(conf);
+			db.confirmations.create(conf);
+			db.refferals.create(ref1);
+			/// referral 2
+			j++; 
+			Referral ref2 = new Referral();
+			ref2.setPatient(p);
+			ref2.setDoctor_name("bolous");
+			ref2.setSpeciality(specialities[(count+1) % specialities.length]);
+			ref2.setDate(Utils.DateTime.randomDate());
+			ref2.setActive(true);
+			Confirmation conf2 = new Confirmation();
+			conf2.setRefferal_id("" + 50 + j);
+			conf2.setHmo_id("" + 100 + i);
+			conf2.setApproval_id("" + 50 + j);
+			ref2.setConfirmation(conf2);
+			db.confirmations.create(conf2);
+			db.refferals.create(ref2);
+			/// referral 3
+			j++;
+			
+			Referral ref3 = new Referral();
+			ref3.setPatient(p);
+			ref3.setDoctor_name("Muhmmad");
+			ref3.setSpeciality(specialities[(count+2) % specialities.length]);
+			ref3.setDate(Utils.DateTime.currentDay());
+			ref3.setActive(true);
+			Confirmation conf3 = new Confirmation();
+			conf3.setRefferal_id("" + 50 + j);
+			conf3.setHmo_id("" + 100 + i);
+			conf3.setApproval_id("" + 50 + j);
+			ref3.setConfirmation(conf3);
+			db.confirmations.create(conf3);
+			db.refferals.create(ref3);	
+			j++;
+			
+			//count for next patient (specialty ...)
+			count++; 
+			
+			
+			
+			
+		}
+		
+	}
 	public void fillStatistics() throws SQLException, ParseException {
 		int i;
 		Random r = new Random();
