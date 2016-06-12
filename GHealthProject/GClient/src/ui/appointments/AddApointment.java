@@ -262,7 +262,7 @@ public class AddApointment {
 		JLabel no_confm_lbl = new JLabel("*No Conformation for this client at this speciality");
 		no_confm_lbl.setVisible(false);
 		no_confm_lbl.setForeground(Color.RED);
-		no_confm_lbl.setBounds(120, 135, 247, 25);
+		no_confm_lbl.setBounds(120, 135, 345, 25);
 		newApp.getContentPane().add(no_confm_lbl);
 
 		/**

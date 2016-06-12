@@ -71,7 +71,7 @@ public class CeoReport {
 		Report r = new Report();
 		ceoReport = new JFrame();
 		ceoReport.getContentPane().setBackground(Color.WHITE);
-		ceoReport.setResizable(true);
+		ceoReport.setResizable(false);
 		ceoReport.getContentPane().setLayout(null);
 		ceoReport.setTitle("CEO Report");
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
@@ -276,6 +276,7 @@ public class CeoReport {
 		ceoReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 
 		ceoReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ceoReport.setLocationRelativeTo(null);
 
 	}
 
