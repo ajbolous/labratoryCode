@@ -368,7 +368,7 @@ public class AddApointment {
 					appointments_class.getAppointments();
 				} else {
 					Messages.errorMessage(
-							"Cannot complete the request,some thing goes wrong ,maybe the appointment choosed by another system , please choose another one",
+							"Cannot complete the request, Please choose another appointment",
 							"Add new appointment", null);
 				}
 

@@ -74,8 +74,7 @@ public class NewVisitUI extends JPanel {
 			Config.getConfig().getLogger().exception(e);
 		}
 
-		textField_1 = new JTextField(
-				DateTime.getDateString(v.getVisitDate()) );
+		textField_1 = new JTextField(DateTime.getDateString(v.getVisitDate()));
 		textField_1.setBounds(107, 52, 155, 20);
 		textField_1.setBackground(Color.WHITE);
 		textField_1.setEditable(false);
@@ -130,7 +129,7 @@ public class NewVisitUI extends JPanel {
 
 					if (v.getTreatment().isEndFlag()) {
 						Messages.warningMessage(
-								"you cannot add Visits  to Treatment" + v.getTreatment().getTid() + "-"
+								"you cannot add Visits to Treatment: " + v.getTreatment().getTid() + "-"
 										+ v.getTreatment().gettType() + "\nThis treatment is closed  ",
 								"warnning", doctorMedicalRecordUI.DoctorMedicalRecord);
 

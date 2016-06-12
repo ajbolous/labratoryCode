@@ -65,7 +65,7 @@ public class UITests {
 		char[] array = field.toCharArray();
 
 		for (int i = 0; i < field.length(); i++) {
-			if (!(Character.isLetter(array[i]))) {
+			if (!(Character.isLetter(array[i])) && array[i] != ' ') {
 				return false;
 			}
 		}

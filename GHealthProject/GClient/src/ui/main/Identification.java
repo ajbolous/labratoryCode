@@ -183,7 +183,8 @@ public class Identification implements FrameInterface {
 				
 			disID.setVisible(false);
 			if (Application.user.getClass() == Doctor.class) {
-				String result = (String)AppointmentsController.setAppointmentDone(Application.user.getSid(), patient.getSid());
+				String result = (String) AppointmentsController.setAppointmentDone(Application.user.getSid(),
+						patient.getSid());
 				new DoctorMedicalRecordUI(patient);
 					}
 
@@ -191,10 +192,6 @@ public class Identification implements FrameInterface {
 				 new NewConfirmUI(patient);
 			else if (Application.user.getClass() == Dispatcher.class)
 				new Appointments(patient).getFrame().setVisible(true);
-				
-			
-		
-			
 		}
 
 	}

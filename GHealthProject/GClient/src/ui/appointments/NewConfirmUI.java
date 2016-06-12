@@ -91,7 +91,11 @@ public class NewConfirmUI {
 	private JLabel msqlbl_1;
 	private JLabel msqlbl_2;
 	private JLabel msqlbl_3;
+	private JLabel lblNewLabel; 
 	private JLabel note;
+	private JLabel msgerror1; 
+	private JLabel msgerror2; 
+	private JLabel msgerror3; 
 	
 	private boolean flag_lock;
 
@@ -105,7 +109,6 @@ public class NewConfirmUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(Patient p) {
-		Resources res = new Resources();
 		NewConfirmUI = new JFrame();
 		NewConfirmUI.setTitle("New Conformation - GHealth");
 		NewConfirmUI.setResizable(false);
@@ -122,7 +125,7 @@ public class NewConfirmUI {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		NewConfirmUI.getContentPane().add(logo);
 
 		JButton btnFinish = new JButton("Finish");
@@ -153,7 +156,7 @@ public class NewConfirmUI {
 		panel.setLayout(null);
 
 		JLabel label_1 = new JLabel("Description:");
-		label_1.setBounds(2, 111, 71, 14);
+		label_1.setBounds(7, 111, 71, 14);
 		panel.add(label_1);
 
 		field_Name = new JTextField();
@@ -173,10 +176,11 @@ public class NewConfirmUI {
 			 * and checks if confirmation is active show message and fields is locked 
 			 * else, permit for user to add new confirmation 
 			 */
-		speciality_cbox = new JComboBox(app_ctrl.getSpecialties());
+		speciality_cbox = new JComboBox(AppointmentsController.getSpecialties());
 		speciality_cbox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				flag_lock = false;
+
 				field_Name.setText("");
 				editorPane.setText("");
 				textField_1.setText("");
@@ -213,7 +217,7 @@ public class NewConfirmUI {
 				for (Referral ref : p.getReferrals()) {
 					if (ref.isActive() == true
 							&& ref.getSpeciality().compareTo((String) speciality_cbox.getSelectedItem()) == 0) {
-						note.setText("there is refferal exist to speical and approval ");
+						note.setText("A simillar referral already exist");
 						return ref;
 					}
 				}
@@ -225,16 +229,16 @@ public class NewConfirmUI {
 		panel.add(speciality_cbox);
 
 		JLabel label_2 = new JLabel("Doctor Name:");
-		label_2.setBounds(-2, 66, 79, 14);
+		label_2.setBounds(7, 66, 77, 14);
 		panel.add(label_2);
 
 		JLabel lblSpeciality = new JLabel("speciality:");
-		lblSpeciality.setBounds(2, 16, 71, 14);
+		lblSpeciality.setBounds(7, 16, 71, 14);
 		panel.add(lblSpeciality);
 
 		note = new JLabel("");
 		note.setForeground(Color.RED);
-		note.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		note.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		note.setBounds(68, 251, 203, 13);
 		panel.add(note);
 
@@ -261,33 +265,52 @@ public class NewConfirmUI {
 		panel_1.setLayout(null);
 
 		JLabel label_5 = new JLabel("Refferal Num:");
-		label_5.setBounds(2, 59, 69, 14);
+		label_5.setBounds(4, 70, 82, 14);
 		panel_1.add(label_5);
 
 		JLabel label_6 = new JLabel("Approval Num:");
-		label_6.setBounds(0, 90, 71, 14);
+		label_6.setBounds(4, 110, 96, 14);
 		panel_1.add(label_6);
 
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(78, 25, 200, 25);
+		textField_1.setBounds(83, 26, 187, 25);
 		panel_1.add(textField_1);
 
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(78, 87, 200, 25);
+		textField_2.setBounds(83, 106, 187, 25);
 		panel_1.add(textField_2);
 
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(78, 56, 200, 25);
+		textField_3.setBounds(83, 66, 187, 25);
 		panel_1.add(textField_3);
 
 		JLabel label_7 = new JLabel("HMO ID : ");
-		label_7.setBounds(2, 28, 66, 14);
+		label_7.setBounds(4, 30, 82, 14);
 		panel_1.add(label_7);
+		
+				msqlbl_3 = new JLabel("");
+				msqlbl_3.setBounds(235, 90, 127, 14);
+				panel_1.add(msqlbl_3);
+				
+				 msgerror1 = new JLabel("");
+				msgerror1.setForeground(Color.RED);
+				msgerror1.setBounds(83, 50, 187, 14);
+				panel_1.add(msgerror1);
+				
+				msgerror2 = new JLabel("");
+				msgerror2.setForeground(Color.RED);
+				msgerror2.setBounds(83, 91, 187, 14);
+				panel_1.add(msgerror2);
+				
+				msgerror3 = new JLabel("");
+				msgerror3.setForeground(Color.RED);
+				msgerror3.setBounds(83, 133, 187, 14);
+				panel_1.add(msgerror3);
 
-		JLabel lblPatientId = new JLabel("Patient");
+		JLabel lblPatientId = new JLabel("Patient:");
 		lblPatientId.setBounds(10, 69, 66, 14);
 		NewConfirmUI.getContentPane().add(lblPatientId);
 
@@ -311,16 +334,13 @@ public class NewConfirmUI {
 		btnNext = new JButton("Next");
 		btnNext.setBounds(129, 436, 89, 23);
 		NewConfirmUI.getContentPane().add(btnNext);
-
-		msqlbl_3 = new JLabel("");
-		msqlbl_3.setBounds(305, 236, 127, 14);
-		NewConfirmUI.getContentPane().add(msqlbl_3);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				msqlbl_1.setText("");
 				msqlbl_2.setText("");
 				msqlbl_3.setText("");
+				note.setText("");
 
 				if (!isvalidRef())
 					return;
@@ -340,9 +360,9 @@ public class NewConfirmUI {
 		 */
 		btnFinish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				msqlbl_1.setText("");
-				msqlbl_2.setText("");
-				msqlbl_3.setText("");
+				msgerror1.setText("");
+				msgerror2.setText("");
+				msgerror3.setText("");
 
 				if (!isvalidconf())
 					return;
@@ -359,7 +379,7 @@ public class NewConfirmUI {
 					ref.setConfirmation(conf);
 					ref.setActive(true);
 					RefCtrl.addReferralHMO(ref);
-					Messages.successMessage("Confirmation was added successfully to the system", "Success", null);
+					Messages.successMessage("Confirmation was added successfully", "Success", null);
 					NewConfirmUI.dispose();
 					new Identification();
 					return;
@@ -368,23 +388,6 @@ public class NewConfirmUI {
 					new Identification();
 					return;
 				}
-
-				/*
-				 * {
-				 * 
-				 * 
-				 * 
-				 * }
-				 * 
-				 * 
-				 * 
-				 * if (!isvalid()){ addPatient.setBounds(addPatient.getX(),
-				 * addPatient.getY(), 500, addPatient.getHeight()); return; }
-				 * 
-				 * // addPatient.setBounds(addPatient.getX(), addPatient.getY(),
-				 * 350, addPatient.getHeight());
-				 */
-
 			}
 
 		});
@@ -398,17 +401,22 @@ public class NewConfirmUI {
 	 */
 	private Boolean isvalidRef() {
 		boolean flag = true;
-
+		msqlbl_2.setBounds(75, 89, 127, 14);
+		msqlbl_1.setBounds(75, 41, 102, 14);
 		if (UITests.notEmpty((String) speciality_cbox.getSelectedItem()) == false) {
-			msqlbl_1.setText("isempty");
+			msqlbl_1.setText("Missing Speciality");
 			flag = false;
 		}
 		if (UITests.notEmpty(field_Name.getText()) == false) {
-			msqlbl_2.setText("isempty");
+			msqlbl_2.setText("Missing doctor name");
+			flag = false;
+		}else if(UITests.checkIsCh(field_Name.getText())== false)
+		{
+			msqlbl_2.setText("Should only be letters");
 			flag = false;
 		}
 		if (UITests.notEmpty(editorPane.getText()) == false) {
-			msqlbl_3.setText("isempty");
+			note.setText("Missing description");
 			flag = false;
 		}
 
@@ -422,19 +430,26 @@ public class NewConfirmUI {
 		boolean flag = true;
 
 		if (UITests.notEmpty(textField_1.getText()) == false) {
-			msqlbl_1.setText("isempty");
+			msgerror1.setText("isempty");
+			flag = false;
+		}else if (UITests.checkIsDigit(textField_1.getText()) == false){
+			msgerror1.setText("should be only digits");
 			flag = false;
 		}
 		if (UITests.notEmpty(textField_2.getText()) == false) {
-			msqlbl_3.setText("isempty");
-
+			msgerror3.setText("isempty");
+			flag = false;
+		}else if (UITests.checkIsDigit(textField_2.getText()) == false){
+			msgerror3.setText("should be only digits");
 			flag = false;
 		}
 		if (UITests.notEmpty(textField_3.getText()) == false) {
-			msqlbl_2.setText("isempty");
+			msgerror2.setText("isempty");
+			flag = false;
+		}else if (UITests.checkIsDigit(textField_3.getText()) == false){
+			msgerror2.setText("should be only digits");
 			flag = false;
 		}
-
 		return flag;
 	}
 }

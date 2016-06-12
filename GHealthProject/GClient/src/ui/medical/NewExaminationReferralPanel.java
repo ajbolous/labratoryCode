@@ -96,7 +96,7 @@ public class NewExaminationReferralPanel extends JPanel {
 		setBounds(new Rectangle(283, 143, 122, 144));
 		setLayout(null);
 
-		textField_1 = new JTextField(DateTime.getDateString(examination.getReferralDate()) );
+		textField_1 = new JTextField(DateTime.getDateString(examination.getReferralDate()));
 		textField_1.setBackground(new Color(255, 255, 255));
 		textField_1.setEditable(false);
 		textField_1.setBounds(140, 59, 197, 20);
@@ -166,8 +166,8 @@ public class NewExaminationReferralPanel extends JPanel {
 
 					if (examination.getTreatment().isEndFlag()) {
 						Messages.warningMessage(
-								"you cannot add  Examinations to Treatment" + examination.getTreatment().getTid() + "-"
-										+ examination.getTreatment().gettType(),
+								"you cannot add an Examinations to Treatment :" + examination.getTreatment().getTid()
+										+ "-" + examination.getTreatment().gettType(),
 								"warning", doctorMedicalRecordUI.DoctorMedicalRecord);
 					} else {
 						ExaminationController.saveExaminationReferral(examination);
