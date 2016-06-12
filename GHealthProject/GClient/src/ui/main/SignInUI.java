@@ -123,7 +123,7 @@ public class SignInUI {
 		SignInUI.getContentPane().add(lblNewLabel_1);
 
 		passwordField = new JPasswordField();
-		
+
 		passwordField.setBounds(85, 129, 200, 25);
 		SignInUI.getContentPane().add(passwordField);
 
@@ -149,16 +149,16 @@ public class SignInUI {
 				signInHandler();
 			}
 		});
-		
+
 		passwordField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				signInHandler();
-				
+
 			}
 		});
 	}
-	
-	private void signInHandler(){
+
+	private void signInHandler() {
 		labelDetails.setVisible(true);
 
 		String pass = new String(passwordField.getPassword());

@@ -100,7 +100,6 @@ public class Appointments {
 	 */
 
 	private void initialize() {
-		Resources res = new Resources();
 		app = new JFrame();
 		app.setTitle("Client Appointments - GHealth");
 		app.setResizable(false);
@@ -117,7 +116,7 @@ public class Appointments {
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 17));
 		logo.setBackground(Color.WHITE);
-		logo.setIcon(res.getIcon("logo.png"));
+		logo.setIcon(Resources.getIcon("logo.png"));
 		app.getContentPane().add(logo);
 
 		JPanel panel = new JPanel();
@@ -160,7 +159,7 @@ public class Appointments {
 			public void actionPerformed(ActionEvent arg0) {
 				int row = apps_table.getSelectedRow();
 				if(row<0){
-					Messages.errorMessage("Please select appointment from the table below to cancel", "No appointment selected", null);
+					Messages.errorMessage("Please select an appointment from the table below", "No appointment selected", null);
 					return;
 				}
 				Date begin_of_day = null;
@@ -181,7 +180,7 @@ public class Appointments {
 							"Cancel Appointment", JOptionPane.ERROR_MESSAGE);
 
 				} else {
-					if (apctrl.deleteAppointment(apps_list.get(row)) == false) {
+					if (AppointmentsController.deleteAppointment(apps_list.get(row)) == false) {
 						JOptionPane.showMessageDialog(cancel_btn, "Cannot complete the request", "Cancel Appointment",
 								JOptionPane.ERROR_MESSAGE);
 					} else {
@@ -281,7 +280,7 @@ public class Appointments {
 	 */
 	public void getAppointments() {
 		cancel_btn.setEnabled(false);
-		ArrayList<Appointment> apps = apctrl.getPatientAppointments(patient);
+		ArrayList<Appointment> apps = AppointmentsController.getPatientAppointments(patient);
 		if (apps != null) {
 			DefaultTableModel dm = (DefaultTableModel) apps_table.getModel();
 			dm.setRowCount(0);
