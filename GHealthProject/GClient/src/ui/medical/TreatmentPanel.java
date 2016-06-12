@@ -30,7 +30,8 @@ import javax.swing.UIManager;
 import javax.swing.JTextArea;
 
 /**
- * present the treatment details option add result  to treatment and closing the treatment 
+ * present the treatment details option add result to treatment and closing the
+ * treatment
  * 
  * @author maisam marjieh
  *
@@ -46,9 +47,8 @@ public class TreatmentPanel extends JPanel {
 	private JButton btnAddResult;
 	private JTextArea textArea_Result;
 	private JLabel error_lbl;
-	private JLabel lblEndDate ;
-	private JButton btnClose ; 
-
+	private JLabel lblEndDate;
+	private JButton btnClose;
 
 	/**
 	 * construct the panel with treatment details
@@ -79,7 +79,7 @@ public class TreatmentPanel extends JPanel {
 		lblDate.setBounds(9, 135, 101, 20);
 		add(lblDate);
 
-	    lblEndDate = new JLabel("End Date : ");
+		lblEndDate = new JLabel("End Date : ");
 		lblEndDate.setVisible(false);
 		lblEndDate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblEndDate.setBounds(9, 182, 101, 20);
@@ -92,7 +92,7 @@ public class TreatmentPanel extends JPanel {
 		lblResult = new JLabel("Result : ");
 		btnAddResult = new JButton("Add Result");
 		btnAddResult.setToolTipText("add result to treatment and closing it");
-		
+
 		btnSave = new JButton("Save");
 		btnSave.setToolTipText("Save result , close the treatment and send report to doctor (in HMO)");
 		if (treatment.isEndFlag()) {
@@ -100,7 +100,6 @@ public class TreatmentPanel extends JPanel {
 			textField_endDate.setVisible(true);
 			lblEndDate.setVisible(true);
 			textArea_Result.setText(treatment.getStatus());
-			
 
 		}
 
@@ -115,7 +114,8 @@ public class TreatmentPanel extends JPanel {
 		lblDoctorname.setBounds(9, 86, 119, 27);
 		add(lblDoctorname);
 
-		textField_doctorName = new JTextField(treatment.getDoctor().getFirstName() + " " + treatment.getDoctor().getLastName());
+		textField_doctorName = new JTextField(
+				treatment.getDoctor().getFirstName() + " " + treatment.getDoctor().getLastName());
 		textField_doctorName.setBackground(Color.WHITE);
 		textField_doctorName.setEditable(false);
 		textField_doctorName.setBounds(131, 90, 211, 20);
@@ -135,8 +135,8 @@ public class TreatmentPanel extends JPanel {
 		textField_treatmentName.setColumns(10);
 
 		/**
-		 * Allows to doctor to add result about the treatment and close it
-		 * @ throws ParseException
+		 * Allows to doctor to add result about the treatment and close it @
+		 * throws ParseException
 		 */
 		btnAddResult.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnAddResult.addActionListener(new ActionListener() {
@@ -154,7 +154,6 @@ public class TreatmentPanel extends JPanel {
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
-				
 
 			}
 		});
@@ -216,9 +215,9 @@ public class TreatmentPanel extends JPanel {
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnSave.setBounds(173, 366, 89, 23);
 		add(btnSave);
-		
-		 btnClose = new JButton("Close");
-		 btnClose.setVisible(false);
+
+		btnClose = new JButton("Close");
+		btnClose.setVisible(false);
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);

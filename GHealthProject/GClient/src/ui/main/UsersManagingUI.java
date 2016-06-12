@@ -17,11 +17,18 @@ import Controllers.UsersController;
 import models.User;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import ui.utils.Messages;
+
 import java.awt.Component;
 import java.awt.SystemColor;
+
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -105,12 +112,40 @@ public class UsersManagingUI {
 		lblLockedUserAccounts.setBounds(10, 292, 157, 14);
 		ui.getContentPane().add(lblLockedUserAccounts);
 
+		
 		JButton btnUnlock = new JButton("Unlock");
 		btnUnlock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+			int row= tblLocked.getSelectedRow();
+					
+
+			if(row<0){
+				Messages.errorMessage("Please select user to unlock", "No user selected", null);
+				return;
+			}
+			String id = (String) tblLocked.getModel().getValueAt(row, 0);
+			User u =(User) UsersController.getUser(id);
+			UsersController.setLocked(u,false);
+		
+			
+			DefaultTableModel dm = (DefaultTableModel) tblLocked.getModel();
+			dm.removeRow(row);
+				
+				
 			}
 		});
 		btnUnlock.setBounds(10, 470, 157, 20);
+		tblLocked.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				if(event.getValueIsAdjusting())
+					return;
+				if(tblLocked.getRowCount()==0)
+					btnUnlock.setEnabled(false);	
+				btnUnlock.setEnabled(true);
+
+			}
+			});
 		ui.getContentPane().add(btnUnlock);
 		ui.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		ui.setBounds(100, 100, 466, 524);
