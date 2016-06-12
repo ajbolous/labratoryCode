@@ -110,7 +110,7 @@ public class UsersManagingUI {
 			public void actionPerformed(ActionEvent arg0) {
 				
 			int row= tblLocked.getSelectedRow();
-			String id = (String) tblLocked.getModel().getValueAt(row, 1);
+			String id = (String) tblLocked.getModel().getValueAt(row, 0);
 			User u =(User) UsersController.getUser(id);
 				UsersController.setLocked(u,false);
 					tblLocked.remove(row);
