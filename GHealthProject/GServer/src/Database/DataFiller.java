@@ -234,11 +234,11 @@ public class DataFiller {
 			c.setPhone("04-" + (5143001 + i));
 			c.setName("GHealth " + c.getAddress());
 			c.setEmail(c.getName().replace(" ", "_").toLowerCase() + i + "@crows.com");
-			
+			c.setHasLabratory((i % 2 == 0));
 			db.clinics.createIfNotExists(c);
 			if((i % 2 == 0))
 			{
-				c.setHasLabratory((i % 2 == 0));
+				
 
 			Labratorian l = new Labratorian();
 			l.setFirstName(firstNames[rand.nextInt(firstNames.length)]);
