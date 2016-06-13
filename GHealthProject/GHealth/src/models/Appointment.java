@@ -22,6 +22,23 @@ public class Appointment extends Entity {
 	}
 
 	/**
+	 * this constructor for create database examples
+	 * @param d:
+	 * 				Doctor instance
+	 * @param p:
+	 *          	Patient instance
+	 * @param t:
+	 *            	Date instance -the appointment time .
+	 * @param creation_time:
+	 * 				creation time
+	 */
+	public Appointment(Doctor d, Patient p, Date t,Date creation_time){
+		this.doctor = d;
+		this.patient = p;
+		this.appointmentTime = t;
+		this.creationTime=creation_time;
+	}
+	/**
 	 * 
 	 * @param d:
 	 *            Doctor instance

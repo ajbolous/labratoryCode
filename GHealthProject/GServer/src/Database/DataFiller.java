@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import Utils.DateTime;
+import Views.Appointments;
 import models.*;
 
 public class DataFiller {
@@ -198,7 +199,7 @@ public class DataFiller {
 	}
 
 	private void fillExaminations(Treatment t, List<Labratorian> labs) throws Exception {
-
+		int randValue;
 		for (int i = 0; i < rand.nextInt(3); i++) {
 			Examination e = new Examination();
 			e.setComments("This look good");
@@ -208,7 +209,8 @@ public class DataFiller {
 			e.setReferralDate(DateTime.getDate(e.getExaminationDate().getYear() + 1900,
 					e.getExaminationDate().getMonth() + 1, e.getExaminationDate().getDay() - rand.nextInt(5)));
 			e.setTreatment(t);
-			e.setResults("good");
+			randValue=rand.nextInt(2);
+			if(randValue==0) e.setResults("good");
 			Clinic clinic = db.clinics.queryForId(i+1);
 			e.setClinic(clinic);
 			db.examinations.create(e);
@@ -284,17 +286,53 @@ public class DataFiller {
 	}
 
 	public void fillAppointments() throws SQLException, ParseException {
-
-		for (int j = 0; j < 3; j++) {
-			for (int i = 0; i < 5; i++) {
-				Doctor d = db.doctors.queryForId("20000000" + i);
-				Patient p = db.patients.queryForId("30000000" + (i + j));
-				Appointment a = new Appointment(d, p, DateTime.getDate(2016, 4 + j, 5 + i, 9 + i, 00));
-				a.setDone(false);
-				db.appointments.create(a);
+		Date date;
+		Appointments viewApp= new Appointments();
+		Appointment app;
+		boolean[] isDone={false,true,true,true,true};//with 80% to get true
+		
+		ArrayList<Patient> patients= (ArrayList<Patient>) db.patients.queryForAll();
+		if(patients==null || patients.size()==0) return;
+		
+		for(Patient patient: patients){
+			
+			//get all referrals of this patient
+			ArrayList<Referral> p_refs=(ArrayList<Referral>) db.refferals.queryForEq("patient_id", patient.getSid());
+			if(p_refs==null || p_refs.size()==0) return;
+			
+			for(Referral ref:p_refs){
+				String spec= ref.getSpeciality();
+				ArrayList<Doctor> doc_by_spec=(ArrayList<Doctor>) db.doctors.queryForEq("speciality", spec);
+				if(doc_by_spec==null || doc_by_spec.size()==0) return;
+				
+				
+				
+				date= DateTime.getDate(2016, rand.nextInt(5)+1, rand.nextInt(27)+1, rand.nextInt(8)+9, 00);
+				if(viewApp.isExist(doc_by_spec.get(0).getSid(), patient.getSid(), date)==false
+						&& DateTime.getDayOfWeek(date)!=6 && DateTime.getDayOfWeek(date)!=7){
+					app= new Appointment(doc_by_spec.get(0), patient, date,DateTime.addDay(date, (-1)*rand.nextInt(20)));
+					app.setDone(isDone[rand.nextInt(isDone.length)]);
+					db.appointments.create(app);
+				}
+				
+				date= DateTime.getDate(2016, rand.nextInt(5)+1, rand.nextInt(27)+1, rand.nextInt(8)+9, 00);
+				if(viewApp.isExist(doc_by_spec.get(1).getSid(), patient.getSid(), date)==false
+						&& DateTime.getDayOfWeek(date)!=6 && DateTime.getDayOfWeek(date)!=7){
+					app= new Appointment(doc_by_spec.get(1), patient, date,DateTime.addDay(date, (-1)*rand.nextInt(20)));
+					app.setDone(isDone[rand.nextInt(isDone.length)]);
+					db.appointments.create(app);
+				}
+				
+				int rand_doc=rand.nextInt(2);
+				date= DateTime.getDate(2016, rand.nextInt(1)+6, rand.nextInt(15)+12, rand.nextInt(8)+9, 00);
+				if(viewApp.isExist(doc_by_spec.get(rand_doc).getSid(), patient.getSid(), date)==false
+						&& DateTime.getDayOfWeek(date)!=6 && DateTime.getDayOfWeek(date)!=7){
+					app= new Appointment(doc_by_spec.get(rand_doc), patient, date,DateTime.addDay(date, (-1)*rand.nextInt(20)));
+					app.setDone(false);
+					db.appointments.create(app);
+				}
 			}
 		}
-
 	}
 
 	public void fillShifts() throws SQLException, ParseException {

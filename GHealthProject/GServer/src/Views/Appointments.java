@@ -163,21 +163,36 @@ public class Appointments extends View {
 	 * @return true if the appointment is exist , return false else .
 	 * 
 	 */
-	private boolean isExist(Object doctor_id, Object patient_id, Object app_time) {
+	public boolean isExist(Object doctor_id, Object patient_id, Object app_time) {
 		DbHandler db = Config.getConfig().getHandler();
+		if(db==null) return false;
 		QueryBuilder<Appointment, Integer> q = db.appointments.queryBuilder();
 		ArrayList<Appointment> app;
 
 		try {
+			//check by doctor id ,patient id and date
 			app = (ArrayList<Appointment>) q.where().eq("doctor_id", (String) doctor_id).and()
 					.eq("patient_id", (String) patient_id).and().eq("appointmentTime", (Date) app_time).query();
+			if (app != null && app.size() > 0)
+				return true;
+			
+			//check by doctor id and date
+			app=(ArrayList<Appointment>) q.where().eq("doctor_id", (String) doctor_id).and()
+					.eq("appointmentTime", (Date) app_time).query();
+			if (app != null && app.size() > 0)
+				return true;
+			
+			//check by patient id and date
+			app = (ArrayList<Appointment>) q.where()
+					.eq("patient_id", (String) patient_id).and().eq("appointmentTime", (Date) app_time).query();
+			if (app != null && app.size() > 0)
+				return true;
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
 			return false;
 		}
-		if (app == null || app.size() == 0)
-			return false;
-		return true;
+		
+		return false;
 	}
 
 	/**
