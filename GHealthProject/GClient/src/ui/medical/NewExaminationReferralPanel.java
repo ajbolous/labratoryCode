@@ -83,7 +83,7 @@ public class NewExaminationReferralPanel extends JPanel {
 		examination.setTreatment(t);
 		try {
 			examination.setReferralDate(DateTime.currentDate());
-			examination.setExaminationDate(DateTime.getDate(0, 0, 0));
+			examination.setExaminationDate(DateTime.getDate(1, 1, 1));
 
 		} catch (Exception ex) {
 			Config.getConfig().getLogger().exception(ex);
