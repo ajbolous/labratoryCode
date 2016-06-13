@@ -139,7 +139,7 @@ public class ExaminationPanel {
 
 		Clinic clinic = ExaminationController.getClinic(ex.getLabratorian().getClinic().getCid());
 		textArea_1.setText("" + ex.getResults());
-		textField_6.setText(DateTime.getDateString(ex.getExaminationDate()) );
+		textField_6.setText(DateTime.getDateString(ex.getExaminationDate()));
 
 		textField_5.setText("" + clinic.toString());
 		textField_4.setText(ex.getLabratorian().getFirstName() + " " + ex.getLabratorian().getLastName());
@@ -217,8 +217,7 @@ public class ExaminationPanel {
 		textField_1.setColumns(10);
 		mainPanel.add(textField_1);
 
-		textField_1.setText(
-				DateTime.getDateString(ex.getReferralDate()) );
+		textField_1.setText(DateTime.getDateString(ex.getReferralDate()));
 
 		textField_2.setText(ex.geteType());
 		textField_3.setText("" + ex.getTreatment().getDoctor().getFirstName() + " "
@@ -314,10 +313,10 @@ public class ExaminationPanel {
 		btnBack.setBounds(216, 314, 89, 23);
 		mainPanel.add(btnBack);
 
-		 btnNewButton = new JLabel("");
+		btnNewButton = new JLabel("");
 
 		ImageIcon image = ExaminationController.getImage(ex);
-		if(image != null)
+		if (image != null)
 			btnNewButton.setIcon(image);
 		btnNewButton.setBounds(131, 317, 237, 112);
 		mainPanel.add(btnNewButton);

@@ -185,6 +185,7 @@ public class SignInUI {
 		if (u.isLocked()) {
 			labelDetails.setText("*Your account is locked, contact admin");
 			btnLogIn.setEnabled(false);
+			passwordField.setEnabled(false);
 			return;
 		}
 		if (!UsersController.authinticateUser(u, pass)) {

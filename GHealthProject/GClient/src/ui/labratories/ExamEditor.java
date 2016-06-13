@@ -38,9 +38,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 /**
- * public class ExamEditor , shows examination details and insert test result In addition ,
- *  labratory can insert photo if test need 
+ * public class ExamEditor , shows examination details and insert test result In
+ * addition , labratory can insert photo if test need
+ * 
  * @author Bolous Abo Jaber
  *
  */
@@ -49,12 +51,17 @@ public class ExamEditor {
 	private JFrame labratoryUI;
 	private Date creationDate = null;
 	private Examination exam;
+	private boolean isEditable;
+	private Labratory labratory;
+	private int row;
 
-	public ExamEditor(Examination ex) {
+	public ExamEditor(Examination ex, int row, boolean isEditable, Labratory lab) {
 		exam = ex;
+		this.isEditable = isEditable;
+		this.labratory = lab;
+		this.row = row;
 		initialize();
 		labratoryUI.setVisible(true);
-
 	}
 
 	/**
@@ -84,7 +91,7 @@ public class ExamEditor {
 		}
 		label_2.setText(creationDate.toString());
 
-		JLabel logo = new JLabel("Examinations");
+		JLabel logo = new JLabel("Examination Viewer");
 		logo.setBounds(0, 0, 378, 60);
 		logo.setForeground(SystemColor.textHighlight);
 		logo.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -154,26 +161,28 @@ public class ExamEditor {
 		labratoryUI.getContentPane().add(lblAttachedImage);
 
 		JLabel btnAddImage = new JLabel("Attached Image");
-		btnAddImage.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(labratoryUI);
-				if (result == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = fileChooser.getSelectedFile();
-					exam.setFile(selectedFile.getName());
-					ImageIcon ic = Resources.getImageFromPath(selectedFile.getPath());
-					btnAddImage.setIcon(ic);
+		if (isEditable)
+			btnAddImage.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+					int result = fileChooser.showOpenDialog(labratoryUI);
+					if (result == JFileChooser.APPROVE_OPTION) {
+						File selectedFile = fileChooser.getSelectedFile();
+						exam.setFile(selectedFile.getName());
+						ImageIcon ic = Resources.getImageFromPath(selectedFile.getPath());
+						btnAddImage.setIcon(ic);
+						lblAttachedImage.setText("");
+					}
 				}
-			}
-		});
+			});
 		btnAddImage.setHorizontalAlignment(SwingConstants.CENTER);
 		btnAddImage.setForeground(Color.LIGHT_GRAY);
 		btnAddImage.setBackground(Color.LIGHT_GRAY);
 
 		ImageIcon image = (ImageIcon) ExaminationController.getImage(exam);
-		if (image != null){
+		if (image != null) {
 			btnAddImage.setIcon(image);
 			btnAddImage.setText("");
 		}
@@ -186,9 +195,11 @@ public class ExamEditor {
 
 				exam.setResults(txtResult.getText());
 				exam.setExaminationDate(creationDate);
+				exam.setLabratorian(labratorian);
 				ExaminationController.saveExamination(exam, (ImageIcon) btnAddImage.getIcon());
 				Messages.successMessage("Examination results added", "Examinations", null);
-
+				if (labratory != null)
+					labratory.removeRow(row);
 				labratoryUI.dispose();
 			}
 		});
@@ -207,5 +218,10 @@ public class ExamEditor {
 		labratoryUI.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 		labratoryUI.setBounds(100, 100, 453, 638);
 		labratoryUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		btnSave.setEnabled(isEditable);
+		txtResult.setEditable(isEditable);
+		lblAttachedImage.setEnabled(isEditable);
+
 	}
 }

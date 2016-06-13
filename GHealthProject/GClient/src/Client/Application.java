@@ -17,7 +17,6 @@ public class Application {
 		client = new Client(cfg.getHost(), cfg.getPort());
 		Config.getConfig().writeTextConfig();
 		client.open();
-
 	}
 
 	public static void main(String[] args) {

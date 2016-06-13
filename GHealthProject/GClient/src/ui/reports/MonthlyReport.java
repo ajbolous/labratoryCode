@@ -79,7 +79,7 @@ public class MonthlyReport {
 		Resources res = new Resources();
 		monthlyReport = new JFrame();
 		monthlyReport.getContentPane().setBackground(Color.WHITE);
-		monthlyReport.setResizable(true);
+		monthlyReport.setResizable(false);
 		monthlyReport.getContentPane().setLayout(null);
 		monthlyReport.setTitle("Monthly Report");
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
@@ -219,6 +219,8 @@ public class MonthlyReport {
 		monthlyReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 
 		monthlyReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		monthlyReport.setLocationRelativeTo(null);
+
 	}
 
 	/**

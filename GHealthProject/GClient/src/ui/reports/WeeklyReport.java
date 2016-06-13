@@ -67,7 +67,7 @@ public class WeeklyReport {
 		Report r = new Report();
 		weeklyReport = new JFrame();
 		weeklyReport.getContentPane().setBackground(Color.WHITE);
-		weeklyReport.setResizable(true);
+		weeklyReport.setResizable(false);
 		weeklyReport.getContentPane().setLayout(null);
 		weeklyReport.setTitle("Weekly Report");
 		Image icon = new ImageIcon(this.getClass().getResource("/img/" + "icon.png")).getImage();
@@ -207,6 +207,7 @@ public class WeeklyReport {
 		weeklyReport.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { logo }));
 
 		weeklyReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		weeklyReport.setLocationRelativeTo(null);
 	}
 
 	/**
