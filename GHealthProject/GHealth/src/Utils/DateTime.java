@@ -43,7 +43,7 @@ public class DateTime {
 	 */
 	public static Date addDay(Date d, int period) {
 		Date date = new Date();
-		date.setTime(d.getTime() + period * 24 * 60 * 60 * 1000);
+		date.setTime(d.getTime() + ((period) * 24 * 60 * 60 * 1000));
 		return date;
 	}
 
