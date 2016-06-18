@@ -10,6 +10,10 @@
 <body>
 <p class="style1"><name>Get All Available Times&nbsp;Acceptance Test</name></p>
 
+<p class="style1"><name>Use case to get all available times for an appointment , the times have to not overlap patient and doctor appointments time.</name></p>
+
+<p class="style1"><name>Using appointments table and shifts table .</name></p>
+
 <table border="1" cellpadding="5" cellspacing="0" width="765">
 	<tbody>
 		<tr>
@@ -21,39 +25,119 @@
 			<td class="style1">&nbsp;</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">200000010</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">300000006</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">23/06/2016 14:00:00</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">check</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">false</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">200000010</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">300000010</td>
 		</tr>
 		<tr>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">23/06/2016 14:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">200000010</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">300000007</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">23/06/2016 10:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">200000002</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">300000002</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">23/06/2016 11:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">true</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">200000002</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">300000002</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">23/06/2016 22:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isAvailable</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">overlapTimes</td>
+			<td class="style1">200000000</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">overlapTimes</td>
+			<td class="style1">300000000</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">overlapTimes</td>
+			<td class="style1">false</td>
 		</tr>
 	</tbody>
 </table>
