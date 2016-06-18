@@ -1,4 +1,4 @@
-package FitTests.Fixtures;
+package Fixtures;
 
 import fit.ActionFixture;
 

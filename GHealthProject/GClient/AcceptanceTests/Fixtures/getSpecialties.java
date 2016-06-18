@@ -1,8 +1,6 @@
-package FitTests.Fixtures;
+package Fixtures;
 
-import java.util.ArrayList;
 
-import models.Appointment;
 import Controllers.AppointmentsController;
 import fit.ActionFixture;
 
