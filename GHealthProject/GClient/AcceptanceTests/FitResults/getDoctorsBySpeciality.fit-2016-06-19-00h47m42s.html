@@ -1,4 +1,26 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html><head><title>Suite getDoctorsBySpeciality.fit run at: Sun Jun 19 00:47:44 IDT 2016</title>
+	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="screen"/>
+ 	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="print"/>
+<script language="JavaScript" type="text/javascript">
+var collapsableOpenCss = "collapsable"
+var collapsableClosedCss = "hidden"
+var collapsableOpenImg = "images/collapsableOpen.gif"
+var collapsableClosedImg = "images/collapsableClosed.gif"
+function toggleCollapsable(id){
+var div = document.getElementById(id);
+var img = document.getElementById("img" + id);
+if(div.className.indexOf(collapsableClosedCss) != -1) {
+div.className = collapsableOpenCss;
+img.src = collapsableOpenImg;
+} else {
+div.className = collapsableClosedCss;
+img.src = collapsableClosedImg;
+} }
+</script>
+
+</head>
+<body>
+<div> Suite is: D:/labratoryCode/GHealthProject/GClient/AcceptanceTests/FitTests/getDoctorsBySpeciality.fit</div><div class="test_output_name">Name: getDoctorsBySpeciality.fit</div><div> Suite executed at: Sun Jun 19 00:47:44 IDT 2016 Elapsed time: 1 seconds 872 millseconds  </div><table><tr><td></td><td><a href="#-47154bcd:155657bdc98:-8000">getDoctorsBySpeciality.fit</a></td><td class="pass">9 right, 0 wrong, 0 ignored, 0 exceptions</td></tr></table><div class="test_output_name"><a name="-47154bcd:155657bdc98:-8000"/><p>Test file: getDoctorsBySpeciality.fit</p></div><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<title>PurchaseBeverage FIT Test</title>
@@ -25,171 +47,180 @@
 			<td class="style1">&nbsp;</td>
 		</tr>
 		<tr>
+			<td class="style1">press</td>
+			<td class="style1">connect</td>
+			<td class="style1">
+			<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">numOfDoctors</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Bone</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">numOfDoctors</td>
-			<td class="style1">2</td>
+			<td class="style1" class="pass">2</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">numOfDoctors</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Surgon</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">numOfDoctors</td>
-			<td class="style1">3</td>
+			<td class="style1" class="pass">3</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">lastVisitById</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Bone</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">lastVisitById</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000002</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">lastVisitById</td>
-			<td class="style1">200000004</td>
+			<td class="style1" class="pass">200000004</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">lastVisitByDate</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Bone</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">lastVisitByDate</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000002</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">lastVisitByDate</td>
-			<td class="style1">14/06/2016</td>
+			<td class="style1" class="pass">14/06/2016</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">lastVisitByDate</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Oncologe</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">lastVisitByDate</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000010</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">lastVisitByDate</td>
-			<td class="style1">&nbsp;</td>
+			<td class="style1">&nbsp; <span class="fit_grey">blank</span></td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setIndex</td>
 			<td class="style1">2</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Surgon</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000006</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">doctorAt</td>
-			<td class="style1">200000014</td>
+			<td class="style1" class="pass">200000014</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setIndex</td>
 			<td class="style1">1</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Surgon</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000006</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">doctorAt</td>
-			<td class="style1">200000000</td>
+			<td class="style1" class="pass">200000007</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setIndex</td>
 			<td class="style1">0</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Surgon</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000006</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">doctorAt</td>
-			<td class="style1">200000007</td>
+			<td class="style1" class="pass">200000000</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setIndex</td>
 			<td class="style1">-1</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Surgon</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000006</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">doctorAt</td>
-			<td class="style1">error</td>
+			<td class="style1" class="pass">exception</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setIndex</td>
 			<td class="style1">3</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setSpec</td>
 			<td class="style1">Surgon</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">doctorAt</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000006</td>
 		</tr>
 		<tr>
 			<td class="style1">check</td>
 			<td class="style1">doctorAt</td>
-			<td class="style1">error</td>
+			<td class="style1" class="pass">exception</td>
 		</tr>
 	</tbody>
 </table>
 </body>
 </html>
+
+</body></html>

@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>PurchaseBeverage FIT Test</title>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+	<style type="text/css"><!--.style1 {font-family: Arial, Helvetica, sans-serif}-->
+	</style>
+	<meta content="MSHTML 11.00.10586.420" name="GENERATOR" />
+</head>
+<body>
+<p class="style1"><name>&nbsp;Get All Doctors of Specific Acceptance Test.</name></p>
+
+<p class="style1"><name>Use case to show all doctors in choosed speciality , which they sorted bye the patient last visit for the doctor.</name></p>
+
+<p class="style1"><name>Uses doctors table to get all doctors in specific speciality ,and appointments table to check when was the last time the patient visited the doctor.</name></p>
+
+<table border="1" cellpadding="5" cellspacing="0" width="765">
+	<tbody>
+		<tr>
+			<td class="style1" colspan="3">fit.ActionFixture</td>
+		</tr>
+		<tr>
+			<td class="style1">start</td>
+			<td class="style1">Fixtures.getDoctorsBySpeciality</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">press</td>
+			<td class="style1">connect</td>
+			<td class="style1">
+			<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Bone</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">numOfDoctors</td>
+			<td class="style1">2</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Surgon</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">numOfDoctors</td>
+			<td class="style1">3</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Bone</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000002</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">lastVisitById</td>
+			<td class="style1">200000004</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Bone</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000002</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">lastVisitByDate</td>
+			<td class="style1">14/06/2016</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Oncologe</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000010</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">lastVisitByDate</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">2</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Surgon</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000006</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">doctorAt</td>
+			<td class="style1">200000014</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">1</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Surgon</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000006</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">doctorAt</td>
+			<td class="style1">200000007</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">0</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Surgon</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000006</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">doctorAt</td>
+			<td class="style1">200000000</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">-1</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Surgon</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000006</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">doctorAt</td>
+			<td class="style1">exception</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">3</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Surgon</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000006</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">doctorAt</td>
+			<td class="style1">exception</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

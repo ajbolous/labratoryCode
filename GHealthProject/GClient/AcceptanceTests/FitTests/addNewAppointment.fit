@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>PurchaseBeverage FIT Test</title>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+	<style type="text/css"><!--.style1 {font-family: Arial, Helvetica, sans-serif}-->
+	</style>
+	<meta content="MSHTML 11.00.10586.420" name="GENERATOR" />
+</head>
+<body>
+<p class="style1"><name>&nbsp;Add New Appointment Acceptance Test</name></p>
+
+<p class="style1"><name>Use case of adding new appointment for patient and doctor.</name></p>
+
+<p class="style1"><name>Using appointments table ,doctors table,patients table, and gother all the requested data about the appointment by getSpecialties,getDoctorsBySpeciality,and getTimes Use Cases.</name></p>
+
+<table border="1" cellpadding="5" cellspacing="0" width="765">
+	<tbody>
+		<tr>
+			<td class="style1" colspan="3">fit.ActionFixture</td>
+		</tr>
+		<tr>
+			<td class="style1">start</td>
+			<td class="style1">Fixtures.addNewAppointment</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">press</td>
+			<td class="style1">connect</td>
+			<td class="style1">
+			<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDocId</td>
+			<td class="style1">200000009</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000007</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDate</td>
+			<td class="style1">23/06/2016 10:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">addIfNotExist</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDocId</td>
+			<td class="style1">200000009</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000008</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDate</td>
+			<td class="style1">23/06/2016 10:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">addIfNotExist</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDocId</td>
+			<td class="style1">200000001</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000007</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDate</td>
+			<td class="style1">23/06/2016 10:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">addIfNotExist</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDocId</td>
+			<td class="style1">200000001</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">300000008</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setDate</td>
+			<td class="style1">23/06/2016 10:00:00</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">addIfNotExist</td>
+			<td class="style1">true</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

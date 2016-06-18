@@ -25,18 +25,25 @@
 			<td class="style1">&nbsp;</td>
 		</tr>
 		<tr>
+			<td class="style1">press</td>
+			<td class="style1">connect</td>
+			<td class="style1">
+			<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDocId</td>
 			<td class="style1">200000010</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000006</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDate</td>
 			<td class="style1">23/06/2016 14:00:00</td>
 		</tr>
 		<tr>
@@ -46,17 +53,17 @@
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDocId</td>
 			<td class="style1">200000010</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000010</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDate</td>
 			<td class="style1">23/06/2016 14:00:00</td>
 		</tr>
 		<tr>
@@ -66,17 +73,17 @@
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDocId</td>
 			<td class="style1">200000010</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000007</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDate</td>
 			<td class="style1">23/06/2016 10:00:00</td>
 		</tr>
 		<tr>
@@ -86,17 +93,17 @@
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDocId</td>
 			<td class="style1">200000002</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000002</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDate</td>
 			<td class="style1">23/06/2016 11:00:00</td>
 		</tr>
 		<tr>
@@ -106,17 +113,17 @@
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDocId</td>
 			<td class="style1">200000002</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000002</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">isAvailable</td>
+			<td class="style1">setDate</td>
 			<td class="style1">23/06/2016 22:00:00</td>
 		</tr>
 		<tr>
@@ -126,12 +133,12 @@
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">overlapTimes</td>
+			<td class="style1">setDocId</td>
 			<td class="style1">200000000</td>
 		</tr>
 		<tr>
 			<td class="style1">enter</td>
-			<td class="style1">overlapTimes</td>
+			<td class="style1">setPatientId</td>
 			<td class="style1">300000000</td>
 		</tr>
 		<tr>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>PurchaseBeverage FIT Test</title>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+	<style type="text/css"><!--.style1 {font-family: Arial, Helvetica, sans-serif}-->
+	</style>
+	<meta content="MSHTML 11.00.10586.420" name="GENERATOR" />
+</head>
+<body>
+<p class="style1"><name>Get All Specialities Acceptance Test</name></p>
+
+<p class="style1">Use case of getting all available specialties in all the clinics to show&nbsp;in&nbsp;combo box that dispathcer can choose the speciality that the patient want to set appointment.</p>
+
+<p class="style1">Using&nbsp;doctors table in the database&nbsp;,every doctor has one speciality&nbsp;.</p>
+
+<p class="style1">The specialities returns as String array sorted and distinct&nbsp;,always the first value in the array is empty String then the number of the specialties always +1.&nbsp;&nbsp;</p>
+
+<table border="1" cellpadding="5" cellspacing="0" width="765">
+	<tbody>
+		<tr>
+			<td class="style1" colspan="3">fit.ActionFixture</td>
+		</tr>
+		<tr>
+			<td class="style1">start</td>
+			<td class="style1">Fixtures.getSpecialties</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">press</td>
+			<td class="style1">connect</td>
+			<td class="style1">
+			<p>&nbsp;</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">numOfSpec</td>
+			<td class="style1">
+			<p>8</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Children</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isExist</td>
+			<td class="style1">true</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">Teeth</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isExist</td>
+			<td class="style1">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setSpec</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">isExist</td>
+			<td class="style1">true</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">0</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">specAt</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">1</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">specAt</td>
+			<td class="style1">Bone</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">7</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">specAt</td>
+			<td class="style1">Urologe</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">-1</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">specAt</td>
+			<td class="style1">exception</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setIndex</td>
+			<td class="style1">8</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">specAt</td>
+			<td class="style1">exception</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
