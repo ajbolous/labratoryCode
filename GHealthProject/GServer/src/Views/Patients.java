@@ -32,7 +32,8 @@ public class Patients extends View {
 	public Object getById(Request request) {
 		DbHandler db = Config.getConfig().getHandler();
 		try {
-			Patient p = db.patients.queryForId((String) request.getParam("sid"));
+			Patient p = db.patients
+					.queryForId((String) request.getParam("sid"));
 			return p;
 		} catch (SQLException e) {
 			Config.getConfig().getLogger().exception(e);
@@ -48,7 +49,8 @@ public class Patients extends View {
 	 * @return image of HMO information
 	 */
 	public Object getHmoInformation(Request request) {
-		return new ImageIcon(Config.getConfig().getHomeDirectory() + "/information/" + request.getParam("info"));
+		return new ImageIcon(Config.getConfig().getHomeDirectory()
+				+ "/information/" + request.getParam("info"));
 	}
 
 	/**
@@ -59,32 +61,37 @@ public class Patients extends View {
 	 *            "patients/add " params: (patient)
 	 * @return success message if the patient was added successfully else return
 	 *         null
+	 * 
 	 */
 
-	public Object add(Request request) {
+	public Object add(Request request) throws SQLException {
 		DbHandler db = Config.getConfig().getHandler();
 		Patient patient = (Patient) request.getParam("patient");
 		MedicalRecord md = new MedicalRecord();
+		if (db.patients.idExists(patient.getSid()))
+			return false;
+		else {
 
-		md.setPatient(patient);
-		try {
-			md.setCreationDate(Utils.DateTime.currentDate());
-		} catch (ParseException ex) {
-			Config.getConfig().getLogger().exception(ex);
-		}
-		try {
-			db.records.createIfNotExists(md);
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-		}
+			md.setPatient(patient);
+			try {
+				md.setCreationDate(Utils.DateTime.currentDate());
+			} catch (ParseException ex) {
+				Config.getConfig().getLogger().exception(ex);
+			}
+			try {
+				db.records.createIfNotExists(md);
+			} catch (SQLException e) {
+				Config.getConfig().getLogger().exception(e);
+			}
 
-		try {
-			patient.setMedicalRecord(md);
-			db.patients.createIfNotExists(patient);
-			return "success";
-		} catch (SQLException e) {
-			Config.getConfig().getLogger().exception(e);
-			return null;
+			try {
+				patient.setMedicalRecord(md);
+				db.patients.createIfNotExists(patient);
+				return true;
+			} catch (SQLException e) {
+				Config.getConfig().getLogger().exception(e);
+				return false;
+			}
 		}
 	}
 
@@ -97,7 +104,8 @@ public class Patients extends View {
 	public Object sendRequest(Request request) {
 		Patient patient = (Patient) request.getParam("patient");
 		System.out.println("----------------------------------------");
-		System.out.println("Request Information Patient : " + patient.getFirstName() + " " + patient.getLastName()
+		System.out.println("Request Information Patient : "
+				+ patient.getFirstName() + " " + patient.getLastName()
 				+ " sended to HMO :");
 		System.out.println("----------------------------------------");
 		return "success";

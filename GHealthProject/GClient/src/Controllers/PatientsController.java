@@ -49,9 +49,9 @@ public class PatientsController {
 	 * @param patient
 	 *            : Patient instance
 	 */
-	public static void AddNewPatient(Patient patient) {
+	public static boolean AddNewPatient(Patient patient) {
 		Request r = new Request("patients/add");
 		r.addParam("patient", patient);
-		Application.client.sendRequest(r);
+		return (boolean)Application.client.sendRequest(r);
 	}
 }

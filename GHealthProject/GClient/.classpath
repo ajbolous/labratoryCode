@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="/GServer/libraries/ormlite-core-4.49-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="fitlibraryRunner.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
