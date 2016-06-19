@@ -111,20 +111,9 @@ div.Section1
 </style>
 <![endif]-->
 </head>
-<body dir="ltr" lang="RU" link="blue" style="tab-interval: 35.4pt;" vlink="blue">
+<body lang="RU" link="blue" style="tab-interval: 35.4pt;" vlink="blue">
 <div class="Section1">
-<p>Get All Available Times Acceptance Test</p>
-
-<p>Use case to get all available times for an appointment , the times have to not overlap patient and doctor appointments time.</p>
-
-<p>Using appointments table and shifts table .</p>
-
-<p><u>Test Cases:</u></p>
-
-<ol>
-	<li>isAvailable:&nbsp;&nbsp;&nbsp;&nbsp; given doctor and patient ids and Date , and check if this date is available in the list of available times to set appointment,in this test there four options to test ,doctor or/and patient has appointment at the given time or not.&nbsp;</li>
-	<li>overlapTimes: check if there are overlaps times in the available times list,must be always false.</li>
-</ol>
+<p>&nbsp;</p>
 
 <table border="1" cellpadding="0" cellspacing="0" class="MsoNormalTable" style="width: 573.75pt; mso-cellspacing: 0cm; mso-padding-alt: 3.75pt 3.75pt 3.75pt 3.75pt;" width="765">
 	<tbody>
@@ -135,215 +124,171 @@ div.Section1
 		</tr>
 		<tr style="mso-yfti-irow: 1;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">start</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">Fixtures.getTimes</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
 			<p class="MsoNormal"><span lang="EN-US" style="font-family: Arial; mso-ansi-language: EN-US;">&nbsp;<o:p></o:p></span></p>
 			</td>
 		</tr>
 		<tr style="mso-yfti-irow: 2;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">press</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">connect</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
 			<p class="MsoNormal">&nbsp;</p>
 			</td>
 		</tr>
 		<tr style="mso-yfti-irow: 3;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">setDocId</td>
-			<td style="padding: 3.75pt;">200000010</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 		</tr>
 		<tr style="mso-yfti-irow: 4;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">setPatientId</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">300000006<span style="font-family: Arial;"><o:p></o:p></span></p>
+			<p class="MsoNormal"><span style="font-family: Arial;">&nbsp;<o:p></o:p></span></p>
 			</td>
 		</tr>
 		<tr style="mso-yfti-irow: 5;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">setDate</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">23/06/2016 14:00:00</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 6;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">check</p>
-			</td>
-			<td style="padding: 3.75pt;">isAvailable</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">false</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 3;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDocId</td>
-			<td style="padding: 3.75pt;">200000010</td>
-		</tr>
-		<tr style="mso-yfti-irow: 4;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setPatientId</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">300000010<span style="font-family: Arial;"><o:p></o:p></span></p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 5;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDate</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">23/06/2016 14:00:00</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
 		</tr>
 		<tr style="mso-yfti-irow: 6;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">check</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">isAvailable</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">false</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 3;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDocId</td>
-			<td style="padding: 3.75pt;">200000010</td>
-		</tr>
-		<tr style="mso-yfti-irow: 4;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setPatientId</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">300000007<span style="font-family: Arial;"><o:p></o:p></span></p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 5;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDate</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">23/06/2016 10:00:00</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 6;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">check</p>
-			</td>
-			<td style="padding: 3.75pt;">isAvailable</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">false</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 3;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDocId</td>
-			<td style="padding: 3.75pt;">200000002</td>
-		</tr>
-		<tr style="mso-yfti-irow: 4;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setPatientId</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">300000002<span style="font-family: Arial;"><o:p></o:p></span></p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 5;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDate</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">23/06/2016 11:00:00</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 6;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">check</p>
-			</td>
-			<td style="padding: 3.75pt;">isAvailable</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">true</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 3;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDocId</td>
-			<td style="padding: 3.75pt;">200000002</td>
-		</tr>
-		<tr style="mso-yfti-irow: 4;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setPatientId</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">300000002<span style="font-family: Arial;"><o:p></o:p></span></p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 5;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
-			</td>
-			<td style="padding: 3.75pt;">setDate</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">23/06/2016 22:00:00</p>
-			</td>
-		</tr>
-		<tr style="mso-yfti-irow: 6;">
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">check</p>
-			</td>
-			<td style="padding: 3.75pt;">isAvailable</td>
-			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">false</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
 		</tr>
 		<tr style="mso-yfti-irow: 7;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">setDocId</td>
-			<td style="padding: 3.75pt;">200000000</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 		</tr>
 		<tr style="mso-yfti-irow: 8;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">enter</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">setPatientId</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">300000000</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
 		</tr>
-		<tr style="mso-yfti-irow: 8;">
+		<tr style="mso-yfti-irow: 9;">
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">check</p>
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
-			<td style="padding: 3.75pt;">overlapTimes</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
 			<td style="padding: 3.75pt;">
-			<p class="MsoNormal">false</p>
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 10;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 11;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 12;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 13;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 14;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 15;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 16;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 17;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 18;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">&nbsp;</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+		</tr>
+		<tr style="mso-yfti-irow: 19; mso-yfti-lastrow: yes;">
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
+			</td>
+			<td style="padding: 3.75pt;">
+			<p class="MsoNormal">&nbsp;</p>
 			</td>
 		</tr>
 	</tbody>
