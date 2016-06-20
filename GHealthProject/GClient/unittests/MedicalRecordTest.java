@@ -5,7 +5,8 @@ import models.MedicalRecord;
 import models.Patient;
 import junit.framework.TestCase;
 
-
+//test  the functionality of automatic creation of medical file in the case when patient  doesn’t
+//exist.
 public class MedicalRecordTest extends TestCase {
 
 	private Patient p ;
@@ -18,7 +19,7 @@ public class MedicalRecordTest extends TestCase {
 		Config.getConfig().readTextConfig();
 		Application.connect();
 		p = new Patient();
-	   p.setSid("205495165");
+	   p.setSid("205595175");
 	   p.setLastName("cohen");
 	   p.setFirstName("toni");
 	   p2 = new Patient();
@@ -30,7 +31,7 @@ public class MedicalRecordTest extends TestCase {
 	   
 		
 	}
-	
+	//case of :  patient that not exist in system
 	public void testadd_patientNotExist()
 	{
 		boolean result = PatientsController.AddNewPatient(p);
@@ -38,6 +39,7 @@ public class MedicalRecordTest extends TestCase {
 		assertEquals(expected, result);
 	}
 	
+	//case of : patient exist 
 	public void testadd_patientExist()
 	{
 		boolean result = PatientsController.AddNewPatient(p);
